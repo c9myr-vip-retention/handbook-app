@@ -1,0 +1,263 @@
+{
+ "id": "top-deposit",
+ "source": "08_Top_Deposit.md",
+ "version": "V1.1",
+ "meta": [
+  "C9MYR-RTN-SOP-N02",
+  "V1.1",
+  "Night Shift / Reporting + Engagement",
+  "Owner: VIP RTN",
+  "Updated 7 Sep 2026"
+ ],
+ "body": [
+  {
+   "t": "p",
+   "x": "**Applies to:** VIP CS, all brands"
+  },
+  {
+   "t": "h2",
+   "x": "1. Objective"
+  },
+  {
+   "t": "p",
+   "x": "Identify the top 20 winning depositors and engage them with VIP care. No bonus issuance, engagement only."
+  },
+  {
+   "t": "h2",
+   "x": "2. Scope"
+  },
+  {
+   "t": "p",
+   "x": "Night shift, daily at 8:30 PM. Target the top 20 players with positive P&L (winning) only. Losing players are covered under Top PNL and LTV."
+  },
+  {
+   "t": "h2",
+   "x": "3. Golden Rules"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Target positive P&L only (player winning). Losing players are skipped, handled under Top PNL.",
+    "No bonus messaging. No SMS. Channels: Internal Message + Push, sent simultaneously.",
+    "Focus is VIP care, interaction and relationship, not sales.",
+    "If fewer than 20 winners, fill down the ranking to 20.",
+    "Assess each player: highly active, long-term contributor, any recent churn signs."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "4. Procedure: TC Gaming Platform (Action / Sequence / Degree / Tool)"
+  },
+  {
+   "t": "table",
+   "head": [
+    "#",
+    "Action",
+    "Sequence (when)",
+    "Degree / standard",
+    "Tool"
+   ],
+   "rows": [
+    [
+     "1",
+     "Go to Report Management > Player Analysis",
+     "Task start",
+     "Re-use the Top 10 P&L export if available",
+     "TC Gaming BO"
+    ],
+    [
+     "2",
+     "Select today's date, confirm it displays",
+     "After opening",
+     "Today's date only",
+     "TC Gaming BO"
+    ],
+    [
+     "3",
+     "Search and wait for full load",
+     "Before export",
+     "Full load first",
+     "TC Gaming BO"
+    ],
+    [
+     "4",
+     "Export the Excel report",
+     "After full load",
+     "Save to the folder",
+     "TC Gaming BO"
+    ],
+    [
+     "5",
+     "Open CS SORTING FILE, paste into the correct brand sheet",
+     "After export",
+     "Tick only Username, Member Label, Deposit, Withdraw, Total P&L",
+     "CS SORTING FILE"
+    ],
+    [
+     "6",
+     "Sort Deposit Amount Z to A",
+     "After paste",
+     "Highest depositors at top",
+     "CS SORTING FILE"
+    ],
+    [
+     "7",
+     "Filter > By Condition > Total Player Win/Loss > Greater than > 0",
+     "After sort",
+     "Keeps winners only",
+     "CS SORTING FILE"
+    ],
+    [
+     "8",
+     "Add a Tier header, filter to Tier 3 and Tier V only",
+     "After filtering",
+     "Remove other tiers",
+     "CS SORTING FILE"
+    ],
+    [
+     "9",
+     "Copy the top 20 usernames",
+     "After filtering",
+     "Top 20 only",
+     "CS SORTING FILE"
+    ],
+    [
+     "10",
+     "Paste into Customer Approaching File > TOP 20 Depositor (Night), correct brand",
+     "After copy",
+     "Correct brand column",
+     "Customer Approaching File"
+    ],
+    [
+     "11",
+     "Send Internal Message + Push simultaneously: greeting, interaction, VIP care, no bonus",
+     "On send",
+     "Double-check content; no bonus",
+     "BO"
+    ],
+    [
+     "12",
+     "Engage via Livechat or Telegram if they respond; tag `Deposit Engaged`",
+     "On response",
+     "Correct tag",
+     "Livechat / Telegram"
+    ],
+    [
+     "13",
+     "Update the QA Record",
+     "After engagement",
+     "Attach a screenshot",
+     "Lark Base"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "5. Procedure: Zyra Platform (Action / Sequence / Degree / Tool)"
+  },
+  {
+   "t": "table",
+   "head": [
+    "#",
+    "Action",
+    "Sequence (when)",
+    "Degree / standard",
+    "Tool"
+   ],
+   "rows": [
+    [
+     "1",
+     "Go to Betting Record > User Betting Record Overview",
+     "Task start",
+     "Correct BO path",
+     "Zyra BO"
+    ],
+    [
+     "2",
+     "Report Date: Today; Export Daily Data",
+     "After opening",
+     "Export only UID, Deposit, Withdraw, Total Win/Loss",
+     "Zyra BO"
+    ],
+    [
+     "3",
+     "Open CS SORTING FILE, paste into the correct brand tab",
+     "After export",
+     "Correct brand tab",
+     "CS SORTING FILE"
+    ],
+    [
+     "4",
+     "Sort Deposit Amount Z to A",
+     "After paste",
+     "Highest depositors at top",
+     "CS SORTING FILE"
+    ],
+    [
+     "5",
+     "Filter Total Win/Loss > Greater than > 0",
+     "After sort",
+     "Skip if filtered before download",
+     "CS SORTING FILE"
+    ],
+    [
+     "6",
+     "Filter to Tier 3 and Tier V, keep top 20",
+     "After filtering",
+     "Top 20 only",
+     "CS SORTING FILE"
+    ],
+    [
+     "7",
+     "Paste the top 20 UIDs into Customer Approaching File > TOP 20 Depositor (Night)",
+     "After copy",
+     "Correct section",
+     "Customer Approaching File"
+    ],
+    [
+     "8",
+     "Send Internal Message + Push simultaneously: greeting, interaction, VIP care, no bonus",
+     "On send",
+     "No bonus",
+     "Zyra BO"
+    ],
+    [
+     "9",
+     "Engage via Livechat or Telegram if they respond; tag `Deposit Engaged`",
+     "On response",
+     "Record any rare bonus exception",
+     "Livechat / Telegram"
+    ],
+    [
+     "10",
+     "Update the QA Record",
+     "After engagement",
+     "Attach a screenshot",
+     "Lark Base"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "6. Guards"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Engagement only, no bonus. Losing players are excluded (handled under Top PNL and LTV) to avoid over-engagement.",
+    "If a winning player raises a complaint during engagement, handle it via the Complaint Handling SOP, not Top Deposit logic."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "7. Remarks"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Relationship reinforcement and VIP care, not sales.",
+    "TC: filter to VVIP / Tier 3 and V. Zyra: filter to Tier 3 and Tier V."
+   ]
+  }
+ ]
+}

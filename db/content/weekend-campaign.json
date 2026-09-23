@@ -1,0 +1,230 @@
+{
+ "id": "weekend-campaign",
+ "source": "15_Weekend_Campaign.md",
+ "version": "V1.1",
+ "meta": [
+  "C9MYR-RTN-SOP-B01",
+  "V1.1",
+  "Bonus / Strategy",
+  "Owner: VIP RTN / ATL",
+  "Updated 7 Sep 2026"
+ ],
+ "body": [
+  {
+   "t": "p",
+   "x": "**Applies to:** VIP CS, all brands"
+  },
+  {
+   "t": "h2",
+   "x": "1. Objective"
+  },
+  {
+   "t": "p",
+   "x": "Run the weekend-only campaign every Saturday and Sunday. Three components: Ang Bao, Free Spin, and Deposit Challenge (under testing). Each has distinct tier and platform targeting."
+  },
+  {
+   "t": "h2",
+   "x": "2. Scope"
+  },
+  {
+   "t": "p",
+   "x": "Saturday and Sunday only. Issuing any component on a weekday is a process violation."
+  },
+  {
+   "t": "table",
+   "head": [
+    "Day",
+    "Active",
+    "Ang Bao",
+    "Free Spin",
+    "Deposit Challenge"
+   ],
+   "rows": [
+    [
+     "Mon to Fri",
+     "No",
+     "-",
+     "-",
+     "-"
+    ],
+    [
+     "Saturday",
+     "Yes",
+     "Active",
+     "Active",
+     "Under testing"
+    ],
+    [
+     "Sunday",
+     "Yes",
+     "Active",
+     "Active",
+     "-"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "3. Golden Rules"
+  },
+  {
+   "t": "list",
+   "x": [
+    "The whole campaign runs Saturday and Sunday only. A weekday issuance is a process violation.",
+    "Ang Bao is TC only; Free Spin is Zyra only. Never cross-issue.",
+    "Ang Bao tier split is strict: Normal (RM 2 to 8) Tier 3, Special (RM 8 to 18) Tier V.",
+    "Deposit Challenge is under testing. Confirm with ATL or TL before any issuance.",
+    "If a player's tier is unclear, verify in the BO before issuing any weekend reward."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "4. Component 1: Ang Bao (TC only)"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Type",
+    "Amount",
+    "Tier",
+    "Platform"
+   ],
+   "rows": [
+    [
+     "Normal Ang Bao",
+     "RM 2 to RM 8",
+     "Tier 3 only",
+     "TC"
+    ],
+    [
+     "Special Ang Bao",
+     "RM 8 to RM 18",
+     "Tier V only",
+     "TC"
+    ]
+   ]
+  },
+  {
+   "t": "list",
+   "x": [
+    "Tier 3 gets Normal only, Tier V gets Special only. Never cross-issue.",
+    "TC platform only. Not applicable on Zyra.",
+    "Weekend only."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "5. Component 2: Free Spin (Zyra only) [DISCONTINUED]"
+  },
+  {
+   "t": "p",
+   "x": "**Discontinued from September 2026. Do not issue Free Spin. Kept here for reference only.**"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Type",
+    "Spins",
+    "Tier",
+    "Platform"
+   ],
+   "rows": [
+    [
+     "Standard",
+     "20 Free Spins",
+     "Tier 3",
+     "Zyra"
+    ],
+    [
+     "Enhanced",
+     "30 Free Spins",
+     "Tier V",
+     "Zyra"
+    ]
+   ]
+  },
+  {
+   "t": "list",
+   "x": [
+    "Zyra brands only. Not applicable on TC.",
+    "Weekend only.",
+    "The tier split (20 vs 30 spins) and issuance method are no longer relevant; the component is discontinued (September 2026)."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "6. Component 3: Deposit Challenge (UNDER TESTING)"
+  },
+  {
+   "t": "p",
+   "x": "Do not implement without explicit ATL or TL sign-off. Reward structure confirmed; operational procedure pending."
+  },
+  {
+   "t": "table",
+   "head": [
+    "Deposit",
+    "Extra Reward",
+    "Net Benefit (cumulative)"
+   ],
+   "rows": [
+    [
+     "RM 588",
+     "RM 38",
+     "RM 38"
+    ],
+    [
+     "RM 1,008",
+     "RM 88",
+     "RM 126"
+    ],
+    [
+     "RM 1,888",
+     "RM 188",
+     "RM 314"
+    ],
+    [
+     "RM 3,088",
+     "RM 388",
+     "RM 702"
+    ],
+    [
+     "RM 8,888",
+     "RM 1,288",
+     "RM 1,990"
+    ]
+   ]
+  },
+  {
+   "t": "list",
+   "x": [
+    "The extra reward is added on top of the deposit.",
+    "Step-up is cumulative: a higher tier unlocks all lower tiers too. Example: deposit RM 1,888 gives RM 188 + RM 88 + RM 38 = RM 314 extra.",
+    "Platform, issuance method, eligible tiers and ticket query all pending TL confirmation."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "7. Guards"
+  },
+  {
+   "t": "list",
+   "x": [
+    "A weekday issuance of any component is a process violation.",
+    "Ang Bao (TC only) and Free Spin (Zyra only) are on different platforms; do not cross-issue.",
+    "Deposit Challenge is under testing; confirm with ATL or TL before any issuance.",
+    "If a player's tier is unclear, verify in the BO before issuing."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "8. Remarks"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Ang Bao tier split is strict: Normal (RM 2 to 8) Tier 3, Special (RM 8 to 18) Tier V.",
+    "Free Spin tier/spin distinction and issuance method are pending ATL / PIC confirmation."
+   ]
+  }
+ ]
+}

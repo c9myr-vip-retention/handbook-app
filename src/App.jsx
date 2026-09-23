@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { api, signOut } from './lib/api.js'
 import { fromRows, localContent } from './lib/content.js'
+import { IMPORTED } from './lib/imported.js'
 import Handbook from './Handbook.jsx'
 
 // Auth is handled by Cloudflare Access in front of the app: it does the Google
@@ -21,7 +22,7 @@ export default function App() {
   useEffect(() => {
     if (me === undefined) return
     if (!me.email) {
-      setContent(localContent())
+      setContent(localContent(IMPORTED))
       setNotice('Preview. Showing the built-in sample content, not the live database.')
       return
     }
@@ -29,7 +30,7 @@ export default function App() {
     api.sops()
       .then(rows => { setContent({ ...fromRows(rows), source: 'live' }); setNotice(null) })
       .catch(e => {
-        setContent(localContent())
+        setContent(localContent(IMPORTED))
         setNotice('Could not load the live handbook (' + e.message + '). Showing the built-in copy, which may be out of date.')
       })
   }, [me])

@@ -1,6 +1,6 @@
 // Handbook content model.
 // A page body is an array of blocks. This is also the shape we store in the
-// Supabase `sops.body` (jsonb) column, so the reader renderer never changes
+// D1 `sops.body` column (as a JSON string), so the reader renderer never changes
 // when content moves from here to the database.
 //
 // Block types:
@@ -8,7 +8,10 @@
 //   { t: 'h2',   x: 'Heading' }
 //   { t: 'steps',x: ['step one', 'step two'] }
 //   { t: 'table',head: ['A','B'], rows: [['1','2']] }
-//   { t: 'callout', tone: 'good' | 'warn', title: '...', x: '...' }
+//   { t: 'list', x: ['bullet', 'bullet'] }
+//   { t: 'code', x: 'preformatted text' }
+//   { t: 'callout', tone: 'good' | 'warn' | 'info', title?: '...', x: '...' }
+// Text in p/list/steps/table/callout may use inline **bold** and `code`.
 
 export const PAGES = {
   culture: {

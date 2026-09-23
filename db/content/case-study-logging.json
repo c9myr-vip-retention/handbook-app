@@ -1,0 +1,117 @@
+{
+ "id": "case-study-logging",
+ "source": "31_Case_Study_Logging.md",
+ "version": "V1.0",
+ "meta": [
+  "C9MYR-RTN-SOP-GOV02",
+  "V1.0",
+  "Governance / Learning",
+  "Owner: VIP RTN",
+  "Updated 5 Sep 2026"
+ ],
+ "body": [
+  {
+   "t": "p",
+   "x": "**Applies to:** All VIP CS; Senior and ATL review"
+  },
+  {
+   "t": "h2",
+   "x": "1. Objective"
+  },
+  {
+   "t": "p",
+   "x": "Capture real incidents into the Case Study Library so the team learns from cases, not only from procedure."
+  },
+  {
+   "t": "h2",
+   "x": "2. Scope"
+  },
+  {
+   "t": "p",
+   "x": "Any notable operational error, player abuse or exploit, or provider/system issue worth learning from."
+  },
+  {
+   "t": "h2",
+   "x": "3. Golden Rules"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Real incidents only. Never invent a case to fill a category.",
+    "Role titles only. No staff or player names, no player IDs or UIDs.",
+    "\"What we learn\" is the point of the row; keep it to what a reader should do differently."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "4. Procedure (Action / Sequence / Degree / Tool)"
+  },
+  {
+   "t": "table",
+   "head": [
+    "#",
+    "Action",
+    "Sequence (when)",
+    "Degree / standard",
+    "Tool"
+   ],
+   "rows": [
+    [
+     "1",
+     "Spot a case worth logging",
+     "On a notable incident",
+     "Real incident with a lesson; skip the trivial",
+     "Chat, BO, reports"
+    ],
+    [
+     "2",
+     "Categorise and rate severity",
+     "After spotting",
+     "Operational Error / Player Abuse-Exploit / Provider-System Issue; severity Critical/High/Medium/Low",
+     "Category definitions"
+    ],
+    [
+     "3",
+     "Write the case row",
+     "After categorising",
+     "What Happened, Why It Happened, What We Learn, Rule or SOP it maps to; role titles only",
+     "Case Study Library"
+    ],
+    [
+     "4",
+     "Link the full write-up",
+     "If detailed",
+     "Summary in the library, full write-up in a Lark Doc, link in Reference",
+     "Lark Docs"
+    ],
+    [
+     "5",
+     "Review and fold back",
+     "Periodically",
+     "Senior/ATL review; if a case reveals an SOP gap, feed it to the SOP owner",
+     "SOP Book"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "5. Guards"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Real only; no names or UIDs; the lesson is the point."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "6. Remarks"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Source reports stay credited to their original authors. The library is the summary, not a replacement."
+   ]
+  }
+ ]
+}

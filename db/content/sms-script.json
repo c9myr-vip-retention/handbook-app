@@ -1,0 +1,142 @@
+{
+ "id": "sms-script",
+ "source": "06_SMS_Script.md",
+ "version": "V1.1",
+ "meta": [
+  "C9MYR-RTN-SOP-D05",
+  "V1.1",
+  "Day Shift / Communication",
+  "Owner: VIP RTN",
+  "Updated 7 Sep 2026"
+ ],
+ "body": [
+  {
+   "t": "p",
+   "x": "**Applies to:** VIP CS (list preparation only)"
+  },
+  {
+   "t": "h2",
+   "x": "1. Objective"
+  },
+  {
+   "t": "p",
+   "x": "Prepare and maintain the SMS player list and content in the Team Engagement File. SMS sending is performed by the Retention Team Admin; VIP CS is responsible for list preparation only."
+  },
+  {
+   "t": "h2",
+   "x": "2. Scope"
+  },
+  {
+   "t": "p",
+   "x": "VIP CS prepares the SMS player list in the Team Engagement File. Retention Team Admin retrieves and sends the SMS via the SMS platform. VIP CS is NOT responsible for the sending action."
+  },
+  {
+   "t": "h2",
+   "x": "3. Golden Rules"
+  },
+  {
+   "t": "list",
+   "x": [
+    "VIP CS responsibility ends at list preparation. SMS sending is done by Retention Team Admin.",
+    "SMS house rules: no em dashes, keep the Cari tag spacing exact, under 160 characters.",
+    "Never send expired content. Verify the expiration date before saving.",
+    "Correct segmentation matters. A mismatched segment approaches the wrong player and causes reporting errors."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "4. Procedure: List Preparation (Action / Sequence / Degree / Tool)"
+  },
+  {
+   "t": "table",
+   "head": [
+    "#",
+    "Action",
+    "Sequence (when)",
+    "Degree / standard",
+    "Tool"
+   ],
+   "rows": [
+    [
+     "1",
+     "Open the Team Engagement File",
+     "Before any update",
+     "Use the latest version",
+     "Team Engagement File"
+    ],
+    [
+     "2",
+     "Check the latest player segmentation",
+     "Before changes",
+     "Confirm segments are current",
+     "Team Engagement File"
+    ],
+    [
+     "3",
+     "Update engagement data under the correct segment and category",
+     "During update",
+     "Mismatched segments cause wrong approach and reporting errors",
+     "Team Engagement File"
+    ],
+    [
+     "4",
+     "Record player info under the correct date and section",
+     "During update",
+     "Not under a previous or future date",
+     "Team Engagement File"
+    ],
+    [
+     "5",
+     "Check for duplicated or missing records",
+     "Before saving",
+     "Duplicates cause double-counting",
+     "Team Engagement File"
+    ],
+    [
+     "6",
+     "If the promotion has a 3-day validity, update the expiration date",
+     "During update",
+     "Align expiration with the latest update date",
+     "Team Engagement File"
+    ],
+    [
+     "7",
+     "Verify the expiration date is not lapsed",
+     "Before saving",
+     "Never send expired content",
+     "Team Engagement File"
+    ],
+    [
+     "8",
+     "Double-check all entries before handing to Retention Team Admin",
+     "At handover",
+     "VIP CS scope ends at handover; Admin sends",
+     "Team Engagement File"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "5. Guards"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Never hand over expired content; verify the expiration date first.",
+    "Verify segmentation before handover. A wrong segment means the wrong player and a reporting error.",
+    "Remove duplicates before saving, to prevent double-counting."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "6. Remarks"
+  },
+  {
+   "t": "list",
+   "x": [
+    "VIP CS responsibility ENDS at list preparation. SMS sending is done by Retention Team Admin.",
+    "SMS house rules (content standards): no em dashes, exact Cari tag spacing, under 160 characters."
+   ]
+  }
+ ]
+}

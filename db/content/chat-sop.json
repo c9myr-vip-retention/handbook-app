@@ -1,0 +1,437 @@
+{
+ "id": "chat-sop",
+ "source": "17_Chat_SOP_Case_Library.md",
+ "version": "V1.1",
+ "meta": [
+  "C9MYR-RTN-SOP-CHAT01",
+  "V1.1",
+  "Soft Skill / Chat",
+  "Owner: VIP RTN",
+  "Updated 7 Sep 2026"
+ ],
+ "body": [
+  {
+   "t": "p",
+   "x": "**Applies to:** All VIP CS"
+  },
+  {
+   "t": "h2",
+   "x": "1. Objective"
+  },
+  {
+   "t": "p",
+   "x": "A comprehensive case-handling library. Each row is a scenario with step-by-step actions across four stages: Get Details, Verify / Check, Action / Submit, Notify / Close."
+  },
+  {
+   "t": "h2",
+   "x": "2. Scope"
+  },
+  {
+   "t": "p",
+   "x": "Applies to all Livechat case handling. Navigate by category. Always tag the chat correctly (see Tags & Categories) and close with an offer of further assistance plus a good-luck wish."
+  },
+  {
+   "t": "callout",
+   "tone": "info",
+   "x": "Format note: this SOP is a scenario library. Its four stage columns (Get Details, Verify / Check, Action / Submit, Notify / Close) are this library's form of the 4-element step: the Action is the stage entry, the Sequence is the left-to-right stage order, the Degree / standard is the check condition in each cell, and the Tool is the BO / Lark ticket named in the cell. The columns are kept as-is rather than split per scenario."
+  },
+  {
+   "t": "h2",
+   "x": "3. Golden Rules"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Always close with an offer of further assistance plus a good-luck wish.",
+    "Always tag the chat correctly (see Tags & Categories).",
+    "When escalating to WL, Support, IT or PYM, always include Username/UID, amount and screenshots.",
+    "After submitting any ticket, tick the Claimed checkbox in the relevant tracker.",
+    "Run a fresh identity verification every chat; never rely on a previous one."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "4. Registration"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Scenario",
+    "Get Details",
+    "Verify / Check",
+    "Action / Submit",
+    "Notify / Close"
+   ],
+   "rows": [
+    [
+     "Unable to Register",
+     "Username / phone / email, screenshot of error",
+     "Check BO if phone/email already used. Validate the phone via messente.com/phone-validator",
+     "Duplicate: advise accordingly. Technical: escalate to WL / IT support.",
+     "Offer further assistance, close with wishes."
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "5. Account"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Scenario",
+    "Get Details",
+    "Verify / Check",
+    "Action / Submit",
+    "Notify / Close"
+   ],
+   "rows": [
+    [
+     "Delete Game Account",
+     "Ask the reason",
+     "Deletion is not permitted. Find the true intent.",
+     "Persuade and console. Offer high-pay games as an alternative.",
+     "Offer further assistance, close."
+    ],
+    [
+     "OTP Failed (TC BO)",
+     "Phone, telco",
+     "Validate phone. BO > Player Management > SMS Sent Record. Check if requested and the count (5 reached, go to close).",
+     "Ask member to click Get Code again. Provide manual OTP: SMS Sent Record > Search By Verification > input number without 0 > copy OTP. Check expiry.",
+     "If it keeps failing, advise retry after 12am. Report to senior."
+    ],
+    [
+     "OTP Failed (96 BO)",
+     "Phone, telco",
+     "Validate phone. BO > User > User TAC > input number > Search. Check if requested and count.",
+     "Ask member to Resend OTP. Provide manual OTP from User TAC. Check expiry.",
+     "If it keeps failing, retry after 12am. Report to senior."
+    ],
+    [
+     "Forgot Password",
+     "Send reset template",
+     "No OTP: go to OTP Failed SOP. Other: get username, full name, bank details, phone, then verify.",
+     "Pass: reset random password (Name+TodayDate). Fail: use the fallback options per detail matched.",
+     "Advise to change password after login. New verification every chat, never rely on a previous one."
+    ],
+    [
+     "Forgot Password (OTP over daily limit)",
+     "Username, full name, bank details, phone",
+     "Verify details",
+     "Pass: reset random password (Name+TodayDate). Fail: reset password to SMS.",
+     "Advise change after login. Educate on self-service reset."
+    ],
+    [
+     "Forgot PIN / Reset PIN (EZ96 & BM69)",
+     "Send PIN reset template",
+     "If reset fails: UID, full name, bank details, KYC verify",
+     "KYC verified: reset PIN.",
+     "Notify member. New verification every chat."
+    ],
+    [
+     "Change Phone Number",
+     "Username/UID, name, registered phone, reason; then new phone, telco, screenshot of new number",
+     "Check if the new number is already registered. Used: duplicate account SOP. Unused: proceed.",
+     "Submit Lark ticket CS-PYM-v3, tier level, query OTHERS (FOR CS CBD), remark full name / old / new number.",
+     "Compliance amends, agent rechecks, notify. Ticket to CS TEAM SOLVED."
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "6. Bank"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Scenario",
+    "Get Details",
+    "Verify / Check",
+    "Action / Submit",
+    "Notify / Close"
+   ],
+   "rows": [
+    [
+     "Remove Bank Details (not duplicate)",
+     "Username/UID, reason",
+     "No valid reason to remove",
+     "Advise we cannot remove bank details.",
+     "Close with wishes."
+    ],
+    [
+     "Change Bank (TC BO)",
+     "Username, reason; then correct bank details",
+     "Verify with payment team in Lark. Check BO for duplicate. TNG: send DuitNow ID guide.",
+     "Submit CS-PYM, query Others, remark bank to delete / keep.",
+     "Inform member to refresh. Ticket to CS TEAM SOLVED."
+    ],
+    [
+     "Change Bank (Zyra BO)",
+     "UID, reason",
+     "TNG profile (name + DuitNow ID) or bank statement. KYC mandatory. Check duplicate.",
+     "Submit CS-PYM, remark bank to delete / keep.",
+     "Inform member to refresh."
+    ],
+    [
+     "Unable to WD, invalid bank (WD disabled)",
+     "Username/UID, TNG or bank statement, KYC",
+     "Check BO for duplicate with new bank",
+     "Advise add correct bank first (TC BO). Submit CS-PYM, remark valid bank / reactivate WD.",
+     "Inform member to refresh and submit WD. Seniors send internal message re WD reject."
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "7. Withdraw"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Scenario",
+    "Get Details",
+    "Verify / Check",
+    "Action / Submit",
+    "Notify / Close"
+   ],
+   "rows": [
+    [
+     "Unable to Withdraw, turnover not met",
+     "Username/UID, error screenshot",
+     "Check BO Turnover Checking",
+     "Advise to complete required TO in the correct game.",
+     "Close with wishes."
+    ],
+    [
+     "WD Rejected, duplicated",
+     "Username/UID",
+     "Check BO remarks. Search MYR CMP Duplicate User Record.",
+     "Advise per findings: duplicate account, winnings forfeited.",
+     "Close."
+    ],
+    [
+     "WD Rejected, invalid account",
+     "Username/UID",
+     "Check BO Withdraw ID. Search rejection in C9MYR CS-RISK-PYM group.",
+     "Advise reason. Get amendment (TNG / bank statement, KYC). Check duplicate. Submit CS-PYM, remark valid bank / reactivate WD.",
+     "Compliance amends, agent rechecks, notify."
+    ],
+    [
+     "WD Double",
+     "Username, transaction history screenshot",
+     "Check BO Withdrawal Record",
+     "Inform member they were randomly selected for a surprise bonus.",
+     "Close."
+    ],
+    [
+     "WD Missing (approved, not received)",
+     "Username/UID, amount",
+     "Check BO Withdrawal Record",
+     "Submit CS-PYM, query Missing WD.",
+     "If released, confirm and send receipt. If not, follow PYM, advise wait 2-3 days."
+    ],
+    [
+     "Delayed WD / follow-up",
+     "Username/UID",
+     "Ask member to wait. Check BO. If delayed over 10 min, escalate.",
+     "Submit CS-PYM, query WD Delay. Follow if still over 10 min.",
+     "On complete, recheck BO, notify."
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "8. Deposit"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Scenario",
+    "Get Details",
+    "Verify / Check",
+    "Action / Submit",
+    "Notify / Close"
+   ],
+   "rows": [
+    [
+     "Deposit not credited",
+     "Username/UID, receipt",
+     "Verify in BO",
+     "Submit CS-PYM, tier level.",
+     "Close."
+    ],
+    [
+     "Friend's account to deposit",
+     "Member asks about 3rd-party",
+     "3rd-party deposits not allowed",
+     "Offer another solution.",
+     "Close."
+    ],
+    [
+     "Reject deposit request (already transferred)",
+     "Username/UID, receipt",
+     "Follow up with PYM",
+     "Submit CS-PYM, tier level.",
+     "Close."
+    ],
+    [
+     "Old QR / duplicate transfer",
+     "Username/UID, full name, receipt",
+     "Verify on BO, details match receipt",
+     "If match, submit CS-PYM, query DP Slip verification. PYM finds duplicate, member acknowledges.",
+     "Advise new deposit without transferring. Record new order ID, revert to PYM."
+    ],
+    [
+     "Incorrect deposit amount",
+     "Username/UID, full name, receipt",
+     "Verify on BO. If mismatch, advise re-submit without transferring.",
+     "Member re-submits, submit CS-PYM, comment incorrect amount.",
+     "On approval, notify."
+    ],
+    [
+     "Deposit below minimum",
+     "Username/UID, full name, receipt",
+     "Verify on BO, below RM 10 minimum. Advise top-up to reach it.",
+     "Member deposits difference, submit CS-PYM, comment combine deposit.",
+     "On approval, notify. Advise future deposits >= RM 10."
+    ],
+    [
+     "Deposit from 3rd-party account",
+     "Request details",
+     "Verify in BO. If 3rd-party, cannot process. Request sender details for refund.",
+     "Member provides sender details, submit CS-PYM, tier level.",
+     "Refund to sender's account only."
+    ],
+    [
+     "Pre-approved Deposit (VIP)",
+     "Request details",
+     "PYM offers pre-approval agreement. Member agrees, follow daily, watch for bounce-back, get bank statement.",
+     "Follow up 7 days after pre-approval.",
+     "Close. Use the standard pre-approval message with its two conditions."
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "9. Fund"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Scenario",
+    "Get Details",
+    "Verify / Check",
+    "Action / Submit",
+    "Notify / Close"
+   ],
+   "rows": [
+    [
+     "Fund Missing / Game Maintenance",
+     "Username/UID, amount, last game",
+     "Access via test account, then another site. Check TG maintenance group.",
+     "If no notice, escalate to WL / Support.",
+     "Advise game under maintenance, credit auto-refunds after."
+    ],
+    [
+     "Unable to Access Game",
+     "Username/UID, last game",
+     "Access via test account and another site. Check TG maintenance.",
+     "If no maintenance, escalate to WL / Support.",
+     "Advise unstable / maintenance, suggest alternatives."
+    ],
+    [
+     "Game not under maintenance (TC BO)",
+     "Username/UID, amount, game",
+     "Access via test account, confirm normal with WL",
+     "Escalate to WL. Then BO > Player Transfer Exception > Rollback Action. If present, rollback, ask member to refresh.",
+     "Recheck funds returned, notify."
+    ],
+    [
+     "Game not under maintenance (EZ BO)",
+     "Username/UID, amount, game",
+     "Access via test account, confirm with WL. WL requests fund transfer back.",
+     "Submit CS-PYM, query Others, include WL screenshot.",
+     "Compliance completes, agent rechecks, notify."
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "10. Others"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Scenario",
+    "Get Details",
+    "Verify / Check",
+    "Action / Submit",
+    "Notify / Close"
+   ],
+   "rows": [
+    [
+     "DP / WD under PG maintenance",
+     "Username/UID, full name, receipt or amount",
+     "Verify on BO, details match",
+     "Submit CS-PYM, tier level. Advise member to wait, we monitor.",
+     "On completion, approve, notify."
+    ],
+    [
+     "Technical issue, cannot access game",
+     "Username/UID, full name, game / screenshot",
+     "Identify issue. If live, send to WL / Support.",
+     "Receive IT result.",
+     "If resolved, ask member to verify. If not, advise will be notified."
+    ],
+    [
+     "Technical issue, missing fund",
+     "Username/UID, full name, amount, game / screenshot",
+     "Identify issue. Send to WL / Support.",
+     "Receive IT/WL result.",
+     "If resolved, verify. If not, advise will be notified."
+    ],
+    [
+     "Unsubscribe SMS Promo",
+     "Username/UID, phone, reason",
+     "Advise the benefits, recommend other promos",
+     "If member insists, post in VIP group and tag the designated admin to remove.",
+     "Close."
+    ],
+    [
+     "Unsubscribe Push Notification",
+     "Username/UID, reason",
+     "Send template, assure of benefits",
+     "If member insists, post in VIP group and tag the designated admin to remove.",
+     "Close."
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "11. Guards"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Do not delete a game account or remove bank details without a valid, verified reason; both are not permitted by default.",
+    "Never process a 3rd-party deposit; refund only to the sender's account.",
+    "Escalations to WL / Support / IT / PYM must carry Username/UID, amount and screenshots, or they bounce back.",
+    "Run a fresh identity verification every chat before any reset."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "12. Remarks"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Always close with an offer of further assistance plus a good-luck wish.",
+    "Chinese-speaking members: use ChatGPT, or transfer to a Chinese-speaking CS for complex cases.",
+    "Always tag the chat correctly, see Tags & Categories.",
+    "After submitting any ticket, tick the Claimed checkbox in the relevant tracker.",
+    "Names are omitted per house rule; \"designated admin\" is the routing role for unsubscribe requests."
+   ]
+  }
+ ]
+}

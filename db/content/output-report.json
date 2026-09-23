@@ -1,0 +1,204 @@
+{
+ "id": "output-report",
+ "source": "13_Output_Report.md",
+ "version": "V1.1",
+ "meta": [
+  "C9MYR-RTN-SOP-R02",
+  "V1.1",
+  "Reporting",
+  "Owner: VIP RTN",
+  "Updated 7 Sep 2026"
+ ],
+ "body": [
+  {
+   "t": "p",
+   "x": "**Applies to:** All VIP CS"
+  },
+  {
+   "t": "h2",
+   "x": "1. Objective"
+  },
+  {
+   "t": "p",
+   "x": "Compile and submit a complete shift performance summary by copying player engagement data from Lark Base into the VIP RTN CS Output file."
+  },
+  {
+   "t": "h2",
+   "x": "2. Scope"
+  },
+  {
+   "t": "p",
+   "x": "End of every shift, per PIC. Only your own records, only today's date."
+  },
+  {
+   "t": "h2",
+   "x": "3. Golden Rules"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Always apply both filters (Date today AND PIC you) before copying. Missing one gives wrong or incomplete data.",
+    "Paste values only, no formatting or formulas.",
+    "Each column pastes separately via its own filter cycle. Do not combine.",
+    "If a column has no data (e.g. no SMS today), leave it blank. Do not paste a zero or placeholder."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "4. Procedure: Pull Data from Lark Base (Action / Sequence / Degree / Tool)"
+  },
+  {
+   "t": "table",
+   "head": [
+    "#",
+    "Action",
+    "Sequence (when)",
+    "Degree / standard",
+    "Tool"
+   ],
+   "rows": [
+    [
+     "1",
+     "Open Customer Approaching Lark Base > Output - Table",
+     "Task start",
+     "Holds all engagement records for the month",
+     "Lark Base"
+    ],
+    [
+     "2",
+     "Apply two filter conditions together",
+     "Before copying",
+     "Both must be active before copying",
+     "Lark Base"
+    ],
+    [
+     "2a",
+     "Set Date is today",
+     "With step 2",
+     "Remove any other date filter",
+     "Lark Base"
+    ],
+    [
+     "2b",
+     "Set PIC is your name",
+     "With step 2",
+     "Do not copy another staff member's data",
+     "Lark Base"
+    ],
+    [
+     "3",
+     "Copy each engagement column one at a time",
+     "After filtering",
+     "Livechat, Internal Mail, Push, SMS, each separately",
+     "Lark Base"
+    ]
+   ]
+  },
+  {
+   "t": "p",
+   "x": "**Columns and destinations:** Livechat, Internal Mail, Push Notification, SMS, each into its matching column in the VIP RTN CS Output."
+  },
+  {
+   "t": "h2",
+   "x": "5. Procedure: Paste into CS Output (Action / Sequence / Degree / Tool)"
+  },
+  {
+   "t": "table",
+   "head": [
+    "#",
+    "Action",
+    "Sequence (when)",
+    "Degree / standard",
+    "Tool"
+   ],
+   "rows": [
+    [
+     "1",
+     "Open the VIP RTN CS Output file",
+     "After pulling data",
+     "Correct file",
+     "VIP RTN CS Output"
+    ],
+    [
+     "2",
+     "Select today's date tab (e.g. `11/05`)",
+     "After opening",
+     "Each day has its own tab",
+     "VIP RTN CS Output"
+    ],
+    [
+     "3",
+     "On Row 6 (filter row), click the Livechat column filter",
+     "Before pasting",
+     "Correct column filter",
+     "VIP RTN CS Output"
+    ],
+    [
+     "4",
+     "Clear All in the filter dropdown",
+     "After clicking filter",
+     "Prevents mixing data types",
+     "VIP RTN CS Output"
+    ],
+    [
+     "5",
+     "Select only Livechat, confirm",
+     "After Clear All",
+     "Table shows Livechat rows only",
+     "VIP RTN CS Output"
+    ],
+    [
+     "6",
+     "Paste the Livechat data",
+     "After filtering",
+     "Paste values only",
+     "VIP RTN CS Output"
+    ],
+    [
+     "7",
+     "Repeat steps 3 to 6 for Internal Mail, Push, SMS",
+     "Per remaining column",
+     "One filter pass per column",
+     "VIP RTN CS Output"
+    ],
+    [
+     "8",
+     "Clear the Row 6 filter to restore the full view",
+     "After all columns",
+     "Verify data sits under the right column and row",
+     "VIP RTN CS Output"
+    ],
+    [
+     "9",
+     "Update the QA Record after submitting",
+     "After submit",
+     "Attach a screenshot of the completed Output tab",
+     "Lark Base"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "6. Guards"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Missing either filter (Date today, PIC you) gives wrong or incomplete data.",
+    "Do not change the Row 6 sort order after pasting; it displaces data.",
+    "Leave an empty column blank; never paste a zero or placeholder."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "7. Remarks"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Paste values only, no formatting or formulas.",
+    "Each column pastes separately via its own filter cycle."
+   ]
+  }
+ ]
+}

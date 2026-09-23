@@ -1,0 +1,202 @@
+{
+ "id": "tg-engagement-tracker",
+ "source": "11_Telegram_Engagement_Tracker.md",
+ "version": "V1.1",
+ "meta": [
+  "C9MYR-RTN-SOP-OUT03",
+  "V1.1",
+  "Outreach / Communication (All Shifts)",
+  "Owner: ATL",
+  "Updated 7 Sep 2026"
+ ],
+ "body": [
+  {
+   "t": "p",
+   "x": "**Applies to:** VIP CS and RTN Leaders"
+  },
+  {
+   "t": "h2",
+   "x": "1. Objective"
+  },
+  {
+   "t": "p",
+   "x": "Record, score and report Telegram engagement with churned and at-risk VIP players, through an automated Lark Base workflow. Read alongside the Telegram Approach SOP: that covers how to engage, this covers how it is tracked."
+  },
+  {
+   "t": "h2",
+   "x": "2. Scope"
+  },
+  {
+   "t": "p",
+   "x": "Tracks previously unrecorded KPI components: engagement rate, follow-up rate, reactivated churn count, CS engagement performance, RTN team productivity. This SOP is the tracker specification; it has no per-step procedure of its own, the engagement steps live in the Telegram Approach SOP."
+  },
+  {
+   "t": "h2",
+   "x": "3. Golden Rules"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Never delete records. Use an archival status.",
+    "All status changes via Kanban drag. No direct edits to the Score Table.",
+    "The Report Table is the only official KPI source. If figures look wrong, escalate to the ATL; do not recalculate manually.",
+    "Refresh the P&L Table daily, or new players never enter the workflow and levels go stale."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "4. Roles"
+  },
+  {
+   "t": "list",
+   "x": [
+    "**RTN Leaders (ATL / TL):** identify target churn players, add them to the Player List, monitor progress, review reports. Edit + config access.",
+    "**CS:** conduct engagement, update player status by Kanban drag, record engagement quality. Edit access."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "5. Status Flow (Kanban)"
+  },
+  {
+   "t": "p",
+   "x": "CS drags player cards across four columns. Each move fires an automation that writes to the Score Table."
+  },
+  {
+   "t": "p",
+   "x": "`New` (default) -> `On Going Engagement` (CS starts contact) -> `Follow Up` (more nurturing needed) -> `Successful` (reactivated and deposits)."
+  },
+  {
+   "t": "h2",
+   "x": "6. Engagement Quality Classification"
+  },
+  {
+   "t": "p",
+   "x": "The single source of truth for engagement quality across the Handbook."
+  },
+  {
+   "t": "table",
+   "head": [
+    "Level",
+    "Requirement"
+   ],
+   "rows": [
+    [
+     "HIGH",
+     "at least 10 meaningful replies"
+    ],
+    [
+     "MEDIUM",
+     "roughly 3 to 5 meaningful replies"
+    ],
+    [
+     "LOW",
+     "one reply, an emoji, or nothing"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "7. Player Level (auto from days since last deposit)"
+  },
+  {
+   "t": "p",
+   "x": "Used for KPI scoring. Separate from the Telegram Approach priority tiers (which decide who to approach first)."
+  },
+  {
+   "t": "table",
+   "head": [
+    "Level",
+    "Inactivity",
+    "Difficulty weight"
+   ],
+   "rows": [
+    [
+     "0",
+     "1 day",
+     "none"
+    ],
+    [
+     "1",
+     "2 to 3 days",
+     "1.0x"
+    ],
+    [
+     "2",
+     "4 to 7 days",
+     "1.5x"
+    ],
+    [
+     "3",
+     "8 days and above",
+     "2.0x"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "8. KPI Formulas"
+  },
+  {
+   "t": "code",
+   "x": "Contact Rate     = (Total Engagement / VIP Base) x 15      max 0.15\nFollow Up Rate   = (Total Follow Up / Total Engagement) x 10   max 0.10\nEngagement Score = Contact Rate + Follow Up Rate           max 0.25\nTotal Follow Up  = Grand Total Engagement - Total Engagement"
+  },
+  {
+   "t": "p",
+   "x": "VIP Base = count of players with a Telegram link. Total Engagement = unique username/UID per PIC per brand."
+  },
+  {
+   "t": "h2",
+   "x": "9. Reactivation Measurement"
+  },
+  {
+   "t": "p",
+   "x": "Official reactivation counts use month-end P&L only. Real-time reactivation is not available; a successful engagement can happen before the official Reactivated flag appears. The Report Table is the final source."
+  },
+  {
+   "t": "h2",
+   "x": "10. Common Mistakes (Guards)"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Mistake",
+    "Impact",
+    "Severity"
+   ],
+   "rows": [
+    [
+     "Contacted but status still New",
+     "engagement not recorded",
+     "High"
+    ],
+    [
+     "Engaged repeatedly without status update",
+     "Follow Up KPI inaccurate",
+     "Medium"
+    ],
+    [
+     "Wrong PIC assigned",
+     "score credited to the wrong person",
+     "High"
+    ],
+    [
+     "Player deleted from workflow",
+     "historical record lost",
+     "Critical"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "11. Remarks"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Never delete records; use an archival status.",
+    "The Report Table is the only official KPI source. Escalate anomalies to the ATL, do not recalculate manually."
+   ]
+  }
+ ]
+}

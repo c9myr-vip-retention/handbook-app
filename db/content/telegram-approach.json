@@ -1,0 +1,275 @@
+{
+ "id": "telegram-approach",
+ "source": "10_Telegram_Approach.md",
+ "version": "V1.1",
+ "meta": [
+  "C9MYR-RTN-SOP-OUT02",
+  "V1.1",
+  "Outreach / Communication (All Shifts)",
+  "Owner: VIP RTN",
+  "Updated 7 Sep 2026"
+ ],
+ "body": [
+  {
+   "t": "p",
+   "x": "**Applies to:** VIP CS, all brands"
+  },
+  {
+   "t": "h2",
+   "x": "1. Objective"
+  },
+  {
+   "t": "p",
+   "x": "Engage selected VIP players through Telegram using a structured, priority-based approach. This SOP has three parts: the operational SOP, the engagement scripts, and the soft-skill playbook."
+  },
+  {
+   "t": "h2",
+   "x": "2. Scope"
+  },
+  {
+   "t": "p",
+   "x": "Telegram is a supplementary engagement channel. It does not replace Internal Mail or Livechat. Never promise, imply or hint at any bonus on Telegram."
+  },
+  {
+   "t": "h2",
+   "x": "3. Golden Rules"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Never promise, imply or hint at any bonus on Telegram.",
+    "Work strictly top down the priority order. Never approach a lower priority while higher-priority players are uncontacted.",
+    "One approach message per session. Wait for a reply before following up. Repeated messages get you blocked.",
+    "No VVIP or Priority Support language in Telegram drive content.",
+    "\"Available\" status is a last resort only, after all other approaches are exhausted. Ask the ATL."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "4. Approach Priority Order"
+  },
+  {
+   "t": "p",
+   "x": "Work strictly top down. Never approach a lower priority while higher-priority players are uncontacted."
+  },
+  {
+   "t": "table",
+   "head": [
+    "Priority",
+    "Segment",
+    "Condition"
+   ],
+   "rows": [
+    [
+     "1",
+     "Churn",
+     "inactive 30 days"
+    ],
+    [
+     "2",
+     "Churn",
+     "inactive 14 days"
+    ],
+    [
+     "3",
+     "Churn",
+     "inactive 7 days"
+    ],
+    [
+     "4",
+     "Churn",
+     "inactive 3 days"
+    ],
+    [
+     "5",
+     "Churn",
+     "inactive 1 day"
+    ],
+    [
+     "6",
+     "Grace Period",
+     "within grace window"
+    ],
+    [
+     "7",
+     "High P&L",
+     "big win or loss today"
+    ],
+    [
+     "8",
+     "LTV",
+     "loyalty selection"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "5. Procedure (Action / Sequence / Degree / Tool)"
+  },
+  {
+   "t": "table",
+   "head": [
+    "#",
+    "Action",
+    "Sequence (when)",
+    "Degree / standard",
+    "Tool"
+   ],
+   "rows": [
+    [
+     "1",
+     "Open Customer Approaching File > Telegram section for the current month",
+     "Task start",
+     "Prior-month follow-ups: open the prior month's file",
+     "Customer Approaching File"
+    ],
+    [
+     "2",
+     "Review the priority list, identify the highest-priority players for this session",
+     "After opening",
+     "Start at Priority 1, work down",
+     "Customer Approaching File"
+    ],
+    [
+     "3",
+     "For a Livechat referral or Friendly Player, create a record tagged accordingly",
+     "As encountered",
+     "Correct tag",
+     "Customer Approaching File"
+    ],
+    [
+     "4",
+     "First approach: create a New Approach record with date, username, brand, tier, reason",
+     "On first contact",
+     "All fields filled",
+     "Customer Approaching File"
+    ],
+    [
+     "5",
+     "Follow-up: add a sub-record under the original entry",
+     "On follow-up",
+     "Do not duplicate the entry",
+     "Customer Approaching File"
+    ],
+    [
+     "6",
+     "Verify the player has a registered Telegram contact before approaching",
+     "Before sending",
+     "Registered contact confirmed",
+     "Telegram"
+    ],
+    [
+     "7",
+     "Send the approach message with the right tone for the segment",
+     "On send",
+     "One message per session; wait for a reply before follow-up",
+     "Telegram"
+    ],
+    [
+     "8",
+     "Record the outcome immediately",
+     "Right after send",
+     "Response Received, No Response, Deposit Made, or Referred to Livechat",
+     "Customer Approaching File"
+    ],
+    [
+     "9",
+     "If they respond via Livechat after Telegram, record a successful Livechat conversion and link the reference",
+     "On Livechat response",
+     "Link the reference",
+     "Customer Approaching File"
+    ],
+    [
+     "10",
+     "Update the QA Record at end of shift",
+     "End of shift",
+     "Total approached and conversion count",
+     "Lark Base"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "6. Engagement Scenarios"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Scenario",
+    "CS Objective"
+   ],
+   "rows": [
+    [
+     "Risk Player",
+     "Get a reply, learn the reason for inactivity, fix one issue, record preferences."
+    ],
+    [
+     "Newly Upgraded VVIP",
+     "Establish the relationship, get consent for contact style, capture preferences, set expectation that VIP CS is useful."
+    ],
+    [
+     "High-Loss Player",
+     "Welfare check. Support options, reduce pressure, protect the relationship. Not to drive activity."
+    ],
+    [
+     "High Deposit / LTV",
+     "White-glove care, reinforce trust, improve service, without pushing bigger deposits."
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "7. Timing Guardrails"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Newly Upgraded VVIP: soon after the 2:00 PM list update, in normal service hours.",
+    "Risk Player: same day the inactivity tier is first detected.",
+    "High-Loss Player: wait until at least the next day. Never message while emotions are high.",
+    "High Deposit / LTV: weekly, or scheduled relationship check-ins."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "8. Soft-Skill Playbook (Part C)"
+  },
+  {
+   "t": "steps",
+   "x": [
+    "Understand the starting point. Promo-claim players think \"no reason to stay\". Shift that to \"someone takes care of me here\".",
+    "First touch: start a conversation, do not jump into another promo.",
+    "Branch on response. Won: celebrate, soft-guide. Lost: acknowledge, reframe, never \"win it back\". No response: soft re-engagement later, no spam.",
+    "Become a personal assistant: recommend games at their level, respond fast, remember preferences.",
+    "Introduce value slowly, not just bonuses.",
+    "Micro-engagement builds habit. Consistency beats intensity.",
+    "Tag and personalise: preferred games, win-loss reaction, activity timing, deposit behaviour.",
+    "Avoid: messaging only when there is a promo, copy-paste spam, pushing deposits early, ignoring replies.",
+    "The goal is not \"get deposit\". It is to make the player feel guided, valued and comfortable. Deposits follow."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "9. Guards"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Follow the priority order strictly; do not skip to a lower priority while higher ones are uncontacted.",
+    "One approach message per session; repeated messages get you blocked.",
+    "Never promise or hint at a bonus on Telegram."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "10. Remarks"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Engagement scoring and the Kanban tracker are in the Telegram Engagement Tracker SOP.",
+    "\"Available\" status is a last resort only, after all other approaches are exhausted. Ask the ATL."
+   ]
+  }
+ ]
+}

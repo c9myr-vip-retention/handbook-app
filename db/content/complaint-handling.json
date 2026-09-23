@@ -1,0 +1,160 @@
+{
+ "id": "complaint-handling",
+ "source": "18_Complaint_Handling.md",
+ "version": "V1.1",
+ "meta": [
+  "C9MYR-RTN-SOP-CHAT02",
+  "V1.1",
+  "Soft Skill / Engagement",
+  "Owner: VIP RTN",
+  "Updated 7 Sep 2026"
+ ],
+ "body": [
+  {
+   "t": "p",
+   "x": "**Applies to:** All VIP CS"
+  },
+  {
+   "t": "h2",
+   "x": "1. Objective"
+  },
+  {
+   "t": "p",
+   "x": "Handle common Livechat complaint scenarios with empathy and strategy. Combine emotional acknowledgement with a strategic response."
+  },
+  {
+   "t": "h2",
+   "x": "2. Scope"
+  },
+  {
+   "t": "p",
+   "x": "Applies to losing-player and free-credit complaint scenarios on Livechat. Always acknowledge the emotion before moving to a solution."
+  },
+  {
+   "t": "h2",
+   "x": "3. Golden Rules"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Always acknowledge the emotion before moving to a solution or redirection.",
+    "Never promise a bonus you cannot deliver. If unsure, say \"let me check\", never a false commitment.",
+    "Use Secret Wallet credit only where the scenario qualifies; size by tier (T3 = 3%, TV = 5%) and remaining monthly allowance.",
+    "For the formal compensation decision, use the Compensation SOP; for amounts and tier rules, the Bonus rules."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "4. Complaint Scenarios and Responses"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Complaint",
+    "What you see in profile",
+    "Recommended response",
+    "Strategy"
+   ],
+   "rows": [
+    [
+     "Losing a lot",
+     "Significant losses this week, SW has balance, no recent credits",
+     "\"Saya nampak boss memang rugi sikit hari ni. Saya bagi sikit credit untuk boss try balik.\"",
+     "Always use Secret Wallet credit here. Base the amount on tier (T3 = 3%, TV = 5%) and remaining monthly allowance."
+    ],
+    [
+     "Losing little",
+     "Small losses, not enough for SW credit",
+     "Step 1 acknowledge: \"Boss faham tu, memang kadang rasa macam tak kena.\" Step 2 game suggestion. Step 3 reframe toward hope.",
+     "Validate the feeling without committing a credit. Offer a fresh game. Reframe losses as timing, not bad luck."
+    ],
+    [
+     "Always asks for free credit",
+     "Habitual requests, no qualifying condition",
+     "Decline gently: \"Boss hari ni belum ada free credit lagi ye.\" Redirect to a game. Promise future notification by SMS.",
+     "Redirect without rejection. The player should leave feeling looked after even without getting what they asked."
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "5. Procedure (Action / Sequence / Degree / Tool)"
+  },
+  {
+   "t": "table",
+   "head": [
+    "#",
+    "Action",
+    "Sequence (when)",
+    "Degree / standard",
+    "Tool"
+   ],
+   "rows": [
+    [
+     "1",
+     "Acknowledge the emotion first",
+     "On complaint open",
+     "Validate the feeling before any solution or redirect",
+     "Livechat"
+    ],
+    [
+     "2",
+     "Read the player profile",
+     "Before responding",
+     "Check losses, SW balance, recent credits, risk/abuse tag",
+     "BO"
+    ],
+    [
+     "3",
+     "Match the scenario and respond",
+     "After assessment",
+     "Per Section 4; SW credit only where the scenario allows, sized by tier % and remaining allowance",
+     "Livechat, Bonus rules"
+    ],
+    [
+     "4",
+     "Log the outcome",
+     "After handling",
+     "QA Record; if compensation was issued, Lark ticket (query `VVIP Complain player`)",
+     "Lark Base"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "6. Building Relationships Through Complaint Moments"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Malaysian events and holidays: chat about festivities, long weekends, public holidays.",
+    "Food and local culture: a universal opener. Ask about favourite dishes, hawker stalls, lunch.",
+    "Game discussions: games they enjoy, new titles, jackpot stories, recent wins.",
+    "Use complaint moments to listen and learn. Every complaint is data about the player's preferences and pain points."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "7. Guards"
+  },
+  {
+   "t": "list",
+   "x": [
+    "No false commitment: if you cannot confirm a credit, say \"let me check\" first.",
+    "SW credit only when the scenario and remaining allowance permit.",
+    "Emotion first, solution second; skipping the acknowledgement loses the relationship."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "8. Remarks"
+  },
+  {
+   "t": "list",
+   "x": [
+    "For the formal compensation decision logic, refer to the Compensation SOP.",
+    "For Angpao / Free Credit / Reload amounts and tier rules, refer to the Bonus rules."
+   ]
+  }
+ ]
+}

@@ -1,0 +1,167 @@
+{
+ "id": "kpi-scoring",
+ "source": "24_KPI_Scoring.md",
+ "version": "V1.0",
+ "meta": [
+  "C9MYR-RTN-SOP-PRF01",
+  "Performance / Reporting",
+  "Updated 5 Sep 2026"
+ ],
+ "body": [
+  {
+   "t": "p",
+   "x": "**Applies to:** ATL (scorer); Seniors and Juniors (scored)"
+  },
+  {
+   "t": "h2",
+   "x": "1. Objective"
+  },
+  {
+   "t": "p",
+   "x": "Score each agent's monthly KPI the same way every time, from evidence, so the number reflects real performance and survives review by the SPV or Department Head."
+  },
+  {
+   "t": "h2",
+   "x": "2. Scope"
+  },
+  {
+   "t": "p",
+   "x": "Monthly KPI scoring for Team B, on the Senior and Junior scorecards. Weights and bands are the rubric; this SOP governs the scoring process, not the rubric design."
+  },
+  {
+   "t": "h2",
+   "x": "3. Golden Rules"
+  },
+  {
+   "t": "list",
+   "x": [
+    "**Change weights by rule, for everyone. Never edit a metric score to hit a target.** Lowering a correct score to reach a number is falsifying a record.",
+    "**Every score is evidence-backed.** No invented figures.",
+    "**One rubric per role.** The same weights and band cutoffs apply to all Seniors, and all Juniors.",
+    "**A raw on a threshold takes the band it meets, not the higher one.**"
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "4. Band Meaning (SPV)"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Score",
+    "Meaning"
+   ],
+   "rows": [
+    [
+     "60-65",
+     "No mistake, baseline"
+    ],
+    [
+     "65-70",
+     "Slight improvement, still needs pointer"
+    ],
+    [
+     "70-80",
+     "Improving on weakness, less pointer"
+    ],
+    [
+     "80-90",
+     "Above expectation, self-improving"
+    ],
+    [
+     "90-100",
+     "Near perfect, exceeds the role"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "5. Procedure (Action / Sequence / Degree / Tool)"
+  },
+  {
+   "t": "table",
+   "head": [
+    "#",
+    "Action",
+    "Sequence (when)",
+    "Degree / standard",
+    "Tool"
+   ],
+   "rows": [
+    [
+     "1",
+     "Pull evidence per metric",
+     "Month-end, after close",
+     "Each metric from its named source; post-close data only",
+     "contact_log, QA sheet, LC report, mistake log, Lark"
+    ],
+    [
+     "2",
+     "Score each metric to a band",
+     "After evidence",
+     "Map raw to 0/40/60/80/100 by the cutoffs; threshold takes the lower band",
+     "Scorecard bands"
+    ],
+    [
+     "3",
+     "Apply the role weights",
+     "After scoring",
+     "Uniform weights for the role; weighted = weight x score",
+     "Scorecard"
+    ],
+    [
+     "4",
+     "Sum and sense-check",
+     "After weighting",
+     "Total = sum of weighted; does it match the person's real level (Section 4)?",
+     "Scorecard total"
+    ],
+    [
+     "5",
+     "If the number feels wrong, fix the rubric, not the cell",
+     "On mismatch",
+     "Adjust weights/thresholds and re-run for everyone; never hand-lower one score",
+     "Rubric"
+    ],
+    [
+     "6",
+     "Evidence-review any disputed metric",
+     "Before finalising",
+     "A score moves only if the evidence supports it (e.g. Reporting = 40 needs the logs)",
+     "Source logs"
+    ],
+    [
+     "7",
+     "Record and release",
+     "After sign-off",
+     "Lock the sheet, note the weights version and date; brief the agent with the coaching 5-step",
+     "Scorecard, Lark"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "6. Over-Scoring Guards"
+  },
+  {
+   "t": "list",
+   "x": [
+    "No score-tuning to a target; weights only, applied uniformly.",
+    "Every score evidence-backed; no invented figures.",
+    "The result must square with the band meaning in Section 4."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "7. Remarks"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Current Senior scorecards use different weights per person; standardise to one Senior template and one Junior template.",
+    "The QA cutoff must be identical across people, or the metric is not comparable.",
+    "New staff on probation are scored for evaluation and coaching only. Entitlement to rev share / bonus / KPI incentive is gated on passing probation (see New Staff Incentive Eligibility SOP, 37)."
+   ]
+  }
+ ]
+}

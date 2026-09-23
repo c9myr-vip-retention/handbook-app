@@ -142,6 +142,12 @@ tbody tr:last-child td { border-bottom:0; }
 .callout { display:flex; gap:11px; padding:14px 16px; border-radius:13px; background:var(--good-soft); border:1px solid color-mix(in srgb,var(--good) 30%,transparent); margin:18px 0; }
 .callout.warn { background:var(--planned-soft); border-color:color-mix(in srgb,var(--planned) 30%,transparent); }
 .callout b { color:var(--text); } .callout p { margin:2px 0 0; font-size:13px; }
+.callout.info { background:var(--external-soft); border-color:color-mix(in srgb,var(--external) 30%,transparent); }
+.callout div > p:first-child { margin:0; }
+.bullets { margin:0 0 13px; padding-left:20px; display:flex; flex-direction:column; gap:6px; }
+.bullets li::marker { color:var(--accent); }
+.codeblock { font-family:var(--mono); font-size:12.5px; line-height:1.55; background:var(--surface-2); border:1px solid var(--border); border-radius:10px; padding:12px 14px; margin:0 0 13px; overflow-x:auto; white-space:pre; }
+.doc code { font-family:var(--mono); font-size:.9em; background:var(--accent-soft); padding:1px 5px; border-radius:5px; }
 .stubbox { color:var(--muted); font-size:14px; padding:22px; border:1px dashed var(--border); border-radius:18px; text-align:center; }
 code { background:var(--accent-soft); padding:1px 6px; border-radius:6px; }
 

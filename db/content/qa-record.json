@@ -1,0 +1,208 @@
+{
+ "id": "qa-record",
+ "source": "12_QA_Record.md",
+ "version": "V1.1",
+ "meta": [
+  "C9MYR-RTN-SOP-R01",
+  "V1.1",
+  "Reporting",
+  "Owner: VIP RTN",
+  "Updated 7 Sep 2026"
+ ],
+ "body": [
+  {
+   "t": "p",
+   "x": "**Applies to:** All VIP CS"
+  },
+  {
+   "t": "h2",
+   "x": "1. Objective"
+  },
+  {
+   "t": "p",
+   "x": "Record documentary evidence of every completed outreach task, for accountability, quality assurance and shift tracking."
+  },
+  {
+   "t": "h2",
+   "x": "2. Scope"
+  },
+  {
+   "t": "p",
+   "x": "Applies after every outreach task, every shift. The QA Record must be updated immediately after each task, not accumulated to end of shift."
+  },
+  {
+   "t": "h2",
+   "x": "3. Golden Rules"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Update the QA Record immediately after each task, not at end of shift.",
+    "Never submit an entry without the required BO screenshot.",
+    "If a task was not done, record it as \"Not Completed\" with a brief reason. Never leave it blank.",
+    "Do not modify the date or category of a submitted record. Ask the ATL for corrections."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "4. Trigger Events and Required Evidence"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Task",
+    "Trigger",
+    "Evidence"
+   ],
+   "rows": [
+    [
+     "Grace Period IM",
+     "After all Grace Period IM sent",
+     "BO screenshot of send confirmation"
+    ],
+    [
+     "LTV IM",
+     "After all LTV IM sent",
+     "BO screenshot of send confirmation"
+    ],
+    [
+     "VVIP Blast",
+     "After all VVIP IM sent",
+     "BO screenshot of send confirmation"
+    ],
+    [
+     "Risk Push",
+     "After Push sent",
+     "BO screenshot of send confirmation"
+    ],
+    [
+     "Top PNL",
+     "After list compiled + bonus issued",
+     "Screenshot of list + Lark ticket reference"
+    ],
+    [
+     "Top Deposit",
+     "After engagement complete",
+     "Screenshot of completed list"
+    ],
+    [
+     "Internal Mail Blast",
+     "After each blast",
+     "BO screenshot of send confirmation"
+    ],
+    [
+     "Telegram Approach",
+     "End of shift",
+     "Summary: total approached + conversions"
+    ],
+    [
+     "LC Complaint Compensation",
+     "After bonus issued via complaint",
+     "Lark ticket reference (query `VVIP Complain player`)"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "5. Procedure (Action / Sequence / Degree / Tool)"
+  },
+  {
+   "t": "table",
+   "head": [
+    "#",
+    "Action",
+    "Sequence (when)",
+    "Degree / standard",
+    "Tool"
+   ],
+   "rows": [
+    [
+     "1",
+     "Screenshot from the BO immediately after each task",
+     "Right after each task",
+     "Must clearly show the completion confirmation",
+     "BO"
+    ],
+    [
+     "2",
+     "Open the Customer Approaching QA table in Lark Base",
+     "After screenshot",
+     "Correct table",
+     "Lark Base"
+    ],
+    [
+     "3",
+     "Check if today's date record exists; if not, create one",
+     "Before attaching",
+     "One parent QA record per calendar date",
+     "Lark Base"
+    ],
+    [
+     "4",
+     "Attach the screenshot under the correct date entry",
+     "After the date record exists",
+     "Correct date and category, not the wrong one",
+     "Lark Base"
+    ],
+    [
+     "5",
+     "Select the correct task category",
+     "While recording",
+     "Grace Period, LTV, VVIP Blast, Risk Push, Top PNL, Top Deposit, IM Blast, Telegram, LC Complaint",
+     "Lark Base"
+    ],
+    [
+     "6",
+     "Record validity status: Valid or Invalid",
+     "While recording",
+     "If both, record both counts separately",
+     "Lark Base"
+    ],
+    [
+     "7",
+     "Record the total players approached this shift",
+     "While recording",
+     "Feeds output reporting and performance",
+     "Lark Base"
+    ],
+    [
+     "8",
+     "Confirm entries are saved before the next task",
+     "Before next task",
+     "Saved and verified",
+     "Lark Base"
+    ],
+    [
+     "9",
+     "Complete and submit all QA records before shift end",
+     "End of shift",
+     "Incomplete records break the Output Report",
+     "Lark Base"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "6. Guards"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Never submit an entry without the required BO screenshot.",
+    "Incomplete QA records break the Output Report; complete all before shift end.",
+    "Do not modify a submitted record's date or category; route corrections through the ATL."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "7. Remarks"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Update immediately after each task, not at end of shift.",
+    "If a task was not done, record it as \"Not Completed\" with a brief reason."
+   ]
+  }
+ ]
+}

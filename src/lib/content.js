@@ -19,19 +19,23 @@ const SECTIONS = [
 export const slug = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
 
 // Repo content -> flat rows, in nav order (sort = position).
-export function toRows() {
+// `imported` maps row id -> { body, meta, version } converted from the SOP
+// markdown (db/content/*.json, built by db/import-md.mjs). It fills catalog
+// entries that have no hand-written page yet.
+export function toRows(imported = {}) {
   const rows = []
   const add = (it, section, domain) => {
+    const id = it.id || slug(it.title)
     const page = it.id && PAGES[it.id]
-    let status = page ? 'live' : (it.status || 'live')
+    const imp = !page && imported[id]
+    let status = page || imp ? 'live' : (it.status || 'live')
     let restricted = false
     if (status === 'restricted') { restricted = true; status = 'live' }
     rows.push({
-      id: it.id || slug(it.title),
-      section, domain, title: it.title,
-      body: page ? page.blocks : null,
-      meta: page ? page.meta || null : null,
-      version: 'V1.0', owner: 'ATL',
+      id, section, domain, title: it.title,
+      body: page ? page.blocks : imp ? imp.body : null,
+      meta: page ? page.meta || null : imp ? imp.meta : null,
+      version: imp ? imp.version : 'V1.0', owner: 'ATL',
       restricted, status,
       keywords: KEYWORDS[it.title] || null,
       sort: rows.length + 1,
@@ -85,4 +89,4 @@ export function fromRows(rows) {
   return { nav: nav.filter(s => (s.domains ? s.domains.length : s.items.length) > 0), pages }
 }
 
-export const localContent = () => ({ ...fromRows(toRows()), source: 'local' })
+export const localContent = (imported) => ({ ...fromRows(toRows(imported)), source: 'local' })

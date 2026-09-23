@@ -1,0 +1,136 @@
+{
+ "id": "vvip-blast",
+ "source": "04_VVIP_Blast.md",
+ "version": "V1.1",
+ "meta": [
+  "C9MYR-RTN-SOP-D03",
+  "V1.1",
+  "Day Shift / VIP",
+  "Owner: VIP RTN",
+  "Updated 7 Sep 2026"
+ ],
+ "body": [
+  {
+   "t": "p",
+   "x": "**Applies to:** VIP CS, all brands"
+  },
+  {
+   "t": "h2",
+   "x": "1. Objective"
+  },
+  {
+   "t": "p",
+   "x": "Notify newly upgraded VVIP players via Internal Mail to activate early engagement and welcome them to their new tier."
+  },
+  {
+   "t": "h2",
+   "x": "2. Scope"
+  },
+  {
+   "t": "p",
+   "x": "Morning shift only, daily at 3:00 PM. The newly upgraded VVIP player list is updated daily at 2:00 PM by ATL or above."
+  },
+  {
+   "t": "h2",
+   "x": "3. Golden Rules"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Do not send until the upgraded VVIP list is confirmed by ATL or above. The list updates at 2:00 PM.",
+    "Morning shift only; send at 3:00 PM.",
+    "Use the New Players template only. Never a template from another campaign type.",
+    "The goal is recognition, not pressure. No hard-sell, no urgency."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "4. Procedure (Action / Sequence / Degree / Tool)"
+  },
+  {
+   "t": "table",
+   "head": [
+    "#",
+    "Action",
+    "Sequence (when)",
+    "Degree / standard",
+    "Tool"
+   ],
+   "rows": [
+    [
+     "1",
+     "Confirm the upgraded VVIP list is updated by ATL or above",
+     "Before proceeding, after the 2:00 PM update",
+     "Do not send until verified",
+     "Team Engagement File"
+    ],
+    [
+     "2",
+     "Copy and save the New Welcome Players column",
+     "After confirmation",
+     "Use today's latest list only",
+     "Team Engagement File"
+    ],
+    [
+     "3",
+     "Get the IM subject and content from Template Tab > New Players",
+     "Before sending",
+     "Do not use a template from another campaign type",
+     "Team Engagement File"
+    ],
+    [
+     "4",
+     "Send IM to all newly upgraded VVIP players",
+     "At 3:00 PM (morning shift)",
+     "Verify segment and brand per player; use the correct template",
+     "BO (TC/Zyra)"
+    ],
+    [
+     "5",
+     "Update the QA Record",
+     "After all IM is sent",
+     "Attach a BO screenshot",
+     "Lark Base"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "5. Messaging Principles"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Welcome and orientation: congratulate the player on the tier upgrade.",
+    "Introduce the VIP CS as the player's PIC.",
+    "Explain what VIP support helps with: priority chat, dedicated assistance, fast issue resolution.",
+    "Explain how to contact the VIP CS: Live Chat, Telegram.",
+    "Optional: invite preferences (language, contact time, game preferences).",
+    "Avoid overselling, hard-sell language, urgency. The goal is recognition, not pressure."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "6. Guards"
+  },
+  {
+   "t": "list",
+   "x": [
+    "If the list is empty or not updated by 2:00 PM, notify the ATL immediately. Do not send an unconfirmed list.",
+    "Never send from an outdated or unconfirmed list.",
+    "Double-check segment and brand before sending, to avoid mismatched welcomes."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "7. Remarks"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Morning shift only, after ATL or above confirms the updated list.",
+    "Always use the latest list, never an outdated one."
+   ]
+  }
+ ]
+}

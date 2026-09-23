@@ -6,12 +6,21 @@ const STATUS_LABEL = { pending: 'Coming soon', planned: 'Not written yet', exter
 function bodyText(page) {
   if (!page) return ''
   return page.blocks.map(b => {
-    if (b.t === 'p' || b.t === 'h2') return b.x
+    if (b.t === 'p' || b.t === 'h2' || b.t === 'code') return b.x
     if (b.t === 'callout') return (b.title || '') + ' ' + (b.x || '')
-    if (b.t === 'steps') return b.x.join(' ')
+    if (b.t === 'steps' || b.t === 'list') return b.x.join(' ')
     if (b.t === 'table') return b.head.join(' ') + ' ' + b.rows.flat().join(' ')
     return ''
-  }).join(' ')
+  }).join(' ').replace(/\*\*|`/g, '')
+}
+
+// Inline marks inside block text: **bold** and `code`. Plain text otherwise.
+function Inline({ x }) {
+  const parts = String(x ?? '').split(/(\*\*[^*]+\*\*|`[^`]+`)/g)
+  return parts.map((s, i) =>
+    s.startsWith('**') && s.endsWith('**') && s.length > 4 ? <b key={i}>{s.slice(2, -2)}</b>
+    : s.startsWith('`') && s.endsWith('`') && s.length > 2 ? <code key={i}>{s.slice(1, -1)}</code>
+    : s)
 }
 function buildIndex(nav, pages) {
   const out = []
@@ -234,22 +243,26 @@ function Page({ id, pages: PAGES }) {
 
 function Block({ b }) {
   if (b.t === 'h2') return <h2>{b.x}</h2>
-  if (b.t === 'p') return <p>{b.x}</p>
+  if (b.t === 'p') return <p><Inline x={b.x} /></p>
   if (b.t === 'callout') return (
     <div className={'callout ' + (b.tone || 'good')}>
-      <div><b>{b.title}</b><p>{b.x}</p></div>
+      <div>{b.title && <b>{b.title}</b>}<p><Inline x={b.x} /></p></div>
     </div>
   )
   if (b.t === 'steps' && b.ordered === false) return (
     <div className="pills">{b.x.map((s, i) => <span key={i} className="pill">{s}</span>)}</div>
   )
   if (b.t === 'steps') return (
-    <ol className="steps">{b.x.map((s, i) => <li key={i}>{s}</li>)}</ol>
+    <ol className="steps">{b.x.map((s, i) => <li key={i}><Inline x={s} /></li>)}</ol>
   )
+  if (b.t === 'list') return (
+    <ul className="bullets">{b.x.map((s, i) => <li key={i}><Inline x={s} /></li>)}</ul>
+  )
+  if (b.t === 'code') return <pre className="codeblock">{b.x}</pre>
   if (b.t === 'table') return (
     <div className="tbl-wrap"><table>
-      <thead><tr>{b.head.map((h, i) => <th key={i}>{h}</th>)}</tr></thead>
-      <tbody>{b.rows.map((r, i) => <tr key={i}>{r.map((c, j) => <td key={j}>{c}</td>)}</tr>)}</tbody>
+      <thead><tr>{b.head.map((h, i) => <th key={i}><Inline x={h} /></th>)}</tr></thead>
+      <tbody>{b.rows.map((r, i) => <tr key={i}>{r.map((c, j) => <td key={j}><Inline x={c} /></td>)}</tr>)}</tbody>
     </table></div>
   )
   return null

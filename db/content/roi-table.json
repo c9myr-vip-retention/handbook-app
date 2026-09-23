@@ -1,0 +1,344 @@
+{
+ "id": "roi-table",
+ "source": "14_ROI_Table.md",
+ "version": "V1.1",
+ "meta": [
+  "C9MYR-RTN-SOP-R03",
+  "V1.1",
+  "Reporting",
+  "Owner: VIP RTN",
+  "Updated 7 Sep 2026"
+ ],
+ "body": [
+  {
+   "t": "p",
+   "x": "**Applies to:** VIP CS, assigned brands"
+  },
+  {
+   "t": "h2",
+   "x": "1. Objective"
+  },
+  {
+   "t": "p",
+   "x": "Track deposit and withdrawal amounts for bonus-claiming players across a 3-day window before and after the bonus claim date, to measure ROI per outreach campaign."
+  },
+  {
+   "t": "h2",
+   "x": "2. Scope"
+  },
+  {
+   "t": "p",
+   "x": "Applies to every player who claimed a bonus in the current month, on both TC and Zyra."
+  },
+  {
+   "t": "h2",
+   "x": "3. Golden Rules"
+  },
+  {
+   "t": "list",
+   "x": [
+    "The claim date is excluded from both windows. Before = claim minus 3 to claim minus 1. After = claim plus 1 to claim plus 3.",
+    "TC: approved deposits only (exclude pending/rejected); DP and WD are on separate tabs. Zyra: DP and WD are in the same overview.",
+    "If a player has no DP/WD in a range, record 0. Do not leave it blank.",
+    "Complete all four columns for one player before moving to the next.",
+    "TC uses username; Zyra uses UID."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "4. The Four Tracked Columns"
+  },
+  {
+   "t": "p",
+   "x": "The claim date itself is never included in either window. Before = up to claim minus 1. After = from claim plus 1."
+  },
+  {
+   "t": "table",
+   "head": [
+    "Column",
+    "Measures",
+    "Range (claim 3 May example)"
+   ],
+   "rows": [
+    [
+     "3D Before DP",
+     "Approved deposits, 3 days before",
+     "30 Apr to 2 May"
+    ],
+    [
+     "3D Before WD",
+     "Withdrawals, 3 days before",
+     "30 Apr to 2 May"
+    ],
+    [
+     "3D After DP",
+     "Approved deposits, 3 days after",
+     "4 May to 6 May"
+    ],
+    [
+     "3D After WD",
+     "Withdrawals, 3 days after",
+     "4 May to 6 May"
+    ]
+   ]
+  },
+  {
+   "t": "callout",
+   "tone": "info",
+   "x": "Confirmed 10 Sep 2026: the window is 3 days each side. Before = claim minus 3 to claim minus 1; After = claim plus 1 to claim plus 3. The 2-day reading in an earlier source example was wrong."
+  },
+  {
+   "t": "h2",
+   "x": "5. Procedure: Filter the ROI Table (Action / Sequence / Degree / Tool)"
+  },
+  {
+   "t": "table",
+   "head": [
+    "#",
+    "Action",
+    "Sequence (when)",
+    "Degree / standard",
+    "Tool"
+   ],
+   "rows": [
+    [
+     "1",
+     "Open Customer Approaching File > ROI Table",
+     "Task start",
+     "All players who claimed a bonus this month",
+     "Customer Approaching File"
+    ],
+    [
+     "2",
+     "Apply two conditions",
+     "Before selecting players",
+     "Both active",
+     "Customer Approaching File"
+    ],
+    [
+     "2a",
+     "Brand is your group's brand(s)",
+     "With step 2",
+     "e.g. LPK for LPK777",
+     "Customer Approaching File"
+    ],
+    [
+     "2b",
+     "Bonus Amount is not empty",
+     "With step 2",
+     "Removes players who have not claimed",
+     "Customer Approaching File"
+    ],
+    [
+     "3",
+     "Identify the four columns to fill",
+     "After filtering",
+     "3D Before DP, 3D Before WD, 3D After DP, 3D After WD",
+     "Customer Approaching File"
+    ],
+    [
+     "4",
+     "Copy the username of each player with any empty tracked column",
+     "After identifying",
+     "Those need BO lookup",
+     "Customer Approaching File"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "6. Procedure: TC Gaming Retrieval (Action / Sequence / Degree / Tool)"
+  },
+  {
+   "t": "table",
+   "head": [
+    "#",
+    "Action",
+    "Sequence (when)",
+    "Degree / standard",
+    "Tool"
+   ],
+   "rows": [
+    [
+     "1",
+     "Customer Search, paste the username",
+     "Per player",
+     "One player at a time, exact match",
+     "TC Gaming BO"
+    ],
+    [
+     "2",
+     "Open the profile, go to Deposit Record",
+     "After search",
+     "Correct player",
+     "TC Gaming BO"
+    ],
+    [
+     "3",
+     "Confirm the claim date in the ROI Table",
+     "Before setting ranges",
+     "Match the ROI Table",
+     "Customer Approaching File"
+    ],
+    [
+     "4",
+     "Set the deposit date range to 3 days before claim",
+     "After confirming date",
+     "claim minus 3 to claim minus 1",
+     "TC Gaming BO"
+    ],
+    [
+     "5",
+     "Record total approved deposits into 3D Before DP",
+     "After range set",
+     "Approved only, exclude pending/rejected",
+     "Customer Approaching File"
+    ],
+    [
+     "6",
+     "Go to Withdrawal Record",
+     "After DP recorded",
+     "Correct tab",
+     "TC Gaming BO"
+    ],
+    [
+     "7",
+     "Same before-range, record total withdrawals into 3D Before WD",
+     "After opening WD",
+     "Same range",
+     "Customer Approaching File"
+    ],
+    [
+     "8",
+     "Set the range to 3 days after claim",
+     "After before-window done",
+     "claim plus 1 to claim plus 3",
+     "TC Gaming BO"
+    ],
+    [
+     "9",
+     "Record total approved deposits into 3D After DP",
+     "After range set",
+     "Approved only",
+     "Customer Approaching File"
+    ],
+    [
+     "10",
+     "Same after-range, record total withdrawals into 3D After WD",
+     "After DP recorded",
+     "Same range",
+     "Customer Approaching File"
+    ],
+    [
+     "11",
+     "Repeat for every player",
+     "Until list clear",
+     "Complete all four columns per player before moving on",
+     "Customer Approaching File"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "7. Procedure: Zyra Retrieval (Action / Sequence / Degree / Tool)"
+  },
+  {
+   "t": "table",
+   "head": [
+    "#",
+    "Action",
+    "Sequence (when)",
+    "Degree / standard",
+    "Tool"
+   ],
+   "rows": [
+    [
+     "1",
+     "Betting Record > User Betting Record Overview",
+     "Per player",
+     "Correct BO path",
+     "Zyra BO"
+    ],
+    [
+     "2",
+     "Paste the UID (not username)",
+     "After opening",
+     "Verify it matches the ROI Table",
+     "Zyra BO"
+    ],
+    [
+     "3",
+     "Confirm the claim date in the ROI Table",
+     "Before setting ranges",
+     "Match the ROI Table",
+     "Customer Approaching File"
+    ],
+    [
+     "4",
+     "Set range to 3 days before claim, Search",
+     "After confirming date",
+     "claim minus 3 to claim minus 1",
+     "Zyra BO"
+    ],
+    [
+     "5",
+     "Read Deposit and Withdrawal from the same overview",
+     "After search",
+     "No tab navigation needed",
+     "Zyra BO"
+    ],
+    [
+     "6",
+     "Record Deposit into 3D Before DP, Withdrawal into 3D Before WD",
+     "After reading",
+     "Correct columns",
+     "Customer Approaching File"
+    ],
+    [
+     "7",
+     "Change range to 3 days after claim, Search",
+     "After before-window done",
+     "claim plus 1 to claim plus 3",
+     "Zyra BO"
+    ],
+    [
+     "8",
+     "Record Deposit into 3D After DP, Withdrawal into 3D After WD",
+     "After search",
+     "Correct columns",
+     "Customer Approaching File"
+    ],
+    [
+     "9",
+     "Repeat for every player",
+     "Until list clear",
+     "All four columns per player",
+     "Customer Approaching File"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "8. Guards"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Always confirm the claim date in the ROI Table before setting any BO date range.",
+    "If a player has no DP/WD in a range, record 0. Do not leave blank.",
+    "Complete all four columns for one player before the next, to avoid cross-referencing errors."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "9. Remarks"
+  },
+  {
+   "t": "list",
+   "x": [
+    "TC: DP and WD are on separate tabs, approved amounts only. Zyra: both are in the same overview.",
+    "The claim date is excluded from both windows."
+   ]
+  }
+ ]
+}

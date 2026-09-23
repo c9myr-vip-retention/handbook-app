@@ -1,0 +1,201 @@
+{
+ "id": "process-landing-layer",
+ "source": "33_Process_Landing_Layer.md",
+ "version": "V1.0",
+ "meta": [
+  "C9MYR-RTN-SOP-GOV03",
+  "V1.0",
+  "Governance",
+  "Owner: ATL",
+  "Updated 5 Sep 2026"
+ ],
+ "body": [
+  {
+   "t": "p",
+   "x": "**Applies to:** ATL, Senior, process owners"
+  },
+  {
+   "t": "h2",
+   "x": "1. Objective"
+  },
+  {
+   "t": "p",
+   "x": "Make the SOP Book a working system, not a document set. These five tools cover Methods 5, 7, 8, 9 and 10, so every SOP is validated, trained, monitored, reviewed and archived."
+  },
+  {
+   "t": "h2",
+   "x": "2. How the book maps to the 10 methods"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Method",
+    "Where it lives in the book"
+   ],
+   "rows": [
+    [
+     "1 Design team, owner",
+     "Owner field on every SOP"
+    ],
+    [
+     "2 Identify high-value SOPs",
+     "SOP coverage map (priority order)"
+    ],
+    [
+     "3 Benchmark, co-create",
+     "Sourcing thin SOPs from the top performer"
+    ],
+    [
+     "4 Write the SOP (4 elements)",
+     "The SOP template"
+    ],
+    [
+     "5 Validate, trial-run",
+     "Validation checklist (below)"
+    ],
+    [
+     "6 Manager confirm, release",
+     "Sign-off + effective date on release"
+    ],
+    [
+     "7 Train, everyone executes",
+     "Training checklist (below)"
+    ],
+    [
+     "8 Monitor, check",
+     "Monitoring metrics (below)"
+    ],
+    [
+     "9 Review, iterate",
+     "Review log (below)"
+    ],
+    [
+     "10 Archive, bank knowledge",
+     "Archive standard (below)"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "3. Validation checklist (Method 5)"
+  },
+  {
+   "t": "p",
+   "x": "Before release, trial-run on 1-2 people for 1-2 weeks, then confirm:"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Are the steps clear enough for a normal person to follow?",
+    "Are the tools named and usable?",
+    "Do the exceptions have a plan?",
+    "Feedback collected and fixed; re-tested until smooth."
+   ]
+  },
+  {
+   "t": "p",
+   "x": "A process is tested out, not designed out."
+  },
+  {
+   "t": "h2",
+   "x": "4. Training checklist (Method 7)"
+  },
+  {
+   "t": "p",
+   "x": "Three stages, each with a gate:"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Awareness: read the SOP / attend the briefing (knows what it is).",
+    "Skill: drill + assessment passed (can do it).",
+    "Willingness: benefit explained, questions answered (wants to use it)."
+   ]
+  },
+  {
+   "t": "p",
+   "x": "Landing: SOP online + on the daily task checklist with KPI."
+  },
+  {
+   "t": "h2",
+   "x": "5. Monitoring metrics (Method 8)"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Metric",
+    "Formula",
+    "Cadence",
+    "Owner"
+   ],
+   "rows": [
+    [
+     "Execution rate",
+     "SOP-followed / total",
+     "Weekly",
+     "Process owner"
+    ],
+    [
+     "Error rate",
+     "Not-followed / total",
+     "Monthly",
+     "Ops"
+    ],
+    [
+     "Effect",
+     "Problems solved / effectiveness",
+     "Quarterly",
+     "Management"
+    ]
+   ]
+  },
+  {
+   "t": "p",
+   "x": "Correction: not-followed to coach to warn; problem found to feedback to improve. A process with no check is a decoration on the wall."
+  },
+  {
+   "t": "h2",
+   "x": "6. Review log (Method 9)"
+  },
+  {
+   "t": "p",
+   "x": "Trigger a review on: schedule (quarterly), a problem, or a business change. Ask three questions:"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Is it still solving the problem?",
+    "Is it simple enough?",
+    "Does it need updating?"
+   ]
+  },
+  {
+   "t": "p",
+   "x": "Bump the version and record what changed. Yesterday's process can be today's problem."
+  },
+  {
+   "t": "h2",
+   "x": "7. Archive standard (Method 10)"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Unified format (this template), clear directory, quick to find (indexed), permissioned (who views, who edits).",
+    "For new hires: the docs are required reading, the teaching material, and an exam item.",
+    "Keep the version history."
+   ]
+  },
+  {
+   "t": "p",
+   "x": "Documents are the department's cheapest trainer."
+  },
+  {
+   "t": "h2",
+   "x": "8. Remarks"
+  },
+  {
+   "t": "p",
+   "x": "This layer is what makes the SOP Book read as above-expectation: it shows the process is designed, validated, trained, watched, and improved, not just written."
+  }
+ ]
+}

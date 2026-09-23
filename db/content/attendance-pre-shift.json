@@ -1,0 +1,106 @@
+{
+ "id": "attendance-pre-shift",
+ "source": "16_Attendance_Pre_Shift_Setup.md",
+ "version": "V1.1",
+ "meta": [
+  "C9MYR-RTN-SOP-HR02",
+  "V1.1",
+  "HR / Policy",
+  "Owner: HR",
+  "Updated 7 Sep 2026"
+ ],
+ "body": [
+  {
+   "t": "p",
+   "x": "**Applies to:** All staff"
+  },
+  {
+   "t": "h2",
+   "x": "1. Objective"
+  },
+  {
+   "t": "p",
+   "x": "The pre-shift setup steps required of all staff before clocking in and starting work."
+  },
+  {
+   "t": "h2",
+   "x": "2. Scope"
+  },
+  {
+   "t": "p",
+   "x": "Every staff member, before every shift. This is the department's operational pre-shift checklist. The full attendance policy is owned by HR (see the HR SOP Library, Chapter 7)."
+  },
+  {
+   "t": "h2",
+   "x": "3. Golden Rules"
+  },
+  {
+   "t": "list",
+   "x": [
+    "VPN must stay on for the entire shift. Report disconnections to the ATL or TL immediately.",
+    "Clock in at least 5 minutes early, to avoid a late record from system lag.",
+    "Always browse in Google Chrome Incognito mode, for security. The full rule and its enforcement live in the Incognito Browsing SOP (38)."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "4. Procedure: Pre-Shift Setup (Action / Sequence / Degree / Tool)"
+  },
+  {
+   "t": "table",
+   "head": [
+    "#",
+    "Action",
+    "Sequence (when)",
+    "Degree / standard",
+    "Tool"
+   ],
+   "rows": [
+    [
+     "1",
+     "Log in to NordLayer VPN",
+     "First, before clock-in",
+     "Select LPK01 or TH01; verify your location is correct (not the wrong country); check IP at whatismyipaddress.com",
+     "NordLayer"
+    ],
+    [
+     "2",
+     "Clock in on the Insightful (Workpuls) app",
+     "Before starting work",
+     "At least 5 minutes early, to avoid a late record from system lag",
+     "Insightful"
+    ],
+    [
+     "3",
+     "Open Google Chrome in Incognito mode",
+     "Before browsing",
+     "Always browse in private mode for security",
+     "Chrome"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "5. Guards"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Failure to clock in during working hours, or clock out after, on Insightful triggers progressive warnings (see Work Policy).",
+    "Late arrivals are subject to monetary deductions (see Work Policy, Annex A).",
+    "A wrong VPN location or a dropped VPN mid-shift must be reported to the ATL/TL at once."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "6. Remarks"
+  },
+  {
+   "t": "list",
+   "x": [
+    "The full attendance policy sits with HR (HR SOP Library, Chapter 7); this SOP is the pre-shift checklist only.",
+    "Document code changed from HR01 to HR02 in this retrofit, to resolve a clash with the New Agent Onboarding SOP (HR01). Confirm the code with the ATL before the SOP Book index is finalised."
+   ]
+  }
+ ]
+}

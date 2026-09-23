@@ -1,0 +1,256 @@
+{
+ "id": "internal-mail-approach",
+ "source": "09_Internal_Mail_Approach.md",
+ "version": "V1.1",
+ "meta": [
+  "C9MYR-RTN-SOP-OUT01",
+  "V1.1",
+  "Outreach / Communication (All Shifts)",
+  "Owner: VIP RTN",
+  "Updated 7 Sep 2026"
+ ],
+ "body": [
+  {
+   "t": "p",
+   "x": "**Applies to:** VIP CS, all brands"
+  },
+  {
+   "t": "h2",
+   "x": "1. Objective"
+  },
+  {
+   "t": "p",
+   "x": "Send targeted Internal Mail to players via the Back Office, based on brand, player segment and campaign direction."
+  },
+  {
+   "t": "h2",
+   "x": "2. Scope"
+  },
+  {
+   "t": "p",
+   "x": "Applies whenever Internal Mail is sent, on both TC and Zyra back offices. Zyra requires all three language versions."
+  },
+  {
+   "t": "h2",
+   "x": "3. Golden Rules"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Verify campaign type and recipient scope before sending. Sending to the wrong group cannot be undone.",
+    "Zyra: all three language versions (EN-MY, ZH-MY, MS-MY) must be filled before the message can be created.",
+    "Paste subject and content exactly from the approved template. Do not modify without TL approval.",
+    "Screenshot the confirmation screen immediately, as mandatory QA evidence."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "4. Procedure: TC Gaming Back Office (Action / Sequence / Degree / Tool)"
+  },
+  {
+   "t": "table",
+   "head": [
+    "#",
+    "Action",
+    "Sequence (when)",
+    "Degree / standard",
+    "Tool"
+   ],
+   "rows": [
+    [
+     "1",
+     "Go to Interact Management > Mail > Send Mail",
+     "Task start",
+     "Correct BO path",
+     "TC Gaming BO"
+    ],
+    [
+     "2",
+     "Select the recipient type per campaign",
+     "After opening",
+     "Match the campaign direction",
+     "TC Gaming BO"
+    ],
+    [
+     "2a",
+     "No specific group: select All User",
+     "When broadcasting",
+     "General broadcast",
+     "TC Gaming BO"
+    ],
+    [
+     "2b",
+     "VIP only: select Specific Player Level",
+     "When tier-targeting",
+     "Tier-targeted",
+     "TC Gaming BO"
+    ],
+    [
+     "3",
+     "Paste the Internal Mail subject",
+     "After recipient set",
+     "Exact from approved template",
+     "TC Gaming BO"
+    ],
+    [
+     "4",
+     "Paste the Internal Mail content",
+     "After subject",
+     "Do not modify without TL approval",
+     "TC Gaming BO"
+    ],
+    [
+     "5",
+     "Double-check brand, links, content, recipient",
+     "Before sending",
+     "All correct",
+     "TC Gaming BO"
+    ],
+    [
+     "6",
+     "Click Send",
+     "On send",
+     "-",
+     "TC Gaming BO"
+    ],
+    [
+     "7",
+     "Screenshot the confirmation screen immediately",
+     "Right after send",
+     "Mandatory QA evidence",
+     "TC Gaming BO"
+    ],
+    [
+     "8",
+     "Update the QA Record",
+     "After screenshot",
+     "Attach the confirmation screenshot",
+     "Lark Base"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "5. Procedure: Zyra Back Office (Action / Sequence / Degree / Tool)"
+  },
+  {
+   "t": "table",
+   "head": [
+    "#",
+    "Action",
+    "Sequence (when)",
+    "Degree / standard",
+    "Tool"
+   ],
+   "rows": [
+    [
+     "1",
+     "Go to Notification > System Messages",
+     "Task start",
+     "Correct BO path",
+     "Zyra BO"
+    ],
+    [
+     "2",
+     "Click Add Message",
+     "After opening",
+     "-",
+     "Zyra BO"
+    ],
+    [
+     "3",
+     "Select the recipient per campaign",
+     "After Add Message",
+     "Match the campaign direction",
+     "Zyra BO"
+    ],
+    [
+     "3a",
+     "General: choose All User",
+     "When broadcasting",
+     "General broadcast",
+     "Zyra BO"
+    ],
+    [
+     "3b",
+     "Targeted: choose the correct player group",
+     "When targeting",
+     "Correct group",
+     "Zyra BO"
+    ],
+    [
+     "4",
+     "Fill EN-MY title and content",
+     "After recipient set",
+     "Exact from template",
+     "Zyra BO"
+    ],
+    [
+     "5",
+     "Fill ZH-MY title and content",
+     "After EN-MY",
+     "Exact from template",
+     "Zyra BO"
+    ],
+    [
+     "6",
+     "Fill MS-MY title and content",
+     "After ZH-MY",
+     "Exact from template",
+     "Zyra BO"
+    ],
+    [
+     "7",
+     "Double-check recipient, brand, all language versions, content, links",
+     "Before creating",
+     "All three languages must be filled",
+     "Zyra BO"
+    ],
+    [
+     "8",
+     "Click Create",
+     "On send",
+     "-",
+     "Zyra BO"
+    ],
+    [
+     "9",
+     "Screenshot the confirmation screen immediately",
+     "Right after send",
+     "Mandatory QA evidence",
+     "Zyra BO"
+    ],
+    [
+     "10",
+     "Update the QA Record",
+     "After screenshot",
+     "Attach the confirmation screenshot",
+     "Lark Base"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "6. Guards"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Sending to the wrong group cannot be undone; verify recipient scope before sending.",
+    "Zyra will not create the message until all three language versions are filled.",
+    "If a link or content error is found after sending, report it to your ATL or TL immediately."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "7. Remarks"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Always screenshot immediately after sending, as mandatory QA evidence.",
+    "Zyra requires EN-MY, ZH-MY and MS-MY on every message."
+   ]
+  }
+ ]
+}

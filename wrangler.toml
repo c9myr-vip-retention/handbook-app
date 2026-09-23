@@ -1,0 +1,10 @@
+name = "handbook-app"
+compatibility_date = "2026-01-01"
+pages_build_output_dir = "dist"
+
+# D1 database binding. Create the database, then paste its id here:
+#   wrangler d1 create handbook
+[[d1_databases]]
+binding = "DB"
+database_name = "handbook"
+database_id = "REPLACE_WITH_D1_DATABASE_ID"

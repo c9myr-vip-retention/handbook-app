@@ -7,4 +7,4 @@ pages_build_output_dir = "dist"
 [[d1_databases]]
 binding = "DB"
 database_name = "handbook"
-database_id = "REPLACE_WITH_D1_DATABASE_ID"
+database_id = "4e523ae5-28aa-4709-8082-ad6ed1507716"

@@ -1,16 +1,71 @@
 import { useEffect, useMemo, useState } from 'react'
-import { NAV, PAGES } from './content/handbook.js'
+import { NAV, PAGES, KEYWORDS } from './content/handbook.js'
 
 const STATUS_LABEL = { pending: 'Coming soon', planned: 'Not written yet', external: 'Lark doc', restricted: 'Admins only' }
+
+// Flatten every nav leaf into a searchable list, once.
+function bodyText(id) {
+  const p = PAGES[id]
+  if (!p) return ''
+  return p.blocks.map(b => {
+    if (b.t === 'p' || b.t === 'h2') return b.x
+    if (b.t === 'callout') return (b.title || '') + ' ' + (b.x || '')
+    if (b.t === 'steps') return b.x.join(' ')
+    if (b.t === 'table') return b.head.join(' ') + ' ' + b.rows.flat().join(' ')
+    return ''
+  }).join(' ')
+}
+function buildIndex() {
+  const out = []
+  for (const sec of NAV) {
+    if (sec.domains) {
+      for (const d of sec.domains) for (const it of d.items) out.push(mkLeaf(it, 'SOP Book', d.name))
+    } else {
+      for (const it of sec.items) out.push(mkLeaf(it, sec.name, ''))
+    }
+  }
+  return out
+}
+function mkLeaf(it, section, domain) {
+  const real = !!it.id && !!PAGES[it.id]
+  const text = [it.title, section, domain, KEYWORDS[it.title] || '', real ? bodyText(it.id) : '']
+    .join(' ').toLowerCase()
+  return { title: it.title, section, domain, id: it.id, status: it.status, real, text }
+}
+const INDEX = buildIndex()
+
+function search(q) {
+  const terms = q.toLowerCase().split(/\s+/).filter(Boolean)
+  if (!terms.length) return []
+  return INDEX
+    .map(item => {
+      let score = 0
+      for (const t of terms) {
+        if (!item.text.includes(t)) return null
+        if (item.title.toLowerCase().includes(t)) score += 3
+        else score += 1
+      }
+      return { item, score }
+    })
+    .filter(Boolean)
+    .sort((a, b) => b.score - a.score)
+    .map(r => r.item)
+}
 
 export default function Handbook({ profile, onSignOut, preview }) {
   const [route, setRoute] = useState({ kind: 'home' })
   const [navOpen, setNavOpen] = useState(false)
   const [openSecs, setOpenSecs] = useState(() => ({ start: true }))
+  const [query, setQuery] = useState('')
 
   useEffect(() => { window.scrollTo(0, 0) }, [route])
 
   const go = (r) => { setRoute(r); setNavOpen(false) }
+  const openLeaf = (item) => {
+    setQuery('')
+    go(item.real ? { kind: 'page', key: item.id } : { kind: 'stub', title: item.title, status: item.status })
+  }
+  const results = useMemo(() => search(query.trim()), [query])
   const toggleTheme = () => {
     const cur = document.documentElement.getAttribute('data-theme')
     const dark = cur ? cur === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches
@@ -56,7 +111,15 @@ export default function Handbook({ profile, onSignOut, preview }) {
         <header className="top">
           <button className="icon menu" aria-label="Menu" onClick={() => setNavOpen(true)}>☰</button>
           <div className="ptitle">{title}</div>
-          <div className="spacer" />
+          <div className="searchbar">
+            <input
+              type="search"
+              value={query}
+              onChange={e => setQuery(e.target.value)}
+              placeholder="Search SOPs, keywords…"
+              aria-label="Search the handbook"
+            />
+          </div>
           {profile && <span className="who">{profile.full_name || profile.email} · <b>{profile.role}</b></span>}
           {preview && <span className="chip pending">preview</span>}
           <button className="icon" aria-label="Toggle theme" onClick={toggleTheme}>◐</button>
@@ -64,10 +127,14 @@ export default function Handbook({ profile, onSignOut, preview }) {
         </header>
 
         <div className="content">
-          {route.kind === 'home' && <Home go={go} />}
-          {route.kind === 'domain' && <DomainList name={route.key} go={go} />}
-          {route.kind === 'page' && <Page id={route.key} />}
-          {route.kind === 'stub' && <Stub title={route.title} status={route.status} />}
+          {query.trim()
+            ? <SearchResults query={query} results={results} open={openLeaf} />
+            : <>
+                {route.kind === 'home' && <Home go={go} />}
+                {route.kind === 'domain' && <DomainList name={route.key} go={go} />}
+                {route.kind === 'page' && <Page id={route.key} />}
+                {route.kind === 'stub' && <Stub title={route.title} status={route.status} />}
+              </>}
         </div>
       </div>
     </div>
@@ -197,6 +264,26 @@ function Stub({ title, status }) {
       <div className="crumb"><b>{title}</b></div>
       <h1>{title}</h1>
       <div className="stubbox">{msg}</div>
+    </div>
+  )
+}
+
+function SearchResults({ query, results, open }) {
+  return (
+    <div className="view">
+      <h1>Search</h1>
+      <p className="muted lead">{results.length} {results.length === 1 ? 'result' : 'results'} for “{query.trim()}”</p>
+      {results.length === 0
+        ? <div className="stubbox">No SOP matches that. Try another word, like “bonus”, “otp”, or “vpn”.</div>
+        : <div className="list">
+            {results.map(item => (
+              <button key={(item.id || item.title)} className="row" onClick={() => open(item)}>
+                <span className={'mk ' + (item.status === 'restricted' ? 'restricted' : '')} />
+                <span className="rmain"><b>{item.title}</b><small>{item.domain || item.section}</small></span>
+                {item.real ? <span className="chip ver">V1.0</span> : item.status && <span className={'chip ' + item.status}>{item.status}</span>}
+              </button>
+            ))}
+          </div>}
     </div>
   )
 }

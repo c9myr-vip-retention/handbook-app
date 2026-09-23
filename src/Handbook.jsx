@@ -1,13 +1,11 @@
 import { useEffect, useMemo, useState } from 'react'
-import { NAV, PAGES, KEYWORDS } from './content/handbook.js'
 
 const STATUS_LABEL = { pending: 'Coming soon', planned: 'Not written yet', external: 'Lark doc', restricted: 'Admins only' }
 
-// Flatten every nav leaf into a searchable list, once.
-function bodyText(id) {
-  const p = PAGES[id]
-  if (!p) return ''
-  return p.blocks.map(b => {
+// Flatten every nav leaf into a searchable list, once per content load.
+function bodyText(page) {
+  if (!page) return ''
+  return page.blocks.map(b => {
     if (b.t === 'p' || b.t === 'h2') return b.x
     if (b.t === 'callout') return (b.title || '') + ' ' + (b.x || '')
     if (b.t === 'steps') return b.x.join(' ')
@@ -15,29 +13,27 @@ function bodyText(id) {
     return ''
   }).join(' ')
 }
-function buildIndex() {
+function buildIndex(nav, pages) {
   const out = []
-  for (const sec of NAV) {
+  const mk = (it, section, domain) => {
+    const page = it.id && pages[it.id]
+    const text = [it.title, section, domain, it.keywords || '', bodyText(page)].join(' ').toLowerCase()
+    return { title: it.title, section, domain, id: it.id, status: it.status, real: !!page, text }
+  }
+  for (const sec of nav) {
     if (sec.domains) {
-      for (const d of sec.domains) for (const it of d.items) out.push(mkLeaf(it, 'SOP Book', d.name))
+      for (const d of sec.domains) for (const it of d.items) out.push(mk(it, 'SOP Book', d.name))
     } else {
-      for (const it of sec.items) out.push(mkLeaf(it, sec.name, ''))
+      for (const it of sec.items) out.push(mk(it, sec.name, ''))
     }
   }
   return out
 }
-function mkLeaf(it, section, domain) {
-  const real = !!it.id && !!PAGES[it.id]
-  const text = [it.title, section, domain, KEYWORDS[it.title] || '', real ? bodyText(it.id) : '']
-    .join(' ').toLowerCase()
-  return { title: it.title, section, domain, id: it.id, status: it.status, real, text }
-}
-const INDEX = buildIndex()
 
-function search(q) {
+function search(index, q) {
   const terms = q.toLowerCase().split(/\s+/).filter(Boolean)
   if (!terms.length) return []
-  return INDEX
+  return index
     .map(item => {
       let score = 0
       for (const t of terms) {
@@ -52,7 +48,9 @@ function search(q) {
     .map(r => r.item)
 }
 
-export default function Handbook({ profile, onSignOut, preview }) {
+export default function Handbook({ content, profile, onSignOut, preview, notice }) {
+  const { nav: NAV, pages: PAGES } = content
+  const INDEX = useMemo(() => buildIndex(NAV, PAGES), [NAV, PAGES])
   const [route, setRoute] = useState({ kind: 'home' })
   const [navOpen, setNavOpen] = useState(false)
   const [openSecs, setOpenSecs] = useState(() => ({ start: true }))
@@ -65,7 +63,7 @@ export default function Handbook({ profile, onSignOut, preview }) {
     setQuery('')
     go(item.real ? { kind: 'page', key: item.id } : { kind: 'stub', title: item.title, status: item.status })
   }
-  const results = useMemo(() => search(query.trim()), [query])
+  const results = useMemo(() => search(INDEX, query.trim()), [INDEX, query])
   const toggleTheme = () => {
     const cur = document.documentElement.getAttribute('data-theme')
     const dark = cur ? cur === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches
@@ -99,7 +97,7 @@ export default function Handbook({ profile, onSignOut, preview }) {
                       <button key={d.name} className={'navitem' + (route.kind === 'domain' && route.key === d.name ? ' active' : '')} onClick={() => go({ kind: 'domain', key: d.name })}>{d.name}</button>
                     ))
                   : sec.items.map(it => (
-                      <NavLeaf key={it.title} it={it} route={route} go={go} />
+                      <NavLeaf key={it.id || it.title} it={it} route={route} go={go} pages={PAGES} />
                     ))}
               </div>
             </div>
@@ -130,9 +128,9 @@ export default function Handbook({ profile, onSignOut, preview }) {
           {query.trim()
             ? <SearchResults query={query} results={results} open={openLeaf} />
             : <>
-                {route.kind === 'home' && <Home go={go} />}
-                {route.kind === 'domain' && <DomainList name={route.key} go={go} />}
-                {route.kind === 'page' && <Page id={route.key} />}
+                {route.kind === 'home' && <Home go={go} nav={NAV} pages={PAGES} notice={notice} />}
+                {route.kind === 'domain' && <DomainList name={route.key} go={go} nav={NAV} pages={PAGES} />}
+                {route.kind === 'page' && <Page id={route.key} pages={PAGES} />}
                 {route.kind === 'stub' && <Stub title={route.title} status={route.status} />}
               </>}
         </div>
@@ -141,7 +139,7 @@ export default function Handbook({ profile, onSignOut, preview }) {
   )
 }
 
-function NavLeaf({ it, route, go }) {
+function NavLeaf({ it, route, go, pages: PAGES }) {
   const real = !!it.id && !!PAGES[it.id]
   const onClick = () => real ? go({ kind: 'page', key: it.id }) : go({ kind: 'stub', title: it.title, status: it.status })
   const active = real && route.kind === 'page' && route.key === it.id
@@ -153,10 +151,13 @@ function NavLeaf({ it, route, go }) {
   )
 }
 
-function Home({ go }) {
+function Home({ go, nav: NAV, pages: PAGES, notice }) {
+  const leafRoute = (it) => it.id && PAGES[it.id] ? { kind: 'page', key: it.id } : { kind: 'stub', title: it.title, status: it.status }
+  const recent = [['culture', 'Start Here'], ['grace', 'SOP Book · Money Control'], ['pnl', 'SOP Book · Engagement']]
+    .filter(([id]) => PAGES[id])
   return (
     <div className="view">
-      <div className="banner">Prototype. Culture and a few SOPs are real; the rest arrive when content is imported.</div>
+      {notice && <div className="banner">{notice}</div>}
       <h1>The C9MYR Handbook</h1>
       <p className="muted lead">Every SOP, policy and playbook in one place. Always the current version.</p>
       <div className="cards">
@@ -170,21 +171,21 @@ function Home({ go }) {
           )
         })}
       </div>
-      <div className="sectitle"><h2>Recently updated</h2><span className="line" /></div>
-      <div className="list">
-        <Row title="Culture & Conduct" sub="Start Here" meta="Updated 17 Sep" onClick={() => go({ kind: 'page', key: 'culture' })} />
-        <Row title="Grace Period List" sub="SOP Book · Money Control" meta="Updated 13 May" onClick={() => go({ kind: 'page', key: 'grace' })} />
-        <Row title="Top PNL" sub="SOP Book · Engagement" meta="Updated 13 May" onClick={() => go({ kind: 'page', key: 'pnl' })} />
-      </div>
+      {recent.length > 0 && <>
+        <div className="sectitle"><h2>Recently updated</h2><span className="line" /></div>
+        <div className="list">
+          {recent.map(([id, sub]) => (
+            <Row key={id} title={PAGES[id].title} sub={sub}
+              meta={(PAGES[id].meta || []).find(m => m.startsWith('Updated'))}
+              onClick={() => go({ kind: 'page', key: id })} />
+          ))}
+        </div>
+      </>}
     </div>
   )
 }
 
-function leafRoute(it) {
-  return it.id && PAGES[it.id] ? { kind: 'page', key: it.id } : { kind: 'stub', title: it.title, status: it.status }
-}
-
-function DomainList({ name, go }) {
+function DomainList({ name, go, nav: NAV, pages: PAGES }) {
   const domain = NAV.find(s => s.domains)?.domains.find(d => d.name === name)
   const items = domain?.items || []
   return (
@@ -196,7 +197,7 @@ function DomainList({ name, go }) {
         {items.map(it => {
           const real = !!it.id && !!PAGES[it.id]
           return (
-            <Row key={it.title} title={it.title}
+            <Row key={it.id || it.title} title={it.title}
               meta={real ? 'Open' : STATUS_LABEL[it.status] || ''}
               chip={real ? 'ver' : it.status}
               onClick={() => real ? go({ kind: 'page', key: it.id }) : go({ kind: 'stub', title: it.title, status: it.status })} />
@@ -218,7 +219,7 @@ function Row({ title, sub, meta, chip, onClick }) {
   )
 }
 
-function Page({ id }) {
+function Page({ id, pages: PAGES }) {
   const p = PAGES[id]
   if (!p) return <Stub title={id} />
   return (

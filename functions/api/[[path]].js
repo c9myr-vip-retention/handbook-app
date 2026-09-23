@@ -29,8 +29,8 @@ export async function onRequest(context) {
     if (parts[0] === 'sops') {
       if (request.method === 'GET' && !parts[1]) {
         const stmt = isAdmin
-          ? env.DB.prepare('select * from sops order by section, domain, title')
-          : env.DB.prepare('select * from sops where restricted = 0 order by section, domain, title')
+          ? env.DB.prepare('select * from sops order by sort, title')
+          : env.DB.prepare('select * from sops where restricted = 0 order by sort, title')
         const { results } = await stmt.all()
         return json(results.map(deserialize))
       }
@@ -102,6 +102,6 @@ async function ensureProfile(env, email) {
 }
 
 function deserialize(row) {
-  return { ...row, body: safeJson(row.body), restricted: !!row.restricted }
+  return { ...row, body: safeJson(row.body), meta: safeJson(row.meta), restricted: !!row.restricted }
 }
 function safeJson(s) { try { return s ? JSON.parse(s) : null } catch { return null } }

@@ -26,6 +26,8 @@ create table if not exists sops (
   restricted integer not null default 0,   -- 1 = admins only
   status     text not null default 'live',  -- live | planned | external
   keywords   text,                 -- space-separated search synonyms
+  meta       text,                 -- JSON string: header chips, e.g. ["V1.0","Day Shift","Updated 13 May 2026"]
+  sort       integer,              -- nav order (lower first); null sorts last
   updated_by text,
   updated_at text not null default (datetime('now')),
   created_at text not null default (datetime('now'))
@@ -44,3 +46,7 @@ create table if not exists sop_versions (
 
 -- After you sign in once through Access, make yourself admin:
 --   update profiles set role = 'admin', approved = 1 where email = 'aldok.ma@orionesofttech.com';
+
+-- Migration for databases created before meta/sort existed (run once):
+--   alter table sops add column meta text;
+--   alter table sops add column sort integer;

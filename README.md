@@ -39,6 +39,16 @@ Staff handbook app for the C9MYR VIP Retention department. Readers browse SOPs, 
    update profiles set role = 'admin', approved = 1 where email = 'aldok.ma@orionesofttech.com';
    ```
 
+## Updating content
+SOP text lives in `personal-assistant/projects/sop-book/*.md` (house format). To publish a change:
+
+```
+npm run sync -- --dry   # show what would change, push nothing
+npm run sync            # convert, push changed rows to live D1, verify
+```
+
+The sync converts the markdown (`db/import-md.mjs`), compares every row with live D1, upserts only the rows that changed, then checks all rows match. It never touches profiles or edit history. Commit the regenerated `db/content/*.json` afterwards. To add a new SOP, map its id to its file in `MAP` inside `db/import-md.mjs`.
+
 ## Local development
 - `npm run dev` runs the front end only. With no Access in front, `/api/me` returns no email and the app shows the reader UI in preview mode.
 - `npm run pages:dev` runs Pages + Functions + D1 locally to exercise the API.

@@ -1,13 +1,13 @@
 {
  "id": "birthday-bonus",
  "source": "22_Birthday_Bonus.md",
- "version": "V1.1",
+ "version": "V1.2",
  "meta": [
   "C9MYR-RTN-SOP-BD01",
-  "V1.1",
+  "V1.2",
   "Bonus / Engagement",
   "Owner: VIP RTN / ATL",
-  "Updated 7 Sep 2026"
+  "Updated 24 Sep 2026"
  ],
  "body": [
   {
@@ -256,22 +256,20 @@
   },
   {
    "t": "p",
-   "x": "Source examples (as provided):"
+   "x": "Examples (floor and \"never above calculated\" applied; ATL-confirmed 24 Sep 2026):"
   },
   {
    "t": "list",
    "x": [
-    "Tier 3, deposit 10,000: 0.1% = RM 10, final RM 18.",
-    "Tier 3, deposit 100,000: 0.1% = RM 100, final RM 108.",
-    "Tier V, deposit 10,000: 0.1% = RM 10, final RM 38.",
-    "Tier V, deposit 200,000: 0.1% = RM 200, final RM 208."
+    "Tier 3, deposit 10,000: 0.1% = RM 10, below the RM 38 floor, final RM 38.",
+    "Tier 3, deposit 100,000: 0.1% = RM 100, final RM 98.",
+    "Tier V, deposit 10,000: 0.1% = RM 10, below the RM 68 floor, final RM 68.",
+    "Tier V, deposit 200,000: 0.1% = RM 200, final RM 198."
    ]
   },
   {
-   "t": "callout",
-   "tone": "warn",
-   "title": "Open item",
-   "x": "Source conflict, unresolved: the Tier 3 example (calculated RM 10, final RM 18) sits below the stated Floor of RM 38, and the final exceeds the calculated amount. Do not issue a deposit-base Tier 3 credit for a low deposit until the ATL confirms the floor and the low-deposit case."
+   "t": "p",
+   "x": "Note: the original source doc's examples (RM 18, RM 108, RM 38, RM 208) broke its own floor and cap rules. The ATL confirmed the table on 24 Sep 2026; the examples above replace them."
   },
   {
    "t": "h2",
@@ -314,7 +312,7 @@
    "x": [
     "Any screening Yes means skip the player.",
     "High-value cases (Total Deposit >= RM 100,000) are never issued by CS directly.",
-    "The deposit-base Tier 3 low-deposit case is unresolved (Section 8 conflict flag); do not issue until the ATL confirms.",
+    "Deposit base: never below the Floor (Tier 3 RM 38, Tier V RM 68), never above the calculated amount except to reach the Floor, never above the Max.",
     "No stacking with any other reward; no guaranteed amount before the eligibility check."
    ]
   },
@@ -325,7 +323,7 @@
   {
    "t": "list",
    "x": [
-    "The floor/low-deposit conflict in Section 8 is still open; confirm with the ATL before relying on it.",
+    "Deposit-base floor rule confirmed by the ATL on 24 Sep 2026 (table wins over the original source examples).",
     "SW must be updated the same day before any SW-base sizing."
    ]
   }

@@ -1,0 +1,156 @@
+{
+ "id": "redeem-code-s0403",
+ "source": "20_Redeem_Code_S0403.md",
+ "version": "V1.1",
+ "meta": [
+  "C9MYR-RTN-SOP-002",
+  "V1.1",
+  "Technical / Account Support",
+  "Owner: VIP RTN",
+  "Updated 7 Sep 2026"
+ ],
+ "body": [
+  {
+   "t": "p",
+   "x": "**Applies to:** All VIP CS"
+  },
+  {
+   "t": "h2",
+   "x": "1. Objective"
+  },
+  {
+   "t": "p",
+   "x": "Standardise the verification sequence before a redeem code fault is escalated, so that only genuine system faults reach the Assistant Team Leader."
+  },
+  {
+   "t": "h2",
+   "x": "2. Scope"
+  },
+  {
+   "t": "p",
+   "x": "Applies when a player confirmed to be on the eligible list cannot redeem their assigned code and gets an \"Expired\" or \"Invalid\" (S0403) response."
+  },
+  {
+   "t": "h2",
+   "x": "3. Golden Rules"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Complete all verification steps before escalating. The ATL step is for confirmed faults only.",
+    "Do not conclude a code is expired from the error alone; verify eligibility, the assigned code, status and claim first.",
+    "Escalate only when all four escalation criteria are confirmed."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "4. Procedure: Verification (Action / Sequence / Degree / Tool)"
+  },
+  {
+   "t": "table",
+   "head": [
+    "#",
+    "Action",
+    "Sequence (when)",
+    "Degree / standard",
+    "Tool"
+   ],
+   "rows": [
+    [
+     "1",
+     "Check the Redeem Code File",
+     "Task start",
+     "Open it in the Customer Approaching File, search the member's Username or UID",
+     "Customer Approaching File"
+    ],
+    [
+     "2",
+     "Verify customer information",
+     "After locating the record",
+     "UID correct, correct customer account, correct brand",
+     "Customer Approaching File / BO"
+    ],
+    [
+     "3",
+     "Verify the redeem code",
+     "After customer info",
+     "The code the customer entered matches the code assigned in the system",
+     "Customer Approaching File"
+    ],
+    [
+     "4",
+     "Check the Status field",
+     "After code check",
+     "Claimed: already claimed. Expired: check whether it has actually expired",
+     "Customer Approaching File"
+    ],
+    [
+     "5",
+     "Check in BO",
+     "Before any escalation",
+     "Event > Redeem Code > Redeem Code Payout; enter the code; status \"approved\" means the member already claimed it",
+     "BO"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "5. Escalation Criteria"
+  },
+  {
+   "t": "p",
+   "x": "Escalate to the ATL only when ALL of these are confirmed:"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Customer is eligible",
+    "Correct redeem code",
+    "Code is not claimed",
+    "System still shows S0403 / Invalid or Expired"
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "6. Escalation Template"
+  },
+  {
+   "t": "p",
+   "x": "Provide all of the following to the ATL:"
+  },
+  {
+   "t": "code",
+   "x": "UID: [uid]\nBrand: [brand]\nRedeem Code: [code entered]\nError: Invalid or Expired\nCode assigned in system: [assigned code]\nIssue: Customer is eligible and entered the assigned code, but the system\nstill returns an Invalid/Expired (S0403) error. Please assist to verify."
+  },
+  {
+   "t": "h2",
+   "x": "7. Expected Outcome"
+  },
+  {
+   "t": "p",
+   "x": "Most cases resolve at the CS step (wrong code, not eligible, or already claimed). Only a genuine S0403 fault, with everything else confirmed correct, reaches the ATL."
+  },
+  {
+   "t": "h2",
+   "x": "8. Guards"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Complete all five verification steps before escalating.",
+    "Do not escalate on the error message alone; confirm eligibility, assigned code, status and claim first."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "9. Remarks"
+  },
+  {
+   "t": "list",
+   "x": [
+    "The ATL step is for confirmed faults only.",
+    "Most S0403 reports resolve at the CS verification step."
+   ]
+  }
+ ]
+}

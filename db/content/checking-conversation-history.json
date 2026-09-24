@@ -1,0 +1,150 @@
+{
+ "id": "checking-conversation-history",
+ "source": "21_Checking_Conversation_History_VVIP.md",
+ "version": "V1.1",
+ "meta": [
+  "C9MYR-RTN-SOP-001",
+  "V1.1",
+  "Service Standard",
+  "Owner: VIP RTN",
+  "Updated 7 Sep 2026"
+ ],
+ "body": [
+  {
+   "t": "p",
+   "x": "**Applies to:** All PIC / Agent handling VVIP players"
+  },
+  {
+   "t": "h2",
+   "x": "1. Objective"
+  },
+  {
+   "t": "p",
+   "x": "Deliver a personalised VVIP experience by requiring every CS staff member to review the player's previous conversation history before engaging, across both LiveChat and Telegram."
+  },
+  {
+   "t": "h2",
+   "x": "2. Scope"
+  },
+  {
+   "t": "p",
+   "x": "Applies to all inbound and outbound VVIP contact, on every brand, in both directions of channel crossover."
+  },
+  {
+   "t": "h2",
+   "x": "3. Golden Rules"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Before replying to any VVIP player, review the Last Telegram Chat Link or Last LiveChat Link to understand the player's history.",
+    "Review both LiveChat and Telegram history whenever both are available.",
+    "Never ask a player to repeat information they already provided."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "4. Channel Crossover"
+  },
+  {
+   "t": "p",
+   "x": "The key is channel crossover: a player rarely stays on one channel. Before replying, check the other channel too, so you have the full history."
+  },
+  {
+   "t": "p",
+   "x": "**Scenario 1: Player arrives from LiveChat.** Before replying, open the player's Last Telegram Chat Link and review their Telegram history as well, so nothing they raised on Telegram is missed."
+  },
+  {
+   "t": "p",
+   "x": "**Scenario 2: Player arrives from Telegram.** Before replying, open the player's Last LiveChat Link and review their LiveChat history as well, so nothing they raised on LiveChat is missed."
+  },
+  {
+   "t": "callout",
+   "tone": "info",
+   "x": "The source doc illustrates each scenario with a screenshot guide showing where the Last Telegram Chat Link and Last LiveChat Link sit. Follow the on-screen guide for the exact click path."
+  },
+  {
+   "t": "h2",
+   "x": "5. Procedure (Action / Sequence / Degree / Tool)"
+  },
+  {
+   "t": "table",
+   "head": [
+    "#",
+    "Action",
+    "Sequence (when)",
+    "Degree / standard",
+    "Tool"
+   ],
+   "rows": [
+    [
+     "1",
+     "Identify the arrival channel",
+     "On contact",
+     "LiveChat or Telegram",
+     "Customer Approaching System"
+    ],
+    [
+     "2",
+     "Open the player's other-channel history before replying",
+     "Before the first reply",
+     "LiveChat arrival: open Last Telegram Chat Link. Telegram arrival: open Last LiveChat Link",
+     "LiveChat / Telegram"
+    ],
+    [
+     "3",
+     "Review the full history",
+     "Before replying",
+     "Note unresolved issues and pending requests; never ask the player to repeat",
+     "Both channels"
+    ],
+    [
+     "4",
+     "Update the player record after the interaction",
+     "After handling",
+     "Record the outcome and any follow-ups",
+     "Customer Approaching System"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "6. CS Responsibilities"
+  },
+  {
+   "t": "steps",
+   "x": [
+    "Always check conversation history before contacting or replying to a player.",
+    "Review both LiveChat and Telegram history whenever both are available.",
+    "Never ask a player to repeat information already provided.",
+    "Follow up on unresolved issues and pending requests.",
+    "Update the player record after every interaction."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "7. Expected Outcome"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Better VVIP customer experience",
+    "Consistent communication across all channels",
+    "Reduced repetitive questioning",
+    "Faster issue resolution",
+    "Improved player satisfaction and retention"
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "8. Remarks"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Follow the on-screen guide for the exact click path to each channel's last-chat link.",
+    "The history check is required on every VVIP interaction, inbound or outbound."
+   ]
+  }
+ ]
+}

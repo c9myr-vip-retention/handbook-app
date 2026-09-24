@@ -1,0 +1,294 @@
+{
+ "id": "grace",
+ "source": "01_Grace_Period_List.md",
+ "version": "V1.1",
+ "meta": [
+  "C9MYR-RTN-SOP-D01",
+  "V1.1",
+  "Day Shift / VIP",
+  "Owner: VIP RTN",
+  "Updated 7 Sep 2026"
+ ],
+ "body": [
+  {
+   "t": "p",
+   "x": "**Applies to:** VIP CS, all brands"
+  },
+  {
+   "t": "h2",
+   "x": "1. Objective"
+  },
+  {
+   "t": "p",
+   "x": "Filter eligible Grace Period players and send targeted Internal Mail to drive re-engagement before the grace period expires."
+  },
+  {
+   "t": "h2",
+   "x": "2. Scope"
+  },
+  {
+   "t": "p",
+   "x": "Applies to the daily Grace Period send on Monday, Tuesday, Thursday and Friday, across all brands. Monday and Tuesday are primary sends; Thursday and Friday are follow-ups."
+  },
+  {
+   "t": "h2",
+   "x": "3. Golden Rules"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Match the send to the scheduled day: Mon/Tue primary, Thu/Fri follow-up. No Grace send on Wed/Sat/Sun.",
+    "SMS is sent by Retention Team Admin, not VIP CS. VIP CS prepares the list only.",
+    "Invalid players get IM + Push only. No SMS, no bonus mention.",
+    "A Grace bonus is issued only when SW x 20% reaches the minimum eligible tier, and SW is updated the same day before issuance.",
+    "Verify player status before sending; skip anyone who already deposited or changed tier."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "4. Sending Schedule"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Day",
+    "Action",
+    "Send Type",
+    "Notes"
+   ],
+   "rows": [
+    [
+     "Monday",
+     "Send Grace Period Player IM",
+     "Primary Send, List A",
+     "Grace Period Players (have NOT achieved monthly threshold). Pass eligible list to Admin for SMS."
+    ],
+    [
+     "Tuesday",
+     "Send Potential Player IM",
+     "Primary Send, List B",
+     "Potential Players (have achieved or exceeded monthly threshold). Pass eligible list to Admin for SMS."
+    ],
+    [
+     "Wednesday",
+     "No Grace Period IM required",
+     "-",
+     "Rest day for this task"
+    ],
+    [
+     "Thursday",
+     "Follow-Up, Monday List (List A)",
+     "Follow-Up Send",
+     "Follow up on Monday's list. Target: non-responders and non-converts."
+    ],
+    [
+     "Friday",
+     "Follow-Up, Tuesday List (List B)",
+     "Follow-Up Send",
+     "Follow up on Tuesday's list. Target: non-responders and non-converts."
+    ],
+    [
+     "Saturday",
+     "No Grace Period IM required",
+     "-",
+     "Rest day for this task"
+    ],
+    [
+     "Sunday",
+     "No Grace Period IM required",
+     "-",
+     "Rest day for this task"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "5. Eligibility: Valid vs Invalid"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Status",
+    "Definition",
+    "Action"
+   ],
+   "rows": [
+    [
+     "**Grace Period Player** (Mon + Thu)",
+     "Has NOT achieved the monthly deposit threshold, still within the grace window.",
+     "IM + Push. Pass eligible list to Admin for SMS. Goal: activate deposit."
+    ],
+    [
+     "**Potential Player** (Tue + Fri)",
+     "HAS achieved or exceeded the monthly threshold.",
+     "IM + Push. Pass eligible list to Admin for SMS. Goal: maintain engagement and loyalty."
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "6. Procedure (Action / Sequence / Degree / Tool)"
+  },
+  {
+   "t": "table",
+   "head": [
+    "#",
+    "Action",
+    "Sequence (when)",
+    "Degree / standard",
+    "Tool"
+   ],
+   "rows": [
+    [
+     "1",
+     "Receive the Grace Period database from Retention Team (Admin)",
+     "Task start, on a scheduled send day (Mon/Tue/Thu/Fri)",
+     "Via Team Engagement File > Handover Tab; Admin provides the daily data, VIP CS extracts",
+     "Team Engagement File"
+    ],
+    [
+     "2",
+     "Copy the database, paste into Customer Approaching Lark Base > Grace Period (Day)",
+     "After receiving",
+     "Paste values only, to protect formulas",
+     "Lark Base"
+    ],
+    [
+     "3",
+     "Apply filters to separate Valid and Invalid by brand and status",
+     "After paste",
+     "Per Section 5 (Grace Period Player vs Potential Player)",
+     "Lark Base"
+    ],
+    [
+     "4",
+     "Move filtered data to the Engagement Tab under the Grace Period column",
+     "After filtering",
+     "Each player under the correct brand column",
+     "Lark Base"
+    ],
+    [
+     "5",
+     "VALID players: pass username list to Admin for SMS; send IM + Push",
+     "On send",
+     "SMS is Admin-side, not VIP CS",
+     "Lark / BO"
+    ],
+    [
+     "6",
+     "INVALID players: send IM + Push only",
+     "On send",
+     "No SMS, no bonus mention; engagement only",
+     "Lark / BO"
+    ],
+    [
+     "7",
+     "Update the QA Record",
+     "After all IM sent",
+     "Attach a BO screenshot as proof",
+     "Lark Base"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "7. Bonus Logic: Grace Period Deposit Challenge"
+  },
+  {
+   "t": "p",
+   "x": "**Activation rule:** a bonus may only be issued when 20% of the customer's Secret Wallet (SW x 20%) reaches the minimum eligible threshold. Match that figure to the highest eligible tier. SW must be updated the same day before issuance."
+  },
+  {
+   "t": "table",
+   "head": [
+    "Tier",
+    "Deposit",
+    "Free Bonus",
+    "SW Cap"
+   ],
+   "rows": [
+    [
+     "T3",
+     "RM 100",
+     "RM 18",
+     "SW x 20%"
+    ],
+    [
+     "T3",
+     "RM 200",
+     "RM 28",
+     "SW x 20%"
+    ],
+    [
+     "T3",
+     "RM 300",
+     "RM 38",
+     "SW x 20%"
+    ],
+    [
+     "T3",
+     "RM 500",
+     "RM 58",
+     "SW x 20% (T3 cap)"
+    ],
+    [
+     "TV",
+     "RM 600",
+     "RM 68",
+     "SW x 20%"
+    ],
+    [
+     "TV",
+     "RM 700",
+     "RM 78",
+     "SW x 20%"
+    ],
+    [
+     "TV",
+     "RM 800",
+     "RM 88",
+     "SW x 20%"
+    ],
+    [
+     "TV",
+     "RM 900",
+     "RM 98",
+     "SW x 20%"
+    ],
+    [
+     "TV",
+     "RM 1,000",
+     "RM 108",
+     "SW x 20% (TV cap)"
+    ]
+   ]
+  },
+  {
+   "t": "p",
+   "x": "Withdrawable after 1x turnover. Offer applies to next-day deposits only, has a validity period, and starts when the customer confirms. Tag `Grace Active` when engaged, `Grace Converted` when deposited and claimed. Claim via Lark ticket, query `VVIP Grace Period`."
+  },
+  {
+   "t": "h2",
+   "x": "8. Guards"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Empty list on a scheduled day: record it in the QA Record and inform the ATL. Never skip silently.",
+    "Never issue a Grace bonus above the SW x 20% cap.",
+    "Do not send to players who already deposited or whose tier changed."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "9. Remarks"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Eligible (Valid) enters segmentation and can claim the Deposit Challenge; Invalid gets IM + Push only.",
+    "SW must be refreshed the same day before any sizing; a stale SW is not a valid base."
+   ]
+  }
+ ]
+}

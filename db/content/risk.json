@@ -1,0 +1,249 @@
+{
+ "id": "risk",
+ "source": "05_Risk_Push.md",
+ "version": "V1.1",
+ "meta": [
+  "C9MYR-RTN-SOP-D04",
+  "V1.1",
+  "Day Shift / Communication",
+  "Owner: VIP RTN",
+  "Updated 7 Sep 2026"
+ ],
+ "body": [
+  {
+   "t": "p",
+   "x": "**Applies to:** VIP CS, all brands"
+  },
+  {
+   "t": "h2",
+   "x": "1. Objective"
+  },
+  {
+   "t": "p",
+   "x": "Send tier-graduated Push Notifications and Internal Messages to inactive players, to re-engage them before the risk level escalates."
+  },
+  {
+   "t": "h2",
+   "x": "2. Scope"
+  },
+  {
+   "t": "p",
+   "x": "Applies to inactive players by days-since-last-deposit tier (1D, 3D, 7D, 14D, 30D), on both TC and Zyra platforms. This SOP owns the risk-tier segmentation and messaging. The send mechanics are the shared ones in the Push Notification SOP (34)."
+  },
+  {
+   "t": "h2",
+   "x": "3. Golden Rules"
+  },
+  {
+   "t": "list",
+   "x": [
+    "TC uploads as `.txt`, Zyra uploads as `.csv` from the BO. Wrong format fails the upload.",
+    "1D is Push only (soft reminder, no urgency, no SMS, no IM). 3D and above add SMS + Internal Message.",
+    "Player must be inactive AND not already have claimed a similar bonus this cycle.",
+    "State clearly: the offer applies to the next deposit, has a validity period, and needs 1x turnover.",
+    "SMS is sent by Retention Team Admin; VIP CS prepares the list only.",
+    "RG / chase flag beats every push. Flagged players route to welfare, no push."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "4. Risk Segmentation and Messaging Tiers"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Tier",
+    "Channels",
+    "Strategy"
+   ],
+   "rows": [
+    [
+     "1D, Soft Reminder",
+     "Push only",
+     "Light reminder, no urgency, no SMS, no IM"
+    ],
+    [
+     "3D, Soft Emotional Pull",
+     "SMS + Internal Message",
+     "Emotional, personal appeal"
+    ],
+    [
+     "7D, Strong Incentive",
+     "SMS + Internal Message",
+     "Reload bonus %, 1x turnover, limited time"
+    ],
+    [
+     "14D, Strong Incentive",
+     "SMS + Internal Message",
+     "As 7D, higher bonus at TL discretion"
+    ],
+    [
+     "30D, Strong Incentive",
+     "SMS + Internal Message",
+     "As 7D, highest-tier reactivation push"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "5. Bonus Logic"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Eligibility: player must be inactive AND not already claimed a similar bonus this cycle.",
+    "**TC BO:** bonus is auto / system-triggered; player claims directly in the app or website.",
+    "**Zyra BO:** bonus is manual; player contacts Live Chat, VIP CS states the offer, applies to next deposit. If already deposited, credit manually via Lark ticket.",
+    "Communication control: state clearly the bonus applies to the next deposit, has a validity period, and needs 1x turnover.",
+    "Tag `Risk 1D / 3D / 7D / 14D / 30D`, then `Reactivated` on deposit.",
+    "Record contact time, response, and conversion."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "6. Procedure: TC Gaming Platform (Action / Sequence / Degree / Tool)"
+  },
+  {
+   "t": "table",
+   "head": [
+    "#",
+    "Action",
+    "Sequence (when)",
+    "Degree / standard",
+    "Tool"
+   ],
+   "rows": [
+    [
+     "1",
+     "Open Team Engagement File, correct brand's Risk Players column for the tier being sent (e.g. 1D)",
+     "Task start",
+     "Correct brand tab",
+     "Team Engagement File"
+    ],
+    [
+     "2",
+     "Copy the Risk Player database, save as `.txt`",
+     "After locating",
+     "TC requires `.txt`",
+     "Team Engagement File"
+    ],
+    [
+     "3",
+     "Get Push subject and content from Template Tab > Risk Player",
+     "Before send",
+     "Do not modify without TL approval",
+     "Team Engagement File"
+    ],
+    [
+     "4",
+     "Go to Interact Management > Mail > Push Notification > Send Notification",
+     "Ready to send",
+     "Correct BO path",
+     "TC Gaming BO"
+    ],
+    [
+     "5",
+     "Select Specific User > Firebase App Messaging, upload the `.txt`",
+     "On send",
+     "Verify file format",
+     "TC Gaming BO"
+    ],
+    [
+     "6",
+     "Input subject and content, click OK",
+     "On send",
+     "Double-check all fields",
+     "TC Gaming BO"
+    ],
+    [
+     "7",
+     "Update the QA Record",
+     "After send",
+     "Attach a BO screenshot",
+     "Lark Base"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "7. Procedure: Zyra Platform (Action / Sequence / Degree / Tool)"
+  },
+  {
+   "t": "table",
+   "head": [
+    "#",
+    "Action",
+    "Sequence (when)",
+    "Degree / standard",
+    "Tool"
+   ],
+   "rows": [
+    [
+     "1",
+     "Open Team Engagement File, correct brand's Risk Players column for the tier being sent (e.g. 1D)",
+     "Task start",
+     "Correct brand tab",
+     "Team Engagement File"
+    ],
+    [
+     "2",
+     "Copy the database, export as `.csv` from the BO",
+     "After locating",
+     "Zyra requires `.csv`, not `.txt`",
+     "Zyra BO"
+    ],
+    [
+     "3",
+     "Get Push subject and content from Template Tab > Risk Player",
+     "Before send",
+     "Approved copy only",
+     "Team Engagement File"
+    ],
+    [
+     "4",
+     "Go to Notification > Push Notification > Add Push Notification",
+     "Ready to send",
+     "Correct BO path",
+     "Zyra BO"
+    ],
+    [
+     "5",
+     "Target Type: User; upload `.csv`, input subject and content, click Create",
+     "On send",
+     "Verify the correct player group",
+     "Zyra BO"
+    ],
+    [
+     "6",
+     "Update the QA Record",
+     "After send",
+     "Attach a BO screenshot",
+     "Lark Base"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "8. Guards"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Wrong file format fails the upload: verify TC `.txt` / Zyra `.csv` every time.",
+    "If the Risk Player list is empty, record it in the QA Record and inform the ATL.",
+    "RG / chase flag: no push at all, route to welfare."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "9. Remarks"
+  },
+  {
+   "t": "list",
+   "x": [
+    "For 3D, 7D, 14D, 30D tiers, SMS is also sent. SMS is handled by Retention Team Admin; VIP CS prepares the list only.",
+    "Send mechanics match the Push Notification SOP (34); this SOP owns the risk-tier logic."
+   ]
+  }
+ ]
+}

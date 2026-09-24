@@ -32,6 +32,16 @@ export const MAP = {
   'kpi-scoring': '24_KPI_Scoring.md',
   'attendance-pre-shift': '16_Attendance_Pre_Shift_Setup.md',
   'incognito-browsing': '38_Incognito_Browsing.md',
+  // Full v1.1 versions replace the short hand-written summaries.
+  grace: '01_Grace_Period_List.md',
+  ltv: '03_LTV_List.md',
+  risk: '05_Risk_Push.md',
+  pnl: '07_Top_PNL.md',
+  // Formerly Lark-only.
+  'birthday-bonus': '22_Birthday_Bonus.md',
+  'zyra-forgot-password': '19_ZYRA_Forgot_Password.md',
+  'redeem-code-s0403': '20_Redeem_Code_S0403.md',
+  'checking-conversation-history': '21_Checking_Conversation_History_VVIP.md',
 }
 
 const MONTHS = { january: 'Jan', february: 'Feb', march: 'Mar', april: 'Apr', may: 'May', june: 'Jun', july: 'Jul', august: 'Aug', september: 'Sep', october: 'Oct', november: 'Nov', december: 'Dec' }
@@ -128,7 +138,11 @@ export function convert(md) {
     if (line.startsWith('> ')) {
       const text = []
       while (i < lines.length && lines[i].startsWith('>')) text.push(lines[i++].replace(/^>\s?/, ''))
-      blocks.push({ t: 'callout', tone: 'info', x: text.join(' ') })
+      const x = text.join(' ')
+      // A quote flagging an unsettled item must not read as a neutral note.
+      blocks.push(/unresolved|conflict|confirm with|confirm the/i.test(x)
+        ? { t: 'callout', tone: 'warn', title: 'Open item', x }
+        : { t: 'callout', tone: 'info', x })
       continue
     }
     withPending(line.trim(), blocks, (x) => blocks.push({ t: 'p', x }))

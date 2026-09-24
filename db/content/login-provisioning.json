@@ -1,0 +1,160 @@
+{
+ "id": "login-provisioning",
+ "source": "36_Login_Provisioning.md",
+ "version": "V1.0",
+ "meta": [
+  "C9MYR-RTN-SOP-O02",
+  "V1.0",
+  "Operation / Access",
+  "Owner: ATL",
+  "Updated 7 Sep 2026"
+ ],
+ "body": [
+  {
+   "t": "p",
+   "x": "**Applies to:** ATL (requests, tracks); IT / holding PIC (creates, revokes); VIP CS (receives)"
+  },
+  {
+   "t": "h2",
+   "x": "1. Objective"
+  },
+  {
+   "t": "p",
+   "x": "Give one controlled path to provision, hold and revoke a VIP CS's brand Back Office (BO) login, so a CS has exactly the access their assignment needs, no more, and access is cut cleanly when they leave or move off a brand. Covers brand BO logins department-wide."
+  },
+  {
+   "t": "h2",
+   "x": "2. Scope"
+  },
+  {
+   "t": "p",
+   "x": "Brand BO logins across the department, provisioned per assignment. This SOP owns the department side: raising the request, tracking who holds what, verifying access, and confirming revocation. IT (the holding PIC in the Data Analyze Department) executes the actual create and revoke. Does not cover shift login to Discord / LiveChat (see Channel Login SOP), nor the groupb-tracker console admin account (separate console concern, own repo)."
+  },
+  {
+   "t": "h2",
+   "x": "3. Golden Rules"
+  },
+  {
+   "t": "list",
+   "x": [
+    "**BO logins are created and revoked by IT / the holding PIC only.** VIP CS and ATL never self-create a BO login.",
+    "**Provision per assignment, batch by batch.** A CS holds logins only for the brands they are assigned, never all brands by default.",
+    "**Credentials never live in this repo or any synced cloud storage.** Role titles only in any written record; never write a live credential into a deliverable.",
+    "**Access is cut the same day** a CS leaves or is reassigned off a brand."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "4. Roles"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Role",
+    "Responsibility"
+   ],
+   "rows": [
+    [
+     "IT / holding PIC (Data Analyze Dept)",
+     "Creates the BO login per assigned brand; cuts the BO connection on exit or reassignment"
+    ],
+    [
+     "ATL",
+     "Raises the provisioning request per assignment / batch; keeps the current map of which CS holds which brand; confirms revocation done"
+    ],
+    [
+     "VIP CS",
+     "Receives and uses the login; verifies access; reports issues; never shares the credential"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "5. Procedure (Action / Sequence / Degree / Tool)"
+  },
+  {
+   "t": "table",
+   "head": [
+    "#",
+    "Action",
+    "Sequence (when)",
+    "Degree / standard",
+    "Tool"
+   ],
+   "rows": [
+    [
+     "1",
+     "Raise the provisioning request",
+     "On new hire or new brand assignment",
+     "ATL lists the CS (role title) and the exact brands for this batch; assigned brands only, not all by default",
+     "Lark request to IT"
+    ],
+    [
+     "2",
+     "IT creates the BO login",
+     "After the request",
+     "IT / holding PIC creates the login per assigned brand; scope limited to those brands",
+     "Brand BO"
+    ],
+    [
+     "3",
+     "Issue the login to the CS",
+     "After creation",
+     "Delivered securely to the CS; credential never posted in the repo or synced cloud. [OPEN: exact handover channel not documented]",
+     "[OPEN]"
+    ],
+    [
+     "4",
+     "CS verifies access",
+     "First shift on the assignment",
+     "CS logs into each assigned BO; reports any failure to ATL / IT at once",
+     "Brand BO"
+    ],
+    [
+     "5",
+     "Track the holding",
+     "Ongoing",
+     "ATL keeps a current CS-to-brand access map, updated on every change. [OPEN: where the login directory lives]",
+     "Login directory [OPEN]"
+    ],
+    [
+     "6",
+     "Revoke on exit or reassignment",
+     "Same day as the leaver / reassignment",
+     "IT or the PIC cuts the BO connection; ATL confirms the revocation is done",
+     "Brand BO"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "6. Guards"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Never provision all brands by default; assigned brands only.",
+    "Access cut same-day on exit or reassignment; a lingering login is an open security hole.",
+    "No credential in the repo or in synced cloud, ever.",
+    "VIP CS and ATL do not create BO logins themselves."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "7. Remarks"
+  },
+  {
+   "t": "list",
+   "x": [
+    "**Risk: passwords are static.** No rotation to date. A static BO password with no rotation is a standing access risk, and worse after any leaver who held it. Recommend agreeing a rotation trigger with IT, at minimum rotate on every leaver who held that login.",
+    "Feeds the New Agent Onboarding SOP (pre-arrival setup depends on this SOP)."
+   ]
+  },
+  {
+   "t": "callout",
+   "tone": "warn",
+   "title": "Open item",
+   "x": "**OPEN: login storage and handover.** Where the login directory lives, and how a login is handed to the CS, is not currently held at ATL level. Confirm with IT / the holding PIC and fill steps 3 and 5."
+  }
+ ]
+}

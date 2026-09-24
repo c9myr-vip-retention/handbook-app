@@ -1,0 +1,138 @@
+{
+ "id": "escalation",
+ "source": "25_Escalation.md",
+ "version": "V1.0",
+ "meta": [
+  "C9MYR-RTN-SOP-GOV01",
+  "Governance",
+  "Updated 5 Sep 2026"
+ ],
+ "body": [
+  {
+   "t": "p",
+   "x": "**Applies to:** All VIP CS; Seniors absorb; ATL and Supervisor receive"
+  },
+  {
+   "t": "h2",
+   "x": "1. Objective"
+  },
+  {
+   "t": "p",
+   "x": "Get an issue to the right level fast, so juniors do not sit on problems and the ATL only receives what genuinely needs them."
+  },
+  {
+   "t": "h2",
+   "x": "2. Scope"
+  },
+  {
+   "t": "p",
+   "x": "Any operational issue, player case or system fault a CS cannot close alone."
+  },
+  {
+   "t": "h2",
+   "x": "3. Chain and Principle"
+  },
+  {
+   "t": "p",
+   "x": "PIC / Agent to Senior to ATL to Supervisor to Department Head. **Absorb at the lowest level that can resolve it.** Escalate up only when the level below genuinely cannot."
+  },
+  {
+   "t": "h2",
+   "x": "4. Golden Rules"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Solve at the lowest capable level; do not push up what you can close.",
+    "Escalate with full context: UID/username, brand, amount, screenshots, what you tried.",
+    "Role titles only, never staff or player names.",
+    "Time-box every escalation; do not let it stall.",
+    "An RG or risk flag beats every marketing rule: no marketing message, route to welfare."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "5. Procedure (Action / Sequence / Degree / Tool)"
+  },
+  {
+   "t": "table",
+   "head": [
+    "#",
+    "Action",
+    "Sequence (when)",
+    "Degree / standard",
+    "Tool"
+   ],
+   "rows": [
+    [
+     "1",
+     "Attempt at your level",
+     "First",
+     "Check the relevant SOP / Case Library; resolve if within your authority",
+     "SOP Book, Case Library"
+    ],
+    [
+     "2",
+     "Package the issue",
+     "If you cannot close",
+     "UID/username, brand, amount, screenshots, steps tried; role titles only",
+     "Lark"
+    ],
+    [
+     "3",
+     "Route to the right level",
+     "After packaging",
+     "Senior for junior-level cases; ATL for confirmed faults, high-value or approval gates; WL/Support/PYM for their domains; SPV/Head only via ATL",
+     "Lark escalation groups"
+    ],
+    [
+     "4",
+     "Time-box and follow up",
+     "After routing",
+     "If unresolved past the case SLA (e.g. WD delay over 10 min), follow up",
+     "Tracker"
+    ],
+    [
+     "5",
+     "Confirm and close",
+     "On resolution",
+     "Recheck BO, notify the player, tag the thread SOLVED, log the outcome",
+     "BO, QA Record"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "6. Common Escalation Triggers"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Confirmed system fault (e.g. S0403 after all CS checks pass).",
+    "Withdrawal reject / duplicate / invalid account.",
+    "Game maintenance or missing fund.",
+    "Bonus dispute above the SW cap, or any amount over the approval gate.",
+    "Any RG or risk-tag case, which routes to welfare, not marketing."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "7. Guards"
+  },
+  {
+   "t": "list",
+   "x": [
+    "RG / risk flag overrides everything: no marketing, route to welfare.",
+    "No names; full context on every escalation."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "8. Remarks"
+  },
+  {
+   "t": "p",
+   "x": "This SOP is the behaviour behind the Senior KPI metric \"Escalation Ownership\" - absorbing junior issues correctly instead of passing them up."
+  }
+ ]
+}

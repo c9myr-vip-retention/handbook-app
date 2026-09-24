@@ -42,6 +42,18 @@ export const MAP = {
   'zyra-forgot-password': '19_ZYRA_Forgot_Password.md',
   'redeem-code-s0403': '20_Redeem_Code_S0403.md',
   'checking-conversation-history': '21_Checking_Conversation_History_VVIP.md',
+  // Formerly "planned": written and enrolled in sop-book.
+  'bonus-issuance-approval': '23_Bonus_Issuance_Approval.md',
+  escalation: '25_Escalation.md',
+  'reporting-data-integrity': '26_Reporting_Data_Integrity.md',
+  'reactivation-win-back': '27_Reactivation_Winback.md',
+  'shift-handover': '29_Shift_Handover.md',
+  compensation: '30_Compensation.md',
+  'new-agent-onboarding': '32_Onboarding.md',
+  'push-notification': '34_Push_Notification.md',
+  'special-event-campaign': '35_Special_Event_Campaign.md',
+  'login-provisioning': '36_Login_Provisioning.md',
+  'new-staff-incentive': '37_New_Staff_Incentive_Eligibility.md',
 }
 
 const MONTHS = { january: 'Jan', february: 'Feb', march: 'Mar', april: 'Apr', may: 'May', june: 'Jun', july: 'Jul', august: 'Aug', september: 'Sep', october: 'Oct', november: 'Nov', december: 'Dec' }
@@ -126,7 +138,12 @@ export function convert(md) {
     if (/^[-*]\s+/.test(line)) {
       const items = []
       while (i < lines.length && /^[-*]\s+/.test(lines[i])) items.push(lines[i++].replace(/^[-*]\s+/, ''))
-      blocks.push({ t: 'list', x: items })
+      // Bullets marking an unsettled item (UNCONFIRMED / OPEN:) come out of the
+      // list as warn callouts, so they never read as a settled rule.
+      const open = items.filter(x => /\bUNCONFIRMED\b|\bOPEN:/.test(x))
+      const rest = items.filter(x => !open.includes(x))
+      if (rest.length) blocks.push({ t: 'list', x: rest })
+      for (const x of open) blocks.push({ t: 'callout', tone: 'warn', title: 'Open item', x })
       continue
     }
     if (/^\d+\.\s+/.test(line)) {

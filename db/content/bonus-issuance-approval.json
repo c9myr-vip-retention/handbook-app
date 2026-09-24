@@ -1,0 +1,238 @@
+{
+ "id": "bonus-issuance-approval",
+ "source": "23_Bonus_Issuance_Approval.md",
+ "version": "V1.0",
+ "meta": [
+  "C9MYR-RTN-SOP-BON01",
+  "Bonus / Money Control",
+  "Updated 24 Sep 2026"
+ ],
+ "body": [
+  {
+   "t": "p",
+   "x": "**Applies to:** All VIP CS; ATL for the approval gate"
+  },
+  {
+   "t": "h2",
+   "x": "1. Objective"
+  },
+  {
+   "t": "p",
+   "x": "Give one controlled path for issuing any VIP bonus, so every credit is eligible, correctly sized against the Secret Wallet (SW) cap, approved at the right level, and recorded. This closes the over-issuance gap left by rules living in separate SOPs."
+  },
+  {
+   "t": "h2",
+   "x": "2. Scope"
+  },
+  {
+   "t": "p",
+   "x": "Applies to every bonus a VIP CS can issue: Grace Period Deposit Challenge, LTV, Top P&L, Birthday, and Weekend Campaign. It governs sizing and approval only; each task's own SOP still owns its trigger and list-building."
+  },
+  {
+   "t": "h2",
+   "x": "3. Golden Rules (every bonus, no exceptions)"
+  },
+  {
+   "t": "list",
+   "x": [
+    "**Contact precedes deposit.** No retention/reactivation credit without a logged contact before the (re)deposit.",
+    "**SW updated same day** before sizing. A stale SW is not a valid base.",
+    "**Size within the SW cap** for that task (see Section 4).",
+    "**1x turnover** before withdrawal, unless the task states otherwise (Birthday deposit-base = 3x).",
+    "**No stacking.** One bonus per event; skip if a same-day Reload / Compensation / LTV reward already went out.",
+    "**State validity** every time.",
+    "**Telegram never promises, implies or hints at a bonus.**"
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "4. SW Cap by Task"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Task",
+    "SW cap",
+    "Turnover"
+   ],
+   "rows": [
+    [
+     "Grace Period Deposit Challenge",
+     "SW x 20%",
+     "1x"
+    ],
+    [
+     "Birthday Bonus (Tier 3)",
+     "SW x 25%",
+     "1x (SW base)"
+    ],
+    [
+     "Birthday Bonus (Tier V)",
+     "SW x 30%",
+     "1x (SW base)"
+    ],
+    [
+     "LTV List",
+     "SW x 40%",
+     "1x"
+    ],
+    [
+     "Top P&L",
+     "SW x 40%",
+     "1x"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "5. Procedure (Action / Sequence / Degree / Tool)"
+  },
+  {
+   "t": "table",
+   "head": [
+    "#",
+    "Action",
+    "Sequence (when)",
+    "Degree / standard",
+    "Tool"
+   ],
+   "rows": [
+    [
+     "1",
+     "Verify eligibility and contact-before-deposit",
+     "Before anything",
+     "Player on the eligible list; a logged contact precedes the deposit within the task window; unique ID; one count/player/month",
+     "Eligible list, contact_log, BO"
+    ],
+    [
+     "2",
+     "Identify the task and its ladder",
+     "After eligibility",
+     "Exactly one task per event; never stack; confirm no same-day Reload/Comp/LTV reward",
+     "Bonus ladders (11-bonus-rules)"
+    ],
+    [
+     "3",
+     "Update the Secret Wallet",
+     "Same day, before sizing",
+     "SW refreshed today; no exception",
+     "BO, SW field"
+    ],
+    [
+     "4",
+     "Size against the SW cap",
+     "After SW update",
+     "Final amount <= cap %; match the highest eligible 8-ending amount within it; if above Max, use Max",
+     "Ladder + bonus calculator"
+    ],
+    [
+     "5",
+     "Check the approval gate",
+     "Before issuing",
+     "Route to ATL if it crosses a threshold (Section 6); otherwise CS may issue within cap",
+     "Lark escalation"
+    ],
+    [
+     "6",
+     "Issue and set turnover + validity",
+     "On approval / within cap",
+     "Apply the task's TO; state the validity period; apply next-day-deposit rule where the task requires it",
+     "BO, claim ticket"
+    ],
+    [
+     "7",
+     "Record the issuance",
+     "Immediately after issuing",
+     "Log player, task, amount, TO, SW deduction (y/n), issued by, time; tag status; claim via the task ticket query",
+     "QA Record, Lark ticket"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "6. Approval Authority"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Situation",
+    "Who issues / approves"
+   ],
+   "rows": [
+    [
+     "Within the SW cap, standard ladder",
+     "VIP CS issues directly"
+    ],
+    [
+     "Birthday Bonus, Total Deposit >= RM 100,000",
+     "ATL reviews value, claim history, risk tag and final amount; tags `Birthday Credit - ATL Reviewed`"
+    ],
+    [
+     "Weekend Deposit Challenge (under testing)",
+     "ATL or TL sign-off before any issuance"
+    ],
+    [
+     "Confirmed system fault (e.g. S0403) or any exception",
+     "ATL"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "7. Claim Ticket Queries"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Task",
+    "Ticket query"
+   ],
+   "rows": [
+    [
+     "Grace Period",
+     "`VVIP Grace Period`"
+    ],
+    [
+     "LTV",
+     "`VVIP LTV 70 BONUS`"
+    ],
+    [
+     "Top P&L",
+     "`VVIP TOP P&L BONUS`"
+    ],
+    [
+     "Birthday",
+     "mark Birthday Credit Rewarded; confirm the exact ticket query"
+    ],
+    [
+     "Weekend Campaign",
+     "pending TL confirmation"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "8. Over-Issuance Guards"
+  },
+  {
+   "t": "list",
+   "x": [
+    "**Top P&L:** monthly P&L must also be negative. A player who lost today but is profitable this month gets nothing.",
+    "**Birthday, deposit base:** never below the Floor (Tier 3 RM 38, Tier V RM 68) and never above the Max (RM 188 / RM 388). Above the Floor, never exceed the calculated amount. Confirmed by the ATL on 24 Sep 2026.",
+    "**No stacking** and **no same-day double reward.**",
+    "**Contact precedes deposit** for every retention/reactivation credit."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "9. Remarks"
+  },
+  {
+   "t": "list",
+   "x": [
+    "This SOP sizes and approves; each task SOP owns its trigger, list and messaging.",
+    "Anything marked \"confirm\" or \"pending\" here is not settled; do not treat it as fact until the ATL confirms."
+   ]
+  }
+ ]
+}

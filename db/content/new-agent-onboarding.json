@@ -1,0 +1,126 @@
+{
+ "id": "new-agent-onboarding",
+ "source": "32_Onboarding.md",
+ "version": "V1.0",
+ "meta": [
+  "C9MYR-RTN-SOP-HR01",
+  "V1.0",
+  "People / HR",
+  "Owner: ATL",
+  "Updated 5 Sep 2026"
+ ],
+ "body": [
+  {
+   "t": "p",
+   "x": "**Applies to:** ATL, Senior (buddy), new hire"
+  },
+  {
+   "t": "h2",
+   "x": "1. Objective"
+  },
+  {
+   "t": "p",
+   "x": "Ramp a new VIP CS from day one to independent daily execution, then through probation, using the SOP Book as the training material."
+  },
+  {
+   "t": "h2",
+   "x": "2. Scope"
+  },
+  {
+   "t": "p",
+   "x": "From day one to confirmation. The probation evaluation itself is owned by the JNR Probation Checklist."
+  },
+  {
+   "t": "h2",
+   "x": "3. Golden Rules"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Accounts ready before the first shift.",
+    "The SOP Book is the teaching material, not ad-hoc verbal training.",
+    "A Senior buddy is assigned.",
+    "Evaluate against the probation checklist, not gut feel."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "4. Procedure (Action / Sequence / Degree / Tool)"
+  },
+  {
+   "t": "table",
+   "head": [
+    "#",
+    "Action",
+    "Sequence (when)",
+    "Degree / standard",
+    "Tool"
+   ],
+   "rows": [
+    [
+     "1",
+     "Pre-arrival setup",
+     "Before day 1",
+     "CS logins per brand (per Login Provisioning SOP), Lark, HR Portal, console access",
+     "BO, HR Portal, consoles"
+    ],
+    [
+     "2",
+     "Orientation",
+     "Day 1",
+     "Department overview, team structure, house rules (RG, no em dash, no names), security",
+     "Handbook: Dept Overview, Precaution & Security"
+    ],
+    [
+     "3",
+     "Assign a buddy",
+     "Week 1",
+     "A Senior mentors; new hire shadows the daily SOPs",
+     "Roster"
+    ],
+    [
+     "4",
+     "Train through the SOP Book",
+     "Weeks 1-2",
+     "Awareness to skill to willingness (read, drill, assessment)",
+     "SOP Book, KPI Framework"
+    ],
+    [
+     "5",
+     "Supervised execution",
+     "Weeks 2-4",
+     "New hire runs shift SOPs with buddy check; QA sampled",
+     "Daily task checklist, QA Record"
+    ],
+    [
+     "6",
+     "Probation evaluation",
+     "Per cycle",
+     "Evaluate against the JNR Probation Checklist; ATL decision",
+     "JNR Probation Checklist"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "5. Guards"
+  },
+  {
+   "t": "list",
+   "x": [
+    "No first shift without accounts ready; buddy assigned; evaluation by checklist."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "6. Remarks"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Confirm the exact first-week schedule against current practice, then lock it here. Depends on the Login Provisioning SOP (pending).",
+    "A new hire on probation is not entitled to rev share / bonus / KPI incentive until probation is passed (see New Staff Incentive Eligibility SOP, 37)."
+   ]
+  }
+ ]
+}

@@ -1,0 +1,125 @@
+{
+ "id": "compensation",
+ "source": "30_Compensation.md",
+ "version": "V1.0",
+ "meta": [
+  "C9MYR-RTN-SOP-BON02",
+  "V1.0",
+  "Bonus / Money Control",
+  "Owner: VIP RTN",
+  "Updated 5 Sep 2026"
+ ],
+ "body": [
+  {
+   "t": "p",
+   "x": "**Applies to:** All VIP CS; ATL for higher amounts"
+  },
+  {
+   "t": "h2",
+   "x": "1. Objective"
+  },
+  {
+   "t": "p",
+   "x": "Compensate a losing or complaining VIP player consistently and within limits, so the player feels looked after without over-issuing."
+  },
+  {
+   "t": "h2",
+   "x": "2. Scope"
+  },
+  {
+   "t": "p",
+   "x": "Losing-player and service-failure complaint scenarios on Livechat that warrant compensation. Sizing and approval follow the Bonus Issuance & Approval SOP."
+  },
+  {
+   "t": "h2",
+   "x": "3. Golden Rules"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Acknowledge the emotion before any solution.",
+    "Compensate within the tier percentage and remaining monthly allowance; Secret Wallet based.",
+    "Never promise a bonus you cannot deliver.",
+    "No stacking with a same-day reward."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "4. Procedure (Action / Sequence / Degree / Tool)"
+  },
+  {
+   "t": "table",
+   "head": [
+    "#",
+    "Action",
+    "Sequence (when)",
+    "Degree / standard",
+    "Tool"
+   ],
+   "rows": [
+    [
+     "1",
+     "Verify the case",
+     "First",
+     "Significant loss this week, SW has balance, no recent credit; acknowledge the emotion",
+     "BO profile, LC"
+    ],
+    [
+     "2",
+     "Determine eligibility and tier",
+     "After verify",
+     "Losing-a-lot to SW credit; losing-little to validate + game suggestion (no credit); habitual asker to decline gently, redirect",
+     "Profile"
+    ],
+    [
+     "3",
+     "Size the compensation",
+     "If eligible",
+     "Tier percentage of the base (T3 = 3%, TV = 5%), within remaining monthly allowance; SW based",
+     "Bonus SOP, SW field"
+    ],
+    [
+     "4",
+     "Check the approval gate",
+     "Before issuing",
+     "Within limit to CS; above to ATL",
+     "Lark"
+    ],
+    [
+     "5",
+     "Issue and message",
+     "On approval",
+     "Issue SW credit; empathetic message; state validity; no false promise",
+     "BO, templates"
+    ],
+    [
+     "6",
+     "Record",
+     "After issuing",
+     "Log player, reason, amount, tier, issued by; tag",
+     "QA Record"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "5. Guards"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Emotion first; within tier and monthly allowance; no false promise; no stacking."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "6. Remarks"
+  },
+  {
+   "t": "list",
+   "x": [
+    "The T3 3% / TV 5% basis is from Complaint Handling. Confirm the exact caps and steps with the ATL; refer to the Bonus rules for amounts."
+   ]
+  }
+ ]
+}

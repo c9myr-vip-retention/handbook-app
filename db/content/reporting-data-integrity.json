@@ -1,0 +1,126 @@
+{
+ "id": "reporting-data-integrity",
+ "source": "26_Reporting_Data_Integrity.md",
+ "version": "V1.0",
+ "meta": [
+  "C9MYR-RTN-SOP-REP01",
+  "Reporting",
+  "Updated 5 Sep 2026"
+ ],
+ "body": [
+  {
+   "t": "p",
+   "x": "**Applies to:** Everyone who produces or collates a report; ATL signs off"
+  },
+  {
+   "t": "h2",
+   "x": "1. Objective"
+  },
+  {
+   "t": "p",
+   "x": "Make every reported number true, comparable and reproducible, so no report misleads and every figure can be traced back."
+  },
+  {
+   "t": "h2",
+   "x": "2. Scope"
+  },
+  {
+   "t": "p",
+   "x": "All department reporting: daily closing report, KPI scorecards, ROI table, shift output, and any figure sent upward."
+  },
+  {
+   "t": "h2",
+   "x": "3. Golden Rules (non-negotiable)"
+  },
+  {
+   "t": "list",
+   "x": [
+    "**Weighted, never simple average.** Retention = sum of depositors / sum of population. Never average brand percentages.",
+    "**Contact precedes deposit** for any retention or reactivation credit.",
+    "**Same-day figures are provisional;** only post-close data is reportable.",
+    "**Missing brand = dash, not zero.** Flag cross-day comparisons.",
+    "**Never invent a field.** Write \"[not visible]\". A visible gap is fine; a confident wrong number is not.",
+    "**Correct misleading figures before presenting,** and quantify the artifact if a gain is mostly a data effect.",
+    "**Name concentration risk every time** (LPK777 around 45% of team deposit).",
+    "**No em dashes** (SMS vendor encoding)."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "4. Procedure (Action / Sequence / Degree / Tool)"
+  },
+  {
+   "t": "table",
+   "head": [
+    "#",
+    "Action",
+    "Sequence (when)",
+    "Degree / standard",
+    "Tool"
+   ],
+   "rows": [
+    [
+     "1",
+     "Use post-close data",
+     "Before reporting",
+     "Same-day = provisional statement only; report from post-close",
+     "Dashboard"
+    ],
+    [
+     "2",
+     "Compute with the correct method",
+     "On collation",
+     "Weighted average; retention = sum depositors / sum population; never average percentages",
+     "Sheet formulas"
+    ],
+    [
+     "3",
+     "Handle gaps honestly",
+     "On missing data",
+     "Dash for missing, \"[not visible]\" for unknown; never a zero or a guess",
+     "Report template"
+    ],
+    [
+     "4",
+     "Attribute correctly",
+     "On any credit",
+     "Contact precedes deposit; unique ID; one count per player per month",
+     "contact_log"
+    ],
+    [
+     "5",
+     "Flag risks and artifacts",
+     "Before sending",
+     "Name concentration risk; if a gain is mostly a data artifact, say so and quantify",
+     "Report notes"
+    ],
+    [
+     "6",
+     "Reconcile and sign",
+     "Before release",
+     "Totals reconcile across brands and against the scorecard ledger; no em dashes; ATL sign-off",
+     "Scorecard ledger"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "5. Guards"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Provisional vs post-close is stated, never blurred.",
+    "Weighted method only; missing = dash; no fabrication; correct-before-present."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "6. Remarks"
+  },
+  {
+   "t": "p",
+   "x": "This SOP protects every other report in the book. If a number cannot pass these rules, it does not go out."
+  }
+ ]
+}

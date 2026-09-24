@@ -1,0 +1,168 @@
+{
+ "id": "push-notification",
+ "source": "34_Push_Notification.md",
+ "version": "V1.0",
+ "meta": [
+  "C9MYR-RTN-SOP-A04",
+  "V1.0",
+  "Outreach / Communication",
+  "Owner: VIP RTN",
+  "Updated 7 Sep 2026"
+ ],
+ "body": [
+  {
+   "t": "p",
+   "x": "**Applies to:** All VIP CS; ATL/TL for content and cadence sign-off"
+  },
+  {
+   "t": "h2",
+   "x": "1. Objective"
+  },
+  {
+   "t": "p",
+   "x": "Give one reusable procedure for sending any Push Notification (risk, campaign, event or informational), so every push is correctly targeted, correctly formatted per platform, approved, and logged. Risk Push, Weekend Campaign and Special Event all point here for the send mechanics."
+  },
+  {
+   "t": "h2",
+   "x": "2. Scope"
+  },
+  {
+   "t": "p",
+   "x": "Every push a VIP CS sends on TC or Zyra. This SOP owns the send mechanics, format and logging only. The trigger, list-building and messaging strategy stay with the calling SOP (Risk Push, Special Event, Weekend Campaign). Informational and offer pushes both covered."
+  },
+  {
+   "t": "h2",
+   "x": "3. Golden Rules"
+  },
+  {
+   "t": "list",
+   "x": [
+    "**RG / chase flag beats every push.** Flagged players route to welfare; no push at all.",
+    "Subject and content come from the approved Template Tab or the campaign's signed-off set. No ad-hoc copy without TL approval.",
+    "**Correct file format per platform: TC = .txt, Zyra = .csv.** Wrong format fails the upload.",
+    "Any offer carried in a push states its validity; a push never over-promises.",
+    "Log every send in the QA Record with a BO screenshot. No screenshot, no proof of send."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "4. Platform Mechanics"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Platform",
+    "Entry path",
+    "File format",
+    "Target"
+   ],
+   "rows": [
+    [
+     "TC Gaming",
+     "Interact Management > Mail > Push Notification > Send Notification > Specific User > Firebase App Messaging",
+     "`.txt`",
+     "Upload the user file"
+    ],
+    [
+     "Zyra",
+     "Notification > Push Notification > Add Push Notification",
+     "`.csv` (export from BO)",
+     "Target Type: User"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "5. Procedure (Action / Sequence / Degree / Tool)"
+  },
+  {
+   "t": "table",
+   "head": [
+    "#",
+    "Action",
+    "Sequence (when)",
+    "Degree / standard",
+    "Tool"
+   ],
+   "rows": [
+    [
+     "1",
+     "Confirm the push is approved and copy is ready",
+     "Before build",
+     "Subject + content from the approved Template Tab or campaign set; TL approval for any new or edited copy",
+     "Template Tab, Lark approval"
+    ],
+    [
+     "2",
+     "Build the recipient list by segment",
+     "After approval",
+     "Correct brand tab; target segment only (tier / DSLD / campaign list); RG and chase-flagged excluded",
+     "Team Engagement File, BO"
+    ],
+    [
+     "3",
+     "Export in the platform's format",
+     "Before upload",
+     "TC `.txt`, Zyra `.csv`; verify the format before leaving the file",
+     "Team Engagement File / Zyra BO"
+    ],
+    [
+     "4",
+     "Open the push tool for the platform",
+     "Ready to send",
+     "Follow the exact entry path in Section 4 for that platform",
+     "TC BO / Zyra BO"
+    ],
+    [
+     "5",
+     "Upload the list, input subject + content, send",
+     "On send",
+     "Upload the file; paste the approved subject + content per language slot (EN/BM/CN where the push requires it); TC click OK, Zyra click Create",
+     "TC BO / Zyra BO"
+    ],
+    [
+     "6",
+     "Log the send",
+     "Immediately after",
+     "QA Record: brand, segment, push type, recipient count, time; attach BO screenshot",
+     "QA Record, Lark Base"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "6. Guards"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Wrong file format fails on upload; verify TC `.txt` / Zyra `.csv` every time.",
+    "RG / chase flag: no push, route to welfare.",
+    "Empty list: record it in the QA Record and inform the ATL. Never fabricate a send.",
+    "No unapproved copy; Template Tab edits need TL approval first."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "7. Remarks"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Campaign pushes use 3 slots x EN/BM/CN (JK32 ran 294 variants; the reference campaign carried 54 push pieces). Confirm whether informational pushes must also localise across all three languages."
+   ]
+  },
+  {
+   "t": "callout",
+   "tone": "warn",
+   "title": "Open item",
+   "x": "**Cadence cap UNCONFIRMED.** The maximum pushes per player per day/week is not documented. Confirm with the ATL and lock it here to prevent push fatigue."
+  },
+  {
+   "t": "callout",
+   "tone": "warn",
+   "title": "Open item",
+   "x": "**Approval authority for ad-hoc / non-template pushes UNCONFIRMED.** Default to TL sign-off until confirmed."
+  }
+ ]
+}

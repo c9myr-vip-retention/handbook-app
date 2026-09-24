@@ -1,0 +1,149 @@
+{
+ "id": "reactivation-win-back",
+ "source": "27_Reactivation_Winback.md",
+ "version": "V1.0",
+ "meta": [
+  "C9MYR-RTN-SOP-A03",
+  "V1.0",
+  "Outreach / Retention",
+  "Owner: VIP RTN",
+  "Updated 5 Sep 2026"
+ ],
+ "body": [
+  {
+   "t": "p",
+   "x": "**Applies to:** All VIP CS"
+  },
+  {
+   "t": "h2",
+   "x": "1. Objective"
+  },
+  {
+   "t": "p",
+   "x": "Bring inactive VIP players back with the right message at the right inactivity stage, and credit a reactivation only when a contact preceded the redeposit."
+  },
+  {
+   "t": "h2",
+   "x": "2. Scope"
+  },
+  {
+   "t": "p",
+   "x": "Inactive VIP players segmented by days since last deposit (DSLD). Excludes any RG or risk-tagged player, who routes to welfare, not marketing."
+  },
+  {
+   "t": "h2",
+   "x": "3. Golden Rules"
+  },
+  {
+   "t": "list",
+   "x": [
+    "**Contact precedes deposit.** No reactivation credit otherwise.",
+    "Work strictly by inactivity tier.",
+    "RG / risk flag beats everything: route to welfare, no offer.",
+    "One reactivation count per player per month; the most recent contact owns it."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "4. Inactivity Tiers"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Tier",
+    "Window",
+    "Approach"
+   ],
+   "rows": [
+    [
+     "Early win-back",
+     "DSLD 7+",
+     "Gentle check-in"
+    ],
+    [
+     "Win-back",
+     "DSLD 14+",
+     "Stronger win-back offer"
+    ],
+    [
+     "Deep win-back",
+     "DSLD 30+",
+     "Deep win-back offer"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "5. Procedure (Action / Sequence / Degree / Tool)"
+  },
+  {
+   "t": "table",
+   "head": [
+    "#",
+    "Action",
+    "Sequence (when)",
+    "Degree / standard",
+    "Tool"
+   ],
+   "rows": [
+    [
+     "1",
+     "Pull the inactive list by DSLD tier",
+     "Daily / scheduled",
+     "Segment by DSLD (7+/14+/30+); exclude RG and risk-tagged",
+     "BO / dashboard, risk tags"
+    ],
+    [
+     "2",
+     "Match message to tier",
+     "After segmenting",
+     "Check-in for early; win-back offer for deeper; Telegram never promises a bonus",
+     "Templates"
+    ],
+    [
+     "3",
+     "Contact before any offer",
+     "First touch",
+     "Log the contact; it must precede any redeposit for credit",
+     "contact_log, IM / Push / SMS / Telegram"
+    ],
+    [
+     "4",
+     "Size any bonus via the Bonus SOP",
+     "If the player responds/deposits",
+     "Per Bonus Issuance & Approval (SW cap, ladder)",
+     "Bonus SOP"
+    ],
+    [
+     "5",
+     "Record the reactivation",
+     "On redeposit",
+     "Credit only if contact preceded; idle-days weighting 1-6d=0.10, 7-13d=0.50, 14-29d=0.75, 30d+=1.00; one count/player/month",
+     "contact_log, QA Record"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "6. Guards"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Contact precedes deposit for every credit.",
+    "RG / risk to welfare, never marketing.",
+    "No double count; most recent contact owns it."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "7. Remarks"
+  },
+  {
+   "t": "list",
+   "x": [
+    "The idle-days weighting mirrors the Reactivation KPI metric; confirm the current weighting table against the KPI rubric before relying on it."
+   ]
+  }
+ ]
+}

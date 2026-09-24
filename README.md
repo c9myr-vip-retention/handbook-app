@@ -33,7 +33,7 @@ Staff handbook app for the C9MYR VIP Retention department. Readers browse SOPs, 
    npm run deploy
    ```
 5. In the Cloudflare dashboard, bind the D1 database to the Pages project: Pages > handbook-app > Settings > Functions > D1 bindings, add `DB` -> `handbook`.
-6. Zero Trust > Access > Applications: add an application for the Pages URL. Identity provider Google. Policy: allow emails ending `@orionesofttech.com`, plus include the specific personal emails you approve.
+6. Zero Trust > Access > Applications: add a self-hosted application covering `c9myr-rtn-handbook.pages.dev` and `*.c9myr-rtn-handbook.pages.dev` (preview URLs). Identity provider Google. Policy: allow emails ending `@orionesofttech.com`, plus include the specific personal emails you approve.
 7. Sign in once, then make yourself admin (D1 console or `wrangler d1 execute`):
    ```
    update profiles set role = 'admin', approved = 1 where email = 'aldok.ma@orionesofttech.com';

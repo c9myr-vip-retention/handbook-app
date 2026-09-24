@@ -9,7 +9,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "pages:dev": "wrangler pages dev dist --d1 DB=handbook --compatibility-date=2026-01-01",
-    "deploy": "vite build && wrangler pages deploy dist --project-name=handbook-app"
+    "deploy": "vite build && wrangler pages deploy dist --project-name=c9myr-rtn-handbook"
   },
   "dependencies": {
     "react": "^18.3.1",

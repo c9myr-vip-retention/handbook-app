@@ -1,13 +1,13 @@
 {
  "id": "weekend-campaign",
  "source": "15_Weekend_Campaign.md",
- "version": "V1.1",
+ "version": "V1.2",
  "meta": [
   "C9MYR-RTN-SOP-B01",
-  "V1.1",
+  "V1.2",
   "Bonus / Strategy",
   "Owner: VIP RTN / ATL",
-  "Updated 7 Sep 2026"
+  "Updated 24 Sep 2026"
  ],
  "body": [
   {
@@ -20,7 +20,7 @@
   },
   {
    "t": "p",
-   "x": "Run the weekend-only campaign every Saturday and Sunday. Three components: Ang Bao, Free Spin, and Deposit Challenge (under testing). Each has distinct tier and platform targeting."
+   "x": "Run the weekend-only campaign every Saturday and Sunday. Three components: Ang Bao (TC), Redeem Code (Zyra), and Deposit Challenge (under testing). Each has distinct tier and platform targeting."
   },
   {
    "t": "h2",
@@ -35,8 +35,8 @@
    "head": [
     "Day",
     "Active",
-    "Ang Bao",
-    "Free Spin",
+    "Ang Bao (TC)",
+    "Redeem Code (Zyra)",
     "Deposit Challenge"
    ],
    "rows": [
@@ -71,7 +71,7 @@
    "t": "list",
    "x": [
     "The whole campaign runs Saturday and Sunday only. A weekday issuance is a process violation.",
-    "Ang Bao is TC only; Free Spin is Zyra only. Never cross-issue.",
+    "Ang Bao is TC only; Redeem Code is Zyra only. Never cross-issue.",
     "Ang Bao tier split is strict: Normal (RM 2 to 8) Tier 3, Special (RM 8 to 18) Tier V.",
     "Deposit Challenge is under testing. Confirm with ATL or TL before any issuance.",
     "If a player's tier is unclear, verify in the BO before issuing any weekend reward."
@@ -114,42 +114,25 @@
   },
   {
    "t": "h2",
-   "x": "5. Component 2: Free Spin (Zyra only) [DISCONTINUED]"
+   "x": "5. Component 2: Redeem Code (Zyra only)"
   },
   {
    "t": "p",
-   "x": "**Discontinued from September 2026. Do not issue Free Spin. Kept here for reference only.**"
-  },
-  {
-   "t": "table",
-   "head": [
-    "Type",
-    "Spins",
-    "Tier",
-    "Platform"
-   ],
-   "rows": [
-    [
-     "Standard",
-     "20 Free Spins",
-     "Tier 3",
-     "Zyra"
-    ],
-    [
-     "Enhanced",
-     "30 Free Spins",
-     "Tier V",
-     "Zyra"
-    ]
-   ]
+   "x": "Replaces Free Spin on Zyra brands from September 2026."
   },
   {
    "t": "list",
    "x": [
-    "Zyra brands only. Not applicable on TC.",
+    "Zyra brands only. Not applicable on TC (TC uses Ang Bao).",
     "Weekend only.",
-    "The tier split (20 vs 30 spins) and issuance method are no longer relevant; the component is discontinued (September 2026)."
+    "If a player reports an Invalid or Expired code, follow the Redeem Code S0403 SOP before escalating."
    ]
+  },
+  {
+   "t": "callout",
+   "tone": "warn",
+   "title": "Pending confirmation",
+   "x": "Confirm with ATL: Redeem Code amount or value per tier (Tier 3 / Tier V), how codes are generated and sent, and the claim or ticket query."
   },
   {
    "t": "h2",
@@ -210,7 +193,7 @@
    "t": "list",
    "x": [
     "A weekday issuance of any component is a process violation.",
-    "Ang Bao (TC only) and Free Spin (Zyra only) are on different platforms; do not cross-issue.",
+    "Ang Bao (TC only) and Redeem Code (Zyra only) are on different platforms; do not cross-issue.",
     "Deposit Challenge is under testing; confirm with ATL or TL before any issuance.",
     "If a player's tier is unclear, verify in the BO before issuing."
    ]
@@ -223,7 +206,7 @@
    "t": "list",
    "x": [
     "Ang Bao tier split is strict: Normal (RM 2 to 8) Tier 3, Special (RM 8 to 18) Tier V.",
-    "Free Spin tier/spin distinction and issuance method are pending ATL / PIC confirmation."
+    "Free Spin (Zyra: 20 spins Tier 3, 30 spins Tier V) was discontinued in September 2026 and replaced by Redeem Code. Do not issue Free Spin."
    ]
   }
  ]

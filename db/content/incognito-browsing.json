@@ -1,13 +1,13 @@
 {
  "id": "incognito-browsing",
  "source": "38_Incognito_Browsing.md",
- "version": "V1.0",
+ "version": "V1.1",
  "meta": [
   "C9MYR-RTN-SOP-O03",
-  "V1.0",
+  "V1.1",
   "Operation / Security",
   "Owner: ATL",
-  "Updated 9 Sep 2026"
+  "Updated 24 Sep 2026"
  ],
  "body": [
   {
@@ -118,20 +118,22 @@
      "Verbal warning"
     ],
     [
-     "Repeat or continued non-compliance",
+     "Second non-compliance",
      "Warning letter"
+    ],
+    [
+     "Third non-compliance",
+     "Second warning letter"
+    ],
+    [
+     "Fourth non-compliance",
+     "Termination"
     ]
    ]
   },
   {
    "t": "p",
-   "x": "Issued through the department disciplinary process."
-  },
-  {
-   "t": "callout",
-   "tone": "warn",
-   "title": "Pending confirmation",
-   "x": "Confirm with HR / Supervisor: the exact ladder, whether a further step follows a warning letter, and who issues each stage."
+   "x": "Each stage is issued by the ATL or above, through the department disciplinary process."
   },
   {
    "t": "h2",

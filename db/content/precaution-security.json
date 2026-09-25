@@ -1,0 +1,96 @@
+{
+ "id": "precaution-security",
+ "source": "../handbook-app/pages/hr/Precaution_Security.md",
+ "version": "V1.1",
+ "meta": [
+  "V1.1",
+  "HR / Policy",
+  "Updated 25 Sep 2026"
+ ],
+ "body": [
+  {
+   "t": "p",
+   "x": "**Applies to:** All VIP RTN staff"
+  },
+  {
+   "t": "h2",
+   "x": "1. Objective"
+  },
+  {
+   "t": "p",
+   "x": "Mandatory safety, communication and account-handling rules for all VIP RTN staff."
+  },
+  {
+   "t": "h2",
+   "x": "2. Safety Precautions"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Never take work outside, at any time.",
+    "Short power cut: use a mobile data hotspot until power returns.",
+    "Long power cut: reschedule your day off or apply for leave.",
+    "Always log out of Line OA, Livechat and the BO after work, or when leaving your workstation for a long time.",
+    "Always use Incognito mode, so no history is stored on your device (see the Incognito Browsing SOP).",
+    "Always use the VPN during work (NordLayer, server M01, M02 or M03).",
+    "Never save work on your laptop. All work goes through the drive or Lark sheets.",
+    "Do not tell friends or family what you do. Protect yourself."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "3. Communication and Security Rules"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Topic",
+    "Rule",
+    "Why"
+   ],
+   "rows": [
+    [
+     "External contacts on Lark",
+     "Recognise external accounts (clearly marked). Do not accept or reply to any external contact, especially impersonators with similar names",
+     "Impersonators try to breach our systems"
+    ],
+    [
+     "Suspicious Telegram messages",
+     "Be careful with new Telegram accounts sending private messages. Do not reply; report to your direct superior at once",
+     "Scammers use new accounts. Not reporting = formal warning letter"
+    ],
+    [
+     "Official channels",
+     "All work matters are discussed in official group chats only. Private messages for work are strictly prohibited",
+     "Group chats give transparency and supervision. Violation = warning letter or termination"
+    ],
+    [
+     "Bank app / OTP requests",
+     "No one may ask for bank app authorisation, OTP codes or financial approvals by private message",
+     "A common scam and data-breach tactic"
+    ],
+    [
+     "BO access / password resets",
+     "Any BO access or reset request goes through official group channels and the proper procedure",
+     "Prevents unauthorised access; keeps change control"
+    ],
+    [
+     "Authorised group chats",
+     "All work chat happens in official groups monitored by the HOD. Side groups without the HOD are not allowed and must be closed",
+     "Transparency; lets the HOD oversee operations"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "4. Remarks"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Breaking any communication or security rule may lead to immediate disciplinary action, up to termination.",
+    "All staff complete a security awareness acknowledgement at onboarding and every year after."
+   ]
+  }
+ ]
+}

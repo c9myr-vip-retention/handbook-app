@@ -1,13 +1,13 @@
 {
  "id": "attendance-pre-shift",
  "source": "16_Attendance_Pre_Shift_Setup.md",
- "version": "V1.1",
+ "version": "V1.2",
  "meta": [
   "C9MYR-RTN-SOP-HR02",
-  "V1.1",
+  "V1.2",
   "HR / Policy",
   "Owner: HR",
-  "Updated 7 Sep 2026"
+  "Updated 25 Sep 2026"
  ],
  "body": [
   {
@@ -60,7 +60,7 @@
      "1",
      "Log in to NordLayer VPN",
      "First, before clock-in",
-     "Select LPK01 or TH01; verify your location is correct (not the wrong country); check IP at whatismyipaddress.com",
+     "Select server M01, M02 or M03; verify your location is correct (not the wrong country); check IP at whatismyipaddress.com",
      "NordLayer"
     ],
     [

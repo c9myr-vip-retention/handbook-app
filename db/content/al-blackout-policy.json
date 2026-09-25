@@ -1,0 +1,61 @@
+{
+ "id": "al-blackout-policy",
+ "source": "../handbook-app/pages/hr/AL_Blackout_Policy.md",
+ "version": "V1.1",
+ "meta": [
+  "V1.1",
+  "HR / Policy",
+  "Updated 25 Sep 2026"
+ ],
+ "body": [
+  {
+   "t": "p",
+   "x": "**Applies to:** All VIP RTN staff"
+  },
+  {
+   "t": "h2",
+   "x": "1. Objective"
+  },
+  {
+   "t": "p",
+   "x": "Restrict leave in peak periods so there is enough manpower during high-volume windows."
+  },
+  {
+   "t": "h2",
+   "x": "2. Purpose"
+  },
+  {
+   "t": "p",
+   "x": "Keep coverage through peak operational periods, especially between month-end and month-start, when deposit and withdrawal volumes are high and PG or banking instability is more likely."
+  },
+  {
+   "t": "h2",
+   "x": "3. Policy"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Provision",
+    "Detail"
+   ],
+   "rows": [
+    [
+     "Rest day (RD) change requests",
+     "Judged on manpower availability. Generally discouraged, to avoid staffing gaps"
+    ],
+    [
+     "Blackout window",
+     "No fixed dates. AL in peak periods (around month-end and month-start) needs approval from the ATL or above"
+    ],
+    [
+     "Exceptions",
+     "Emergency or critical leave only, with approval from the ATL or above and supporting reasons submitted as early as possible"
+    ],
+    [
+     "Compliance",
+     "Everyone must follow this policy. Non-compliance may disrupt operations and lead to disciplinary action"
+    ]
+   ]
+  }
+ ]
+}

@@ -1,0 +1,255 @@
+{
+ "id": "work-policy",
+ "source": "../handbook-app/pages/hr/Work_Policy.md",
+ "version": "V1.1",
+ "meta": [
+  "V1.1",
+  "HR / Policy",
+  "Updated 25 Sep 2026"
+ ],
+ "body": [
+  {
+   "t": "p",
+   "x": "**Applies to:** All VIP RTN staff"
+  },
+  {
+   "t": "h2",
+   "x": "1. Purpose"
+  },
+  {
+   "t": "p",
+   "x": "Discipline framework for VIP RTN staff. Penalties escalate progressively with the offence count."
+  },
+  {
+   "t": "h2",
+   "x": "2. WFH Productivity"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Issue",
+    "Penalty"
+   ],
+   "rows": [
+    [
+     "Non-work activities (videos, browsing, gaming, music) during work hours",
+     "1st: Verbal Warning. 2nd: Verbal Warning. 3rd: Warning Letter. 4th: Immediate Termination"
+    ],
+    [
+     "Offline or away during work hours for more than 15 minutes",
+     "1st: Verbal Warning. 2nd: Verbal Warning. 3rd: Warning Letter. 4th: Immediate Termination"
+    ],
+    [
+     "Poor internet or device issues without valid proof",
+     "1st: Verbal Warning. 2nd: Verbal Warning. 3rd: Warning Letter. 4th: Immediate Termination"
+    ],
+    [
+     "Sleeping while on duty",
+     "1st: Verbal Warning. 2nd: Verbal Warning. 3rd: Warning Letter. 4th: Immediate Termination"
+    ],
+    [
+     "Ignoring updates, information or instructions from Manager, Supervisor or TL",
+     "1st: Verbal Warning. 2nd: Verbal Warning. 3rd: Warning Letter. 4th: Immediate Termination"
+    ],
+    [
+     "Repeated device issues (crashes, internet) not reported to the CS group or a superior",
+     "1st: Verbal Warning. 2nd: Verbal Warning. 3rd: Warning Letter. 4th: Immediate Termination"
+    ],
+    [
+     "Not using Incognito / private browsing for work",
+     "Per the Incognito Browsing SOP: 1st: Verbal Warning. 2nd: Warning Letter. 3rd: Second Warning Letter. 4th: Termination"
+    ]
+   ]
+  },
+  {
+   "t": "p",
+   "x": "The standalone Incognito Browsing SOP is the authority for the Incognito rule and its ladder."
+  },
+  {
+   "t": "h2",
+   "x": "3. Attendance and Leave"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Issue",
+    "Penalty"
+   ],
+   "rows": [
+    [
+     "Tardiness, early departure, leaving the workstation, half-day or undertime: any failure to keep work hours",
+     "1st: Verbal Warning + Monetary Deduction. 2nd: Verbal Warning + Monetary Deduction. 3rd: Warning Letter + Monetary Deduction. 4th: Immediate Termination (deductions per Annex A)"
+    ],
+    [
+     "Not clocking in during working hours, or clocking out after, on Insightful",
+     "1st: Verbal Warning + Monetary Deduction. 2nd: Verbal Warning + Monetary Deduction. 3rd: Warning Letter + Monetary Deduction. 4th: Immediate Termination (deductions per Annex A)"
+    ],
+    [
+     "Not joining the Discord working channel on duty without a valid reason",
+     "1st: Verbal Warning. 2nd: Verbal Warning. 3rd: Warning Letter + Unpaid Leave. 4th: Immediate Termination"
+    ],
+    [
+     "Absenteeism (superior not notified)",
+     "1st: Verbal Warning. 2nd: Verbal Warning. 3rd: Warning Letter + Unpaid Leave. 4th: Immediate Termination"
+    ],
+    [
+     "Excessive break time",
+     "1st: Verbal Warning. 2nd: Verbal Warning. 3rd: Warning Letter. 4th: Immediate Termination"
+    ],
+    [
+     "Missing a meeting, coaching or training without a valid reason",
+     "1st: Verbal Warning. 2nd: Verbal Warning. 3rd: Warning Letter. 4th: Immediate Termination"
+    ],
+    [
+     "Sick leave that meets the violation criteria in Annex D",
+     "1st: Verbal Warning. 2nd: Verbal Warning. 3rd: Warning Letter. 4th: Immediate Termination"
+    ],
+    [
+     "Unpaid leave not applied for at least 1 week ahead (urgent or unforeseen cases with MC or documents are exceptions, subject to management approval)",
+     "1st: Verbal Warning. 2nd: Verbal Warning. 3rd: Warning Letter. 4th: Immediate Termination"
+    ],
+    [
+     "Annual leave requested less than 14 days ahead without a valid reason (case by case)",
+     "1st: Verbal Warning. 2nd: Verbal Warning. 3rd: Warning Letter. 4th: Immediate Termination"
+    ],
+    [
+     "Not starting and ending break time on Insightful (Workpuls)",
+     "1st to 5th: Verbal Warnings. 6th: Warning Letter"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "4. SOP and Chat Quality"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Issue",
+    "Penalty"
+   ],
+   "rows": [
+    [
+     "Unprofessional conduct in customer interactions (see Annex B)",
+     "1st: Verbal Warning. 2nd: Verbal Warning. 3rd: Warning Letter. 4th: Immediate Termination"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "5. Company Rules"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Issue",
+    "Penalty"
+   ],
+   "rows": [
+    [
+     "Alcohol or intoxicants during working hours",
+     "1st: Verbal Warning. 2nd: Verbal Warning. 3rd: Warning Letter. 4th: Immediate Termination"
+    ],
+    [
+     "Bypassing leaders, or cross-department communication on work issues without authorisation",
+     "1st: Verbal Warning. 2nd: Verbal Warning. 3rd: Warning Letter. 4th: Immediate Termination"
+    ],
+    [
+     "Sharing company account details (BO login, LC, Gmail, Telegram and similar) with non-employees: strictly prohibited",
+     "Termination"
+    ],
+    [
+     "Sharing company account details with employees without prior approval from a superior",
+     "1st: Verbal Warning. 2nd: Verbal Warning. 3rd: Warning Letter. 4th: Immediate Termination"
+    ],
+    [
+     "Gossip that undermines operations (see Annex C)",
+     "1st: Verbal Warning. 2nd: Verbal Warning. 3rd: Warning Letter. 4th: Immediate Termination"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "Annex A: Late Arrival Penalties"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Lateness",
+    "Penalty",
+    "Notes"
+   ],
+   "rows": [
+    [
+     "1 to 30 minutes",
+     "Recorded as a payroll deduction for the month",
+     "Cumulative across the month"
+    ],
+    [
+     "More than 30 minutes",
+     "Half a day's salary",
+     "-"
+    ],
+    [
+     "More than half a day (6 hours)",
+     "1 day's salary",
+     "-"
+    ],
+    [
+     "More than half a day (6 hours), choosing not to work without a valid reason or documents",
+     "2 days' salary",
+     "Subject to management approval for UPL"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "Annex B: Unprofessional Conduct"
+  },
+  {
+   "t": "list",
+   "x": [
+    "**Communication issues:** rude, curt or dismissive replies; typing in all caps; overusing emojis, slang or unprofessional abbreviations; long delays without updating the customer.",
+    "**Service quality failures:** inaccurate or incomplete information; copy-pasted replies without personalisation; closing the chat abruptly without the customer's consent; ignoring follow-up questions or not confirming resolution.",
+    "**Professionalism lapses:** not greeting or closing properly; impatience, sarcasm or a negative attitude; multitasking with slow, inattentive replies; leaving the customer waiting without explanation.",
+    "**Missed chats without valid proof:** more than 3 in a month without valid documentation."
+   ]
+  },
+  {
+   "t": "p",
+   "x": "Acceptable proof: screenshot or video of a device issue, internet disruption or LC issue; member left the chat in under 1 minute; a family emergency."
+  },
+  {
+   "t": "p",
+   "x": "Not acceptable: device, internet or LC disruption without proof; LC notification missing without a video; forgetting to switch off chat before a break; not at the workstation."
+  },
+  {
+   "t": "h2",
+   "x": "Annex C: Gossip Definition"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Speaking negatively about a colleague, superior or department without them present.",
+    "Spreading unverified information, rumours or assumptions.",
+    "Focusing on personal matters instead of work.",
+    "Causing misunderstanding, conflict or division.",
+    "Not contributing to solutions, improvement or clarity.",
+    "Happening in private conversations, side chats or group chats without constructive intent."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "Annex D: Sick Leave Conditions"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Inform your immediate superior or HOD of any medical leave at least 1 hour before shift start on the same day.",
+    "Submit the original medical certificate to the TL, Supervisor or HOD.",
+    "Medical leave without a certificate from a registered medical practitioner or government hospital counts as 2 days of annual leave (or 2 days of unpaid leave if no AL is left).",
+    "Paid sick leave is not granted for self-inflicted injury, misconduct, attempted suicide, carelessness, immorality, unlawful acts, provoked assault or use of non-prescribed drugs."
+   ]
+  }
+ ]
+}

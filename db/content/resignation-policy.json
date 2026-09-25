@@ -1,0 +1,97 @@
+{
+ "id": "resignation-policy",
+ "source": "../handbook-app/pages/hr/Resignation_Policy.md",
+ "version": "V1.0",
+ "meta": [
+  "V1.0",
+  "HR / Policy",
+  "Updated 13 May 2026"
+ ],
+ "body": [
+  {
+   "t": "p",
+   "x": "**Applies to:** All VIP RTN staff"
+  },
+  {
+   "t": "h2",
+   "x": "1. Objective"
+  },
+  {
+   "t": "p",
+   "x": "Standardise resignation and notice for the CS team, so handovers are smooth, operations are not disrupted, and everyone knows the rules."
+  },
+  {
+   "t": "h2",
+   "x": "2. Scope"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Staff understand their resignation responsibilities.",
+    "Management can plan workforce continuity.",
+    "A fair, transparent process avoids misunderstandings.",
+    "Applies to all C9MYR VIP RTN team members."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "3. Notice Period"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Staff type",
+    "Notice required"
+   ],
+   "rows": [
+    [
+     "Confirmed staff",
+     "At least 1 month"
+    ],
+    [
+     "Staff on probation",
+     "At least 7 days"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "4. Resigning Without Proper Notice (Confirmed Staff)"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Notice given",
+    "Final salary",
+    "KPI bonus / revenue share",
+    "Other entitlements"
+   ],
+   "rows": [
+    [
+     "30 days (full notice)",
+     "Paid in full (0% forfeited)",
+     "Eligible",
+     "Night shift allowance and annual leave honoured"
+    ],
+    [
+     "Less than 30 days",
+     "100% forfeited",
+     "Not eligible",
+     "Not eligible"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "5. Remarks"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Follow the proper procedure to keep your full entitlements and hand over smoothly.",
+    "Probation staff who resign without proper notice: final entitlements are at management's discretion.",
+    "All knowledge transfer, account handovers and pending tasks must be completed and signed off before the last working day."
+   ]
+  }
+ ]
+}

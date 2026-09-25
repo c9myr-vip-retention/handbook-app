@@ -54,6 +54,14 @@ export const MAP = {
   'special-event-campaign': '35_Special_Event_Campaign.md',
   'login-provisioning': '36_Login_Provisioning.md',
   'new-staff-incentive': '37_New_Staff_Incentive_Eligibility.md',
+  // HR & People: clean pages rewritten from the 13 May workbook export.
+  'work-policy': '../handbook-app/pages/hr/Work_Policy.md',
+  'leave-policy': '../handbook-app/pages/hr/Leave_Policy.md',
+  'al-blackout-policy': '../handbook-app/pages/hr/AL_Blackout_Policy.md',
+  'resignation-policy': '../handbook-app/pages/hr/Resignation_Policy.md',
+  'precaution-security': '../handbook-app/pages/hr/Precaution_Security.md',
+  'jnr-probation-checklist': '../handbook-app/pages/hr/JNR_Probation_Checklist.md',
+  'jnr-to-snr-probation': '../handbook-app/pages/hr/JNR_to_SNR_Probation.md',
 }
 
 const MONTHS = { january: 'Jan', february: 'Feb', march: 'Mar', april: 'Apr', may: 'May', june: 'Jun', july: 'Jul', august: 'Aug', september: 'Sep', october: 'Oct', november: 'Nov', december: 'Dec' }

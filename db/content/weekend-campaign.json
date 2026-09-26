@@ -1,13 +1,13 @@
 {
  "id": "weekend-campaign",
  "source": "15_Weekend_Campaign.md",
- "version": "V1.2",
+ "version": "V1.3",
  "meta": [
   "C9MYR-RTN-SOP-B01",
-  "V1.2",
+  "V1.3",
   "Bonus / Strategy",
   "Owner: VIP RTN / ATL",
-  "Updated 24 Sep 2026"
+  "Updated 26 Sep 2026"
  ],
  "body": [
   {
@@ -20,7 +20,7 @@
   },
   {
    "t": "p",
-   "x": "Run the weekend-only campaign every Saturday and Sunday. Three components: Ang Bao (TC), Redeem Code (Zyra), and Deposit Challenge (under testing). Each has distinct tier and platform targeting."
+   "x": "Run the reload campaign on a controlled, rotating roster. Components: Ang Bao (TC), Redeem Code (Zyra), and Deposit Challenge (under testing). Each has distinct tier and platform targeting."
   },
   {
    "t": "h2",
@@ -28,39 +28,33 @@
   },
   {
    "t": "p",
-   "x": "Saturday and Sunday only. Issuing any component on a weekday is a process violation."
+   "x": "The Ang Bao / Redeem Code reload runs daily by batch, following the \"Reload - Angpao and Redeem code By Batch\" roster in Lark. Each day belongs to one team and its brand group. Issuing outside your team's roster day is a process violation."
   },
   {
    "t": "table",
    "head": [
-    "Day",
-    "Active",
-    "Ang Bao (TC)",
-    "Redeem Code (Zyra)",
-    "Deposit Challenge"
+    "Days",
+    "TC (Ang Bao)",
+    "Zyra (Redeem Code)"
    ],
    "rows": [
     [
-     "Mon to Fri",
-     "No",
-     "-",
-     "-",
-     "-"
+     "Monday to Wednesday",
+     "Tier 3",
+     "Tier V"
     ],
     [
-     "Saturday",
-     "Yes",
-     "Active",
-     "Active",
-     "Under testing"
-    ],
-    [
-     "Sunday",
-     "Yes",
-     "Active",
-     "Active",
-     "-"
+     "Thursday to Saturday",
+     "Tier V",
+     "Tier 3"
     ]
+   ]
+  },
+  {
+   "t": "list",
+   "x": [
+    "The roster rotates over 3 weeks, then repeats, so every team gets an equal share of Mondays, Fridays, Saturdays and Tier 3 / Tier V campaigns.",
+    "Some days are reserved for other campaigns or rest days. Always follow the roster for the date, team, brands and redeem codes."
    ]
   },
   {
@@ -70,11 +64,11 @@
   {
    "t": "list",
    "x": [
-    "The whole campaign runs Saturday and Sunday only. A weekday issuance is a process violation.",
+    "Follow the roster. Only the team on the roster runs the reload that day, on its listed brands.",
     "Ang Bao is TC only; Redeem Code is Zyra only. Never cross-issue.",
     "Ang Bao tier split is strict: Normal (RM 2 to 8) Tier 3, Special (RM 8 to 18) Tier V.",
     "Deposit Challenge is under testing. Confirm with ATL or TL before any issuance.",
-    "If a player's tier is unclear, verify in the BO before issuing any weekend reward."
+    "If a player's tier is unclear, verify in the BO before issuing any reward."
    ]
   },
   {
@@ -109,7 +103,7 @@
    "x": [
     "Tier 3 gets Normal only, Tier V gets Special only. Never cross-issue.",
     "TC platform only. Not applicable on Zyra.",
-    "Weekend only."
+    "On your team's roster day only."
    ]
   },
   {
@@ -118,13 +112,13 @@
   },
   {
    "t": "p",
-   "x": "Replaces Free Spin on Zyra brands from September 2026."
+   "x": "Replaced Free Spin on Zyra brands in September 2026."
   },
   {
    "t": "list",
    "x": [
     "Zyra brands only. Not applicable on TC (TC uses Ang Bao).",
-    "Weekend only.",
+    "On your team's roster day only. The day's codes are listed per brand in the roster.",
     "If a player reports an Invalid or Expired code, follow the Redeem Code S0403 SOP before escalating."
    ]
   },
@@ -132,7 +126,7 @@
    "t": "callout",
    "tone": "warn",
    "title": "Pending confirmation",
-   "x": "Confirm with ATL: Redeem Code amount or value per tier (Tier 3 / Tier V), how codes are generated and sent, and the claim or ticket query."
+   "x": "Confirm with ATL: Redeem Code value per tier (Tier 3 / Tier V) and the claim or ticket query."
   },
   {
    "t": "h2",
@@ -192,10 +186,10 @@
   {
    "t": "list",
    "x": [
-    "A weekday issuance of any component is a process violation.",
+    "Issuing outside your team's roster day, or on brands not listed for that day, is a process violation.",
     "Ang Bao (TC only) and Redeem Code (Zyra only) are on different platforms; do not cross-issue.",
     "Deposit Challenge is under testing; confirm with ATL or TL before any issuance.",
-    "If a player's tier is unclear, verify in the BO before issuing."
+    "Never share redeem codes outside the players targeted for that day."
    ]
   },
   {
@@ -205,8 +199,8 @@
   {
    "t": "list",
    "x": [
-    "Ang Bao tier split is strict: Normal (RM 2 to 8) Tier 3, Special (RM 8 to 18) Tier V.",
-    "Free Spin (Zyra: 20 spins Tier 3, 30 spins Tier V) was discontinued in September 2026 and replaced by Redeem Code. Do not issue Free Spin."
+    "Why the rotation: it spreads CS workload (one team per day), gives each team an equal share of high-traffic days, and alternates Tier 3 and Tier V between TC and Zyra to avoid player fatigue.",
+    "Free Spin (Zyra: 20 spins Tier 3, 30 spins Tier V) was discontinued in September 2026. Do not issue Free Spin."
    ]
   }
  ]

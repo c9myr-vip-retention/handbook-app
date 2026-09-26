@@ -1,0 +1,119 @@
+{
+ "id": "crm-schedule",
+ "source": "../handbook-app/pages/frameworks/CRM_Schedule.md",
+ "version": "V1.1",
+ "meta": [
+  "V1.1",
+  "Workflow / Planning",
+  "Updated 26 Sep 2026"
+ ],
+ "body": [
+  {
+   "t": "p",
+   "x": "**Applies to:** All VIP CS"
+  },
+  {
+   "t": "h2",
+   "x": "1. Objective"
+  },
+  {
+   "t": "p",
+   "x": "The monthly recurring campaign schedule: which campaigns run on which days, including the reload roster and the WhatsApp Channel invitations."
+  },
+  {
+   "t": "p",
+   "x": "Daily tasks (Grace Period, LTV, Risk Push, Top PNL, Top Deposit) run every day and are not on this calendar. See each SOP."
+  },
+  {
+   "t": "h2",
+   "x": "2. Weekly Core"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Day",
+    "Campaign",
+    "Target",
+    "Notes"
+   ],
+   "rows": [
+    [
+     "Wednesday",
+     "Telegram Transition IM",
+     "Players who have not joined Telegram",
+     "Weekly. Filter out players already on Telegram before sending"
+    ],
+    [
+     "Wednesday, Saturday",
+     "Telegram Business Outbound Campaign",
+     "Per campaign",
+     "Weekly"
+    ],
+    [
+     "Daily, one team per day",
+     "Reload: Ang Bao (TC) + Redeem Code (Zyra)",
+     "Per the batch roster",
+     "Mon to Wed: TC Tier 3 + Zyra Tier V. Thu to Sat: TC Tier V + Zyra Tier 3. Follow the \"Reload - Angpao and Redeem code By Batch\" roster. See Weekend Campaign SOP"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "3. Grace Period (weekly)"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Day",
+    "List",
+    "Player condition",
+    "Action"
+   ],
+   "rows": [
+    [
+     "Monday",
+     "Grace Period Player list",
+     "Has not reached the monthly deposit threshold",
+     "Grace Period IM + Push; eligible list to Admin for SMS"
+    ],
+    [
+     "Tuesday",
+     "Potential Player list",
+     "Has reached or passed the threshold",
+     "Potential Player IM + Push; eligible list to Admin for SMS"
+    ],
+    [
+     "Thursday",
+     "Follow-up: Monday list",
+     "Monday players who did not respond or convert",
+     "Follow-up IM + Push"
+    ],
+    [
+     "Friday",
+     "Follow-up: Tuesday list",
+     "Tuesday players who did not respond or convert",
+     "Follow-up IM + Push"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "4. WhatsApp Channel Invitations"
+  },
+  {
+   "t": "p",
+   "x": "Biweekly: two invitation IMs a month, on the **1st and 3rd Thursday**, to all eligible Tier 3 / Tier V players. The second one follows up on players who did not join after the first."
+  },
+  {
+   "t": "h2",
+   "x": "5. Remarks"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Reload tier targeting follows the roster days; never swap Tier 3 and Tier V.",
+    "Free Spin on Zyra was discontinued in September 2026 and replaced by Redeem Code."
+   ]
+  }
+ ]
+}

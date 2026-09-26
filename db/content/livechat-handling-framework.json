@@ -1,0 +1,112 @@
+{
+ "id": "livechat-handling-framework",
+ "source": "../handbook-app/pages/frameworks/Livechat_Handling_Framework.md",
+ "version": "V1.0",
+ "meta": [
+  "V1.0",
+  "Soft Skill / Chat",
+  "Updated 13 May 2026"
+ ],
+ "body": [
+  {
+   "t": "p",
+   "x": "**Applies to:** All VIP CS"
+  },
+  {
+   "t": "h2",
+   "x": "1. Objective"
+  },
+  {
+   "t": "p",
+   "x": "The structured approach every CS applies when serving a VIP player on Livechat."
+  },
+  {
+   "t": "h2",
+   "x": "2. The 4 Pillars"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Pillar",
+    "Principle"
+   ],
+   "rows": [
+    [
+     "Communication",
+     "Friendly, natural Livechat style that builds rapport"
+    ],
+    [
+     "Bonus Management",
+     "Strategic use of Angpao, Free Credit and Reload offers"
+    ],
+    [
+     "Retention",
+     "Soft skills that keep VIP players engaged and loyal"
+    ],
+    [
+     "Complaints",
+     "Smart, empathetic handling of requests and issues"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "3. First Steps in Every Chat"
+  },
+  {
+   "t": "steps",
+   "x": [
+    "**Ask for the UID or username.** Always start here, even with returning players. Sample: \"Hi boss, boleh bagi UID atau username? Saya check account boss dulu.\"",
+    "**Pull up the player profile.** Open the full account in the back office before writing any reply.",
+    "**Assess before you respond.** Use what you find to choose the approach, tone and offer.",
+    "**Check the player's P&L.** Whether they are up or down shapes how you empathise and what you offer."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "4. What to Check in the Player Profile"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Check",
+    "What it tells you",
+    "How it affects your reply"
+   ],
+   "rows": [
+    [
+     "VIP tier (T3 or TV)",
+     "Which bonuses and credit amounts apply",
+     "T3 = 3% Secret Wallet (Grace Period capped at SW x 20%). TV = 5% Secret Wallet, eligible for higher Free Credit / Angpao tiers"
+    ],
+    [
+     "Last deposit time",
+     "Whether the player has gone quiet",
+     "Recent deposit = active; long gap = retention concern. Shapes reload and re-engagement offers"
+    ],
+    [
+     "Weekly deposit and loss",
+     "How much they deposited and lost this week",
+     "Drives bonus eligibility and the Angpao / Free Credit / Reload decision"
+    ],
+    [
+     "Player P&L (win / loss)",
+     "Whether they are up or down overall",
+     "Shapes empathy and the offer"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "5. Remarks"
+  },
+  {
+   "t": "list",
+   "x": [
+    "VIP players drive high deposits and long-term value. Good CS communication raises deposits, improves retention, cuts complaints and builds lasting relationships.",
+    "CS is not just support. CS is a retention engine.",
+    "Chinese-speaking VIPs with no Chinese-speaking CS free: use ChatGPT to translate, or politely ask whether English or Malay is fine. Transfer complex cases to a Chinese-speaking CS when one is available."
+   ]
+  }
+ ]
+}

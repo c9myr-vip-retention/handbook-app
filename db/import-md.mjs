@@ -62,6 +62,18 @@ export const MAP = {
   'precaution-security': '../handbook-app/pages/hr/Precaution_Security.md',
   'jnr-probation-checklist': '../handbook-app/pages/hr/JNR_Probation_Checklist.md',
   'jnr-to-snr-probation': '../handbook-app/pages/hr/JNR_to_SNR_Probation.md',
+  // Start Here, Frameworks & Strategy, Libraries.
+  'department-overview': '../handbook-app/pages/start/Department_Overview.md',
+  'team-structure': '../handbook-app/pages/start/Team_Structure.md',
+  'engagement-strategy': '../handbook-app/pages/frameworks/Engagement_Strategy.md',
+  'livechat-handling-framework': '../handbook-app/pages/frameworks/Livechat_Handling_Framework.md',
+  'relationship-management': '../handbook-app/pages/frameworks/Relationship_Management.md',
+  'crm-schedule': '../handbook-app/pages/frameworks/CRM_Schedule.md',
+  'case-study-library': '../handbook-app/pages/libraries/Case_Study_Library.md',
+  templates: '../handbook-app/pages/libraries/Templates.md',
+  'learning-library': '../handbook-app/pages/libraries/Learning_Library.md',
+  'material-library': '../handbook-app/pages/libraries/Material_Library.md',
+  'tools-console': '../handbook-app/pages/libraries/Tools_Console.md',
 }
 
 const MONTHS = { january: 'Jan', february: 'Feb', march: 'Mar', april: 'Apr', may: 'May', june: 'Jun', july: 'Jul', august: 'Aug', september: 'Sep', october: 'Oct', november: 'Nov', december: 'Dec' }

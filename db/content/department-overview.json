@@ -1,0 +1,162 @@
+{
+ "id": "department-overview",
+ "source": "../handbook-app/pages/start/Department_Overview.md",
+ "version": "V1.1",
+ "meta": [
+  "V1.1",
+  "Foundation",
+  "Updated 26 Sep 2026"
+ ],
+ "body": [
+  {
+   "t": "p",
+   "x": "**Applies to:** All VIP RTN staff"
+  },
+  {
+   "t": "h2",
+   "x": "1. Mission"
+  },
+  {
+   "t": "p",
+   "x": "The VIP Retention department drives long-term player value through structured outreach, personalised engagement and disciplined performance tracking. We retain Tier 3 and Tier V players by combining a systematic multi-channel approach (IM, Push, SMS, Livechat, Telegram) with high-quality service."
+  },
+  {
+   "t": "h2",
+   "x": "2. Operational Scope"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Category",
+    "Coverage",
+    "Details"
+   ],
+   "rows": [
+    [
+     "Brands",
+     "25, across Team A, Team B and Team C",
+     "See Brands by Team below"
+    ],
+    [
+     "Player tiers",
+     "2 tiers",
+     "Tier 3 (T3) and Tier V (TV), the VVIP segment"
+    ],
+    [
+     "Languages",
+     "3",
+     "Bahasa Malaysia (BM), English (EN), Chinese (CN)"
+    ],
+    [
+     "Currency",
+     "RM",
+     "Malaysian Ringgit"
+    ],
+    [
+     "Outreach channels",
+     "5",
+     "Internal Mail (IM), Push Notification, SMS, Livechat (LC), Telegram"
+    ],
+    [
+     "Back offices",
+     "2",
+     "TC Gaming BO and Zyra BO (96 BO)"
+    ],
+    [
+     "Work platform",
+     "Lark",
+     "Lark, Lark Base (data), Lark Sheet (collaboration)"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "3. Brands by Team"
+  },
+  {
+   "t": "p",
+   "x": "TC = TC Gaming. All others are Zyra."
+  },
+  {
+   "t": "table",
+   "head": [
+    "Team",
+    "Brands"
+   ],
+   "rows": [
+    [
+     "Team A (8)",
+     "JOM99 (TC), EZ96, PP96 (TC), BIG321, FUN36, JUS22, YES82, SA969"
+    ],
+    [
+     "Team B (8)",
+     "LPK777 (TC), BM69, HOT321, RM68, SK69, ACE33 (TC), JK32, ZAS36"
+    ],
+    [
+     "Team C (9)",
+     "VS96, ONG66, RUSH33, MAX39, SPIN321 (TC), MY36 (TC), OMG67 (TC), AC69, OG321"
+    ]
+   ]
+  },
+  {
+   "t": "p",
+   "x": "Each brand belongs to one team only. Never mix another team's brands into your team's work or reports."
+  },
+  {
+   "t": "h2",
+   "x": "4. Key Roles"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Role",
+    "Function",
+    "Scope"
+   ],
+   "rows": [
+    [
+     "Department Head",
+     "Department oversight",
+     "Strategic decisions and KPI ownership"
+    ],
+    [
+     "Supervisor",
+     "Operational supervision",
+     "Day-to-day team performance and escalations"
+    ],
+    [
+     "Assistant Team Leader (ATL)",
+     "Team leadership",
+     "Each ATL leads one team (A, B or C)"
+    ],
+    [
+     "Senior VIP RTN",
+     "Senior outreach and mentoring",
+     "Complex cases, mentoring Juniors"
+    ],
+    [
+     "Junior VIP RTN",
+     "Daily outreach",
+     "Runs the SOPs each shift"
+    ],
+    [
+     "Retention Team (Admin)",
+     "Data provisioning",
+     "Provides the daily player data and sends SMS on behalf of VIP RTN"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "5. Remarks"
+  },
+  {
+   "t": "list",
+   "x": [
+    "The Retention Team is the Admin function of the VIP Retention department, not a separate department. They provide the data; VIP RTN runs the outreach.",
+    "All outreach is tracked in the QA Record (see the QA Record SOP).",
+    "Performance is measured under the KPI Framework."
+   ]
+  }
+ ]
+}

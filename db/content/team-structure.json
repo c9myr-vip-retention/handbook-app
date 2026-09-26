@@ -1,0 +1,86 @@
+{
+ "id": "team-structure",
+ "source": "../handbook-app/pages/start/Team_Structure.md",
+ "version": "V1.1",
+ "meta": [
+  "V1.1",
+  "Foundation",
+  "Updated 25 Sep 2026"
+ ],
+ "body": [
+  {
+   "t": "p",
+   "x": "**Applies to:** All VIP RTN staff"
+  },
+  {
+   "t": "h2",
+   "x": "1. Reporting Chain"
+  },
+  {
+   "t": "p",
+   "x": "Junior / Senior VIP RTN, then ATL, then Supervisor, then Department Head."
+  },
+  {
+   "t": "p",
+   "x": "Raise work issues through this chain. Do not bypass it (see Work Policy, Company Rules)."
+  },
+  {
+   "t": "h2",
+   "x": "2. Teams"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Team",
+    "Led by",
+    "Seniors",
+    "Juniors"
+   ],
+   "rows": [
+    [
+     "Team A",
+     "ATL",
+     "1",
+     "4"
+    ],
+    [
+     "Team B",
+     "ATL",
+     "3",
+     "2"
+    ],
+    [
+     "Team C",
+     "ATL",
+     "3",
+     "2"
+    ]
+   ]
+  },
+  {
+   "t": "p",
+   "x": "Headcount as of the August 2026 roster. Staff names are kept in the restricted Roster, not here."
+  },
+  {
+   "t": "h2",
+   "x": "3. Support Function"
+  },
+  {
+   "t": "list",
+   "x": [
+    "**Retention Team (Admin):** provides the daily player data and sends SMS for VIP RTN. Part of the department, not a separate team."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "4. Remarks"
+  },
+  {
+   "t": "list",
+   "x": [
+    "The May org chart had a Manager tier above the Supervisor. The August chart does not.",
+    "For who is on shift, see the restricted Roster (admins)."
+   ]
+  }
+ ]
+}

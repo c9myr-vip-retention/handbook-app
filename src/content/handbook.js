@@ -57,7 +57,8 @@ export const NAV = [
       { title: 'Weekend Campaign', status: 'pending' }, { title: 'Bonus Issuance & Approval', status: 'planned' },
       { title: 'Compensation', status: 'planned' } ] },
     { name: 'Reporting & Data', items: [
-      { title: 'QA Record', status: 'pending' }, { title: 'Output Report', status: 'pending' }, { title: 'ROI Table', status: 'pending' } ] },
+      { title: 'QA Record', status: 'pending' }, { title: 'Output Report', status: 'pending' }, { title: 'ROI Table', status: 'pending' },
+      { title: 'Daily Closing Report', status: 'planned' } ] },
     { name: 'Engagement Outreach', items: [
       { id: 'ltv', title: 'LTV List' }, { id: 'pnl', title: 'Top PNL' }, { title: 'Top Deposit', status: 'pending' },
       { title: 'VVIP Blast', status: 'pending' }, { title: 'Internal Mail Approach', status: 'pending' },
@@ -68,7 +69,8 @@ export const NAV = [
     { name: 'Service & Exceptions', items: [
       { title: 'Complaint Handling', status: 'pending' }, { title: 'Chat SOP', status: 'pending' },
       { title: 'Checking Conversation History', status: 'external' }, { title: 'ZYRA Forgot Password', status: 'external' },
-      { title: 'Redeem Code S0403', status: 'external' } ] },
+      { title: 'Redeem Code S0403', status: 'external' },
+      { title: 'App-First Link Recovery', status: 'planned' } ] },
     { name: 'People & Operations', items: [
       { title: 'KPI Scoring', status: 'pending' }, { title: 'New Agent Onboarding', status: 'planned' },
       { title: 'New Staff Incentive', status: 'planned' }, { title: 'Attendance (Pre-Shift)', status: 'pending' },
@@ -121,6 +123,8 @@ export const KEYWORDS = {
   'KPI Scoring': 'kpi frt discipline deposit growth retention target score',
   'Case Study Logging': 'incident exploit lesson severity case study',
   'Channel Login': 'login discord livechat setup pre-shift',
+  'App-First Link Recovery': 'link app download blocked site google fake copycat locked out access recovery uid',
+  'Daily Closing Report': 'closing report daily post-close deposit retention figures senior',
   'Department Overview': 'mission scope brands tiers roles about',
   'Team Structure': 'org chart headcount roles about',
   'Work Policy': 'discipline penalty attendance annex wfh',

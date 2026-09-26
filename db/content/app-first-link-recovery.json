@@ -1,0 +1,250 @@
+{
+ "id": "app-first-link-recovery",
+ "source": "39_App_First_Link_Recovery.md",
+ "version": "V1.0",
+ "meta": [
+  "Not yet assigned",
+  "V1.0",
+  "Service / Exceptions (Chat SOP)",
+  "Owner: ATL",
+  "Updated 26 Sep 2026"
+ ],
+ "body": [
+  {
+   "t": "p",
+   "x": "**Applies to:** All PIC, Team B brands, LiveChat and Telegram"
+  },
+  {
+   "t": "h2",
+   "x": "1. Objective"
+  },
+  {
+   "t": "p",
+   "x": "Get a locked-out player back in through the brand app first, with the official site as backup, then capture their UID so the recovery is attributed."
+  },
+  {
+   "t": "h2",
+   "x": "2. Scope"
+  },
+  {
+   "t": "p",
+   "x": "Use this SOP when a player:"
+  },
+  {
+   "t": "list",
+   "x": [
+    "cannot find the brand on Google or any search engine",
+    "cannot open or load the site",
+    "asks for \"the usual link\", \"link lama\", \"link apps\" or similar",
+    "sends a screenshot of search results with the brand missing",
+    "reports a site that looked like ours but behaved wrongly"
+   ]
+  },
+  {
+   "t": "p",
+   "x": "Effective from publication. Not applied to chats handled before that date."
+  },
+  {
+   "t": "h2",
+   "x": "3. Golden Rules"
+  },
+  {
+   "t": "list",
+   "x": [
+    "**App first, site second.** The app removes the search dependency permanently. The site link only solves today.",
+    "**Fix the access, then capture the identity.** Ask for UID only after the player is back in.",
+    "One link per message, always copied from the locked reference in Lark. Never type a link from memory.",
+    "The trusted-source warning is mandatory on every chat under this SOP.",
+    "Never name, send or open a suspected fake domain."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "4. Procedure (Action / Sequence / Degree / Tool)"
+  },
+  {
+   "t": "table",
+   "head": [
+    "#",
+    "Action",
+    "Sequence (when)",
+    "Degree / standard",
+    "Tool"
+   ],
+   "rows": [
+    [
+     "1",
+     "Acknowledge and point to the app",
+     "First reply",
+     "Confirm the problem first: site not loading, or not findable (different problems). Say the app is the fastest way in. Do not explain why the site is missing from search, do not speculate on the cause",
+     "LiveChat / Telegram"
+    ],
+    [
+     "2",
+     "Send the app download link",
+     "After step 1",
+     "One link only, copied from the locked reference. Check you are on the correct brand row before sending",
+     "Locked reference (Lark)"
+    ],
+    [
+     "3",
+     "Send the download-button screenshot",
+     "Straight after the link, as a separate message",
+     "Use the stored brand asset from the bucket. Do not screenshot it yourself",
+     "Stored brand asset"
+    ],
+    [
+     "4",
+     "Confirm the download worked",
+     "After step 3",
+     "Ask directly (\"Download done boss?\") and wait for the answer. Do not move to step 5 until the player confirms. No reply after 3 minutes: prompt once, do not close the chat",
+     "LiveChat / Telegram"
+    ],
+    [
+     "5",
+     "Send the official site link as backup",
+     "After the download is confirmed",
+     "One link only, from the locked reference. Tell the player to save it and invite them to the official Telegram channel",
+     "Locked reference (Lark)"
+    ],
+    [
+     "6",
+     "Give the trusted-source warning",
+     "Every chat, no exceptions",
+     "Use the canned line word for word. Never name the fake domain, even when warning about it",
+     "Canned response"
+    ],
+    [
+     "7",
+     "Capture UID and log",
+     "After the access is fixed",
+     "Ask for UID now, not earlier. No answer: ask once more before closing. Log in contact_log with the tag Access Recovery. No UID means no attribution",
+     "contact_log"
+    ],
+    [
+     "8",
+     "If the player reports a suspicious site",
+     "Whenever it comes up",
+     "Ask for a screenshot only. Do not ask for the URL, do not open it. Escalate to ATL the same shift with the screenshot attached",
+     "Screenshot, ATL"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "5. Canned Responses, English"
+  },
+  {
+   "t": "code",
+   "x": "[1] Noted boss. Fastest way in is our app, and it does not depend on Google. Sending the download link now.\n[2] SK69 app download: [LOCKED APP URL]\n[3] After opening the link, tap the download button as shown here. [ATTACH LOCKED SCREENSHOT]\n[4] Download done boss?\n[5] For backup, this is our official site: [LOCKED SITE URL]. Save this link and join our official Telegram channel so you always have the latest one.\n[6] One important reminder boss: only use links sent here or from our official channel. Do not use links from Google search. There are copycat sites out there.\n[7] May I have your UID so I can note this on your account?"
+  },
+  {
+   "t": "p",
+   "x": "Line [2] uses SK69 as the example. Swap in the player's brand."
+  },
+  {
+   "t": "h2",
+   "x": "6. Canned Responses, Bahasa Malaysia"
+  },
+  {
+   "t": "code",
+   "x": "[1] Baik bos. Cara paling cepat masuk adalah melalui app kami, dan app ini tak bergantung pada Google. Saya hantar link download sekarang.\n[2] Link download app SK69: [LOCKED APP URL]\n[3] Lepas buka link tu, tekan butang download macam dalam gambar ni ya bos. [ATTACH LOCKED SCREENSHOT]\n[4] Sudah berjaya download bos?\n[5] Untuk backup, ini link website rasmi kami: [LOCKED SITE URL]. Simpan link ni dan join channel Telegram rasmi kami supaya bos sentiasa ada link terkini.\n[6] Satu peringatan penting bos: guna link yang kami hantar di sini atau dari channel rasmi kami sahaja. Jangan guna link dari carian Google. Ada pihak buat website tiruan.\n[7] Boleh bagi UID bos, saya nak record dalam account bos."
+  },
+  {
+   "t": "h2",
+   "x": "7. Guards (never do this)"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Say or imply the site cannot be listed, is blocked, or is being hidden.",
+    "\"Faham-faham lah\" or anything that invites the player to read between the lines.",
+    "Name or send the fake domain to a player, even as a warning.",
+    "Put two URLs in one message.",
+    "Send any domain not on the locked reference sheet.",
+    "Ask for UID before the access problem is solved.",
+    "Close the chat without confirming the player got in.",
+    "Open a suspected fake site on a work device."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "8. Escalation Ladder"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Step",
+    "Action",
+    "Who",
+    "Time cap"
+   ],
+   "rows": [
+    [
+     "1",
+     "Verify and understand the customer's actual problem",
+     "PIC",
+     "First"
+    ],
+    [
+     "2",
+     "Check yourself: Handbook, SOP, locked reference, pinned posts",
+     "PIC",
+     "5 min"
+    ],
+    [
+     "3",
+     "Cannot find the answer: go to the upline with the screenshot and what you already checked",
+     "PIC to ATL",
+     "Immediately"
+    ],
+    [
+     "4",
+     "Upline cannot resolve: escalate to management",
+     "ATL to Supervisor to Department Head",
+     "Same shift"
+    ]
+   ]
+  },
+  {
+   "t": "list",
+   "x": [
+    "The five-minute cap on step 2 is firm. Still searching at five minutes is a step 3. Tell the player you are checking and keep them warm.",
+    "Step 4 triggers automatically, no judgement call, if any of these apply: money at risk, a third-party site impersonating the brand, player data or credentials exposed, or the same issue hitting more than one player."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "9. Remarks"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Why the five-minute cap: in the source case an agent checked for ten minutes, found nothing, and lost the chat to inactivity. At five minutes it becomes an escalation instead of a lost player.",
+    "**Rollout prerequisites (status as recorded in the Lark doc on 15 Aug 2026; confirm current status):**"
+   ]
+  },
+  {
+   "t": "p",
+   "x": "1. Locked domain reference table in Lark, all brands, ATL edit rights only. Owner: ATL. Status then: not built, blocker for steps 2 and 5."
+  },
+  {
+   "t": "p",
+   "x": "2. Download-button screenshots stored in the R2 bucket, one per brand. Owner: ATL. Status then: one exists, agent-taken, blocker for step 3."
+  },
+  {
+   "t": "p",
+   "x": "3. Canned responses loaded into LiveChat and Telegram saved replies. Owner: Trainer. Status then: pending."
+  },
+  {
+   "t": "p",
+   "x": "4. Team briefed and acknowledgement confirmed. Owner: Trainer and QA PIC. Status then: pending."
+  },
+  {
+   "t": "list",
+   "x": [
+    "The Lark source says \"all seven brands\". Team B now runs 8 brands, so the locked reference must cover all 8."
+   ]
+  }
+ ]
+}

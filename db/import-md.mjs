@@ -41,6 +41,8 @@ export const MAP = {
   'birthday-bonus': '22_Birthday_Bonus.md',
   'zyra-forgot-password': '19_ZYRA_Forgot_Password.md',
   'redeem-code-s0403': '20_Redeem_Code_S0403.md',
+  'app-first-link-recovery': '39_App_First_Link_Recovery.md',
+  'daily-closing-report': '28_Daily_Closing_Report.md',
   'checking-conversation-history': '21_Checking_Conversation_History_VVIP.md',
   // Formerly "planned": written and enrolled in sop-book.
   'bonus-issuance-approval': '23_Bonus_Issuance_Approval.md',

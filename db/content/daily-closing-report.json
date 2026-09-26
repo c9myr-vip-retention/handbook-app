@@ -1,0 +1,126 @@
+{
+ "id": "daily-closing-report",
+ "source": "28_Daily_Closing_Report.md",
+ "version": "V1.0",
+ "meta": [
+  "C9MYR-RTN-SOP-REP02",
+  "V1.0",
+  "Reporting",
+  "Owner: Senior",
+  "Updated 5 Sep 2026"
+ ],
+ "body": [
+  {
+   "t": "p",
+   "x": "**Applies to:** Senior (report owner); ATL sign-off"
+  },
+  {
+   "t": "h2",
+   "x": "1. Objective"
+  },
+  {
+   "t": "p",
+   "x": "Produce the daily team closing report accurately and on time, from post-close data, so leadership reads one true picture of the day."
+  },
+  {
+   "t": "h2",
+   "x": "2. Scope"
+  },
+  {
+   "t": "p",
+   "x": "The end-of-day Team B closing report. Follows the Reporting & Data Integrity SOP for all method rules."
+  },
+  {
+   "t": "h2",
+   "x": "3. Golden Rules"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Post-close data only; same-day figures are provisional.",
+    "Weighted average, never simple average.",
+    "Missing brand = dash, not zero.",
+    "Name concentration risk every time (LPK777 around 45% of team deposit).",
+    "No em dashes; no invented numbers."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "4. Procedure (Action / Sequence / Degree / Tool)"
+  },
+  {
+   "t": "table",
+   "head": [
+    "#",
+    "Action",
+    "Sequence (when)",
+    "Degree / standard",
+    "Tool"
+   ],
+   "rows": [
+    [
+     "1",
+     "Wait for post-close data",
+     "After daily close",
+     "Same-day provisional excluded",
+     "Dashboard"
+    ],
+    [
+     "2",
+     "Pull per-brand figures",
+     "After close",
+     "All brands; missing = dash",
+     "BO / dashboard"
+    ],
+    [
+     "3",
+     "Compute team totals",
+     "On collation",
+     "Weighted: sum depositors / sum population; never average percentages",
+     "Sheet formulas"
+    ],
+    [
+     "4",
+     "Assemble sections in brand order",
+     "After compute",
+     "Section 1 brand order (LPK, BM, HOT, RM, SK, ACE, JK); name concentration risk",
+     "Report template"
+    ],
+    [
+     "5",
+     "Flag artifacts and risks",
+     "Before sending",
+     "Quantify any data-artifact gain; flag cross-day comparisons",
+     "Report notes"
+    ],
+    [
+     "6",
+     "Review and submit",
+     "End of shift",
+     "Totals reconcile vs the scorecard ledger; no em dashes; submit to the closing file",
+     "Closing file, Lark"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "5. Guards"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Post-close only; weighted only; missing = dash; concentration risk named."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "6. Remarks"
+  },
+  {
+   "t": "list",
+   "x": [
+    "This SOP fixes the process and integrity. Confirm the exact section list and layout with the current report owner (benchmark, Method 3), then lock it into the report template."
+   ]
+  }
+ ]
+}

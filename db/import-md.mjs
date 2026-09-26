@@ -74,6 +74,9 @@ export const MAP = {
   'learning-library': '../handbook-app/pages/libraries/Learning_Library.md',
   'material-library': '../handbook-app/pages/libraries/Material_Library.md',
   'tools-console': '../handbook-app/pages/libraries/Tools_Console.md',
+  'shift-overview': '../handbook-app/pages/start/Shift_Overview.md',
+  'kpi-framework': '../handbook-app/pages/frameworks/KPI_Framework.md',
+  'tag-library': '../handbook-app/pages/libraries/Tag_Library.md',
 }
 
 const MONTHS = { january: 'Jan', february: 'Feb', march: 'Mar', april: 'Apr', may: 'May', june: 'Jun', july: 'Jul', august: 'Aug', september: 'Sep', october: 'Oct', november: 'Nov', december: 'Dec' }

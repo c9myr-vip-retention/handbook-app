@@ -119,14 +119,11 @@
    "x": [
     "Zyra brands only. Not applicable on TC (TC uses Ang Bao).",
     "On your team's roster day only. The day's codes are listed per brand in the roster.",
+    "One claim per player per code.",
+    "The player must deposit RM 100 to activate the code.",
+    "Codes follow each brand's schedule in the roster.",
     "If a player reports an Invalid or Expired code, follow the Redeem Code S0403 SOP before escalating."
    ]
-  },
-  {
-   "t": "callout",
-   "tone": "warn",
-   "title": "Pending confirmation",
-   "x": "Confirm with ATL: Redeem Code value per tier (Tier 3 / Tier V) and the claim or ticket query."
   },
   {
    "t": "h2",

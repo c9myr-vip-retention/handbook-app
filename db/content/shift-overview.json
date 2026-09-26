@@ -1,0 +1,203 @@
+{
+ "id": "shift-overview",
+ "source": "../handbook-app/pages/start/Shift_Overview.md",
+ "version": "V2.0",
+ "meta": [
+  "V2.0",
+  "Operation / Shift",
+  "Updated 26 Sep 2026"
+ ],
+ "body": [
+  {
+   "t": "p",
+   "x": "**Applies to:** All VIP RTN staff"
+  },
+  {
+   "t": "h2",
+   "x": "1. Shifts"
+  },
+  {
+   "t": "p",
+   "x": "All times are GMT+8."
+  },
+  {
+   "t": "table",
+   "head": [
+    "Shift",
+    "Hours",
+    "Break"
+   ],
+   "rows": [
+    [
+     "Morning",
+     "07:00 to 19:00",
+     "2 hours, per the break schedule"
+    ],
+    [
+     "Mid",
+     "16:00 to 04:00",
+     "2 hours, per the break schedule"
+    ],
+    [
+     "Night",
+     "19:00 to 07:00",
+     "2 hours, per the break schedule"
+    ]
+   ]
+  },
+  {
+   "t": "list",
+   "x": [
+    "Your shift and rest days are in the Roster.",
+    "**Breaks are scheduled (from September 2026).** Each person has fixed break slots for the week in the Roster's break schedule. Take your break only in your slot.",
+    "Start and end every break on Insightful (Workpuls). Excessive break time is a Work Policy offence."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "2. Before Every Shift"
+  },
+  {
+   "t": "steps",
+   "x": [
+    "Pre-shift setup: VPN, clock in on Insightful, Chrome in Incognito (see Attendance SOP).",
+    "Channel login (see Channel Login SOP).",
+    "Check the Handover tab for items left by the previous shift (see Shift Handover SOP)."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "3. Morning Shift: Task Order"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Order",
+    "Task",
+    "Time",
+    "SOP"
+   ],
+   "rows": [
+    [
+     "1",
+     "SMS Script update",
+     "Start of shift",
+     "SMS Script"
+    ],
+    [
+     "2",
+     "Grace Period List (Mon, Tue send; Thu, Fri follow-up)",
+     "12:00",
+     "Grace Period List"
+    ],
+    [
+     "3",
+     "LTV List (10 players)",
+     "14:00",
+     "LTV List"
+    ],
+    [
+     "4",
+     "VVIP Blast",
+     "15:00",
+     "VVIP Blast"
+    ],
+    [
+     "5",
+     "Risk Push",
+     "15:00",
+     "Risk Push"
+    ],
+    [
+     "6",
+     "Reload (Ang Bao / Redeem Code), on your team's roster day",
+     "Per roster",
+     "Weekend Campaign"
+    ],
+    [
+     "7",
+     "Telegram Approach and Internal Mail",
+     "Throughout",
+     "Telegram Approach, Internal Mail Approach"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "4. Night Shift: Task Order"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Order",
+    "Task",
+    "Time",
+    "SOP"
+   ],
+   "rows": [
+    [
+     "1",
+     "Top PNL (export from 19:00, engage from 20:00)",
+     "20:00",
+     "Top PNL"
+    ],
+    [
+     "2",
+     "Top Deposit",
+     "20:30",
+     "Top Deposit"
+    ],
+    [
+     "3",
+     "Livechat complaints",
+     "During shift",
+     "Complaint Handling"
+    ],
+    [
+     "4",
+     "Telegram Approach and Internal Mail",
+     "Throughout",
+     "Telegram Approach, Internal Mail Approach"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "5. Mid Shift"
+  },
+  {
+   "t": "p",
+   "x": "Covers the overlap from 16:00 to 04:00, when Livechat is busiest."
+  },
+  {
+   "t": "callout",
+   "tone": "warn",
+   "title": "Pending confirmation",
+   "x": "Confirm with ATL: the Mid shift's own task list and order (for example, which Morning or Night tasks it takes over)."
+  },
+  {
+   "t": "h2",
+   "x": "6. Every Shift"
+  },
+  {
+   "t": "list",
+   "x": [
+    "**Livechat:** handle chats within the FRT standard and tag every chat (see Tag Library).",
+    "**QA Record:** update right after each task, not at the end of the shift.",
+    "**Output Report:** submit before the shift ends.",
+    "**Handover:** log open items for the next shift in the last 15 minutes."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "7. Remarks"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Telegram Approach runs between other tasks, following the priority order in its SOP.",
+    "If a task cannot be finished in your shift, record it as pending in the Output Report and the Handover tab, and tell your ATL before you leave."
+   ]
+  }
+ ]
+}

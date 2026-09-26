@@ -1,18 +1,18 @@
 {
  "id": "special-event-campaign",
  "source": "35_Special_Event_Campaign.md",
- "version": "V1.0",
+ "version": "V1.1",
  "meta": [
   "C9MYR-RTN-SOP-B02",
-  "V1.0",
+  "V1.1",
   "Campaigns / Strategy",
   "Owner: VIP RTN / ATL",
-  "Updated 7 Sep 2026"
+  "Updated 26 Sep 2026"
  ],
  "body": [
   {
    "t": "p",
-   "x": "**Applies to:** VIP CS; ATL/TL for approval and sign-off"
+   "x": "**Applies to:** VIP CS; Supervisor for sign-off"
   },
   {
    "t": "h2",
@@ -114,7 +114,7 @@
      "2",
      "Get sign-off",
      "Before any build",
-     "ATL/TL approve structure and budget; nothing is built until approved",
+     "Supervisor approves structure and budget for every special event; nothing is built until approved",
      "Lark approval"
     ],
     [
@@ -182,15 +182,10 @@
   {
    "t": "list",
    "x": [
+    "**Sign-off:** every special event needs Supervisor sign-off, whatever its size (confirmed by the ATL, 26 Sep 2026).",
     "Reference build on file: Lucky Angbao (TC) + 30 Free Spin (Zyra), 48-hour window, RM100 deposit trigger, 114 content pieces (18 SMS, 42 IM, 54 Push). Use as the sizing benchmark for a full event set.",
     "No standard event calendar is locked yet (festive, sports, payday). Proposing one would let events be planned, not run reactively."
    ]
-  },
-  {
-   "t": "callout",
-   "tone": "warn",
-   "title": "Open item",
-   "x": "**Approval threshold UNCONFIRMED.** Which events need ATL vs Supervisor vs Department Head sign-off is not fixed. Confirm and lock the threshold."
   },
   {
    "t": "callout",

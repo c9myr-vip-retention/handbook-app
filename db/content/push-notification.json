@@ -1,13 +1,13 @@
 {
  "id": "push-notification",
  "source": "34_Push_Notification.md",
- "version": "V1.0",
+ "version": "V1.1",
  "meta": [
   "C9MYR-RTN-SOP-A04",
-  "V1.0",
+  "V1.1",
   "Outreach / Communication",
   "Owner: VIP RTN",
-  "Updated 7 Sep 2026"
+  "Updated 26 Sep 2026"
  ],
  "body": [
   {
@@ -38,7 +38,7 @@
    "t": "list",
    "x": [
     "**RG / chase flag beats every push.** Flagged players route to welfare; no push at all.",
-    "Subject and content come from the approved Template Tab or the campaign's signed-off set. No ad-hoc copy without TL approval.",
+    "Subject and content come from the approved Template Tab or the campaign's signed-off set. No ad-hoc copy without ATL (or above) approval.",
     "**Correct file format per platform: TC = .txt, Zyra = .csv.** Wrong format fails the upload.",
     "Any offer carried in a push states its validity; a push never over-promises.",
     "Log every send in the QA Record with a BO screenshot. No screenshot, no proof of send."
@@ -89,7 +89,7 @@
      "1",
      "Confirm the push is approved and copy is ready",
      "Before build",
-     "Subject + content from the approved Template Tab or campaign set; TL approval for any new or edited copy",
+     "Subject + content from the approved Template Tab or campaign set; ATL (or above) approval for any new or edited copy",
      "Template Tab, Lark approval"
     ],
     [
@@ -139,7 +139,7 @@
     "Wrong file format fails on upload; verify TC `.txt` / Zyra `.csv` every time.",
     "RG / chase flag: no push, route to welfare.",
     "Empty list: record it in the QA Record and inform the ATL. Never fabricate a send.",
-    "No unapproved copy; Template Tab edits need TL approval first."
+    "No unapproved copy; Template Tab edits need ATL (or above) approval first."
    ]
   },
   {
@@ -162,7 +162,7 @@
    "t": "callout",
    "tone": "warn",
    "title": "Open item",
-   "x": "**Approval authority for ad-hoc / non-template pushes UNCONFIRMED.** Default to TL sign-off until confirmed."
+   "x": "**Approval authority for ad-hoc / non-template pushes UNCONFIRMED.** Working default: ATL or above signs off (set by the ATL, 26 Sep 2026). Not yet confirmed by the Supervisor."
   }
  ]
 }

@@ -183,15 +183,10 @@
    "t": "list",
    "x": [
     "**Sign-off:** every special event needs Supervisor sign-off, whatever its size (confirmed by the ATL, 26 Sep 2026).",
+    "**Ticket query naming:** the claim ticket query uses the event name, so every event claim stays traceable (confirmed by the ATL, 26 Sep 2026).",
     "Reference build on file: Lucky Angbao (TC) + 30 Free Spin (Zyra), 48-hour window, RM100 deposit trigger, 114 content pieces (18 SMS, 42 IM, 54 Push). Use as the sizing benchmark for a full event set.",
     "No standard event calendar is locked yet (festive, sports, payday). Proposing one would let events be planned, not run reactively."
    ]
-  },
-  {
-   "t": "callout",
-   "tone": "warn",
-   "title": "Open item",
-   "x": "**Event ticket-query naming UNCONFIRMED.** Confirm the standard query convention so every event claim stays traceable."
   }
  ]
 }

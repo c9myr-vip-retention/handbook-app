@@ -31,6 +31,10 @@
    "x": "Every push a VIP CS sends on TC or Zyra. This SOP owns the send mechanics, format and logging only. The trigger, list-building and messaging strategy stay with the calling SOP (Risk Push, Special Event, Weekend Campaign). Informational and offer pushes both covered."
   },
   {
+   "t": "p",
+   "x": "**Fire Drill (manual fallback).** Pushes are sent by automation day to day (confirmed by the ATL, 26 Sep 2026). Run this manual procedure only when the automation is down or being verified."
+  },
+  {
    "t": "h2",
    "x": "3. Golden Rules"
   },

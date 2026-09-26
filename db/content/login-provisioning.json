@@ -1,13 +1,13 @@
 {
  "id": "login-provisioning",
  "source": "36_Login_Provisioning.md",
- "version": "V1.0",
+ "version": "V1.1",
  "meta": [
   "C9MYR-RTN-SOP-O02",
-  "V1.0",
+  "V1.1",
   "Operation / Access",
   "Owner: ATL",
-  "Updated 7 Sep 2026"
+  "Updated 26 Sep 2026"
  ],
  "body": [
   {
@@ -63,6 +63,10 @@
      "Raises the provisioning request per assignment / batch; keeps the current map of which CS holds which brand; confirms revocation done"
     ],
     [
+     "ATL (the CS's own team leader)",
+     "Hands each per-brand BO login to the CS in their team"
+    ],
+    [
      "VIP CS",
      "Receives and uses the login; verifies access; reports issues; never shares the credential"
     ]
@@ -100,8 +104,8 @@
      "3",
      "Issue the login to the CS",
      "After creation",
-     "Delivered securely to the CS; credential never posted in the repo or synced cloud. [OPEN: exact handover channel not documented]",
-     "[OPEN]"
+     "The CS's own team leader (ATL) hands over one login per assigned brand; credential never posted in the repo or synced cloud. [OPEN: the exact channel used for the handover]",
+     "Team leader to CS"
     ],
     [
      "4",
@@ -146,6 +150,7 @@
   {
    "t": "list",
    "x": [
+    "**Handover settled:** the CS's own team leader issues each per-brand BO login (confirmed by the ATL, 26 Sep 2026).",
     "**Risk: passwords are static.** No rotation to date. A static BO password with no rotation is a standing access risk, and worse after any leaver who held it. Recommend agreeing a rotation trigger with IT, at minimum rotate on every leaver who held that login.",
     "Feeds the New Agent Onboarding SOP (pre-arrival setup depends on this SOP)."
    ]
@@ -154,7 +159,7 @@
    "t": "callout",
    "tone": "warn",
    "title": "Open item",
-   "x": "**OPEN: login storage and handover.** Where the login directory lives, and how a login is handed to the CS, is not currently held at ATL level. Confirm with IT / the holding PIC and fill steps 3 and 5."
+   "x": "**OPEN: login storage.** Where the login directory lives (step 5), and the exact handover channel (step 3), are still not documented."
   }
  ]
 }

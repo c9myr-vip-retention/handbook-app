@@ -100,12 +100,6 @@
    ]
   },
   {
-   "t": "callout",
-   "tone": "warn",
-   "title": "Pending confirmation",
-   "x": "Confirm with ATL: the KPI Scoring SOP says \"one rubric per role: the same weights for all Seniors and all Juniors\". Personalised monthly weights change that rule. Update the SOP to match?"
-  },
-  {
    "t": "h2",
    "x": "5. Remarks"
   },

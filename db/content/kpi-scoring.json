@@ -1,11 +1,12 @@
 {
  "id": "kpi-scoring",
  "source": "24_KPI_Scoring.md",
- "version": "V1.0",
+ "version": "V1.1",
  "meta": [
   "C9MYR-RTN-SOP-PRF01",
+  "V1.1",
   "Performance / Reporting",
-  "Updated 5 Sep 2026"
+  "Updated 26 Sep 2026"
  ],
  "body": [
   {
@@ -26,7 +27,7 @@
   },
   {
    "t": "p",
-   "x": "Monthly KPI scoring for Team B, on the Senior and Junior scorecards. Weights and bands are the rubric; this SOP governs the scoring process, not the rubric design."
+   "x": "Monthly KPI scoring for VIP RTN staff. Each person has a personalised monthly scorecard (metrics and weights set by the ATL to target their weakest areas; see KPI Framework). This SOP governs how the scorecard is set, locked and scored."
   },
   {
    "t": "h2",
@@ -35,9 +36,9 @@
   {
    "t": "list",
    "x": [
-    "**Change weights by rule, for everyone. Never edit a metric score to hit a target.** Lowering a correct score to reach a number is falsifying a record.",
+    "**Set and lock each scorecard before the month starts.** Metrics and weights are personalised per person, shared with them up front, and never changed after results are known. **Never edit a metric score to hit a target.** Lowering a correct score to reach a number is falsifying a record.",
     "**Every score is evidence-backed.** No invented figures.",
-    "**One rubric per role.** The same weights and band cutoffs apply to all Seniors, and all Juniors.",
+    "**Same metric, same cutoffs.** Weights differ per person, but a metric's band cutoffs are identical for everyone who has it, so results stay comparable.",
     "**A raw on a threshold takes the band it meets, not the higher one.**"
    ]
   },
@@ -104,9 +105,9 @@
     ],
     [
      "3",
-     "Apply the role weights",
+     "Apply the person's locked weights",
      "After scoring",
-     "Uniform weights for the role; weighted = weight x score",
+     "The weights set before the month; weighted = weight x score",
      "Scorecard"
     ],
     [
@@ -118,10 +119,10 @@
     ],
     [
      "5",
-     "If the number feels wrong, fix the rubric, not the cell",
+     "If the number feels wrong, fix next month's scorecard, not this month's cell",
      "On mismatch",
-     "Adjust weights/thresholds and re-run for everyone; never hand-lower one score",
-     "Rubric"
+     "Note it and adjust metrics or weights for next month; never hand-lower a score or change this month's weights",
+     "Next month's scorecard"
     ],
     [
      "6",
@@ -146,7 +147,7 @@
   {
    "t": "list",
    "x": [
-    "No score-tuning to a target; weights only, applied uniformly.",
+    "No score-tuning to a target. Weights are locked before the month; changes apply from the next month only.",
     "Every score evidence-backed; no invented figures.",
     "The result must square with the band meaning in Section 4."
    ]
@@ -158,8 +159,8 @@
   {
    "t": "list",
    "x": [
-    "Current Senior scorecards use different weights per person; standardise to one Senior template and one Junior template.",
-    "The QA cutoff must be identical across people, or the metric is not comparable.",
+    "Set each person's scorecard (metrics and weights) at month start, before any results exist. Keep the previous month's version as the record.",
+    "A shared metric's cutoff (e.g. QA) must be identical across people, or the metric is not comparable.",
     "New staff on probation are scored for evaluation and coaching only. Entitlement to rev share / bonus / KPI incentive is gated on passing probation (see New Staff Incentive Eligibility SOP, 37)."
    ]
   }

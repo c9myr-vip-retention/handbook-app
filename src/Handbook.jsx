@@ -29,7 +29,8 @@ function buildIndex(nav, pages) {
   const mk = (it, section, domain) => {
     const page = it.id && pages[it.id]
     const text = [it.title, section, domain, it.keywords || '', bodyText(page)].join(' ').toLowerCase()
-    return { title: it.title, section, domain, id: it.id, status: it.status, real: !!page, text }
+    return { title: it.title, section, domain, id: it.id, status: it.status, real: !!page, text,
+      tl: it.title.toLowerCase(), kw: (it.keywords || '').toLowerCase() }
   }
   for (const sec of nav) {
     if (sec.domains) {
@@ -49,7 +50,8 @@ function search(index, q) {
       let score = 0
       for (const t of terms) {
         if (!item.text.includes(t)) return null
-        if (item.title.toLowerCase().includes(t)) score += 3
+        if (item.tl.includes(t)) score += 5
+        else if (item.kw.includes(t)) score += 3
         else score += 1
       }
       return { item, score }
@@ -76,11 +78,27 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
   }
   const results = useMemo(() => search(INDEX, query.trim()), [INDEX, query])
   const canEdit = profile?.role === 'admin' || !!preview
+  const [dark, setDark] = useState(() => document.documentElement.getAttribute('data-theme') === 'dark')
   const toggleTheme = () => {
-    const cur = document.documentElement.getAttribute('data-theme')
-    const dark = cur ? cur === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches
-    document.documentElement.setAttribute('data-theme', dark ? 'light' : 'dark')
+    const next = !dark
+    setDark(next)
+    document.documentElement.setAttribute('data-theme', next ? 'dark' : 'light')
+    try { localStorage.setItem('hb-theme', next ? 'dark' : 'light') } catch {}
   }
+
+  // Open the sidebar branch that holds the current page.
+  const [openDoms, setOpenDoms] = useState({})
+  useEffect(() => {
+    if (route.kind !== 'page' && route.kind !== 'domain') return
+    for (const sec of NAV) {
+      if (sec.domains) {
+        const d = sec.domains.find(d => route.kind === 'domain' ? d.name === route.key : d.items.some(it => it.id === route.key))
+        if (d) { setOpenSecs(o => ({ ...o, [sec.id]: true })); setOpenDoms(o => ({ ...o, [d.name]: true })) }
+      } else if (route.kind === 'page' && sec.items.some(it => it.id === route.key)) {
+        setOpenSecs(o => ({ ...o, [sec.id]: true }))
+      }
+    }
+  }, [route, NAV])
 
   const title = useMemo(() => {
     if (route.kind === 'home') return 'Home'
@@ -101,15 +119,25 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
         <nav>
           {NAV.map(sec => (
             <div key={sec.id} className={'navsec' + (openSecs[sec.id] ? ' open' : '')}>
-              <button className="navhead" onClick={() => setOpenSecs(s => ({ ...s, [sec.id]: !s[sec.id] }))}>
+              <button className="navhead" aria-expanded={!!openSecs[sec.id]} onClick={() => setOpenSecs(s => ({ ...s, [sec.id]: !s[sec.id] }))}>
                 <span>{sec.name}</span>
-                {sec.badge && <span className="badge">{sec.badge}</span>}
                 <span className="chev" aria-hidden>›</span>
               </button>
               <div className="navsub">
                 {sec.domains
                   ? sec.domains.map(d => (
-                      <button key={d.name} className={'navitem' + (route.kind === 'domain' && route.key === d.name ? ' active' : '')} onClick={() => go({ kind: 'domain', key: d.name })}>{d.name}</button>
+                      <div key={d.name} className={'navdom' + (openDoms[d.name] ? ' open' : '')}>
+                        <button className={'navitem navdomhead' + (route.kind === 'domain' && route.key === d.name ? ' active' : '')}
+                          aria-expanded={!!openDoms[d.name]}
+                          onClick={() => { setOpenDoms(o => ({ ...o, [d.name]: !o[d.name] })); if (!openDoms[d.name]) go({ kind: 'domain', key: d.name }) }}>
+                          <span>{d.name}</span><span className="chev" aria-hidden>›</span>
+                        </button>
+                        {openDoms[d.name] && (
+                          <div className="navleaves">
+                            {d.items.map(it => <NavLeaf key={it.id || it.title} it={it} route={route} go={go} pages={PAGES} />)}
+                          </div>
+                        )}
+                      </div>
                     ))
                   : sec.items.map(it => (
                       <NavLeaf key={it.id || it.title} it={it} route={route} go={go} pages={PAGES} />
@@ -129,7 +157,7 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
         <header className="top">
           <button className="icon menu" aria-label="Menu" onClick={() => setNavOpen(true)}>☰</button>
           <div className="ptitle">{title}</div>
-          <div className="searchbar">
+          <div className={'searchbar' + (route.kind === 'home' ? ' on-home' : '')}>
             <input
               type="search"
               value={query}
@@ -141,17 +169,18 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
           {profile && <span className="who">{profile.full_name || profile.email} · <b>{profile.role}</b></span>}
           {preview && <span className="chip pending preview-chip">preview</span>}
           {(profile?.role === 'admin' || preview) && <button className="btn small ghost admin-btn" onClick={() => { setQuery(''); go({ kind: 'approvals' }) }}>Approvals</button>}
-          <button className="icon" aria-label="Toggle theme" onClick={toggleTheme}>◐</button>
+          <button className="btn small ghost theme-btn" onClick={toggleTheme} aria-label={dark ? 'Switch to light mode' : 'Switch to dark mode'}>{dark ? 'Light' : 'Dark'}</button>
           {onSignOut && <button className="btn small" onClick={onSignOut}>Sign out</button>}
         </header>
 
         <div className="content">
-          {query.trim()
-            ? <SearchResults query={query} results={results} open={openLeaf} />
+          {route.kind === 'home'
+            ? <Home go={go} nav={NAV} pages={PAGES} notice={notice} query={query} setQuery={setQuery} results={results} open={openLeaf} />
+            : query.trim()
+            ? <SearchResults query={query} results={results} open={openLeaf} pages={PAGES} />
             : <>
-                {route.kind === 'home' && <Home go={go} nav={NAV} pages={PAGES} notice={notice} />}
                 {route.kind === 'domain' && <DomainList name={route.key} go={go} nav={NAV} pages={PAGES} />}
-                {route.kind === 'page' && <Page id={route.key} pages={PAGES} canEdit={canEdit} go={go} />}
+                {route.kind === 'page' && <Page id={route.key} pages={PAGES} nav={NAV} canEdit={canEdit} go={go} />}
                 {route.kind === 'edit' && <Editor id={route.key} pages={PAGES} preview={preview} go={go} onPageSaved={onPageSaved} />}
                 {route.kind === 'history' && <History id={route.key} pages={PAGES} preview={preview} go={go} onPageSaved={onPageSaved} />}
                 {route.kind === 'stub' && <Stub title={route.title} status={route.status} />}
@@ -183,40 +212,75 @@ function updatedTime(page) {
 }
 const versionOf = (page) => (page?.meta || []).find(m => /^V\d/.test(m)) || 'V1.0'
 
-function Home({ go, nav: NAV, pages: PAGES, notice }) {
+// The pages staff open most, in daily order (ATL-approved list, 28 Sep 2026).
+const ESSENTIALS = ['shift-overview', 'attendance-pre-shift', 'tag-library', 'grace', 'ltv', 'pnl', 'escalation', 'bonus-issuance-approval']
+const SECTION_DESC = {
+  start: 'Culture, department overview and team structure',
+  sop: 'Step-by-step procedures for every task',
+  hr: 'Work policy, leave, security and probation',
+  fw: 'Engagement, KPI and relationship frameworks',
+  lib: 'Templates, tags, case studies and tools',
+}
+
+function Home({ go, nav: NAV, pages: PAGES, notice, query, setQuery, results, open }) {
   const leafRoute = (it) => it.id && PAGES[it.id] ? { kind: 'page', key: it.id } : { kind: 'stub', title: it.title, status: it.status }
+  const essentials = ESSENTIALS.filter(id => PAGES[id])
   const recent = Object.entries(PAGES)
     .map(([id, p]) => ({ id, p, t: updatedTime(p) }))
     .filter(x => x.t)
     .sort((a, b) => b.t - a.t)
     .slice(0, 5)
-    .map(x => [x.id, x.p.crumb])
+  const q = query.trim()
   return (
-    <div className="view">
+    <div className="view home">
       {notice && <div className="banner">{notice}</div>}
-      <h1>The C9MYR Handbook</h1>
-      <p className="muted lead">Every SOP, policy and playbook in one place. Always the current version.</p>
-      <div className="cards">
-        {NAV.map(sec => {
-          const n = sec.domains ? sec.domains.length + ' domains' : sec.items.length + ' items'
-          const first = sec.domains ? { kind: 'domain', key: sec.domains[0].name } : leafRoute(sec.items[0])
-          return (
-            <button key={sec.id} className="card" onClick={() => go(first)}>
-              <h3>{sec.name}</h3><p className="muted">{n}</p>
-            </button>
-          )
-        })}
-      </div>
-      {recent.length > 0 && <>
-        <div className="sectitle"><h2>Recently updated</h2><span className="line" /></div>
-        <div className="list">
-          {recent.map(([id, sub]) => (
-            <Row key={id} title={PAGES[id].title} sub={sub}
-              meta={(PAGES[id].meta || []).find(m => m.startsWith('Updated'))}
-              onClick={() => go({ kind: 'page', key: id })} />
-          ))}
-        </div>
-      </>}
+      <section className="hero">
+        <h1>What do you need to do?</h1>
+        <p className="muted">Search every SOP, policy and playbook. Always the current version.</p>
+        <input className="herosearch" type="search" value={query} autoFocus
+          onChange={e => setQuery(e.target.value)}
+          placeholder="Try “bonus”, “vpn”, “handover”…" aria-label="Search the handbook" />
+      </section>
+
+      {q
+        ? <SearchResults query={query} results={results} open={open} pages={PAGES} embedded />
+        : <>
+          {essentials.length > 0 && <>
+            <div className="sectitle"><h2>Daily essentials</h2></div>
+            <div className="tiles">
+              {essentials.map(id => (
+                <button key={id} className="tile" onClick={() => go({ kind: 'page', key: id })}>
+                  <b>{PAGES[id].title}</b>
+                  <small>{String(PAGES[id].crumb || '').replace(/^SOP Book · /, '')}</small>
+                </button>
+              ))}
+            </div>
+          </>}
+
+          {recent.length > 0 && <>
+            <div className="sectitle"><h2>Recently updated</h2></div>
+            <div className="list">
+              {recent.map(({ id, p }) => (
+                <Row key={id} title={p.title} sub={p.crumb}
+                  meta={(p.meta || []).find(m => m.startsWith('Updated'))}
+                  chip={versionOf(p)}
+                  onClick={() => go({ kind: 'page', key: id })} />
+              ))}
+            </div>
+          </>}
+
+          <div className="sectitle"><h2>Browse by section</h2></div>
+          <div className="list">
+            {NAV.map(sec => {
+              const n = sec.domains ? sec.domains.reduce((a, d) => a + d.items.length, 0) : sec.items.length
+              const first = sec.domains ? { kind: 'domain', key: sec.domains[0].name } : leafRoute(sec.items[0])
+              return (
+                <Row key={sec.id} title={sec.name} sub={SECTION_DESC[sec.id]}
+                  meta={n + (n === 1 ? ' page' : ' pages')} onClick={() => go(first)} />
+              )
+            })}
+          </div>
+        </>}
     </div>
   )
 }
@@ -406,10 +470,22 @@ function Row({ title, sub, meta, chip, onClick }) {
   )
 }
 
-function Page({ id, pages: PAGES, canEdit, go }) {
+function Page({ id, pages: PAGES, nav: NAV, canEdit, go }) {
   const p = PAGES[id]
   if (!p) return <Stub title={id} />
+  const heads = p.blocks.map((b, i) => b.t === 'h2' ? { i, x: b.x } : null).filter(Boolean)
+  const group = siblingsOf(NAV, id).filter(it => it.id && PAGES[it.id])
+  const at = group.findIndex(it => it.id === id)
+  const prev = at > 0 ? group[at - 1] : null, next = at >= 0 && at < group.length - 1 ? group[at + 1] : null
+  const jump = (i) => document.getElementById('sec-' + i)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   return (
+    <div className="pagewrap">
+    {heads.length > 2 && (
+      <aside className="toc" aria-label="On this page">
+        <div className="tochead">On this page</div>
+        {heads.map(h => <button key={h.i} className="tocitem" onClick={() => jump(h.i)}>{h.x}</button>)}
+      </aside>
+    )}
     <div className="view doc">
       {canEdit && (
         <div className="doctools">
@@ -420,13 +496,29 @@ function Page({ id, pages: PAGES, canEdit, go }) {
       {p.crumb && <div className="crumb">{p.crumb}</div>}
       <h1>{p.title}</h1>
       {p.meta && <div className="docmeta">{p.meta.map((m, i) => <span key={i}>{m}</span>)}</div>}
-      {p.blocks.map((b, i) => <Block key={i} b={b} />)}
+      {p.blocks.map((b, i) => <Block key={i} b={b} id={b.t === 'h2' ? 'sec-' + i : undefined} />)}
+      {(prev || next) && (
+        <nav className="pager" aria-label="More in this section">
+          {prev ? <button className="pagerbtn" onClick={() => go({ kind: 'page', key: prev.id })}><small>Previous</small><b>{prev.title}</b></button> : <span />}
+          {next ? <button className="pagerbtn next" onClick={() => go({ kind: 'page', key: next.id })}><small>Next</small><b>{next.title}</b></button> : <span />}
+        </nav>
+      )}
+    </div>
     </div>
   )
 }
 
-function Block({ b }) {
-  if (b.t === 'h2') return <h2>{b.x}</h2>
+// The items listed next to a page: its SOP Book domain, or its section.
+function siblingsOf(NAV, id) {
+  for (const sec of NAV) {
+    if (sec.domains) { for (const d of sec.domains) if (d.items.some(it => it.id === id)) return d.items }
+    else if (sec.items.some(it => it.id === id)) return sec.items
+  }
+  return []
+}
+
+function Block({ b, id }) {
+  if (b.t === 'h2') return <h2 id={id}>{b.x}</h2>
   if (b.t === 'p') return <p><Inline x={b.x} /></p>
   if (b.t === 'callout') return (
     <div className={'callout ' + (b.tone || 'good')}>
@@ -466,10 +558,10 @@ function Stub({ title, status }) {
   )
 }
 
-function SearchResults({ query, results, open }) {
+function SearchResults({ query, results, open, pages: PAGES, embedded }) {
   return (
     <div className="view">
-      <h1>Search</h1>
+      {!embedded && <h1>Search</h1>}
       <p className="muted lead">{results.length} {results.length === 1 ? 'result' : 'results'} for “{query.trim()}”</p>
       {results.length === 0
         ? <div className="stubbox">No SOP matches that. Try another word, like “bonus”, “otp”, or “vpn”.</div>
@@ -478,7 +570,7 @@ function SearchResults({ query, results, open }) {
               <button key={(item.id || item.title)} className="row" onClick={() => open(item)}>
                 <span className={'mk ' + (item.status === 'restricted' ? 'restricted' : '')} />
                 <span className="rmain"><b>{item.title}</b><small>{item.domain || item.section}</small></span>
-                {item.real ? <span className="chip ver">V1.0</span> : item.status && <span className={'chip ' + item.status}>{item.status}</span>}
+                {item.real ? <span className="chip ver">{versionOf(PAGES[item.id])}</span> : item.status && <span className={'chip ' + item.status}>{STATUS_LABEL[item.status] || item.status}</span>}
               </button>
             ))}
           </div>}

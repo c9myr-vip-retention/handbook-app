@@ -10,7 +10,7 @@ import { NAV, PAGES, KEYWORDS } from '../content/handbook.js'
 // Sections are structure, not content: fixed order, fixed ids.
 const SECTIONS = [
   { id: 'start', name: 'Start Here' },
-  { id: 'sop', name: 'SOP Book', badge: 'sub-project', domains: true },
+  { id: 'sop', name: 'SOP Book', domains: true },
   { id: 'hr', name: 'HR & People' },
   { id: 'fw', name: 'Frameworks & Strategy' },
   { id: 'lib', name: 'Libraries' },

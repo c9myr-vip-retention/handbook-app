@@ -118,7 +118,7 @@
   {
    "t": "list",
    "x": [
-    "Confirm the exact first-week schedule against current practice, then lock it here. Depends on the Login Provisioning SOP (pending).",
+    "Confirm the exact first-week schedule against current practice, then lock it here. Depends on the Login Provisioning SOP (live, v1.1).",
     "A new hire on probation is not entitled to rev share / bonus / KPI incentive until probation is passed (see New Staff Incentive Eligibility SOP, 37)."
    ]
   }

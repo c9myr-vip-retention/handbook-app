@@ -101,6 +101,23 @@ export const NAV = [
 // these are just the synonyms and shorthands people actually type.
 // In the database this becomes a `keywords` column on the sops row.
 export const KEYWORDS = {
+  'Reporting & Data Integrity': 'report data post-close provisional weighted average missing brand dash accuracy figures',
+  'Escalation': 'escalate upline atl supervisor department head ladder issue problem urgent time cap',
+  'Process Landing Layer': 'process landing rollout new process adoption checklist change',
+  'Bonus Issuance & Approval': 'bonus issue approve approval sizing cap ticket query over-issuance credit',
+  'Compensation': 'compensation complaint goodwill credit refund service recovery',
+  'Push Notification': 'push notification app firebase txt csv send blast automation fire drill',
+  'Reactivation & Win-back': 'reactivation win-back winback churn dormant inactive return lapsed',
+  'Special Event Campaign': 'event festive campaign promo mooncake payday seasonal banner supervisor',
+  'New Agent Onboarding': 'onboarding new hire new staff first week training setup probation',
+  'New Staff Incentive': 'incentive new staff eligibility rev share commission probation',
+  'Shift Handover': 'handover shift end pending tickets next shift log',
+  'Login Provisioning': 'login bo back office access account provision revoke password team leader',
+  'Incognito Browsing': 'incognito private browsing chrome security window',
+  'JNR Probation Checklist': 'junior probation checklist review confirmation new staff',
+  'JNR to SNR Probation': 'junior senior promotion probation upgrade',
+  'Roster': 'roster schedule shift rest day off day break',
+  'Staff Records': 'staff records personnel hr file',
   'Culture & Conduct': 'pillars doctrine redlines values conduct ownership integrity',
   'Grace Period List': 'bonus deposit grace expiry re-engage internal mail day shift',
   'LTV List': 'bonus loyalty lifetime value top 70 retention',

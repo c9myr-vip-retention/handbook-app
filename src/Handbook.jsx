@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { api } from './lib/api.js'
 
 const STATUS_LABEL = { pending: 'Coming soon', planned: 'Not written yet', external: 'Lark doc', restricted: 'Admins only' }
 
@@ -84,6 +85,7 @@ export default function Handbook({ content, profile, onSignOut, preview, notice 
     if (route.kind === 'domain') return route.key
     if (route.kind === 'page') return PAGES[route.key]?.title || route.key
     if (route.kind === 'stub') return route.title
+    if (route.kind === 'approvals') return 'Approvals'
     return ''
   }, [route])
 
@@ -129,6 +131,7 @@ export default function Handbook({ content, profile, onSignOut, preview, notice 
           </div>
           {profile && <span className="who">{profile.full_name || profile.email} · <b>{profile.role}</b></span>}
           {preview && <span className="chip pending">preview</span>}
+          {(profile?.role === 'admin' || preview) && <button className="btn small ghost" onClick={() => { setQuery(''); go({ kind: 'approvals' }) }}>Approvals</button>}
           <button className="icon" aria-label="Toggle theme" onClick={toggleTheme}>◐</button>
           {onSignOut && <button className="btn small" onClick={onSignOut}>Sign out</button>}
         </header>
@@ -141,6 +144,7 @@ export default function Handbook({ content, profile, onSignOut, preview, notice 
                 {route.kind === 'domain' && <DomainList name={route.key} go={go} nav={NAV} pages={PAGES} />}
                 {route.kind === 'page' && <Page id={route.key} pages={PAGES} />}
                 {route.kind === 'stub' && <Stub title={route.title} status={route.status} />}
+                {route.kind === 'approvals' && <Approvals preview={preview} />}
               </>}
         </div>
       </div>
@@ -213,6 +217,49 @@ function DomainList({ name, go, nav: NAV, pages: PAGES }) {
           )
         })}
       </div>
+    </div>
+  )
+}
+
+// Admin: people who signed in through Access but are not approved yet.
+// Company emails are approved on first sign-in; personal emails land here.
+// In preview (no API) it shows a clearly labelled sample so the layout can be reviewed.
+const SAMPLE = [{ email: 'staff.one@example.com' }, { email: 'staff.two@example.com' }]
+function Approvals({ preview }) {
+  const [list, setList] = useState(preview ? SAMPLE : null)
+  const [err, setErr] = useState(null)
+  const [busy, setBusy] = useState(null)
+  useEffect(() => {
+    if (preview) return
+    api.approvals().then(setList).catch(e => setErr(e.message))
+  }, [preview])
+  const approve = async (email) => {
+    setBusy(email); setErr(null)
+    try {
+      if (!preview) await api.approve(email)
+      setList(l => l.filter(p => p.email !== email))
+    } catch (e) { setErr(e.message) } finally { setBusy(null) }
+  }
+  return (
+    <div className="view doc">
+      <h1>Approvals</h1>
+      <p className="muted">People who signed in with a personal email and are waiting for access. Approve only staff you recognise. Company emails are approved automatically.</p>
+      {preview && <div className="stubbox">Preview: sample entries only. Nothing is saved.</div>}
+      {err && <p className="err">{err}</p>}
+      {list === null && !err && <p className="muted">Loading…</p>}
+      {list && list.length === 0 && <div className="stubbox">No one is waiting for approval.</div>}
+      {list && list.length > 0 && (
+        <div className="tbl-wrap"><table>
+          <thead><tr><th>Email</th><th>Name</th><th></th></tr></thead>
+          <tbody>{list.map(p => (
+            <tr key={p.email}>
+              <td>{p.email}</td><td>{p.full_name || '-'}</td>
+              <td style={{ textAlign: 'right' }}>
+                <button className="btn small" disabled={busy === p.email} onClick={() => approve(p.email)}>{busy === p.email ? 'Approving…' : 'Approve'}</button>
+              </td>
+            </tr>))}
+          </tbody>
+        </table></div>)}
     </div>
   )
 }

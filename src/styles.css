@@ -59,6 +59,8 @@ input { width:100%; padding:10px 12px; border:1px solid var(--border); border-ra
 .btn { margin-top:14px; padding:11px 14px; border:0; border-radius:11px; cursor:pointer; font:inherit; font-weight:600; background:var(--accent); color:#fff; width:100%; }
 .btn.google { background:var(--solid); color:var(--text); border:1px solid var(--border); }
 .btn.small { width:auto; margin:0; padding:8px 12px; }
+.btn.ghost { background:transparent; color:var(--text); border:1px solid var(--border); }
+.btn:disabled { opacity:.6; cursor:default; }
 
 /* shell */
 .hb { display:grid; grid-template-columns:264px 1fr; min-height:100vh; }

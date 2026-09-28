@@ -109,9 +109,8 @@
    "x": "Flow chart"
   },
   {
-   "t": "img",
-   "alt": "Flow chart of the Internal Mail Approach steps, the same steps as the Procedure table above",
-   "src": "/flowcharts/internal-mail-approach.png"
+   "t": "chart",
+   "x": "title: Internal Mail Approach: flow\nstart: Open send path\nstep: Pick recipient\nstep: Paste subject + content\ncheck: All checks ok? | yes: next | no: stop Fix, do not send\nstep: Send + screenshot\nend: QA"
   },
   {
    "t": "h2",

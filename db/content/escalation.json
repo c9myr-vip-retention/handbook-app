@@ -99,9 +99,8 @@
    "x": "Flow chart"
   },
   {
-   "t": "img",
-   "alt": "Flow chart of the Escalation steps, the same steps as the Procedure table above",
-   "src": "/flowcharts/escalation.png"
+   "t": "chart",
+   "x": "title: Escalation: flow\nstart: Issue arises\ncheck: Resolvable at your level? | yes: jump Resolve and close | no: next\nstep: Package (full context)\nstep: Route to right level\nstep: Time-box, follow up\nstep: Confirm and close\nend: Done"
   },
   {
    "t": "h2",

@@ -109,9 +109,8 @@
    "x": "Flow chart"
   },
   {
-   "t": "img",
-   "alt": "Flow chart of the Login Provisioning & Rotation (BO) steps, the same steps as the Procedure table above",
-   "src": "/flowcharts/login-provisioning.png"
+   "t": "chart",
+   "x": "title: Login Provisioning & Rotation: flow\nstart: New assignment\nstep: Raise request\nstep: IT creates login\nstep: Issue to CS\nstep: Verify access\nstep: Track map\ncheck: Exit / reassign? | yes: escalate Revoke same day | no: next\nend: Access live"
   },
   {
    "t": "h2",

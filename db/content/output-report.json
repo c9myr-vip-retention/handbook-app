@@ -109,9 +109,8 @@
    "x": "Flow chart"
   },
   {
-   "t": "img",
-   "alt": "Flow chart of the Output Report steps, the same steps as the Procedure table above",
-   "src": "/flowcharts/output-report.png"
+   "t": "chart",
+   "x": "title: Output Report: flow\nstart: End of shift\nstep: Filter Date + PIC\nstep: Copy each column\nstep: Paste per column filter\nstep: Clear + verify\nend: QA"
   },
   {
    "t": "h2",

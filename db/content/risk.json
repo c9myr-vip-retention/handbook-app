@@ -101,9 +101,8 @@
    "x": "Flow chart"
   },
   {
-   "t": "img",
-   "alt": "Flow chart of the Risk Push steps, the same steps as the Procedure table above",
-   "src": "/flowcharts/risk.png"
+   "t": "chart",
+   "x": "title: Risk Push: flow\nstart: Inactive player\ncheck: RG / chase? | yes: stop Welfare, no push | no: next\nstep: Pick tier (1D-30D)\nstep: Export .txt/.csv\nstep: Send push\nend: QA"
   },
   {
    "t": "h2",

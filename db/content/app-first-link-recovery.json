@@ -125,9 +125,8 @@
    "x": "Flow chart"
   },
   {
-   "t": "img",
-   "alt": "Flow chart of the App-First Link Recovery steps, the same steps as the Procedure table above",
-   "src": "/flowcharts/app-first-link-recovery.png"
+   "t": "chart",
+   "x": "title: App-First Link Recovery: flow\nstart: Locked out\nstep: Point to app\nstep: Send app link\nstep: Send screenshot\ncheck: Download done? | yes: next | no: escalate Prompt once, wait\nstep: Site backup link\nstep: Trusted-source warning\nend: Capture UID + log"
   },
   {
    "t": "h2",

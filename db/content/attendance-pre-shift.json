@@ -85,9 +85,8 @@
    "x": "Flow chart"
   },
   {
-   "t": "img",
-   "alt": "Flow chart of the Attendance (Pre-Shift Setup) steps, the same steps as the Procedure table above",
-   "src": "/flowcharts/attendance-pre-shift.png"
+   "t": "chart",
+   "x": "title: Attendance Pre-Shift Setup: flow\nstart: Before shift\nstep: VPN on, verify IP\nstep: Clock in 5 min early\nstep: Chrome Incognito\nend: Ready"
   },
   {
    "t": "h2",

@@ -109,9 +109,8 @@
    "x": "Flow chart"
   },
   {
-   "t": "img",
-   "alt": "Flow chart of the New Agent Onboarding steps, the same steps as the Procedure table above",
-   "src": "/flowcharts/new-agent-onboarding.png"
+   "t": "chart",
+   "x": "title: New Agent Onboarding: flow\nstart: Accounts ready\nstep: Orientation\nstep: Assign buddy\nstep: Train SOP Book\nstep: Supervised run\ncheck: Probation pass? | yes: next | no: stop Extend / exit\nend: Confirm"
   },
   {
    "t": "h2",

@@ -109,9 +109,8 @@
    "x": "Flow chart"
   },
   {
-   "t": "img",
-   "alt": "Flow chart of the QA Record steps, the same steps as the Procedure table above",
-   "src": "/flowcharts/qa-record.png"
+   "t": "chart",
+   "x": "title: QA Record: flow\nstart: Task complete\nstep: Screenshot BO\ncheck: Date record exists? | yes: next | no: done Create date record\nstep: Attach + categorise\nstep: Record + save\nend: Submit"
   },
   {
    "t": "h2",

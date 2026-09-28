@@ -109,9 +109,8 @@
    "x": "Flow chart"
   },
   {
-   "t": "img",
-   "alt": "Flow chart of the Top Deposit steps, the same steps as the Procedure table above",
-   "src": "/flowcharts/top-deposit.png"
+   "t": "chart",
+   "x": "title: Top Deposit: flow\nstart: 8:30PM export\nstep: Sort deposit Z-A\nstep: Winners, top 20\nstep: IM + Push, no bonus\nstep: Engage + tag\nend: QA"
   },
   {
    "t": "h2",

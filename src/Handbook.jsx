@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { api } from './lib/api.js'
 import { parseBody, toMarkdown } from './lib/markdown.js'
+import { Chart, ChartSvg, ChartDrawer, parseChart, chartText } from './Chart.jsx'
 
 const STATUS_LABEL = { pending: 'Coming soon', planned: 'Not written yet', external: 'Lark doc', restricted: 'Admins only' }
 
@@ -9,6 +10,7 @@ function bodyText(page) {
   if (!page) return ''
   return page.blocks.map(b => {
     if (b.t === 'p' || b.t === 'h2' || b.t === 'code' || b.t === 'flow') return b.x
+    if (b.t === 'chart') return chartText(parseChart(b.x))
     if (b.t === 'sopheader') return (b.f || []).map(([k, v]) => k + ' ' + v).join(' ')
     if (b.t === 'callout') return (b.title || '') + ' ' + (b.x || '')
     if (b.t === 'steps' || b.t === 'list') return b.x.join(' ')
@@ -159,6 +161,7 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
     if (route.kind === 'page') return PAGES[route.key]?.title || route.key
     if (route.kind === 'stub') return route.title
     if (route.kind === 'approvals') return 'Approvals'
+    if (route.kind === 'charts') return 'Chart review'
     if (route.kind === 'edit') return 'Edit: ' + (PAGES[route.key]?.title || route.key)
     if (route.kind === 'history') return 'History: ' + (PAGES[route.key]?.title || route.key)
     return ''
@@ -205,6 +208,7 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
           {(profile?.role === 'admin' || preview) && (
             <div className="navsec admin-nav">
               <button className="navitem" onClick={() => { setQuery(''); go({ kind: 'approvals' }) }}>Approvals (admin)</button>
+              <button className="navitem" onClick={() => { setQuery(''); go({ kind: 'charts' }) }}>Chart review (admin)</button>
             </div>
           )}
         </nav>
@@ -243,6 +247,7 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
                 {route.kind === 'history' && <History id={route.key} pages={PAGES} preview={preview} go={go} onPageSaved={onPageSaved} />}
                 {route.kind === 'stub' && <Stub title={route.title} status={route.status} />}
                 {route.kind === 'approvals' && <Approvals preview={preview} />}
+                {route.kind === 'charts' && <ChartReview pages={PAGES} go={go} />}
               </>}
         </main>
       </div>
@@ -510,6 +515,28 @@ function Approvals({ preview }) {
   )
 }
 
+// Admin: every SOP chart next to the original drawing it was read from
+// (public/flowcharts/<id>.png), to check the conversion page by page.
+function ChartReview({ pages: PAGES, go }) {
+  const list = Object.entries(PAGES).map(([id, p]) => ({ id, p, chart: p.blocks.find(b => b.t === 'chart') })).filter(x => x.chart)
+    .sort((a, b) => a.p.title.localeCompare(b.p.title))
+  return (
+    <div className="view">
+      <h1>Chart review</h1>
+      <p className="muted lead">{list.length} SOP charts, each drawn from its page next to the original picture. If one differs, open the page, choose Edit, then Edit chart.</p>
+      {list.map(({ id, p, chart }) => (
+        <section key={id} className="review">
+          <div className="reviewhead"><b>{p.title}</b><button className="crumblink" onClick={() => go({ kind: 'page', key: id })}>Open page ›</button></div>
+          <div className="reviewgrid">
+            <figure className="figure"><figcaption className="small muted">Original</figcaption><img src={'/flowcharts/' + id + '.png'} alt={'Original chart for ' + p.title} loading="lazy" /></figure>
+            <figure className="figure chartfig"><figcaption className="small muted">In the handbook</figcaption><Chart code={chart.x} /></figure>
+          </div>
+        </section>
+      ))}
+    </div>
+  )
+}
+
 // Header chips: keep the version chip and the "Updated" chip in step with an edit.
 const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 const verOf = (page) => (page?.meta || []).find(m => /^V\d/.test(m)) || 'V1.0'
@@ -558,6 +585,24 @@ function Editor({ id, sec, pages: PAGES, preview, go, onPageSaved }) {
   }, [id, preview])
 
   const blocks = useMemo(() => (show ? parseBody(text) : []), [show, text])
+
+  // Chart drawer: charts are ```chart blocks in the text; the drawer edits one
+  // in place, or inserts a new one where the cursor is.
+  const textRef = useRef(null)
+  const [drawer, setDrawer] = useState(null)
+  const CHART_RE = /```chart\r?\n([\s\S]*?)\r?\n```/g
+  const charts = useMemo(() => [...text.matchAll(CHART_RE)].map(m => ({ code: m[1], at: m.index, len: m[0].length, title: parseChart(m[1]).title })), [text])
+  const saveChart = (code) => {
+    const block = '```chart\n' + code + '\n```'
+    if (drawer.index >= 0) {
+      const c = charts[drawer.index]
+      setText(text.slice(0, c.at) + block + text.slice(c.at + c.len))
+    } else {
+      const at = textRef.current?.selectionStart ?? text.length
+      setText(text.slice(0, at).replace(/\s*$/, '') + '\n\n' + block + '\n\n' + text.slice(at).replace(/^\s*/, ''))
+    }
+    setDrawer(null)
+  }
   const cancel = () => { if (!dirty || confirm('Leave without saving? Your changes will be lost.')) go({ kind: 'page', key: id }) }
   const save = async () => {
     const t = title.trim(), v = version.trim()
@@ -585,11 +630,15 @@ function Editor({ id, sec, pages: PAGES, preview, go, onPageSaved }) {
       <div className="edtabs">
         <button className={'tab' + (!show ? ' on' : '')} aria-pressed={!show} onClick={() => setShow(false)}>Write</button>
         <button className={'tab' + (show ? ' on' : '')} aria-pressed={show} onClick={() => setShow(true)}>Preview</button>
-        <span className="muted small">## heading · - bullet · 1. step · | table | · &gt; [!warn|Title] callout · **bold** · ```mermaid chart</span>
+        <button className="btn small ghost" onClick={() => setDrawer({ index: -1 })}>+ Insert chart</button>
+        {charts.map((c, i) => <button key={i} className="btn small ghost" onClick={() => setDrawer({ index: i })}>Edit chart{charts.length > 1 ? ' ' + (i + 1) : ''}{c.title ? ': ' + c.title : ''}</button>)}
       </div>
+      <p className="muted small edhint">## heading · - bullet · 1. step · | table | · &gt; [!warn|Title] callout · **bold**</p>
       {show
         ? <div className="edpreview">{blocks.map((b, i) => <Block key={i} b={b} />)}</div>
-        : <textarea className="edtext" value={text} onChange={e => setText(e.target.value)} spellCheck />}
+        : <textarea ref={textRef} className="edtext" value={text} onChange={e => setText(e.target.value)} spellCheck />}
+      <ChartDrawer open={!!drawer} initial={drawer && drawer.index >= 0 ? charts[drawer.index].code : null}
+        onCancel={() => setDrawer(null)} onSave={saveChart} />
       {err && <p className="err" role="alert">{err}</p>}
       <div className="edactions">
         <button className="btn small ghost" onClick={cancel} disabled={saving}>Cancel</button>
@@ -714,61 +763,16 @@ function SopHeader({ f = [], version }) {
   )
 }
 
-// Mermaid flow chart, drawn in the browser in the handbook's colours.
-// The library loads only when a page has a chart.
-let mermaidReady = null
-// Long left-to-right charts get squeezed to an unreadable size in the page
-// column, so charts with more than 5 boxes are drawn top-down instead.
-function orient(code) {
-  const boxes = new Set([...String(code).matchAll(/[\[({]+"?([^\])}"]+)"?[\])}]+/g)].map(m => m[1])).size
-  return boxes > 5 ? code.replace(/^(\s*(?:flowchart|graph))\s+(LR|RL)\b/m, '$1 TD') : code
-}
-
-function Flow({ code }) {
-  const ref = useRef(null)
-  const [err, setErr] = useState(null)
-  const [svgHtml, setSvgHtml] = useState('')
+// House-style chart drawn from a ```chart block (see Chart.jsx).
+function ChartFigure({ code }) {
   const [zoom, setZoom] = useState(false)
-  useEffect(() => {
-    let alive = true
-    const css = getComputedStyle(document.documentElement)
-    const v = (n) => css.getPropertyValue(n).trim()
-    mermaidReady = mermaidReady || import('mermaid').then(m => m.default)
-    mermaidReady.then(async (mermaid) => {
-      mermaid.initialize({
-        startOnLoad: false, securityLevel: 'strict', theme: 'base', fontFamily: 'Inter, Segoe UI, sans-serif',
-        themeVariables: {
-          primaryColor: v('--accent-soft'), primaryBorderColor: v('--accent'), primaryTextColor: v('--text'),
-          lineColor: v('--faint'), secondaryColor: v('--surface-2'), tertiaryColor: v('--surface'),
-          background: v('--surface'), mainBkg: v('--accent-soft'), fontSize: '14px',
-        },
-        flowchart: { curve: 'basis', htmlLabels: false },
-      })
-      // Status colours follow the theme: `class X stop|warn|good` in the chart code.
-      const tone = (name, soft, line) => `classDef ${name} fill:${v(soft)},stroke:${v(line)},color:${v('--text')}`
-      const themed = orient(code) + '\n' + [tone('stop', '--restricted-soft', '--restricted'),
-        tone('warn', '--planned-soft', '--planned'), tone('good', '--good-soft', '--good')].join('\n')
-      try {
-        const { svg } = await mermaid.render('flow' + Math.random().toString(36).slice(2), themed)
-        if (alive && ref.current) {
-          ref.current.innerHTML = svg
-          // Draw at natural size (readable text); the figure scrolls sideways if wider.
-          const el = ref.current.querySelector('svg'), w = el?.viewBox?.baseVal?.width
-          if (w) { el.setAttribute('width', Math.ceil(w)); el.style.maxWidth = 'none' }
-          setSvgHtml(ref.current.innerHTML); setErr(null)
-        }
-      } catch (e) { if (alive) setErr(String(e.message || e).split('\n')[0]) }
-    })
-    return () => { alive = false }
-  }, [code, document.documentElement.getAttribute('data-theme')])
-  const label = flowLabel(code)
+  const chart = useMemo(() => parseChart(code), [code])
   return (
-    <figure className="figure flow">
-      <div ref={ref} role="img" aria-label={label} />
-      {err && <p className="err" role="alert">This chart couldn't be drawn. An admin can fix the chart code in Edit. ({err})</p>}
-      {svgHtml && <figcaption className="figcap"><button className="crumblink" onClick={() => setZoom(true)}>Enlarge chart</button></figcaption>}
-      <Zoom open={zoom} onClose={() => setZoom(false)} label="Flow chart">
-        <div role="img" aria-label={label} dangerouslySetInnerHTML={{ __html: svgHtml }} />
+    <figure className="figure chartfig">
+      <Chart code={code} />
+      <figcaption className="figcap"><button className="crumblink" onClick={() => setZoom(true)}>Enlarge chart</button></figcaption>
+      <Zoom open={zoom} onClose={() => setZoom(false)} label={chart.title || 'Flow chart'}>
+        <ChartSvg chart={chart} across />
       </Zoom>
     </figure>
   )
@@ -807,18 +811,12 @@ function Zoom({ open, onClose, label, children }) {
   )
 }
 
-// Screen-reader text for a chart: the node labels in the order written.
-function flowLabel(code) {
-  const seen = new Set()
-  for (const m of String(code).matchAll(/[\[({]+"?([^\])}"]+)"?[\])}]+/g)) seen.add(m[1].trim())
-  return 'Flow chart' + (seen.size ? ': ' + [...seen].join(', then ') : '')
-}
-
 function Block({ b, id, version }) {
   if (b.t === 'h2') return <h2 id={id}>{b.x}</h2>
   if (b.t === 'sopheader') return <SopHeader f={b.f} version={version} />
   if (b.t === 'img') return <ImageFigure src={b.src} alt={b.alt} />
-  if (b.t === 'flow') return <Flow code={b.x} />
+  if (b.t === 'chart') return <ChartFigure code={b.x} />
+  if (b.t === 'flow') return <pre className="codeblock">{b.x}</pre>
   if (b.t === 'p') return <p><Inline x={b.x} /></p>
   if (b.t === 'callout') return (
     <div className={'callout ' + (b.tone || 'good')}>
@@ -853,6 +851,7 @@ function toHash(r) {
   if (r.kind === 'edit') return '#/edit/' + e(r.key) + (r.sec != null ? '/' + r.sec : '')
   if (r.kind === 'history') return '#/history/' + e(r.key)
   if (r.kind === 'approvals') return '#/approvals'
+  if (r.kind === 'charts') return '#/charts'
   return '#/'
 }
 function parseHash(hash, NAV) {
@@ -863,6 +862,7 @@ function parseHash(hash, NAV) {
   if (kind === 'edit' && v) { const [key, sec] = v.split('/'); return sec != null && sec !== '' ? { kind: 'edit', key, sec: +sec } : { kind: 'edit', key } }
   if (kind === 'history' && v) return { kind: 'history', key: v }
   if (kind === 'approvals') return { kind: 'approvals' }
+  if (kind === 'charts') return { kind: 'charts' }
   if (kind === 's' && v) {
     for (const sec of NAV) for (const it of (sec.domains ? sec.domains.flatMap(d => d.items) : sec.items))
       if (it.title === v) return { kind: 'stub', title: v, status: it.status }

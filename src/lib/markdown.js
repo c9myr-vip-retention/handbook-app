@@ -41,6 +41,8 @@ export function parseBody(md) {
       // SOP template header: "Key: value" lines.
       if (lang === 'sop-header') {
         blocks.push({ t: 'sopheader', f: body.filter(l => l.includes(':')).map(l => [l.slice(0, l.indexOf(':')).trim(), l.slice(l.indexOf(':') + 1).trim()]) })
+      } else if (lang === 'chart') {
+        blocks.push({ t: 'chart', x: body.join('\n') })
       } else if (lang === 'mermaid') {
         blocks.push({ t: 'flow', x: body.join('\n') })
       } else {
@@ -115,6 +117,7 @@ export function toMarkdown(blocks = []) {
     if (b.t === 'p') return b.x
     if (b.t === 'code') return '```\n' + b.x + '\n```'
     if (b.t === 'sopheader') return '```sop-header\n' + (b.f || []).map(([k, v]) => k + ': ' + (v || '')).join('\n') + '\n```'
+    if (b.t === 'chart') return '```chart\n' + b.x + '\n```'
     if (b.t === 'flow') return '```mermaid\n' + b.x + '\n```'
     if (b.t === 'img') return '![' + (b.alt || '') + '](' + b.src + ')'
     if (b.t === 'list') return b.x.map(x => '- ' + x).join('\n')

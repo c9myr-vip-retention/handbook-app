@@ -133,9 +133,8 @@
    "x": "Flow chart"
   },
   {
-   "t": "img",
-   "alt": "Flow chart of the Birthday Bonus (issuance) steps, the same steps as the Procedure table above",
-   "src": "/flowcharts/birthday-bonus.png"
+   "t": "chart",
+   "x": "title: Birthday Bonus: issuance flow\nstart: Pull birthday list\ncheck: Screen pass? | yes: next | no: stop Skip player\ncheck: Has Secret Wallet? | yes: step SW base: deduct SW, 1x TO | no: step Deposit base: no deduct, 3x TO\ncheck: Deposit RM 100,000+? | yes: step ATL reviews and approves | no: step CS issues within cap\nstep: Issue credit, set TO\nstep: Record, Claimed = Yes\nend: Done"
   },
   {
    "t": "h2",

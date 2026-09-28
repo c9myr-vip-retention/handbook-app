@@ -109,8 +109,8 @@
    "x": "Flow chart"
   },
   {
-   "t": "flow",
-   "x": "flowchart LR\n  A([Reload task]) --> B{On roster today?}\n  B -- No --> X[Not your roster day: do not issue]\n  B -- Yes --> C[Verify tier in the BO]\n  C --> D{TC or Zyra?}\n  D -- TC --> E[Issue Ang Bao: Normal RM 2 to 8 Tier 3, Special RM 8 to 18 Tier V]\n  D -- Zyra --> F[Send Redeem Code: one claim per player, RM 100 deposit activates]\n  E --> G([Tag + QA])\n  F --> G\n  class X stop"
+   "t": "chart",
+   "x": "title: Weekend Campaign v1.2: daily reload by roster\nstart: Reload task\ncheck: On roster today? | yes: next | no: stop Not your roster day: do not issue\nstep: Verify tier (BO)\ncheck: TC or Zyra? | yes: jump Issue Ang Bao (TC): Normal RM 2 to 8 = Tier 3, Special RM 8 to 18 = Tier V | no: jump Send Redeem Code (Zyra): one claim per player, RM 100 deposit activates | labels: TC, Zyra\nend: Tag + QA"
   },
   {
    "t": "h2",

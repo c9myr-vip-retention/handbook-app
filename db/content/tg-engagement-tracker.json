@@ -101,9 +101,8 @@
    "x": "Flow chart"
   },
   {
-   "t": "img",
-   "alt": "Flow chart of the Telegram Engagement Tracker steps, the same steps as the Procedure table above",
-   "src": "/flowcharts/tg-engagement-tracker.png"
+   "t": "chart",
+   "x": "title: Telegram Engagement Tracker: Kanban flow\nstart: New\nstep: On Going Engagement\nstep: Follow Up\nend: Successful"
   },
   {
    "t": "h2",

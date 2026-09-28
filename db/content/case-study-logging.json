@@ -101,9 +101,8 @@
    "x": "Flow chart"
   },
   {
-   "t": "img",
-   "alt": "Flow chart of the Case Study Logging steps, the same steps as the Procedure table above",
-   "src": "/flowcharts/case-study-logging.png"
+   "t": "chart",
+   "x": "title: Case Study Logging: flow\nstart: Notable incident\ncheck: Worth logging? | yes: next | no: stop Skip (trivial)\nstep: Categorise + severity\nstep: Write case row\nstep: Link write-up\nstep: Review + fold back\nend: Done"
   },
   {
    "t": "h2",

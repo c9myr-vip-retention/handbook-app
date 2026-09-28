@@ -109,9 +109,8 @@
    "x": "Flow chart"
   },
   {
-   "t": "img",
-   "alt": "Flow chart of the SMS Script (List Preparation) steps, the same steps as the Procedure table above",
-   "src": "/flowcharts/sms-script.png"
+   "t": "chart",
+   "x": "title: SMS Script: flow\nstart: Open engage file\nstep: Update segment\nstep: Deduplicate\ncheck: Expiry valid? | yes: next | no: stop Do not hand over\nstep: Hand to Admin\nend: Admin sends"
   },
   {
    "t": "h2",

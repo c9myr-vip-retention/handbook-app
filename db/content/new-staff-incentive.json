@@ -117,9 +117,8 @@
    "x": "Flow chart"
   },
   {
-   "t": "img",
-   "alt": "Flow chart of the New Staff Incentive Eligibility steps, the same steps as the Procedure table above",
-   "src": "/flowcharts/new-staff-incentive.png"
+   "t": "chart",
+   "x": "title: New Staff Incentive Eligibility: gate\nstart: New hire joins\nstep: Mark probationary\nstep: Score KPI, eval only\nstep: Run probation eval\ncheck: Passed? | yes: next | no: stop Extend / terminate: gate OFF\nend: Gate ON, entitle"
   },
   {
    "t": "h2",

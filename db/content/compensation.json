@@ -109,9 +109,8 @@
    "x": "Flow chart"
   },
   {
-   "t": "img",
-   "alt": "Flow chart of the Compensation (Livechat) steps, the same steps as the Procedure table above",
-   "src": "/flowcharts/compensation.png"
+   "t": "chart",
+   "x": "title: Compensation: flow\nstart: Loss / complaint\nstep: Verify + eligibility\nstep: Size (tier %)\ncheck: Over CS limit? | yes: step ATL approves | no: step CS issues\nstep: Issue + message\nstep: Record\nend: Done"
   },
   {
    "t": "h2",

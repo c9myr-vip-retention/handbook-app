@@ -125,9 +125,8 @@
    "x": "Flow chart"
   },
   {
-   "t": "img",
-   "alt": "Flow chart of the Special Event Campaign steps, the same steps as the Procedure table above",
-   "src": "/flowcharts/special-event-campaign.png"
+   "t": "chart",
+   "x": "title: Special Event Campaign: flow\nstart: Event brief\nstep: Draft proposal\ncheck: Approved? | yes: next | no: stop No build\nstep: Build content set\nstep: Banner + end date\nstep: Lock bonus\nstep: Go live + track\nend: Teardown / done"
   },
   {
    "t": "h2",

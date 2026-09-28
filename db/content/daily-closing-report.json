@@ -109,9 +109,8 @@
    "x": "Flow chart"
   },
   {
-   "t": "img",
-   "alt": "Flow chart of the Daily Closing Report steps, the same steps as the Procedure table above",
-   "src": "/flowcharts/daily-closing-report.png"
+   "t": "chart",
+   "x": "title: Daily Closing Report: flow\nstart: Daily close\nstep: Wait post-close\nstep: Pull per-brand\nstep: Compute totals\nstep: Assemble (brand order)\nstep: Flag risks\ncheck: Reconciles? | yes: next | no: step Fix, do not submit\nstep: Submit + sign\nend: Done"
   },
   {
    "t": "h2",

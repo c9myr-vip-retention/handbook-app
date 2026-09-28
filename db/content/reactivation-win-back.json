@@ -101,9 +101,8 @@
    "x": "Flow chart"
   },
   {
-   "t": "img",
-   "alt": "Flow chart of the Reactivation and Win-back steps, the same steps as the Procedure table above",
-   "src": "/flowcharts/reactivation-win-back.png"
+   "t": "chart",
+   "x": "title: Reactivation and Win-back: flow\nstart: Inactive VIP\nstep: Pull by DSLD tier\ncheck: RG / risk? | yes: stop Route to welfare | no: next\nstep: Match to tier\nstep: Contact before offer\nstep: Size via Bonus SOP\nstep: Record reactivation\nend: Done"
   },
   {
    "t": "h2",

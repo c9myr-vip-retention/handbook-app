@@ -107,9 +107,8 @@
    "x": "Flow chart"
   },
   {
-   "t": "img",
-   "alt": "Flow chart of the Reporting and Data Integrity steps, the same steps as the Procedure table above",
-   "src": "/flowcharts/reporting-data-integrity.png"
+   "t": "chart",
+   "x": "title: Reporting and Data Integrity: flow\nstart: Report to produce\nstep: Post-close data\nstep: Compute weighted\nstep: Handle gaps\nstep: Attribute (contact)\nstep: Flag risks\ncheck: Passes rules? | yes: next | no: step Correct before send\nstep: Reconcile + sign\nend: Done"
   },
   {
    "t": "h2",

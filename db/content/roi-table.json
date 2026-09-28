@@ -109,9 +109,8 @@
    "x": "Flow chart"
   },
   {
-   "t": "img",
-   "alt": "Flow chart of the ROI Table steps, the same steps as the Procedure table above",
-   "src": "/flowcharts/roi-table.png"
+   "t": "chart",
+   "x": "title: ROI Table: flow\nstart: ROI Table\nstep: Filter brand + bonus\nstep: Confirm claim date\nstep: Before-window DP/WD\nstep: After-window DP/WD\nend: Next player"
   },
   {
    "t": "h2",

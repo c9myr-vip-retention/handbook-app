@@ -116,9 +116,8 @@
    "x": "Flow chart"
   },
   {
-   "t": "img",
-   "alt": "Flow chart of the KPI Scoring steps, the same steps as the Procedure table above",
-   "src": "/flowcharts/kpi-scoring.png"
+   "t": "chart",
+   "x": "title: KPI Scoring: flow\nstart: Month-end close\nstep: Pull evidence\nstep: Score to bands\nstep: Apply locked weights\nstep: Sum + sense-check\ncheck: Matches band? | yes: next | no: step Note fix for next month\nstep: Record + release\nend: Done"
   },
   {
    "t": "h2",

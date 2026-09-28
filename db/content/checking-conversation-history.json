@@ -93,9 +93,8 @@
    "x": "Flow chart"
   },
   {
-   "t": "img",
-   "alt": "Flow chart of the Checking Conversation History (VVIP) steps, the same steps as the Procedure table above",
-   "src": "/flowcharts/checking-conversation-history.png"
+   "t": "chart",
+   "x": "title: Checking Conversation History (VVIP): flow\nstart: VVIP contact\ncheck: Arrival channel? | yes: step Open Telegram link | no: step Open LiveChat link | labels: LiveChat, Telegram\nstep: Review full history\nend: Update player record"
   },
   {
    "t": "h2",

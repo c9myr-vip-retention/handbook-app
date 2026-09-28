@@ -115,9 +115,8 @@
    "x": "Flow chart"
   },
   {
-   "t": "img",
-   "alt": "Flow chart of the Bonus Issuance and Approval steps, the same steps as the Procedure table above",
-   "src": "/flowcharts/bonus-issuance-approval.png"
+   "t": "chart",
+   "x": "title: Bonus Issuance and Approval: flow\nstart: Bonus to issue\nstep: Verify eligibility + contact first\nstep: Update SW (same day)\nstep: Size within SW cap\ncheck: Over approval gate? | yes: step ATL reviews and approves | no: step CS issues within cap\nstep: Issue credit, set TO\nstep: Record + claim ticket\nend: Done"
   },
   {
    "t": "h2",

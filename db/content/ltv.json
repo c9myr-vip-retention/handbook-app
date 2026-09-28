@@ -117,9 +117,8 @@
    "x": "Flow chart"
   },
   {
-   "t": "img",
-   "alt": "Flow chart of the LTV List steps, the same steps as the Procedure table above",
-   "src": "/flowcharts/ltv.png"
+   "t": "chart",
+   "x": "title: LTV List: flow\nstart: Today's 10 batch\nstep: Paste + dedup\nstep: Pre-check (SW 40%)\ncheck: Valid? | yes: next | no: done IM + Push only, no SMS\nstep: Engage first\nstep: Issue + ticket\nend: Tag + QA"
   },
   {
    "t": "h2",

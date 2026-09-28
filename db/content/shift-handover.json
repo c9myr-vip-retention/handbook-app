@@ -101,9 +101,8 @@
    "x": "Flow chart"
   },
   {
-   "t": "img",
-   "alt": "Flow chart of the Shift Handover steps, the same steps as the Procedure table above",
-   "src": "/flowcharts/shift-handover.png"
+   "t": "chart",
+   "x": "title: Shift Handover: flow\nstart: Shift ending\nstep: Log open items\nstep: Note follow-ups\nstep: Hand over (ack)\nstep: Incoming picks up\nstep: Close the loop\nend: Done"
   },
   {
    "t": "h2",

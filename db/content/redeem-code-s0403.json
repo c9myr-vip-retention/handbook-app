@@ -109,9 +109,8 @@
    "x": "Flow chart"
   },
   {
-   "t": "img",
-   "alt": "Flow chart of the Redeem Code S0403 Error steps, the same steps as the Procedure table above",
-   "src": "/flowcharts/redeem-code-s0403.png"
+   "t": "chart",
+   "x": "title: Redeem Code S0403: verify then escalate\nstart: S0403 error\nstep: Check redeem file\nstep: Verify customer\nstep: Verify code\nstep: Check status\nstep: Check BO\ncheck: All 4 criteria? | yes: next | no: finish Resolved at CS\nescalate: Escalate to ATL"
   },
   {
    "t": "h2",

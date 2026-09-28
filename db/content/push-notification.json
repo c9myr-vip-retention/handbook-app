@@ -109,9 +109,8 @@
    "x": "Flow chart"
   },
   {
-   "t": "img",
-   "alt": "Flow chart of the Push Notification (General) steps, the same steps as the Procedure table above",
-   "src": "/flowcharts/push-notification.png"
+   "t": "chart",
+   "x": "title: Push Notification: flow\nstart: Push approved\ncheck: RG / chase flag? | yes: stop Welfare, no push | no: next\nstep: Build list (segment)\nstep: Export .txt / .csv\nstep: Open push tool\nstep: Upload + send\nend: Logged / done"
   },
   {
    "t": "h2",

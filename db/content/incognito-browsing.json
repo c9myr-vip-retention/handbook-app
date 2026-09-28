@@ -109,9 +109,8 @@
    "x": "Flow chart"
   },
   {
-   "t": "img",
-   "alt": "Flow chart of the Incognito Browsing (work shift) steps, the same steps as the Procedure table above",
-   "src": "/flowcharts/incognito-browsing.png"
+   "t": "chart",
+   "x": "title: Incognito Browsing: shift flow\nstart: Shift starts\nstep: Open Chrome in Incognito (Ctrl+Shift+N)\ncheck: Incognito available? | yes: next | no: stop Report to ATL / TL do not use a normal window\nstep: Work only in Incognito BO, documents, sites\nstep: Close at breaks and shift end\nend: Done"
   },
   {
    "t": "h2",

@@ -117,9 +117,8 @@
    "x": "Flow chart"
   },
   {
-   "t": "img",
-   "alt": "Flow chart of the Grace Period List (daily send) steps, the same steps as the Procedure table above",
-   "src": "/flowcharts/grace.png"
+   "t": "chart",
+   "x": "title: Grace Period List: daily flow\nstart: Grace send day\nstep: Receive database\nstep: Paste to Lark Base\nstep: Filter by status\ncheck: Valid player? | yes: step SMS (Admin) + IM + Push | no: step IM + Push only, no bonus\nstep: Update QA Record\nend: Done"
   },
   {
    "t": "h2",

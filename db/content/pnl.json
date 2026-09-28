@@ -109,9 +109,8 @@
    "x": "Flow chart"
   },
   {
-   "t": "img",
-   "alt": "Flow chart of the Top PNL steps, the same steps as the Procedure table above",
-   "src": "/flowcharts/pnl.png"
+   "t": "chart",
+   "x": "title: Top PNL: flow\nstart: 7PM export\nstep: Sort P&L A-Z\nstep: Top 10 by loss\ncheck: Eligible? | yes: next | no: stop Skip player\nstep: Issue + ticket\nend: IM/Push + QA"
   },
   {
    "t": "h2",

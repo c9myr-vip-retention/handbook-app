@@ -93,9 +93,8 @@
    "x": "Flow chart"
   },
   {
-   "t": "img",
-   "alt": "Flow chart of the Complaint Handling (Livechat) steps, the same steps as the Procedure table above",
-   "src": "/flowcharts/complaint-handling.png"
+   "t": "chart",
+   "x": "title: Complaint Handling (Livechat): flow\nstart: Complaint opens\nstep: Acknowledge emotion\nstep: Read profile\ncheck: SW credit qualifies? | yes: next | no: jump Validate + redirect, no credit\nstep: Issue SW credit (tier %)\nend: Log outcome (QA)"
   },
   {
    "t": "h2",

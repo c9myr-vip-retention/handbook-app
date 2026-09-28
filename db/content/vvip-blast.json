@@ -101,9 +101,8 @@
    "x": "Flow chart"
   },
   {
-   "t": "img",
-   "alt": "Flow chart of the VVIP Blast steps, the same steps as the Procedure table above",
-   "src": "/flowcharts/vvip-blast.png"
+   "t": "chart",
+   "x": "title: VVIP Blast: flow\nstart: 2PM list updated\ncheck: ATL confirmed? | yes: next | no: stop Wait, do not send\nstep: Copy + template\nstep: Send IM at 3PM\nend: QA"
   },
   {
    "t": "h2",

@@ -109,9 +109,8 @@
    "x": "Flow chart"
   },
   {
-   "t": "img",
-   "alt": "Flow chart of the Telegram Approach steps, the same steps as the Procedure table above",
-   "src": "/flowcharts/telegram-approach.png"
+   "t": "chart",
+   "x": "title: Telegram Approach: flow\nstart: Telegram section\nstep: Priority top-down\nstep: Record approach\ncheck: Registered TG? | yes: next | no: stop Skip, no contact\nstep: Send 1 msg, record\nend: QA"
   },
   {
    "t": "h2",

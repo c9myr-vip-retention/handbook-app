@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { api } from './lib/api.js'
 import { parseBody, toMarkdown } from './lib/markdown.js'
 
@@ -28,8 +28,9 @@ function buildIndex(nav, pages) {
   const out = []
   const mk = (it, section, domain) => {
     const page = it.id && pages[it.id]
-    const text = [it.title, section, domain, it.keywords || '', bodyText(page)].join(' ').toLowerCase()
-    return { title: it.title, section, domain, id: it.id, status: it.status, real: !!page, text,
+    const body = bodyText(page)
+    const text = [it.title, section, domain, it.keywords || '', body].join(' ').toLowerCase()
+    return { title: it.title, section, domain, id: it.id, status: it.status, real: !!page, text, body,
       tl: it.title.toLowerCase(), kw: (it.keywords || '').toLowerCase() }
   }
   for (const sec of nav) {
@@ -66,7 +67,7 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
   const INDEX = useMemo(() => buildIndex(NAV, PAGES), [NAV, PAGES])
   const [route, setRoute] = useState(() => parseHash(location.hash, NAV))
   useEffect(() => {
-    const onHash = () => { setRoute(parseHash(location.hash, NAV)); setNavOpen(false) }
+    const onHash = () => { setRoute(parseHash(location.hash, NAV)); setNavOpen(false); setQuery('') }
     addEventListener('hashchange', onHash)
     return () => removeEventListener('hashchange', onHash)
   }, [NAV])
@@ -74,11 +75,23 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
   const [openSecs, setOpenSecs] = useState(() => ({ start: true }))
   const [query, setQuery] = useState('')
 
-  useEffect(() => { window.scrollTo(0, 0) }, [route])
+  const scrollPos = useRef({}), pushing = useRef(false)
+  useEffect(() => {
+    const onScroll = () => { scrollPos.current[location.hash || '#/'] = scrollY }
+    addEventListener('scroll', onScroll, { passive: true })
+    return () => removeEventListener('scroll', onScroll)
+  }, [])
+  useEffect(() => {
+    const y = pushing.current ? 0 : (scrollPos.current[location.hash || '#/'] || 0)
+    pushing.current = false
+    requestAnimationFrame(() => scrollTo(0, y))
+  }, [route])
 
   const go = (r) => {
     setNavOpen(false)
+    setQuery('')
     const h = toHash(r)
+    pushing.current = true
     if (location.hash !== h) location.hash = h
     else setRoute(r)
   }
@@ -184,7 +197,7 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
       <div className="main">
         <header className="top">
           <button className="icon menu" aria-label="Menu" onClick={() => setNavOpen(true)}>☰</button>
-          {route.kind !== 'home' && <button className="btn small ghost backbtn" onClick={back} aria-label="Go back"><span aria-hidden="true">←</span><span className="lbl"> Back</span></button>}
+          {route.kind !== 'home' && <button className="icon backbtn" onClick={back} aria-label="Go back" title="Back"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg></button>}
           <div className="ptitle">{title}</div>
           <div className={'searchbar' + (route.kind === 'home' ? ' on-home' : '')}>
             <input
@@ -210,7 +223,7 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
             : <>
                 {route.kind === 'domain' && <DomainList name={route.key} go={go} nav={NAV} pages={PAGES} />}
                 {route.kind === 'page' && <Page id={route.key} pages={PAGES} nav={NAV} canEdit={canEdit} go={go} />}
-                {route.kind === 'edit' && <Editor id={route.key} pages={PAGES} preview={preview} go={go} onPageSaved={onPageSaved} />}
+                {route.kind === 'edit' && <Editor key={route.key + '/' + (route.sec ?? '')} id={route.key} sec={route.sec} pages={PAGES} preview={preview} go={go} onPageSaved={onPageSaved} />}
                 {route.kind === 'history' && <History id={route.key} pages={PAGES} preview={preview} go={go} onPageSaved={onPageSaved} />}
                 {route.kind === 'stub' && <Stub title={route.title} status={route.status} />}
                 {route.kind === 'approvals' && <Approvals preview={preview} />}
@@ -286,6 +299,8 @@ function Home({ go, nav: NAV, pages: PAGES, notice, query, setQuery, results, op
             </div>
           </>}
 
+          <About pages={PAGES} go={go} />
+
           {recent.length > 0 && <>
             <div className="sectitle"><h2>Recently updated</h2></div>
             <div className="list">
@@ -314,12 +329,69 @@ function Home({ go, nav: NAV, pages: PAGES, notice, query, setQuery, results, op
   )
 }
 
+// "Who we are": mission from Department Overview, the 5 Pillars from Culture &
+// Conduct. Read from the pages themselves, so an edit there updates Home too.
+function About({ pages: PAGES, go }) {
+  const dept = PAGES['department-overview'], culture = PAGES.culture
+  const after = (page, head) => {
+    if (!page) return []
+    const i = page.blocks.findIndex(b => b.t === 'h2' && head.test(b.x))
+    return i < 0 ? [] : page.blocks.slice(i + 1)
+  }
+  const mission = after(dept, /mission/i).find(b => b.t === 'p')?.x
+  const pillars = after(culture, /pillars/i).find(b => b.t === 'table')?.rows || []
+  if (!mission && !pillars.length) return null
+  return (
+    <>
+      <div className="sectitle"><h2>Who we are</h2></div>
+      <section className="about">
+        <div className="aboutmain">
+          <h3>VIP Retention (VIP RTN)</h3>
+          {mission && <p>{mission}</p>}
+          <div className="aboutlinks">
+            {dept && <button className="crumblink" onClick={() => go({ kind: 'page', key: 'department-overview' })}>Department overview ›</button>}
+            {PAGES['team-structure'] && <button className="crumblink" onClick={() => go({ kind: 'page', key: 'team-structure' })}>Team structure ›</button>}
+          </div>
+        </div>
+        {pillars.length > 0 && (
+          <div className="aboutpillars">
+            <h3>Our culture: the 5 Pillars</h3>
+            <ul>{pillars.map(([name, short]) => <li key={name}><b>{name}</b><span>{short}</span></li>)}</ul>
+            <button className="crumblink" onClick={() => go({ kind: 'page', key: 'culture' })}>Culture &amp; Conduct ›</button>
+          </div>
+        )}
+      </section>
+    </>
+  )
+}
+
+// "SOP Book · Money Control & Bonuses" -> links back up the tree.
+function Crumb({ crumb, go, nav: NAV }) {
+  const parts = String(crumb).split(' · ')
+  const sop = NAV.find(s => s.domains)
+  return (
+    <div className="crumb">
+      <button className="crumblink" onClick={() => go({ kind: 'home' })}>Home</button>
+      {parts.map((part, i) => {
+        const isDomain = sop?.domains.some(d => d.name === part)
+        const sec = NAV.find(s => s.name === part && !s.domains)
+        return (
+          <span key={i}> / {isDomain
+            ? <button className="crumblink" onClick={() => go({ kind: 'domain', key: part })}>{part}</button>
+            : sec ? <button className="crumblink" onClick={() => go(sec.items[0]?.id ? { kind: 'page', key: sec.items[0].id } : { kind: 'home' })}>{part}</button>
+            : part}</span>
+        )
+      })}
+    </div>
+  )
+}
+
 function DomainList({ name, go, nav: NAV, pages: PAGES }) {
   const domain = NAV.find(s => s.domains)?.domains.find(d => d.name === name)
   const items = domain?.items || []
   return (
     <div className="view">
-      <div className="crumb">SOP Book / <b>{name}</b></div>
+      <div className="crumb"><button className="crumblink" onClick={() => go({ kind: 'home' })}>Home</button> / SOP Book / <b>{name}</b></div>
       <h1>{name}</h1>
       <p className="muted lead">{items.length} {items.length === 1 ? 'SOP' : 'SOPs'} in this domain.</p>
       <div className="list">
@@ -395,9 +467,16 @@ function editedMeta(meta, version) {
 
 // Admin editor. The page text is edited as markdown (the same format as the SOP
 // book) and saved as blocks. Every save keeps the previous version in History.
-function Editor({ id, pages: PAGES, preview, go, onPageSaved }) {
+function Editor({ id, sec, pages: PAGES, preview, go, onPageSaved }) {
+  const all = PAGES[id]?.blocks || []
+  const range = useMemo(() => {
+    if (sec == null || all[sec]?.t !== 'h2') return [0, all.length]
+    let end = all.findIndex((b, i) => i > sec && b.t === 'h2')
+    return [sec, end < 0 ? all.length : end]
+  }, [id, sec])
+  const scoped = range[0] !== 0 || range[1] !== all.length
   const page = PAGES[id]
-  const startText = useMemo(() => toMarkdown(page?.blocks || []), [id])
+  const startText = useMemo(() => toMarkdown(all.slice(range[0], range[1])), [id, range])
   const [row, setRow] = useState(preview ? {} : null)
   const [title, setTitle] = useState(page?.title || '')
   const [version, setVersion] = useState(verOf(page))
@@ -427,7 +506,7 @@ function Editor({ id, pages: PAGES, preview, go, onPageSaved }) {
     if (!t) return setErr('Title cannot be empty.')
     if (!/^V\d+(\.\d+)?$/.test(v)) return setErr('Version must look like V1.2')
     setSaving(true); setErr(null)
-    const body = parseBody(text)
+    const body = [...all.slice(0, range[0]), ...parseBody(text), ...all.slice(range[1])]
     const meta = editedMeta(row?.meta || page?.meta, v)
     try {
       if (!preview) await api.saveSop(id, { ...row, title: t, version: v, body, meta })
@@ -440,6 +519,7 @@ function Editor({ id, pages: PAGES, preview, go, onPageSaved }) {
   return (
     <div className="view doc editor">
       {preview && <div className="stubbox">Preview: edits stay in this browser tab and are not saved to the live handbook.</div>}
+      {scoped && <div className="banner">Editing one section: <b>{all[range[0]]?.x}</b>. The rest of the page is unchanged. <button className="crumblink" onClick={() => go({ kind: 'edit', key: id })}>Edit the whole page instead</button></div>}
       <div className="edrow">
         <label>Title<input value={title} onChange={e => setTitle(e.target.value)} /></label>
         <label className="ver">Version<input value={version} onChange={e => setVersion(e.target.value)} /></label>
@@ -524,16 +604,17 @@ function Page({ id, pages: PAGES, nav: NAV, canEdit, go }) {
       </aside>
     )}
     <div className="view doc">
-      {canEdit && (
-        <div className="doctools">
-          <button className="btn small ghost" onClick={() => go({ kind: 'history', key: id })}>History</button>
-          <button className="btn small" onClick={() => go({ kind: 'edit', key: id })}>Edit</button>
-        </div>
-      )}
-      {p.crumb && <div className="crumb">{p.crumb}</div>}
+      <div className="doctools">
+        <button className="btn small ghost" onClick={() => print()}>Print / PDF</button>
+        {canEdit && <button className="btn small ghost" onClick={() => go({ kind: 'history', key: id })}>History</button>}
+        {canEdit && <button className="btn small" onClick={() => go({ kind: 'edit', key: id })}>Edit</button>}
+      </div>
+      {p.crumb && <Crumb crumb={p.crumb} go={go} nav={NAV} />}
       <h1>{p.title}</h1>
       {p.meta && <div className="docmeta">{p.meta.map((m, i) => <span key={i}>{m}</span>)}</div>}
-      {p.blocks.map((b, i) => <Block key={i} b={b} id={b.t === 'h2' ? 'sec-' + i : undefined} />)}
+      {p.blocks.map((b, i) => b.t === 'h2' && canEdit
+        ? <h2 key={i} id={'sec-' + i} className="edh2">{b.x}<button className="secedit" onClick={() => go({ kind: 'edit', key: id, sec: i })} aria-label={'Edit section ' + b.x}>Edit</button></h2>
+        : <Block key={i} b={b} id={b.t === 'h2' ? 'sec-' + i : undefined} />)}
       {(prev || next) && (
         <nav className="pager" aria-label="More in this section">
           {prev ? <button className="pagerbtn" onClick={() => go({ kind: 'page', key: prev.id })}><small>Previous</small><b>{prev.title}</b></button> : <span />}
@@ -587,7 +668,7 @@ function toHash(r) {
   if (r.kind === 'page') return '#/p/' + e(r.key)
   if (r.kind === 'domain') return '#/d/' + e(r.key)
   if (r.kind === 'stub') return '#/s/' + e(r.title)
-  if (r.kind === 'edit') return '#/edit/' + e(r.key)
+  if (r.kind === 'edit') return '#/edit/' + e(r.key) + (r.sec != null ? '/' + r.sec : '')
   if (r.kind === 'history') return '#/history/' + e(r.key)
   if (r.kind === 'approvals') return '#/approvals'
   return '#/'
@@ -597,7 +678,7 @@ function parseHash(hash, NAV) {
   const v = raw ? decodeURIComponent(raw) : ''
   if (kind === 'p' && v) return { kind: 'page', key: v }
   if (kind === 'd' && v) return { kind: 'domain', key: v }
-  if (kind === 'edit' && v) return { kind: 'edit', key: v }
+  if (kind === 'edit' && v) { const [key, sec] = v.split('/'); return sec != null && sec !== '' ? { kind: 'edit', key, sec: +sec } : { kind: 'edit', key } }
   if (kind === 'history' && v) return { kind: 'history', key: v }
   if (kind === 'approvals') return { kind: 'approvals' }
   if (kind === 's' && v) {
@@ -622,7 +703,24 @@ function Stub({ title, status }) {
   )
 }
 
+// A short piece of the page text around the first search word.
+function snippet(body, terms) {
+  if (!body || !terms.length) return ''
+  const low = body.toLowerCase()
+  const at = terms.map(t => low.indexOf(t)).filter(i => i >= 0).sort((a, b) => a - b)[0]
+  if (at == null) return ''
+  const start = Math.max(0, at - 60), end = Math.min(body.length, at + 110)
+  return (start > 0 ? '… ' : '') + body.slice(start, end).trim() + (end < body.length ? ' …' : '')
+}
+function Mark({ text, terms }) {
+  if (!terms.length) return text
+  const esc = (t) => t.replace(/[.*+?^${}()|[\]\\]/g, (c) => '\\' + c)
+  const re = new RegExp('(' + terms.map(esc).join('|') + ')', 'gi')
+  return String(text).split(re).map((part, i) => i % 2 ? <mark key={i}>{part}</mark> : part)
+}
+
 function SearchResults({ query, results, open, pages: PAGES, embedded }) {
+  const terms = query.toLowerCase().split(/\s+/).filter(Boolean)
   return (
     <div className="view">
       {!embedded && <h1>Search</h1>}
@@ -633,7 +731,11 @@ function SearchResults({ query, results, open, pages: PAGES, embedded }) {
             {results.map(item => (
               <button key={(item.id || item.title)} className="row" onClick={() => open(item)}>
                 <span className={'mk ' + (item.status === 'restricted' ? 'restricted' : '')} />
-                <span className="rmain"><b>{item.title}</b><small>{item.domain || item.section}</small></span>
+                <span className="rmain">
+                  <b><Mark text={item.title} terms={terms} /></b>
+                  <small>{item.domain || item.section}</small>
+                  {snippet(item.body, terms) && <span className="snip"><Mark text={snippet(item.body, terms)} terms={terms} /></span>}
+                </span>
                 {item.real ? <span className="chip ver">{versionOf(PAGES[item.id])}</span> : item.status && <span className={'chip ' + item.status}>{STATUS_LABEL[item.status] || item.status}</span>}
               </button>
             ))}

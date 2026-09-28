@@ -15,6 +15,113 @@
    "x": "**Applies to:** VIP CS, all brands"
   },
   {
+   "t": "sopheader",
+   "f": [
+    [
+     "Process name",
+     "LTV List"
+    ],
+    [
+     "Department",
+     "VIP Retention"
+    ],
+    [
+     "Process owner",
+     "VIP Retention"
+    ],
+    [
+     "Effective date",
+     ""
+    ],
+    [
+     "Approved by",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "Procedure"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Step no.",
+    "Step name",
+    "Specific action",
+    "Operating standard",
+    "Tools / forms used",
+    "Points to note"
+   ],
+   "rows": [
+    [
+     "1",
+     "Locate today's 10-player batch",
+     "Task start: Team Engagement File > Handover Tab; use today's exact day.",
+     "Quota is exactly 10. Never exceed, never carry over, never borrow another day's batch.",
+     "Team Engagement File",
+     "Empty list today: report to ATL, do not borrow."
+    ],
+    [
+     "2",
+     "Paste + deduplicate",
+     "Paste values into Lark Base > LTV (Day); remove anyone who already got Daily P&L or this week's LTV.",
+     "If under 10 remain, fill down the ranking.",
+     "Lark Base",
+     ""
+    ],
+    [
+     "3",
+     "Pre-check per player",
+     "Not yet given this week, currently active, SW sufficient (bonus <= SW x 40%).",
+     "All three must pass. Same-day SW update mandatory before issuance.",
+     "Lark Base",
+     ""
+    ],
+    [
+     "4",
+     "Engage before issuance",
+     "Open with a greeting and observe; active: proceed; cold: can delay.",
+     "Contact precedes deposit. Player must engage before issuance.",
+     "Livechat / Telegram",
+     ""
+    ],
+    [
+     "5",
+     "Valid vs Invalid send",
+     "Valid: pass username list to Admin for SMS + send IM + Push. Invalid: IM + Push only, no SMS, no bonus mention.",
+     "SMS is Admin-side. Invalid = engagement only.",
+     "Lark / BO",
+     ""
+    ],
+    [
+     "6",
+     "Issue + ticket",
+     "On target: submit Lark ticket (query VVIP LTV 70 BONUS) with username, bonus amount, screenshot; tick Claimed.",
+     "Bonus per the ladder, capped at SW x 40%.",
+     "Lark Base",
+     ""
+    ],
+    [
+     "7",
+     "Tag + QA",
+     "Tag Weekly LTV Rewarded (Week XX); update the QA Record with a BO screenshot.",
+     "Correct week number.",
+     "Lark Base",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "Flow chart"
+  },
+  {
+   "t": "img",
+   "alt": "Flow chart: LTV List",
+   "src": "/flowcharts/ltv.png"
+  },
+  {
    "t": "h2",
    "x": "1. Objective"
   },

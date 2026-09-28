@@ -15,6 +15,105 @@
    "x": "**Applies to:** All VIP CS"
   },
   {
+   "t": "sopheader",
+   "f": [
+    [
+     "Process name",
+     "Redeem Code S0403 Error"
+    ],
+    [
+     "Department",
+     "VIP Retention"
+    ],
+    [
+     "Process owner",
+     "VIP Retention; ATL for confirmed faults"
+    ],
+    [
+     "Effective date",
+     ""
+    ],
+    [
+     "Approved by",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "Procedure"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Step no.",
+    "Step name",
+    "Specific action",
+    "Operating standard",
+    "Tools / forms used",
+    "Points to note"
+   ],
+   "rows": [
+    [
+     "1",
+     "Check the Redeem Code File",
+     "Task start: open it in the Customer Approaching File, search the member Username or UID.",
+     "Locate the record before anything else.",
+     "Customer Approaching File",
+     ""
+    ],
+    [
+     "2",
+     "Verify customer information",
+     "After locating the record: UID correct, correct customer account, correct brand.",
+     "All three must match.",
+     "Customer Approaching File / BO",
+     ""
+    ],
+    [
+     "3",
+     "Verify the redeem code",
+     "After customer info: the code the customer entered matches the code assigned in the system.",
+     "Do not conclude expiry from the error alone.",
+     "Customer Approaching File",
+     ""
+    ],
+    [
+     "4",
+     "Check the Status field",
+     "After code check: Claimed means already claimed; Expired means check whether it has actually expired.",
+     "Read the status, do not assume.",
+     "Customer Approaching File",
+     ""
+    ],
+    [
+     "5",
+     "Check in BO",
+     "Before any escalation: Event > Redeem Code > Redeem Code Payout; enter the code.",
+     "Status \"approved\" means the member already claimed it.",
+     "BO",
+     ""
+    ],
+    [
+     "6",
+     "Escalate only if all 4 criteria",
+     "After all checks: escalate to ATL only when eligible + correct code + not claimed + system still shows S0403.",
+     "ATL step is for confirmed faults only. Use the escalation template.",
+     "Lark to ATL",
+     "Most cases resolve at the CS step."
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "Flow chart"
+  },
+  {
+   "t": "img",
+   "alt": "Flow chart: Redeem Code S0403 Error",
+   "src": "/flowcharts/redeem-code-s0403.png"
+  },
+  {
    "t": "h2",
    "x": "1. Objective"
   },

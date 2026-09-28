@@ -15,6 +15,97 @@
    "x": "**Applies to:** All VIP CS; Senior and ATL review"
   },
   {
+   "t": "sopheader",
+   "f": [
+    [
+     "Process name",
+     "Case Study Logging"
+    ],
+    [
+     "Department",
+     "VIP Retention"
+    ],
+    [
+     "Process owner",
+     "VIP Retention"
+    ],
+    [
+     "Effective date",
+     ""
+    ],
+    [
+     "Approved by",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "Procedure"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Step no.",
+    "Step name",
+    "Specific action",
+    "Operating standard",
+    "Tools / forms used",
+    "Points to note"
+   ],
+   "rows": [
+    [
+     "1",
+     "Spot a case worth logging",
+     "On a notable incident: identify a real incident with a lesson.",
+     "Real incident with a lesson; skip the trivial. Never invent a case to fill a category.",
+     "Chat, BO, reports",
+     ""
+    ],
+    [
+     "2",
+     "Categorise + rate severity",
+     "After spotting: assign category and severity.",
+     "Operational Error / Player Abuse-Exploit / Provider-System Issue; severity Critical/High/Medium/Low.",
+     "Category definitions",
+     ""
+    ],
+    [
+     "3",
+     "Write the case row",
+     "After categorising: What Happened, Why It Happened, What We Learn, Rule or SOP it maps to.",
+     "Role titles only. No staff or player names, no IDs or UIDs.",
+     "Case Study Library",
+     "The lesson is the point of the row."
+    ],
+    [
+     "4",
+     "Link the full write-up",
+     "If detailed: summary in the library, full write-up in a Lark Doc, link in Reference.",
+     "Library is the summary, not a replacement.",
+     "Lark Docs",
+     ""
+    ],
+    [
+     "5",
+     "Review + fold back",
+     "Periodically: Senior/ATL review; if a case reveals an SOP gap, feed it to the SOP owner.",
+     "Fold learning back into the SOP Book.",
+     "SOP Book",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "Flow chart"
+  },
+  {
+   "t": "img",
+   "alt": "Flow chart: Case Study Logging",
+   "src": "/flowcharts/case-study-logging.png"
+  },
+  {
    "t": "h2",
    "x": "1. Objective"
   },

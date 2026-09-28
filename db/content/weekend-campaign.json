@@ -15,6 +15,104 @@
    "x": "**Applies to:** VIP CS, all brands"
   },
   {
+   "t": "sopheader",
+   "f": [
+    [
+     "Process name",
+     "Weekend Campaign"
+    ],
+    [
+     "Department",
+     "VIP Retention"
+    ],
+    [
+     "Process owner",
+     "VIP Retention / ATL"
+    ],
+    [
+     "Effective date",
+     ""
+    ],
+    [
+     "Approved by",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "Procedure"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Step no.",
+    "Step name",
+    "Specific action",
+    "Operating standard",
+    "Tools / forms used",
+    "Points to note"
+   ],
+   "rows": [
+    [
+     "1",
+     "Check today's roster",
+     "Open the \"Reload - Angpao and Redeem code By Batch\" roster in Lark. Confirm the team, brands, tier and redeem codes for today's date.",
+     "Only the team on the roster runs the reload that day, on its listed brands. Off-roster issuance is a process violation.",
+     "Lark roster",
+     "Rotation repeats every 3 weeks. Some days are reserved for other campaigns or rest days."
+    ],
+    [
+     "2",
+     "Verify tier in the BO",
+     "Mon to Wed: TC Tier 3, Zyra Tier V. Thu to Sat: TC Tier V, Zyra Tier 3. If a player's tier is unclear, verify in the BO before issuing.",
+     "Tier targeting is strict. No reward before the tier is confirmed.",
+     "BO, Lark roster",
+     ""
+    ],
+    [
+     "3",
+     "Issue Ang Bao (TC only)",
+     "Normal Ang Bao RM 2 to 8 for Tier 3. Special Ang Bao RM 8 to 18 for Tier V.",
+     "TC platform only. Tier 3 gets Normal only, Tier V gets Special only. Never cross-issue.",
+     "TC BO",
+     ""
+    ],
+    [
+     "4",
+     "Send Redeem Code (Zyra only)",
+     "Send the day's code for the brand, as listed in the roster, to the targeted players.",
+     "Zyra only. One claim per player per code. The player must deposit RM 100 to activate the code.",
+     "Zyra BO, Lark roster",
+     "Invalid or Expired code: follow the Redeem Code S0403 SOP before escalating. Never share codes outside the day's targeted players."
+    ],
+    [
+     "5",
+     "Deposit Challenge: UNDER TESTING",
+     "Do not implement without explicit ATL or TL sign-off. Reward structure confirmed; operational procedure pending.",
+     "Platform, issuance method, eligible tiers and ticket query all pending TL confirmation.",
+     "-",
+     "UNDER TESTING."
+    ],
+    [
+     "6",
+     "Tag + QA",
+     "After issuance: tag and update the QA Record.",
+     "",
+     "Lark Base",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "Flow chart"
+  },
+  {
+   "t": "flow",
+   "x": "flowchart LR\n  A([Reload task]) --> B{On roster today?}\n  B -- No --> X[Not your roster day: do not issue]\n  B -- Yes --> C[Verify tier in the BO]\n  C --> D{TC or Zyra?}\n  D -- TC --> E[Issue Ang Bao: Normal RM 2 to 8 Tier 3, Special RM 8 to 18 Tier V]\n  D -- Zyra --> F[Send Redeem Code: one claim per player, RM 100 deposit activates]\n  E --> G([Tag + QA])\n  F --> G\n  classDef stop fill:#FDEEEC,stroke:#B42318,color:#7A1A12\n  class X stop"
+  },
+  {
    "t": "h2",
    "x": "1. Objective"
   },

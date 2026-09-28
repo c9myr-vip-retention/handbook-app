@@ -15,6 +15,113 @@
    "x": "**Applies to:** ATL (applies the gate); new hires on probation (Senior or Junior)"
   },
   {
+   "t": "sopheader",
+   "f": [
+    [
+     "Process name",
+     "New Staff Incentive Eligibility"
+    ],
+    [
+     "Department",
+     "VIP Retention"
+    ],
+    [
+     "Process owner",
+     "ATL"
+    ],
+    [
+     "Effective date",
+     ""
+    ],
+    [
+     "Approved by",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "Procedure"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Step no.",
+    "Step name",
+    "Specific action",
+    "Operating standard",
+    "Tools / forms used",
+    "Points to note"
+   ],
+   "rows": [
+    [
+     "1",
+     "Mark the new hire as probationary",
+     "On join: flag probation status in the KPI / payout tracker.",
+     "Incentive gate = OFF. Do not apply the old 1-month rule.",
+     "HR Portal, KPI tracker",
+     ""
+    ],
+    [
+     "2",
+     "Score KPI monthly for evaluation",
+     "Month-end during probation: score per the KPI Scoring SOP (24).",
+     "Label evaluation-only, no payout. Scoring does not equal payout.",
+     "Scorecard",
+     ""
+    ],
+    [
+     "3",
+     "Run the probation evaluation",
+     "At end of probation: per the JNR Probation Checklist; ATL decision.",
+     "Confirmation must be official before any incentive is released.",
+     "JNR Probation Checklist",
+     ""
+    ],
+    [
+     "4",
+     "On pass: switch the gate ON",
+     "On confirmation: entitlement starts from the confirmation date forward.",
+     "Not backdated to probation. Rev share, performance bonus and KPI incentive all start here.",
+     "KPI tracker, HR Portal",
+     ""
+    ],
+    [
+     "5",
+     "On extension: keep the gate OFF",
+     "On extension decision: no incentive during the extended probation.",
+     "Re-evaluate at the new end date.",
+     "KPI tracker",
+     ""
+    ],
+    [
+     "6",
+     "On termination: no entitlement",
+     "On termination decision: gate stays OFF; close the record.",
+     "No entitlement for any period before confirmation.",
+     "KPI tracker",
+     ""
+    ],
+    [
+     "7",
+     "Record the entitlement change",
+     "After decision: log the confirmation date and the incentive start.",
+     "Role titles only.",
+     "Lark, KPI tracker",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "Flow chart"
+  },
+  {
+   "t": "img",
+   "alt": "Flow chart: New Staff Incentive Eligibility",
+   "src": "/flowcharts/new-staff-incentive.png"
+  },
+  {
    "t": "h2",
    "x": "1. Objective"
   },

@@ -15,6 +15,105 @@
    "x": "**Applies to:** All VIP CS"
   },
   {
+   "t": "sopheader",
+   "f": [
+    [
+     "Process name",
+     "QA Record"
+    ],
+    [
+     "Department",
+     "VIP Retention"
+    ],
+    [
+     "Process owner",
+     "VIP Retention"
+    ],
+    [
+     "Effective date",
+     ""
+    ],
+    [
+     "Approved by",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "Procedure"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Step no.",
+    "Step name",
+    "Specific action",
+    "Operating standard",
+    "Tools / forms used",
+    "Points to note"
+   ],
+   "rows": [
+    [
+     "1",
+     "Screenshot from the BO",
+     "Right after each task: capture the completion confirmation.",
+     "Must clearly show the confirmation. No entry without the required BO screenshot.",
+     "BO",
+     ""
+    ],
+    [
+     "2",
+     "Open the QA table",
+     "After screenshot: open the Customer Approaching QA table in Lark Base.",
+     "",
+     "Lark Base",
+     ""
+    ],
+    [
+     "3",
+     "Ensure today's date record",
+     "If today's date record does not exist, create it.",
+     "One parent QA record per calendar date.",
+     "Lark Base",
+     ""
+    ],
+    [
+     "4",
+     "Attach + categorise",
+     "Attach the screenshot under the correct date; select the task category.",
+     "Correct date and category, not the wrong one.",
+     "Lark Base",
+     ""
+    ],
+    [
+     "5",
+     "Record validity + count",
+     "Record Valid or Invalid (if both, both counts); record total players approached this shift.",
+     "Feeds output reporting and performance.",
+     "Lark Base",
+     ""
+    ],
+    [
+     "6",
+     "Save + submit before shift end",
+     "Confirm entries saved before the next task; complete and submit all before shift end.",
+     "Incomplete QA records break the Output Report. If a task was not done, record Not Completed with a reason, never blank.",
+     "Lark Base",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "Flow chart"
+  },
+  {
+   "t": "img",
+   "alt": "Flow chart: QA Record",
+   "src": "/flowcharts/qa-record.png"
+  },
+  {
    "t": "h2",
    "x": "1. Objective"
   },

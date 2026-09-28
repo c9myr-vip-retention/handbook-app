@@ -15,6 +15,105 @@
    "x": "**Applies to:** VIP CS, all brands"
   },
   {
+   "t": "sopheader",
+   "f": [
+    [
+     "Process name",
+     "Internal Mail Approach"
+    ],
+    [
+     "Department",
+     "VIP Retention"
+    ],
+    [
+     "Process owner",
+     "VIP Retention"
+    ],
+    [
+     "Effective date",
+     ""
+    ],
+    [
+     "Approved by",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "Procedure"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Step no.",
+    "Step name",
+    "Specific action",
+    "Operating standard",
+    "Tools / forms used",
+    "Points to note"
+   ],
+   "rows": [
+    [
+     "1",
+     "Open the send path + pick recipient",
+     "TC: Interact Mgmt > Mail > Send Mail. Zyra: Notification > System Messages > Add Message. Pick recipient per campaign (All User / Specific).",
+     "Match the campaign direction. Sending to the wrong group cannot be undone.",
+     "TC / Zyra BO",
+     ""
+    ],
+    [
+     "2",
+     "Paste subject + content",
+     "Exact from the approved template. Zyra requires EN-MY, ZH-MY and MS-MY.",
+     "Do not modify without TL approval. Zyra will not create until all three languages are filled.",
+     "TC / Zyra BO",
+     ""
+    ],
+    [
+     "3",
+     "Double-check before send",
+     "Verify brand, links, content, recipient (Zyra: all language versions).",
+     "All correct before sending.",
+     "TC / Zyra BO",
+     ""
+    ],
+    [
+     "4",
+     "Send / Create",
+     "TC: Send. Zyra: Create.",
+     "",
+     "TC / Zyra BO",
+     ""
+    ],
+    [
+     "5",
+     "Screenshot the confirmation",
+     "Right after send: screenshot the confirmation screen.",
+     "Mandatory QA evidence. No screenshot, no proof of send.",
+     "TC / Zyra BO",
+     ""
+    ],
+    [
+     "6",
+     "Update the QA Record",
+     "After screenshot: attach the confirmation screenshot.",
+     "If a link/content error is found after sending, report to ATL/TL at once.",
+     "Lark Base",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "Flow chart"
+  },
+  {
+   "t": "img",
+   "alt": "Flow chart: Internal Mail Approach",
+   "src": "/flowcharts/internal-mail-approach.png"
+  },
+  {
    "t": "h2",
    "x": "1. Objective"
   },

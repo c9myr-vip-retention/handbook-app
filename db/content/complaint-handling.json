@@ -15,6 +15,89 @@
    "x": "**Applies to:** All VIP CS"
   },
   {
+   "t": "sopheader",
+   "f": [
+    [
+     "Process name",
+     "Complaint Handling (Livechat)"
+    ],
+    [
+     "Department",
+     "VIP Retention"
+    ],
+    [
+     "Process owner",
+     "VIP Retention"
+    ],
+    [
+     "Effective date",
+     ""
+    ],
+    [
+     "Approved by",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "Procedure"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Step no.",
+    "Step name",
+    "Specific action",
+    "Operating standard",
+    "Tools / forms used",
+    "Points to note"
+   ],
+   "rows": [
+    [
+     "1",
+     "Acknowledge the emotion first",
+     "On complaint open: validate the feeling before any solution or redirect.",
+     "Emotion first, solution second. Skipping the acknowledgement loses the relationship.",
+     "Livechat",
+     ""
+    ],
+    [
+     "2",
+     "Read the player profile",
+     "Before responding: check losses, SW balance, recent credits, risk/abuse tag.",
+     "Assess before committing anything.",
+     "BO",
+     ""
+    ],
+    [
+     "3",
+     "Match the scenario and respond",
+     "After assessment: per the scenario table; SW credit only where the scenario allows.",
+     "Sized by tier % (T3 = 3%, TV = 5%) and remaining monthly allowance. No false commitment; if unsure say \"let me check\".",
+     "Livechat, Bonus rules",
+     ""
+    ],
+    [
+     "4",
+     "Log the outcome",
+     "After handling: QA Record; if compensation was issued, Lark ticket.",
+     "Ticket query: VVIP Complain player.",
+     "Lark Base",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "Flow chart"
+  },
+  {
+   "t": "img",
+   "alt": "Flow chart: Complaint Handling (Livechat)",
+   "src": "/flowcharts/complaint-handling.png"
+  },
+  {
    "t": "h2",
    "x": "1. Objective"
   },

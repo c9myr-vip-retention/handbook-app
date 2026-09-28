@@ -15,6 +15,113 @@
    "x": "**Applies to:** VIP CS, all brands"
   },
   {
+   "t": "sopheader",
+   "f": [
+    [
+     "Process name",
+     "Grace Period List (daily send)"
+    ],
+    [
+     "Department",
+     "VIP Retention"
+    ],
+    [
+     "Process owner",
+     "PIC: ATL / 2IC: Senior"
+    ],
+    [
+     "Effective date",
+     ""
+    ],
+    [
+     "Approved by",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "Procedure"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Step no.",
+    "Step name",
+    "Specific action",
+    "Operating standard",
+    "Tools / forms used",
+    "Points to note"
+   ],
+   "rows": [
+    [
+     "1",
+     "Receive the database",
+     "On a send day (Mon/Tue/Thu/Fri), open Team Engagement File > Handover Tab and take today’s Grace Period database from Retention Admin.",
+     "Correct send day; database is today’s, from the Handover Tab",
+     "Team Engagement File",
+     "No send Wed/Sat/Sun. Empty list: log in QA, tell the ATL"
+    ],
+    [
+     "2",
+     "Paste into Lark Base",
+     "Copy the database and paste-values into Customer Approaching Lark Base > Grace Period (Day).",
+     "Pasted as values only; formulas intact",
+     "Lark Base",
+     "A normal paste breaks the formulas"
+    ],
+    [
+     "3",
+     "Filter valid vs invalid",
+     "Split Grace Period Players (below the monthly threshold) from Potential Players (at or above), by brand and status.",
+     "Every player classified; none left unclassified",
+     "Lark Base",
+     "Wrong status sends the wrong message"
+    ],
+    [
+     "4",
+     "Move to the Engagement Tab",
+     "Move each filtered player under the correct brand column in the Engagement Tab, Grace Period column.",
+     "Each player under the correct brand column",
+     "Lark Base",
+     "Brand mismatch corrupts reporting"
+    ],
+    [
+     "5",
+     "Send to valid players",
+     "Hand the valid username list to Retention Admin for SMS, then send IM + Push to the same players.",
+     "Valid list handed over; IM + Push sent to all valid",
+     "Lark / BO",
+     "VIP CS does not send the SMS; Admin does"
+    ],
+    [
+     "6",
+     "Send to invalid players",
+     "Send IM + Push only to invalid players.",
+     "IM + Push sent; no SMS, no bonus mention",
+     "Lark / BO",
+     "No bonus mention to invalids; engagement only"
+    ],
+    [
+     "7",
+     "Update the QA Record",
+     "After all IM is sent, record the task and attach a BO screenshot.",
+     "QA entry saved with a BO screenshot",
+     "Lark Base",
+     "No screenshot means no proof of send"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "Flow chart"
+  },
+  {
+   "t": "img",
+   "alt": "Flow chart: Grace Period List (daily send)",
+   "src": "/flowcharts/grace.png"
+  },
+  {
    "t": "h2",
    "x": "1. Objective"
   },

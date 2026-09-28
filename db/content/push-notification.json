@@ -15,6 +15,105 @@
    "x": "**Applies to:** All VIP CS; ATL/TL for content and cadence sign-off"
   },
   {
+   "t": "sopheader",
+   "f": [
+    [
+     "Process name",
+     "Push Notification (General)"
+    ],
+    [
+     "Department",
+     "VIP Retention"
+    ],
+    [
+     "Process owner",
+     "VIP Retention"
+    ],
+    [
+     "Effective date",
+     ""
+    ],
+    [
+     "Approved by",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "Procedure"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Step no.",
+    "Step name",
+    "Specific action",
+    "Operating standard",
+    "Tools / forms used",
+    "Points to note"
+   ],
+   "rows": [
+    [
+     "1",
+     "Confirm approval + copy",
+     "Before build: subject and content from the approved Template Tab or campaign set; ATL (or above) approval for any new or edited copy.",
+     "No ad-hoc copy without ATL (or above) approval.",
+     "Template Tab, Lark approval",
+     ""
+    ],
+    [
+     "2",
+     "Build recipient list",
+     "After approval: correct brand tab; target segment only (tier / DSLD / campaign list).",
+     "RG and chase-flagged excluded. Segment only, no blanket send.",
+     "Team Engagement File, BO",
+     "RG / chase flag beats every push, route to welfare."
+    ],
+    [
+     "3",
+     "Export in platform format",
+     "Before upload: TC .txt, Zyra .csv; verify the format before leaving the file.",
+     "Wrong file format fails the upload. Verify every time.",
+     "Team Engagement File / Zyra BO",
+     ""
+    ],
+    [
+     "4",
+     "Open the push tool",
+     "Follow the exact entry path in the platform mechanics table for that platform.",
+     "TC: Interact Mgmt > Mail > Push > Send > Specific User > Firebase. Zyra: Notification > Push > Add.",
+     "TC BO / Zyra BO",
+     ""
+    ],
+    [
+     "5",
+     "Upload, input, send",
+     "Upload the file; paste approved subject + content per language slot; TC click OK, Zyra click Create.",
+     "EN/BM/CN where the push requires it. Approved copy only.",
+     "TC BO / Zyra BO",
+     ""
+    ],
+    [
+     "6",
+     "Log the send",
+     "Immediately after: QA Record with brand, segment, push type, recipient count, time; attach BO screenshot.",
+     "No screenshot, no proof of send. Never fabricate a send.",
+     "QA Record, Lark Base",
+     "Empty list: record it and inform the ATL."
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "Flow chart"
+  },
+  {
+   "t": "img",
+   "alt": "Flow chart: Push Notification (General)",
+   "src": "/flowcharts/push-notification.png"
+  },
+  {
    "t": "h2",
    "x": "1. Objective"
   },

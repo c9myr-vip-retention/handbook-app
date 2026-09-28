@@ -15,6 +15,129 @@
    "x": "**Applies to:** All VIP CS; ATL for high-value approval"
   },
   {
+   "t": "sopheader",
+   "f": [
+    [
+     "Process name",
+     "Birthday Bonus (issuance)"
+    ],
+    [
+     "Department",
+     "VIP Retention"
+    ],
+    [
+     "Process owner",
+     "PIC: ATL / 2IC: Senior"
+    ],
+    [
+     "Effective date",
+     ""
+    ],
+    [
+     "Approved by",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "Procedure"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Step no.",
+    "Step name",
+    "Specific action",
+    "Operating standard",
+    "Tools / forms used",
+    "Points to note"
+   ],
+   "rows": [
+    [
+     "1",
+     "Pull the birthday list",
+     "Open the birthday source in the BO. Pull the Tier 3 and Tier V players whose birthday is today. Check the Birthday Reward Claimed This Year field.",
+     "Only today's birthdays; Reward Claimed This Year = No for each",
+     "Birthday source; BO",
+     "Skip anyone already marked claimed this year"
+    ],
+    [
+     "2",
+     "Screen each player",
+     "Check one by one and skip on any Yes: 1) already claimed the birthday credit this year 2) risk or abuse tag 3) a same-day Reload, Compensation or LTV reward.",
+     "All three checks clear before the player proceeds",
+     "BO",
+     "Any Yes stops the player; no stacking with a same-day reward"
+    ],
+    [
+     "3",
+     "Confirm the calculation base",
+     "Check the Secret Wallet. Has SW: use SW base (deduct from SW, 1x TO). No SW or positive base: use Last Month Deposit base (no deduction, 3x TO). See table A.",
+     "Correct base chosen for the SW state and recorded",
+     "BO",
+     "The base decides both the deduction and the turnover"
+    ],
+    [
+     "4",
+     "Update the Secret Wallet",
+     "Refresh the SW figure today, before any sizing.",
+     "SW refreshed today; a stale SW is not a valid base",
+     "BO",
+     "Sizing on a stale SW is a process error"
+    ],
+    [
+     "5",
+     "Size on the SW base (Has SW)",
+     "Tier 3 = SW x 25% (max RM 888). Tier V = SW x 30% (max RM 1,688). Match the highest 8-ending amount at or below the result; above Max use Max. Deduct from SW. See table B.",
+     "Final ends in 8 and is at or below the tier cap; SW deducted; 1x TO",
+     "Calc table B; BO",
+     "Do not exceed the tier Max"
+    ],
+    [
+     "6",
+     "Size on the deposit base (No SW)",
+     "Tier 3 = Total Deposit x 0.1% (floor RM 38, max RM 188). Tier V = 0.1% (floor RM 68, max RM 388). Reference Last Month Deposit; below Floor use Floor. No SW deduction. See table C.",
+     "Final within floor and max; no SW deduction; 3x TO",
+     "Calc table C; BO",
+     "Low-deposit case is unresolved (see flag); do not issue until confirmed"
+    ],
+    [
+     "7",
+     "Apply the ATL approval gate",
+     "If Total Deposit is at or above RM 100,000, route to ATL or above. ATL confirms value, claim history, risk tag and final amount, then tags Birthday Credit - ATL Reviewed. Otherwise CS issues within the cap.",
+     "High-value cases carry the ATL-Reviewed tag before issue",
+     "Lark; ATL",
+     "CS cannot issue a case at or above RM 100,000 directly"
+    ],
+    [
+     "8",
+     "Issue and set turnover",
+     "Issue the sized credit. Apply the turnover for the base used (SW 1x, deposit 3x). State the validity period to the player.",
+     "Credit issued at the sized amount; correct TO; validity stated",
+     "BO",
+     "Turnover must match the base; do not mix"
+    ],
+    [
+     "9",
+     "Record and close",
+     "Mark Birthday Credit Rewarded. Record tier, base, amount, TO, SW deduction (y/n), issued by, time. Set Birthday Reward Claimed This Year = Yes. Update the QA Record.",
+     "All fields recorded; Claimed This Year = Yes; QA updated",
+     "BO; QA Record",
+     "One claim per player per calendar year"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "Flow chart"
+  },
+  {
+   "t": "img",
+   "alt": "Flow chart: Birthday Bonus (issuance)",
+   "src": "/flowcharts/birthday-bonus.png"
+  },
+  {
    "t": "h2",
    "x": "1. Objective"
   },

@@ -15,6 +15,105 @@
    "x": "**Applies to:** VIP CS, all brands"
   },
   {
+   "t": "sopheader",
+   "f": [
+    [
+     "Process name",
+     "Top PNL"
+    ],
+    [
+     "Department",
+     "VIP Retention"
+    ],
+    [
+     "Process owner",
+     "VIP Retention"
+    ],
+    [
+     "Effective date",
+     ""
+    ],
+    [
+     "Approved by",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "Procedure"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Step no.",
+    "Step name",
+    "Specific action",
+    "Operating standard",
+    "Tools / forms used",
+    "Points to note"
+   ],
+   "rows": [
+    [
+     "1",
+     "Export the daily report",
+     "Night shift: export from 7:00 PM (TC: Report Mgmt > Player Analysis; Zyra: Betting Record Overview).",
+     "Wait for full data load before export. Do not export early.",
+     "TC / Zyra BO",
+     ""
+    ],
+    [
+     "2",
+     "Sort + filter to top 10",
+     "Paste into CS SORTING FILE; TC filter to VVIP, Zyra filter Tier 3 + V; sort Total P&L A to Z; take top 10.",
+     "Biggest losses at top.",
+     "CS SORTING FILE",
+     ""
+    ],
+    [
+     "3",
+     "Run eligibility per player",
+     "Daily P&L negative, today's reward not claimed, bonus <= SW x 40%, monthly P&L negative.",
+     "All must pass. Monthly profitable = cannot issue, even on a daily loss.",
+     "Customer Approaching File",
+     "Engage from 8:00 PM after data is stable."
+    ],
+    [
+     "4",
+     "Issue the ladder bonus",
+     "Match the highest eligible tier; submit Lark ticket (query VVIP TOP P&L BONUS) with screenshot; tick Claimed.",
+     "Max = SW x 40%. Same-day SW update mandatory.",
+     "Lark Base",
+     ""
+    ],
+    [
+     "5",
+     "IM + Push, verify on claim",
+     "Send IM + Push; on player claim verify on list and amount before processing.",
+     "Double-check content.",
+     "BO",
+     ""
+    ],
+    [
+     "6",
+     "Update the QA Record",
+     "After recording and issuance: attach BO screenshots.",
+     "",
+     "Lark Base",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "Flow chart"
+  },
+  {
+   "t": "img",
+   "alt": "Flow chart: Top PNL",
+   "src": "/flowcharts/pnl.png"
+  },
+  {
    "t": "h2",
    "x": "1. Objective"
   },

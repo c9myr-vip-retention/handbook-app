@@ -13,6 +13,113 @@
    "x": "**Applies to:** All VIP CS; ATL for the approval gate"
   },
   {
+   "t": "sopheader",
+   "f": [
+    [
+     "Process name",
+     "Bonus Issuance and Approval"
+    ],
+    [
+     "Department",
+     "VIP Retention"
+    ],
+    [
+     "Process owner",
+     "PIC: ATL / 2IC: Senior"
+    ],
+    [
+     "Effective date",
+     ""
+    ],
+    [
+     "Approved by",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "Procedure"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Step no.",
+    "Step name",
+    "Specific action",
+    "Operating standard",
+    "Tools / forms used",
+    "Points to note"
+   ],
+   "rows": [
+    [
+     "1",
+     "Verify eligibility",
+     "Confirm the player is on the eligible list and a logged contact precedes the (re)deposit within the task window. Unique ID; one count per player per month.",
+     "On the eligible list; contact before deposit; unique ID",
+     "Eligible list; contact_log; BO",
+     "No contact before deposit means no credit"
+    ],
+    [
+     "2",
+     "Identify the task and ladder",
+     "Identify the task (Grace, LTV, Top P&L, Birthday, Weekend) and its ladder. Confirm no same-day Reload, Compensation or LTV reward.",
+     "Exactly one task; no stacking",
+     "Bonus ladders",
+     "No stacking; skip if a same-day reward went out"
+    ],
+    [
+     "3",
+     "Update the Secret Wallet",
+     "Refresh the SW figure today before any sizing.",
+     "SW refreshed today",
+     "BO; SW field",
+     "A stale SW is not a valid base"
+    ],
+    [
+     "4",
+     "Size against the SW cap",
+     "Match the highest eligible 8-ending amount at or below the task SW cap (see table); above Max use Max.",
+     "Final at or below the cap; ends in 8",
+     "Ladder; bonus calculator",
+     "Never exceed the task cap"
+    ],
+    [
+     "5",
+     "Check the approval gate",
+     "If it crosses a threshold (see Approval authority), route to ATL; otherwise CS issues within the cap.",
+     "Over-gate cases ATL-approved first",
+     "Lark; ATL",
+     "CS cannot self-issue an over-gate case"
+    ],
+    [
+     "6",
+     "Issue and set turnover",
+     "Issue the sized credit; apply the task turnover (1x, or Birthday deposit-base 3x); state validity; apply the next-day rule where required.",
+     "Correct TO; validity stated",
+     "BO; claim ticket",
+     "Turnover must match the task"
+    ],
+    [
+     "7",
+     "Record the issuance",
+     "Log player, task, amount, TO, SW deduction (y/n), issued by, time; tag status; claim via the task ticket query.",
+     "Fully recorded; claim ticket filed",
+     "QA Record; Lark ticket",
+     "No record means an unverifiable issuance"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "Flow chart"
+  },
+  {
+   "t": "img",
+   "alt": "Flow chart: Bonus Issuance and Approval",
+   "src": "/flowcharts/bonus-issuance-approval.png"
+  },
+  {
    "t": "h2",
    "x": "1. Objective"
   },

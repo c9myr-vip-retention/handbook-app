@@ -15,6 +15,105 @@
    "x": "**Applies to:** VIP CS, all brands"
   },
   {
+   "t": "sopheader",
+   "f": [
+    [
+     "Process name",
+     "Top Deposit"
+    ],
+    [
+     "Department",
+     "VIP Retention"
+    ],
+    [
+     "Process owner",
+     "VIP Retention"
+    ],
+    [
+     "Effective date",
+     ""
+    ],
+    [
+     "Approved by",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "Procedure"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Step no.",
+    "Step name",
+    "Specific action",
+    "Operating standard",
+    "Tools / forms used",
+    "Points to note"
+   ],
+   "rows": [
+    [
+     "1",
+     "Export the daily report",
+     "Night shift, 8:30 PM: reuse the Top P&L export if available (TC Player Analysis / Zyra Betting Overview).",
+     "Wait for full load first.",
+     "TC / Zyra BO",
+     ""
+    ],
+    [
+     "2",
+     "Sort + filter to winners",
+     "Paste into CS SORTING FILE; sort Deposit Z to A; filter Total Win/Loss > 0; filter Tier 3 + V.",
+     "Positive P&L only. Losing players are excluded (handled under Top PNL / LTV).",
+     "CS SORTING FILE",
+     ""
+    ],
+    [
+     "3",
+     "Take top 20",
+     "Copy the top 20 usernames/UIDs into Customer Approaching File > TOP 20 Depositor (Night).",
+     "If fewer than 20 winners, fill down the ranking to 20.",
+     "Customer Approaching File",
+     ""
+    ],
+    [
+     "4",
+     "Send IM + Push (VIP care)",
+     "Send simultaneously: greeting, interaction, VIP care.",
+     "No bonus messaging, no SMS. Care and relationship, not sales.",
+     "BO",
+     ""
+    ],
+    [
+     "5",
+     "Engage + tag",
+     "Engage via Livechat / Telegram if they respond; tag Deposit Engaged.",
+     "A complaint during engagement goes to the Complaint Handling SOP.",
+     "Livechat / Telegram",
+     ""
+    ],
+    [
+     "6",
+     "Update the QA Record",
+     "After engagement: attach a screenshot.",
+     "",
+     "Lark Base",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "Flow chart"
+  },
+  {
+   "t": "img",
+   "alt": "Flow chart: Top Deposit",
+   "src": "/flowcharts/top-deposit.png"
+  },
+  {
    "t": "h2",
    "x": "1. Objective"
   },

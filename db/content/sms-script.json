@@ -15,6 +15,105 @@
    "x": "**Applies to:** VIP CS (list preparation only)"
   },
   {
+   "t": "sopheader",
+   "f": [
+    [
+     "Process name",
+     "SMS Script (List Preparation)"
+    ],
+    [
+     "Department",
+     "VIP Retention"
+    ],
+    [
+     "Process owner",
+     "VIP Retention"
+    ],
+    [
+     "Effective date",
+     ""
+    ],
+    [
+     "Approved by",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "Procedure"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Step no.",
+    "Step name",
+    "Specific action",
+    "Operating standard",
+    "Tools / forms used",
+    "Points to note"
+   ],
+   "rows": [
+    [
+     "1",
+     "Open the Team Engagement File",
+     "Before any update: use the latest version.",
+     "",
+     "Team Engagement File",
+     ""
+    ],
+    [
+     "2",
+     "Check current segmentation",
+     "Before changes: confirm segments are current.",
+     "Mismatched segments cause wrong approach and reporting errors.",
+     "Team Engagement File",
+     ""
+    ],
+    [
+     "3",
+     "Update engagement data",
+     "Record player info under the correct segment, category and date.",
+     "Not under a previous or future date.",
+     "Team Engagement File",
+     ""
+    ],
+    [
+     "4",
+     "Deduplicate",
+     "Before saving: check for duplicated or missing records.",
+     "Duplicates cause double-counting.",
+     "Team Engagement File",
+     ""
+    ],
+    [
+     "5",
+     "Check the expiry date",
+     "If the promo has 3-day validity, align the expiration to the latest update date; verify it is not lapsed.",
+     "Never hand over expired content.",
+     "Team Engagement File",
+     ""
+    ],
+    [
+     "6",
+     "Hand over to Admin",
+     "At handover: double-check all entries.",
+     "VIP CS scope ENDS at list preparation. Retention Admin sends the SMS.",
+     "Team Engagement File",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "Flow chart"
+  },
+  {
+   "t": "img",
+   "alt": "Flow chart: SMS Script (List Preparation)",
+   "src": "/flowcharts/sms-script.png"
+  },
+  {
    "t": "h2",
    "x": "1. Objective"
   },

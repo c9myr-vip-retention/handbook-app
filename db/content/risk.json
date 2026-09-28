@@ -15,6 +15,97 @@
    "x": "**Applies to:** VIP CS, all brands"
   },
   {
+   "t": "sopheader",
+   "f": [
+    [
+     "Process name",
+     "Risk Push"
+    ],
+    [
+     "Department",
+     "VIP Retention"
+    ],
+    [
+     "Process owner",
+     "VIP Retention"
+    ],
+    [
+     "Effective date",
+     ""
+    ],
+    [
+     "Approved by",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "Procedure"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Step no.",
+    "Step name",
+    "Specific action",
+    "Operating standard",
+    "Tools / forms used",
+    "Points to note"
+   ],
+   "rows": [
+    [
+     "1",
+     "Check RG / chase flag",
+     "Before anything: flagged players route to welfare, no push at all.",
+     "RG / chase flag beats every push.",
+     "BO",
+     "Empty list: record in QA and inform ATL."
+    ],
+    [
+     "2",
+     "Pick the risk tier",
+     "Segment inactive players by days since last deposit: 1D, 3D, 7D, 14D, 30D.",
+     "1D is Push only (soft reminder). 3D and above add SMS + Internal Message.",
+     "Team Engagement File",
+     ""
+    ],
+    [
+     "3",
+     "Export in platform format",
+     "TC: save as .txt. Zyra: export as .csv from the BO.",
+     "Wrong file format fails the upload. Verify every time.",
+     "Team Engagement File / Zyra BO",
+     ""
+    ],
+    [
+     "4",
+     "Get approved copy + send",
+     "Push subject + content from Template Tab > Risk Player. TC: Interact Mgmt > Mail > Push. Zyra: Notification > Push > Add.",
+     "Do not modify copy without TL approval. State: applies to next deposit, has validity, needs 1x turnover.",
+     "TC / Zyra BO",
+     ""
+    ],
+    [
+     "5",
+     "Update the QA Record",
+     "After send: attach a BO screenshot.",
+     "SMS (3D+) is sent by Retention Admin; VIP CS prepares the list only.",
+     "Lark Base",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "Flow chart"
+  },
+  {
+   "t": "img",
+   "alt": "Flow chart: Risk Push",
+   "src": "/flowcharts/risk.png"
+  },
+  {
    "t": "h2",
    "x": "1. Objective"
   },

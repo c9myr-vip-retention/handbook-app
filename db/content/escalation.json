@@ -13,6 +13,97 @@
    "x": "**Applies to:** All VIP CS; Seniors absorb; ATL and Supervisor receive"
   },
   {
+   "t": "sopheader",
+   "f": [
+    [
+     "Process name",
+     "Escalation"
+    ],
+    [
+     "Department",
+     "VIP Retention"
+    ],
+    [
+     "Process owner",
+     "PIC: ATL / 2IC: Senior"
+    ],
+    [
+     "Effective date",
+     ""
+    ],
+    [
+     "Approved by",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "Procedure"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Step no.",
+    "Step name",
+    "Specific action",
+    "Operating standard",
+    "Tools / forms used",
+    "Points to note"
+   ],
+   "rows": [
+    [
+     "1",
+     "Attempt at your level",
+     "Check the relevant SOP or Case Library and resolve if within your authority.",
+     "Resolved if within authority",
+     "SOP Book; Case Library",
+     "Do not push up what you can close"
+    ],
+    [
+     "2",
+     "Package the issue",
+     "If you cannot close, package it: UID/username, brand, amount, screenshots, steps tried. Role titles only.",
+     "Full context; role titles only",
+     "Lark",
+     "Missing context bounces back"
+    ],
+    [
+     "3",
+     "Route to the right level",
+     "Senior for junior cases; ATL for confirmed faults, high-value or approval gates; WL/Support/PYM for their domains; SPV or Head only via ATL.",
+     "Routed to the correct level",
+     "Lark escalation groups",
+     "An RG or risk-flag case routes to welfare, not marketing"
+    ],
+    [
+     "4",
+     "Time-box and follow up",
+     "If unresolved past the case SLA (e.g. a WD delay over 10 min), follow up.",
+     "Followed up within the SLA",
+     "Tracker",
+     "Do not let it stall"
+    ],
+    [
+     "5",
+     "Confirm and close",
+     "On resolution, recheck the BO, notify the player, tag the thread SOLVED, log the outcome.",
+     "BO rechecked; player notified; tagged SOLVED",
+     "BO; QA Record",
+     "Close only after verifying"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "Flow chart"
+  },
+  {
+   "t": "img",
+   "alt": "Flow chart: Escalation",
+   "src": "/flowcharts/escalation.png"
+  },
+  {
    "t": "h2",
    "x": "1. Objective"
   },

@@ -15,6 +15,105 @@
    "x": "**Applies to:** VIP CS, all brands"
   },
   {
+   "t": "sopheader",
+   "f": [
+    [
+     "Process name",
+     "Telegram Approach"
+    ],
+    [
+     "Department",
+     "VIP Retention"
+    ],
+    [
+     "Process owner",
+     "VIP Retention"
+    ],
+    [
+     "Effective date",
+     ""
+    ],
+    [
+     "Approved by",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "Procedure"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Step no.",
+    "Step name",
+    "Specific action",
+    "Operating standard",
+    "Tools / forms used",
+    "Points to note"
+   ],
+   "rows": [
+    [
+     "1",
+     "Open the Telegram section",
+     "Task start: Customer Approaching File > Telegram section, current month (prior-month follow-ups: prior month's file).",
+     "",
+     "Customer Approaching File",
+     ""
+    ],
+    [
+     "2",
+     "Work priority top-down",
+     "Review the priority list; start at Priority 1 (Churn 30D) and work down to LTV.",
+     "Never approach a lower priority while higher-priority players are uncontacted.",
+     "Customer Approaching File",
+     ""
+    ],
+    [
+     "3",
+     "Record the approach",
+     "First contact: New Approach record (date, username, brand, tier, reason). Follow-up: sub-record under the original.",
+     "All fields filled. Do not duplicate the entry.",
+     "Customer Approaching File",
+     ""
+    ],
+    [
+     "4",
+     "Verify contact + send one message",
+     "Confirm a registered Telegram contact; send the approach with the right tone for the segment.",
+     "One message per session; wait for a reply before follow-up. Never promise or hint at a bonus.",
+     "Telegram",
+     ""
+    ],
+    [
+     "5",
+     "Record the outcome",
+     "Right after send: Response Received / No Response / Deposit Made / Referred to Livechat.",
+     "If they respond via Livechat, record the conversion and link the reference.",
+     "Customer Approaching File",
+     ""
+    ],
+    [
+     "6",
+     "Update the QA Record",
+     "End of shift: total approached and conversion count.",
+     "",
+     "Lark Base",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "Flow chart"
+  },
+  {
+   "t": "img",
+   "alt": "Flow chart: Telegram Approach",
+   "src": "/flowcharts/telegram-approach.png"
+  },
+  {
    "t": "h2",
    "x": "1. Objective"
   },

@@ -15,6 +15,89 @@
    "x": "**Applies to:** All PIC / Agent handling VVIP players"
   },
   {
+   "t": "sopheader",
+   "f": [
+    [
+     "Process name",
+     "Checking Conversation History (VVIP)"
+    ],
+    [
+     "Department",
+     "VIP Retention"
+    ],
+    [
+     "Process owner",
+     "VIP Retention"
+    ],
+    [
+     "Effective date",
+     ""
+    ],
+    [
+     "Approved by",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "Procedure"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Step no.",
+    "Step name",
+    "Specific action",
+    "Operating standard",
+    "Tools / forms used",
+    "Points to note"
+   ],
+   "rows": [
+    [
+     "1",
+     "Identify the arrival channel",
+     "On contact: determine whether the player arrived on LiveChat or Telegram.",
+     "Every VVIP interaction, inbound or outbound.",
+     "Customer Approaching System",
+     ""
+    ],
+    [
+     "2",
+     "Open the other-channel history",
+     "Before the first reply: LiveChat arrival open Last Telegram Chat Link; Telegram arrival open Last LiveChat Link.",
+     "Channel crossover: a player rarely stays on one channel. Review both when both are available.",
+     "LiveChat / Telegram",
+     "Follow the on-screen guide for the exact click path."
+    ],
+    [
+     "3",
+     "Review the full history",
+     "Before replying: note unresolved issues and pending requests.",
+     "Never ask the player to repeat information already provided.",
+     "Both channels",
+     ""
+    ],
+    [
+     "4",
+     "Update the player record",
+     "After handling: record the outcome and any follow-ups.",
+     "Update after every interaction.",
+     "Customer Approaching System",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "Flow chart"
+  },
+  {
+   "t": "img",
+   "alt": "Flow chart: Checking Conversation History (VVIP)",
+   "src": "/flowcharts/checking-conversation-history.png"
+  },
+  {
    "t": "h2",
    "x": "1. Objective"
   },

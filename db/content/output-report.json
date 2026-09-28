@@ -15,6 +15,105 @@
    "x": "**Applies to:** All VIP CS"
   },
   {
+   "t": "sopheader",
+   "f": [
+    [
+     "Process name",
+     "Output Report"
+    ],
+    [
+     "Department",
+     "VIP Retention"
+    ],
+    [
+     "Process owner",
+     "VIP Retention"
+    ],
+    [
+     "Effective date",
+     ""
+    ],
+    [
+     "Approved by",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "Procedure"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Step no.",
+    "Step name",
+    "Specific action",
+    "Operating standard",
+    "Tools / forms used",
+    "Points to note"
+   ],
+   "rows": [
+    [
+     "1",
+     "Open the Output table",
+     "End of shift: Customer Approaching Lark Base > Output - Table.",
+     "Holds all engagement records for the month.",
+     "Lark Base",
+     ""
+    ],
+    [
+     "2",
+     "Apply both filters",
+     "Set Date is today AND PIC is your name, together.",
+     "Missing either filter gives wrong or incomplete data. Do not copy another staff member's data.",
+     "Lark Base",
+     ""
+    ],
+    [
+     "3",
+     "Copy each column separately",
+     "Copy Livechat, Internal Mail, Push, SMS, each on its own.",
+     "Do not combine columns.",
+     "Lark Base",
+     ""
+    ],
+    [
+     "4",
+     "Paste per column into CS Output",
+     "Open VIP RTN CS Output, today's date tab; per column: Row 6 filter > Clear All > select that column > paste values.",
+     "Paste values only, no formatting or formulas. One filter pass per column.",
+     "VIP RTN CS Output",
+     ""
+    ],
+    [
+     "5",
+     "Clear filter + verify",
+     "After all columns: clear the Row 6 filter; verify data sits under the right column and row.",
+     "Do not change the Row 6 sort order after pasting; it displaces data. Empty column stays blank, never a zero.",
+     "VIP RTN CS Output",
+     ""
+    ],
+    [
+     "6",
+     "Update the QA Record",
+     "After submit: attach a screenshot of the completed Output tab.",
+     "",
+     "Lark Base",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "Flow chart"
+  },
+  {
+   "t": "img",
+   "alt": "Flow chart: Output Report",
+   "src": "/flowcharts/output-report.png"
+  },
+  {
    "t": "h2",
    "x": "1. Objective"
   },

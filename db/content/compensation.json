@@ -15,6 +15,105 @@
    "x": "**Applies to:** All VIP CS; ATL for higher amounts"
   },
   {
+   "t": "sopheader",
+   "f": [
+    [
+     "Process name",
+     "Compensation (Livechat)"
+    ],
+    [
+     "Department",
+     "VIP Retention"
+    ],
+    [
+     "Process owner",
+     "PIC: ATL / 2IC: Senior"
+    ],
+    [
+     "Effective date",
+     ""
+    ],
+    [
+     "Approved by",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "Procedure"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Step no.",
+    "Step name",
+    "Specific action",
+    "Operating standard",
+    "Tools / forms used",
+    "Points to note"
+   ],
+   "rows": [
+    [
+     "1",
+     "Verify the case",
+     "Acknowledge the emotion first. Check for a significant loss this week, SW balance, and no recent credit.",
+     "Emotion acknowledged; loss and SW verified",
+     "BO profile; LC",
+     "Acknowledge the feeling before any solution"
+    ],
+    [
+     "2",
+     "Determine eligibility and tier",
+     "Losing a lot: SW credit. Losing little: validate and suggest a game, no credit. Habitual asker: decline gently and redirect.",
+     "Correct handling per scenario",
+     "Profile",
+     "Not every complaint earns a credit"
+    ],
+    [
+     "3",
+     "Size the compensation",
+     "Tier percentage of the base (T3 = 3%, TV = 5%), within the remaining monthly allowance; SW based.",
+     "Within tier % and monthly allowance",
+     "Bonus SOP; SW field",
+     "Never exceed the tier % or the allowance"
+    ],
+    [
+     "4",
+     "Check the approval gate",
+     "Within the limit, CS issues; above it, route to ATL.",
+     "Over-limit cases ATL-approved first",
+     "Lark",
+     "CS cannot self-issue over the limit"
+    ],
+    [
+     "5",
+     "Issue and message",
+     "Issue the SW credit with an empathetic message; state validity; make no false promise.",
+     "Credit issued; validity stated; no false promise",
+     "BO; templates",
+     "Never promise a bonus you cannot deliver"
+    ],
+    [
+     "6",
+     "Record",
+     "Log player, reason, amount, tier, issued by; tag the case.",
+     "Fully recorded and tagged",
+     "QA Record",
+     "No record means an unverifiable credit"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "Flow chart"
+  },
+  {
+   "t": "img",
+   "alt": "Flow chart: Compensation (Livechat)",
+   "src": "/flowcharts/compensation.png"
+  },
+  {
    "t": "h2",
    "x": "1. Objective"
   },

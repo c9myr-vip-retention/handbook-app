@@ -15,6 +15,105 @@
    "x": "**Applies to:** ATL, Senior (buddy), new hire"
   },
   {
+   "t": "sopheader",
+   "f": [
+    [
+     "Process name",
+     "New Agent Onboarding"
+    ],
+    [
+     "Department",
+     "VIP Retention"
+    ],
+    [
+     "Process owner",
+     "ATL"
+    ],
+    [
+     "Effective date",
+     ""
+    ],
+    [
+     "Approved by",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "Procedure"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Step no.",
+    "Step name",
+    "Specific action",
+    "Operating standard",
+    "Tools / forms used",
+    "Points to note"
+   ],
+   "rows": [
+    [
+     "1",
+     "Pre-arrival setup",
+     "Provision CS logins per brand (per Login Provisioning SOP), Lark, HR Portal and console access before day 1.",
+     "All accounts ready before the first shift. No first shift without accounts.",
+     "BO, HR Portal, consoles",
+     "Depends on Login Provisioning SOP (pending)."
+    ],
+    [
+     "2",
+     "Orientation",
+     "Run department overview, team structure and house rules on day 1.",
+     "Cover RG, no em dash, no names, security. Use the Handbook, not verbal-only training.",
+     "Handbook: Dept Overview, Precaution & Security",
+     "House style: role titles only, no em dash."
+    ],
+    [
+     "3",
+     "Assign a buddy",
+     "Assign a Senior mentor in week 1; new hire shadows the daily SOPs.",
+     "A named Senior owns the mentoring. New hire shadows, not runs solo.",
+     "Roster",
+     "Buddy assignment is mandatory."
+    ],
+    [
+     "4",
+     "Train through the SOP Book",
+     "Weeks 1-2: awareness to skill to willingness (read, drill, assessment).",
+     "SOP Book is the teaching material, not ad-hoc verbal training.",
+     "SOP Book, KPI Framework",
+     ""
+    ],
+    [
+     "5",
+     "Supervised execution",
+     "Weeks 2-4: new hire runs shift SOPs with buddy check; QA sampled.",
+     "Buddy checks each shift; QA sampled and logged.",
+     "Daily task checklist, QA Record",
+     ""
+    ],
+    [
+     "6",
+     "Probation evaluation",
+     "Evaluate against the JNR Probation Checklist each cycle; ATL decides.",
+     "Evaluate by checklist, not gut feel. ATL owns the decision.",
+     "JNR Probation Checklist",
+     "New hire not entitled to rev share / bonus / KPI incentive until probation passed (SOP 37)."
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "Flow chart"
+  },
+  {
+   "t": "img",
+   "alt": "Flow chart: New Agent Onboarding",
+   "src": "/flowcharts/new-agent-onboarding.png"
+  },
+  {
    "t": "h2",
    "x": "1. Objective"
   },

@@ -15,6 +15,97 @@
    "x": "**Applies to:** VIP CS, all brands"
   },
   {
+   "t": "sopheader",
+   "f": [
+    [
+     "Process name",
+     "VVIP Blast"
+    ],
+    [
+     "Department",
+     "VIP Retention"
+    ],
+    [
+     "Process owner",
+     "VIP Retention"
+    ],
+    [
+     "Effective date",
+     ""
+    ],
+    [
+     "Approved by",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "Procedure"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Step no.",
+    "Step name",
+    "Specific action",
+    "Operating standard",
+    "Tools / forms used",
+    "Points to note"
+   ],
+   "rows": [
+    [
+     "1",
+     "Confirm the upgraded VVIP list",
+     "Before proceeding, after the 2:00 PM update: confirm the list is updated by ATL or above.",
+     "Do not send until verified. Never send from an outdated or unconfirmed list.",
+     "Team Engagement File",
+     ""
+    ],
+    [
+     "2",
+     "Copy the New Welcome Players column",
+     "After confirmation: use today's latest list only.",
+     "Latest list, never an outdated one.",
+     "Team Engagement File",
+     ""
+    ],
+    [
+     "3",
+     "Get the New Players template",
+     "Before sending: IM subject + content from Template Tab > New Players.",
+     "Do not use a template from another campaign type.",
+     "Team Engagement File",
+     ""
+    ],
+    [
+     "4",
+     "Send IM at 3:00 PM",
+     "Morning shift only: send to all newly upgraded VVIP; verify segment and brand per player.",
+     "Recognition, not pressure. No hard-sell, no urgency.",
+     "BO (TC/Zyra)",
+     ""
+    ],
+    [
+     "5",
+     "Update the QA Record",
+     "After all IM is sent: attach a BO screenshot.",
+     "",
+     "Lark Base",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "Flow chart"
+  },
+  {
+   "t": "img",
+   "alt": "Flow chart: VVIP Blast",
+   "src": "/flowcharts/vvip-blast.png"
+  },
+  {
    "t": "h2",
    "x": "1. Objective"
   },

@@ -15,6 +15,81 @@
    "x": "**Applies to:** All staff"
   },
   {
+   "t": "sopheader",
+   "f": [
+    [
+     "Process name",
+     "Attendance (Pre-Shift Setup)"
+    ],
+    [
+     "Department",
+     "VIP Retention"
+    ],
+    [
+     "Process owner",
+     "HR (policy); ATL enforces checklist"
+    ],
+    [
+     "Effective date",
+     ""
+    ],
+    [
+     "Approved by",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "Procedure"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Step no.",
+    "Step name",
+    "Specific action",
+    "Operating standard",
+    "Tools / forms used",
+    "Points to note"
+   ],
+   "rows": [
+    [
+     "1",
+     "Log in to NordLayer VPN",
+     "First, before clock-in: select server M01, M02 or M03; verify your location (not the wrong country); check IP at whatismyipaddress.com.",
+     "VPN must stay on for the entire shift. Report disconnections to ATL/TL at once.",
+     "NordLayer",
+     ""
+    ],
+    [
+     "2",
+     "Clock in on Insightful",
+     "Before starting work: clock in at least 5 minutes early.",
+     "Buffers system lag to avoid a late record. Failure to clock in/out triggers progressive warnings.",
+     "Insightful",
+     ""
+    ],
+    [
+     "3",
+     "Open Chrome Incognito",
+     "Before browsing: open Google Chrome in Incognito mode.",
+     "Always browse in private mode for security. Full rule in the Incognito Browsing SOP (38).",
+     "Chrome",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "Flow chart"
+  },
+  {
+   "t": "img",
+   "alt": "Flow chart: Attendance (Pre-Shift Setup)",
+   "src": "/flowcharts/attendance-pre-shift.png"
+  },
+  {
    "t": "h2",
    "x": "1. Objective"
   },

@@ -8,7 +8,8 @@ const STATUS_LABEL = { pending: 'Coming soon', planned: 'Not written yet', exter
 function bodyText(page) {
   if (!page) return ''
   return page.blocks.map(b => {
-    if (b.t === 'p' || b.t === 'h2' || b.t === 'code') return b.x
+    if (b.t === 'p' || b.t === 'h2' || b.t === 'code' || b.t === 'flow') return b.x
+    if (b.t === 'sopheader') return (b.f || []).map(([k, v]) => k + ' ' + v).join(' ')
     if (b.t === 'callout') return (b.title || '') + ' ' + (b.x || '')
     if (b.t === 'steps' || b.t === 'list') return b.x.join(' ')
     if (b.t === 'table') return b.head.join(' ') + ' ' + b.rows.flat().join(' ')
@@ -527,7 +528,7 @@ function Editor({ id, sec, pages: PAGES, preview, go, onPageSaved }) {
       <div className="edtabs">
         <button className={'tab' + (!show ? ' on' : '')} onClick={() => setShow(false)}>Write</button>
         <button className={'tab' + (show ? ' on' : '')} onClick={() => setShow(true)}>Preview</button>
-        <span className="muted small">## heading · - bullet · 1. step · | table | · &gt; [!warn|Title] callout · **bold**</span>
+        <span className="muted small">## heading · - bullet · 1. step · | table | · &gt; [!warn|Title] callout · **bold** · ```mermaid chart</span>
       </div>
       {show
         ? <div className="edpreview">{blocks.map((b, i) => <Block key={i} b={b} />)}</div>
@@ -614,7 +615,7 @@ function Page({ id, pages: PAGES, nav: NAV, canEdit, go }) {
       {p.meta && <div className="docmeta">{p.meta.map((m, i) => <span key={i}>{m}</span>)}</div>}
       {p.blocks.map((b, i) => b.t === 'h2' && canEdit
         ? <h2 key={i} id={'sec-' + i} className="edh2">{b.x}<button className="secedit" onClick={() => go({ kind: 'edit', key: id, sec: i })} aria-label={'Edit section ' + b.x}>Edit</button></h2>
-        : <Block key={i} b={b} id={b.t === 'h2' ? 'sec-' + i : undefined} />)}
+        : <Block key={i} b={b} id={b.t === 'h2' ? 'sec-' + i : undefined} version={versionOf(p)} />)}
       {(prev || next) && (
         <nav className="pager" aria-label="More in this section">
           {prev ? <button className="pagerbtn" onClick={() => go({ kind: 'page', key: prev.id })}><small>Previous</small><b>{prev.title}</b></button> : <span />}
@@ -635,8 +636,61 @@ function siblingsOf(NAV, id) {
   return []
 }
 
-function Block({ b, id }) {
+// SOP template header, laid out like the Lark SOP sheet.
+function SopHeader({ f = [], version }) {
+  const get = (k) => (f.find(([key]) => key.toLowerCase() === k.toLowerCase()) || [])[1]
+  const cells = [['Process name', get('Process name')], ['Version number', version || get('Version')],
+    ['Department', get('Department')], ['Effective date', get('Effective date')],
+    ['Process owner', get('Process owner')], ['Approved by', get('Approved by')]]
+  return (
+    <div className="sophead">
+      <div className="sophead-title">Standard Operating Procedure</div>
+      <dl>{cells.map(([k, v]) => <div key={k}><dt>{k}</dt><dd>{v || <span className="unset">Not set</span>}</dd></div>)}</dl>
+    </div>
+  )
+}
+
+// Mermaid flow chart, drawn in the browser in the handbook's colours.
+// The library loads only when a page has a chart.
+let mermaidReady = null
+function Flow({ code }) {
+  const ref = useRef(null)
+  const [err, setErr] = useState(null)
+  useEffect(() => {
+    let alive = true
+    const css = getComputedStyle(document.documentElement)
+    const v = (n) => css.getPropertyValue(n).trim()
+    mermaidReady = mermaidReady || import('mermaid').then(m => m.default)
+    mermaidReady.then(async (mermaid) => {
+      mermaid.initialize({
+        startOnLoad: false, securityLevel: 'strict', theme: 'base', fontFamily: 'Inter, Segoe UI, sans-serif',
+        themeVariables: {
+          primaryColor: v('--accent-soft'), primaryBorderColor: v('--accent'), primaryTextColor: v('--text'),
+          lineColor: v('--faint'), secondaryColor: v('--surface-2'), tertiaryColor: v('--surface'),
+          background: v('--surface'), mainBkg: v('--accent-soft'), fontSize: '14px',
+        },
+        flowchart: { curve: 'basis', htmlLabels: false },
+      })
+      try {
+        const { svg } = await mermaid.render('flow' + Math.random().toString(36).slice(2), code)
+        if (alive && ref.current) { ref.current.innerHTML = svg; setErr(null) }
+      } catch (e) { if (alive) setErr(String(e.message || e).split('\n')[0]) }
+    })
+    return () => { alive = false }
+  }, [code, document.documentElement.getAttribute('data-theme')])
+  return (
+    <figure className="figure flow">
+      <div ref={ref} />
+      {err && <p className="err">Chart has an error: {err}</p>}
+    </figure>
+  )
+}
+
+function Block({ b, id, version }) {
   if (b.t === 'h2') return <h2 id={id}>{b.x}</h2>
+  if (b.t === 'sopheader') return <SopHeader f={b.f} version={version} />
+  if (b.t === 'img') return <figure className="figure"><img src={b.src} alt={b.alt || ''} loading="lazy" /></figure>
+  if (b.t === 'flow') return <Flow code={b.x} />
   if (b.t === 'p') return <p><Inline x={b.x} /></p>
   if (b.t === 'callout') return (
     <div className={'callout ' + (b.tone || 'good')}>

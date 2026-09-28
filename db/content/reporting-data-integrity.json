@@ -13,6 +13,105 @@
    "x": "**Applies to:** Everyone who produces or collates a report; ATL signs off"
   },
   {
+   "t": "sopheader",
+   "f": [
+    [
+     "Process name",
+     "Reporting and Data Integrity"
+    ],
+    [
+     "Department",
+     "VIP Retention"
+    ],
+    [
+     "Process owner",
+     "PIC: ATL / 2IC: Senior"
+    ],
+    [
+     "Effective date",
+     ""
+    ],
+    [
+     "Approved by",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "Procedure"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Step no.",
+    "Step name",
+    "Specific action",
+    "Operating standard",
+    "Tools / forms used",
+    "Points to note"
+   ],
+   "rows": [
+    [
+     "1",
+     "Use post-close data",
+     "Report only from post-close data. Same-day figures carry a provisional statement only.",
+     "Post-close only",
+     "Dashboard",
+     "Same-day figures are provisional, never final"
+    ],
+    [
+     "2",
+     "Compute with the correct method",
+     "Weighted average; retention = sum of depositors / sum of population. Never average brand percentages.",
+     "Weighted method; no averaging of percentages",
+     "Sheet formulas",
+     "A simple average of percentages overstates retention"
+    ],
+    [
+     "3",
+     "Handle gaps honestly",
+     "Dash for a missing brand; \"[not visible]\" for an unknown value. Never a zero or a guess.",
+     "Dash or [not visible], never a fabricated figure",
+     "Report template",
+     "A missing brand is not a zero"
+    ],
+    [
+     "4",
+     "Attribute correctly",
+     "Contact precedes deposit; unique ID; one count per player per month.",
+     "Contact before deposit; unique ID",
+     "contact_log",
+     "No contact before deposit means no credit"
+    ],
+    [
+     "5",
+     "Flag risks and artifacts",
+     "Name the concentration risk (LPK777 around 45% of team deposit). If a gain is mostly a data artifact, say so and quantify it.",
+     "Concentration named; artifact quantified",
+     "Report notes",
+     "Correct a misleading figure before presenting"
+    ],
+    [
+     "6",
+     "Reconcile and sign",
+     "Totals reconcile across brands and against the scorecard ledger; no em dashes; ATL sign-off.",
+     "Reconciled; ATL signed",
+     "Scorecard ledger",
+     "If a number cannot pass the rules, it does not go out"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "Flow chart"
+  },
+  {
+   "t": "img",
+   "alt": "Flow chart: Reporting and Data Integrity",
+   "src": "/flowcharts/reporting-data-integrity.png"
+  },
+  {
    "t": "h2",
    "x": "1. Objective"
   },

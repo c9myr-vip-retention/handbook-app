@@ -164,6 +164,22 @@ tbody tr:last-child td { border-bottom:0; }
 .pagerbtn:hover { border-color:var(--accent); }
 .pagerbtn small { font-size:12px; color:var(--faint); } .pagerbtn b { font-size:14px; font-weight:600; color:var(--accent); }
 
+/* SOP template */
+.sophead { border:1px solid var(--border); border-radius:var(--r); background:var(--surface); margin:0 0 20px; overflow:hidden; }
+.sophead-title { font-size:12px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--accent); padding:9px 14px; border-bottom:1px solid var(--border); background:var(--accent-soft); }
+.sophead dl { margin:0; display:grid; grid-template-columns:1fr 1fr; }
+.sophead dl > div { display:flex; gap:10px; padding:8px 14px; border-bottom:1px solid var(--border); font-size:13.5px; }
+.sophead dl > div:nth-child(odd) { border-right:1px solid var(--border); }
+.sophead dl > div:nth-last-child(-n+2) { border-bottom:0; }
+.sophead dt { flex:0 0 118px; color:var(--faint); font-size:12.5px; }
+.sophead dd { margin:0; font-weight:500; }
+.sophead .unset { color:var(--faint); font-weight:400; font-style:italic; }
+.figure { margin:0 0 18px; border:1px solid var(--border); border-radius:var(--r); background:#fff; padding:10px; overflow-x:auto; }
+.figure img { display:block; max-width:100%; height:auto; margin:0 auto; }
+.figure.flow { background:var(--surface); }
+.figure.flow svg { display:block; max-width:100%; height:auto; margin:0 auto; }
+@media (max-width:640px){ .sophead dl { grid-template-columns:1fr; } .sophead dl > div:nth-child(odd) { border-right:0; } .sophead dl > div:nth-last-child(2) { border-bottom:1px solid var(--border); } }
+
 /* editor */
 .doctools { display:flex; gap:8px; justify-content:flex-end; margin-bottom:8px; }
 .editor .edrow { display:flex; gap:12px; margin-bottom:12px; flex-wrap:wrap; }

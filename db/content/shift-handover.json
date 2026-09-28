@@ -15,6 +15,97 @@
    "x": "**Applies to:** All VIP CS (outgoing and incoming)"
   },
   {
+   "t": "sopheader",
+   "f": [
+    [
+     "Process name",
+     "Shift Handover"
+    ],
+    [
+     "Department",
+     "VIP Retention"
+    ],
+    [
+     "Process owner",
+     "PIC: ATL / 2IC: Senior"
+    ],
+    [
+     "Effective date",
+     ""
+    ],
+    [
+     "Approved by",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "Procedure"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Step no.",
+    "Step name",
+    "Specific action",
+    "Operating standard",
+    "Tools / forms used",
+    "Points to note"
+   ],
+   "rows": [
+    [
+     "1",
+     "Log open items",
+     "In the last 15 min of the shift, log open cases, pending tickets, uncontacted lists, escalations in flight, and next-shift priorities.",
+     "All open items captured in the Handover tab",
+     "Team Engagement File; Handover tab",
+     "Nothing open is left unlogged"
+    ],
+    [
+     "2",
+     "Note follow-ups with deadlines",
+     "For each item, note UID/brand, status, what is needed, and by when.",
+     "Each item has status, action and a deadline",
+     "Handover tab",
+     "A vague item cannot be picked up"
+    ],
+    [
+     "3",
+     "Hand over to incoming",
+     "At shift change, the incoming CS reads and acknowledges the handover.",
+     "Incoming has acknowledged before starting",
+     "Lark",
+     "No acknowledgement, no clean start"
+    ],
+    [
+     "4",
+     "Incoming picks up",
+     "The incoming CS works the flagged items first and queries the outgoing CS on anything unclear.",
+     "Flagged items actioned first",
+     "Handover tab",
+     "Do not start fresh work over an open flagged item"
+    ],
+    [
+     "5",
+     "Close the loop",
+     "On resolution, update the status and tag it done.",
+     "Status updated; item tagged done",
+     "QA Record",
+     "An unclosed item reappears next shift"
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "Flow chart"
+  },
+  {
+   "t": "img",
+   "alt": "Flow chart: Shift Handover",
+   "src": "/flowcharts/shift-handover.png"
+  },
+  {
    "t": "h2",
    "x": "1. Objective"
   },

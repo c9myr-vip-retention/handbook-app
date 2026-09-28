@@ -15,6 +15,121 @@
    "x": "**Applies to:** All PIC, Team B brands, LiveChat and Telegram"
   },
   {
+   "t": "sopheader",
+   "f": [
+    [
+     "Process name",
+     "App-First Link Recovery"
+    ],
+    [
+     "Department",
+     "VIP Retention"
+    ],
+    [
+     "Process owner",
+     "ATL"
+    ],
+    [
+     "Effective date",
+     ""
+    ],
+    [
+     "Approved by",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "Procedure"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Step no.",
+    "Step name",
+    "Specific action",
+    "Operating standard",
+    "Tools / forms used",
+    "Points to note"
+   ],
+   "rows": [
+    [
+     "1",
+     "Acknowledge + point to the app",
+     "First reply: confirm the problem (site not loading vs not findable are different). Say the app is the fastest way in.",
+     "Do not explain why the site is missing from search; do not speculate on the cause.",
+     "LiveChat / Telegram",
+     ""
+    ],
+    [
+     "2",
+     "Send the app download link",
+     "After step 1: one link only, copied from the locked reference; check the correct brand row first.",
+     "Never type a link from memory. One URL per message.",
+     "Locked reference (Lark)",
+     ""
+    ],
+    [
+     "3",
+     "Send the download-button screenshot",
+     "Straight after the link, as a separate message: use the stored brand asset.",
+     "Do not screenshot it yourself.",
+     "Stored brand asset (R2)",
+     ""
+    ],
+    [
+     "4",
+     "Confirm the download worked",
+     "After step 3: ask directly and wait for the answer.",
+     "Do not proceed until the player confirms. No reply after 3 minutes: prompt once, do not close the chat.",
+     "LiveChat / Telegram",
+     ""
+    ],
+    [
+     "5",
+     "Send the official site link as backup",
+     "After the download is confirmed: one link only, from the locked reference.",
+     "Tell the player to save it; invite to the official Telegram channel.",
+     "Locked reference (Lark)",
+     ""
+    ],
+    [
+     "6",
+     "Give the trusted-source warning",
+     "Every chat, no exceptions: use the canned line word for word.",
+     "Never name the fake domain, even when warning about it.",
+     "Canned response",
+     ""
+    ],
+    [
+     "7",
+     "Capture UID and log",
+     "After access is fixed: ask for UID now, not earlier.",
+     "Log in contact_log with the tag Access Recovery. No UID means no attribution.",
+     "contact_log",
+     ""
+    ],
+    [
+     "8",
+     "If a suspicious site is reported",
+     "Whenever it comes up: ask for a screenshot only.",
+     "Do not ask for the URL, do not open it. Escalate to ATL the same shift with the screenshot attached.",
+     "Screenshot, ATL",
+     ""
+    ]
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "Flow chart"
+  },
+  {
+   "t": "img",
+   "alt": "Flow chart: App-First Link Recovery",
+   "src": "/flowcharts/app-first-link-recovery.png"
+  },
+  {
    "t": "h2",
    "x": "1. Objective"
   },

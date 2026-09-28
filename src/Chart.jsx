@@ -68,7 +68,7 @@ export function chartText({ title, nodes }) {
 
 // ---- layout -------------------------------------------------------------
 
-const FONT = 13, LINE = 17, PADX = 14, PADY = 10, GAP = 46, SIDE = 34, CHAR = 7.1
+const FONT = 13, LINE = 17, PADX = 14, PADY = 10, GAP = 46, SIDE = 44, CHAR = 7.1
 function wrap(text, maxW) {
   const words = String(text || '').split(/\s+/).filter(Boolean)
   const lines = []
@@ -157,8 +157,12 @@ export function layout(chart, across) {
   }
   // flow coords -> x/y
   const xy = ([m, c]) => across ? [m, c] : [c, m]
+  // Keep the main line in the middle: pad the lighter side so both sides of the
+  // line reach equally far.
+  const titleW = chart.title ? chart.title.length * 8.6 : 0
+  const reach = Math.max(across ? 0 : titleW / 2, ...shapes.map(s => Math.abs(s.c) + sz(s).c / 2), ...edges.flatMap(e => e.pts.map(p => Math.abs(p[1]))))
   const all = [...shapes.flatMap(s => { const [x, y] = xy([s.m, s.c]); return [[x - s.w / 2, y - s.h / 2], [x + s.w / 2, y + s.h / 2]] }),
-    ...edges.flatMap(e => e.pts.map(xy))]
+    ...edges.flatMap(e => e.pts.map(xy)), xy([0, -reach]), xy([0, reach]), ...(across && titleW ? [[titleW, 0]] : [])]
   const minX = Math.min(...all.map(p => p[0])), maxX = Math.max(...all.map(p => p[0]))
   const minY = Math.min(...all.map(p => p[1])), maxY = Math.max(...all.map(p => p[1]))
   const pad = 18, top = chart.title ? 36 : 0
@@ -170,8 +174,10 @@ export function layout(chart, across) {
     edges: edges.map(e => ({ ...e, pts: e.pts.map(T) })),
     labels: labels.map(l => {
       const [x, y] = T([l.m, l.c])
-      return across ? { ...l, x: l.side ? x + 8 : x, y: l.side ? y + 4 : y - 7 } : { ...l, x: l.side ? x : x + 8, y: l.side ? y - 6 : y + 4 }
+      // Across: side names sit right of the up/down arrow. Down: centred above the sideways arrow.
+      return across ? { ...l, x: l.side ? x + 8 : x, y: l.side ? y + 4 : y - 7 } : { ...l, x: l.side ? x : x + 8, y: l.side ? y - 7 : y + 4, mid: l.side }
     }),
+    centre: T([0, 0])[across ? 1 : 0],
   }
 }
 
@@ -200,10 +206,10 @@ export function ChartSvg({ chart, across }) {
   return (
     <svg className="chartsvg" viewBox={`0 0 ${L.width} ${L.height}`} width={L.width} height={L.height} role="img" aria-label={chartText(chart)}>
       <defs><marker id={id} viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" className="ch-arrow" /></marker></defs>
-      {chart.title && <text className="ch-title" x="18" y="28" fontSize="15" fontWeight="700">{chart.title}</text>}
+      {chart.title && <text className="ch-title" x={across ? 18 : L.centre} y="28" textAnchor={across ? 'start' : 'middle'} fontSize="15" fontWeight="700">{chart.title}</text>}
       {L.edges.map((e, i) => <polyline key={i} className="ch-edge" points={e.pts.map(p => p.join(',')).join(' ')} markerEnd={e.arrow ? `url(#${id})` : undefined} />)}
       {L.shapes.map((s, i) => <Shape key={i} s={s} />)}
-      {L.labels.map((l, i) => <text key={i} className="ch-label" x={l.x} y={l.y} fontSize="11.5">{l.text}</text>)}
+      {L.labels.map((l, i) => <text key={i} className="ch-label" x={l.x} y={l.y} textAnchor={l.mid ? 'middle' : 'start'} fontSize="11.5">{l.text}</text>)}
     </svg>
   )
 }

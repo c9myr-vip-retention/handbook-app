@@ -302,11 +302,6 @@ function Home({ go, nav: NAV, pages: PAGES, notice, query, setQuery, results, op
         <input id="homesearch" className="herosearch" type="search" value={query} autoFocus
           onChange={e => setQuery(e.target.value)}
           placeholder="Try “bonus”, “vpn”, “handover”…" />
-        {dept.facts.length > 0 && (
-          <ul className="facts" aria-label="The department at a glance">
-            {dept.facts.map(([n, label]) => <li key={label}><b>{n}</b><span>{label}</span></li>)}
-          </ul>
-        )}
       </section>
 
       {q
@@ -369,24 +364,21 @@ function sectionAfter(page, head) {
 function deptFacts(PAGES) {
   const dept = PAGES['department-overview']
   const table = (head) => sectionAfter(dept, head).find(b => b.t === 'table')?.rows || []
-  // "Brands | 25, across Team A..." -> ["25", "brands"]. Rows without a leading number are skipped.
-  const facts = table(/scope/i)
-    .map(([cat, cov]) => { const m = String(cov).match(/^(\d+)/); return m && [m[1], String(cat).toLowerCase()] })
-    .filter(Boolean)
   const roles = table(/roles/i).map(([role, fn, scope]) => ({ role, fn, scope }))
   const teams = table(/brands by team/i).map(([team, list]) => ({
     team: String(team).replace(/\s*\(\d+\)$/, ''),
     brands: String(list).split(/,\s*/).map(x => ({ name: x.replace(/\s*\(TC\)$/, ''), tc: /\(TC\)$/.test(x) })),
   }))
-  if (teams.length) facts.splice(1, 0, [String(teams.length), 'teams'])
-  return { mission: sectionAfter(dept, /mission/i).find(b => b.t === 'p')?.x, facts, roles, teams }
+  return { mission: sectionAfter(dept, /mission/i).find(b => b.t === 'p')?.x, roles, teams }
 }
 
 function About({ pages: PAGES, go, dept }) {
   const pillars = sectionAfter(PAGES.culture, /pillars/i).find(b => b.t === 'table')?.rows || []
   const { mission, roles, teams } = dept
   if (!mission && !pillars.length && !roles.length) return null
-  const chain = roles.filter(r => !/admin/i.test(r.role)), support = roles.filter(r => /admin/i.test(r.role))
+  // Home starts the chain at the Supervisor (ATL decision, 28 Sep 2026); the
+  // full list, Department Head included, stays on Department Overview.
+  const chain = roles.filter(r => !/admin|department head/i.test(r.role)), support = roles.filter(r => /admin/i.test(r.role))
   return (
     <>
       <div className="sectitle"><h2>Who we are</h2></div>

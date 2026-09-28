@@ -113,10 +113,6 @@ h1 { font-size:26px; font-weight:700; letter-spacing:-.02em; line-height:1.25; m
 .searchlabel { display:block; margin:0 0 6px; font-size:13px; font-weight:600; color:var(--text); }
 .herosearch { font-size:16px; padding:13px 16px; border-radius:var(--r); border:1px solid var(--input-border); background:var(--solid); box-shadow:var(--shadow-sm); max-width:720px; }
 .herosearch:focus { border-color:var(--accent); outline:2px solid var(--accent); outline-offset:1px; }
-.facts { list-style:none; margin:22px 0 0; padding:18px 0 0; border-top:1px solid var(--border); display:flex; flex-wrap:wrap; gap:10px 34px; }
-.facts li { display:flex; align-items:baseline; gap:7px; }
-.facts b { font-size:24px; font-weight:750; letter-spacing:-.02em; color:var(--text); font-variant-numeric:tabular-nums; }
-.facts span { font-size:13px; color:var(--muted); }
 .tiles { list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; }
 .tile { position:relative; display:flex; flex-direction:column; gap:2px; width:100%; height:100%; text-align:left; cursor:pointer; padding:14px 14px 14px 52px; border-radius:var(--r); border:1px solid var(--border); background:var(--surface); color:inherit; transition:border-color .12s, box-shadow .12s; }
 .tile:hover { border-color:var(--accent); box-shadow:var(--shadow-sm); }
@@ -297,7 +293,7 @@ mark { background:color-mix(in srgb, var(--accent) 18%, transparent); color:inhe
   .hero { padding:22px 18px 18px; } .hero h1 { font-size:26px; }
   .tiles { grid-template-columns:1fr; }
   .pillars { grid-template-columns:1fr; }
-  .facts { gap:8px 20px; } .facts b { font-size:20px; }
+
   .pager { grid-template-columns:1fr; }
   .content { padding:16px 16px 48px; }
 }

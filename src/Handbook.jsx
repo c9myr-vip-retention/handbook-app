@@ -64,14 +64,40 @@ function search(index, q) {
 export default function Handbook({ content, profile, onSignOut, preview, notice, onPageSaved }) {
   const { nav: NAV, pages: PAGES } = content
   const INDEX = useMemo(() => buildIndex(NAV, PAGES), [NAV, PAGES])
-  const [route, setRoute] = useState({ kind: 'home' })
+  const [route, setRoute] = useState(() => parseHash(location.hash, NAV))
+  useEffect(() => {
+    const onHash = () => { setRoute(parseHash(location.hash, NAV)); setNavOpen(false) }
+    addEventListener('hashchange', onHash)
+    return () => removeEventListener('hashchange', onHash)
+  }, [NAV])
   const [navOpen, setNavOpen] = useState(false)
   const [openSecs, setOpenSecs] = useState(() => ({ start: true }))
   const [query, setQuery] = useState('')
 
   useEffect(() => { window.scrollTo(0, 0) }, [route])
 
-  const go = (r) => { setRoute(r); setNavOpen(false) }
+  const go = (r) => {
+    setNavOpen(false)
+    const h = toHash(r)
+    if (location.hash !== h) location.hash = h
+    else setRoute(r)
+  }
+  const back = () => (history.length > 1 ? history.back() : go({ kind: 'home' }))
+  // Keyboard: "/" focuses search, Escape clears it.
+  useEffect(() => {
+    const onKey = (e) => {
+      const typing = /^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement?.tagName)
+      if (e.key === '/' && !typing) {
+        e.preventDefault()
+        const box = document.querySelector(route.kind === 'home' ? '.herosearch' : '.searchbar input')
+        box?.focus()
+      } else if (e.key === 'Escape' && query) {
+        setQuery('')
+      }
+    }
+    addEventListener('keydown', onKey)
+    return () => removeEventListener('keydown', onKey)
+  }, [route, query])
   const openLeaf = (item) => {
     setQuery('')
     go(item.real ? { kind: 'page', key: item.id } : { kind: 'stub', title: item.title, status: item.status })
@@ -115,7 +141,9 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
     <div className={'hb' + (navOpen ? ' nav-open' : '')}>
       <div className="scrim" onClick={() => setNavOpen(false)} />
       <aside className="side">
-        <div className="brand"><span className="logo">C9</span><b>Handbook</b></div>
+        <button className="brand" onClick={() => { setQuery(''); go({ kind: 'home' }) }} aria-label="Handbook home"><span className="logo">C9</span><b>Handbook</b></button>
+        <button className={'navitem homeitem' + (route.kind === 'home' ? ' active' : '')} aria-current={route.kind === 'home' ? 'page' : undefined}
+          onClick={() => { setQuery(''); go({ kind: 'home' }) }}><span>Home</span></button>
         <nav>
           {NAV.map(sec => (
             <div key={sec.id} className={'navsec' + (openSecs[sec.id] ? ' open' : '')}>
@@ -156,6 +184,7 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
       <div className="main">
         <header className="top">
           <button className="icon menu" aria-label="Menu" onClick={() => setNavOpen(true)}>☰</button>
+          {route.kind !== 'home' && <button className="btn small ghost backbtn" onClick={back} aria-label="Go back"><span aria-hidden="true">←</span><span className="lbl"> Back</span></button>}
           <div className="ptitle">{title}</div>
           <div className={'searchbar' + (route.kind === 'home' ? ' on-home' : '')}>
             <input
@@ -197,7 +226,7 @@ function NavLeaf({ it, route, go, pages: PAGES }) {
   const onClick = () => real ? go({ kind: 'page', key: it.id }) : go({ kind: 'stub', title: it.title, status: it.status })
   const active = real && route.kind === 'page' && route.key === it.id
   return (
-    <button className={'navitem' + (active ? ' active' : '')} onClick={onClick}>
+    <button className={'navitem' + (active ? ' active' : '')} aria-current={active ? 'page' : undefined} onClick={onClick}>
       <span>{it.title}</span>
       {!real && it.status && <span className={'dot ' + it.status} title={STATUS_LABEL[it.status]} />}
     </button>
@@ -378,6 +407,14 @@ function Editor({ id, pages: PAGES, preview, go, onPageSaved }) {
   const [saving, setSaving] = useState(false)
   const dirty = title !== (page?.title || '') || text !== startText || version !== verOf(page)
 
+  // Warn before closing the tab with unsaved edits.
+  useEffect(() => {
+    if (!dirty) return
+    const warn = (e) => { e.preventDefault(); e.returnValue = '' }
+    addEventListener('beforeunload', warn)
+    return () => removeEventListener('beforeunload', warn)
+  }, [dirty])
+
   useEffect(() => {
     if (preview) return
     api.sop(id).then(setRow).catch(e => setErr(e.message))
@@ -542,6 +579,33 @@ function Block({ b, id }) {
     </table></div>
   )
   return null
+}
+
+// route <-> URL hash
+function toHash(r) {
+  const e = encodeURIComponent
+  if (r.kind === 'page') return '#/p/' + e(r.key)
+  if (r.kind === 'domain') return '#/d/' + e(r.key)
+  if (r.kind === 'stub') return '#/s/' + e(r.title)
+  if (r.kind === 'edit') return '#/edit/' + e(r.key)
+  if (r.kind === 'history') return '#/history/' + e(r.key)
+  if (r.kind === 'approvals') return '#/approvals'
+  return '#/'
+}
+function parseHash(hash, NAV) {
+  const [, kind, raw] = String(hash || '').match(/^#\/([a-z]+)\/?(.*)$/) || []
+  const v = raw ? decodeURIComponent(raw) : ''
+  if (kind === 'p' && v) return { kind: 'page', key: v }
+  if (kind === 'd' && v) return { kind: 'domain', key: v }
+  if (kind === 'edit' && v) return { kind: 'edit', key: v }
+  if (kind === 'history' && v) return { kind: 'history', key: v }
+  if (kind === 'approvals') return { kind: 'approvals' }
+  if (kind === 's' && v) {
+    for (const sec of NAV) for (const it of (sec.domains ? sec.domains.flatMap(d => d.items) : sec.items))
+      if (it.title === v) return { kind: 'stub', title: v, status: it.status }
+    return { kind: 'stub', title: v }
+  }
+  return { kind: 'home' }
 }
 
 function Stub({ title, status }) {

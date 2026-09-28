@@ -163,14 +163,14 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
     if (route.kind === 'history') return 'History: ' + (PAGES[route.key]?.title || route.key)
     return ''
   }, [route])
-  useEffect(() => { document.title = (title && title !== 'Home' ? title + ' · ' : '') + 'C9MYR Handbook' }, [title])
+  useEffect(() => { document.title = (title && title !== 'Home' ? title + ' · ' : '') + 'C9MYR VIP Retention Handbook' }, [title])
 
   return (
     <div className={'hb' + (navOpen ? ' nav-open' : '')}>
       <a className="skip" href="#main" onClick={e => { e.preventDefault(); document.getElementById('main')?.focus() }}>Skip to content</a>
       <div className="scrim" onClick={() => setNavOpen(false)} />
       <aside className="side" id="sidenav">
-        <button className="brand" onClick={() => { setQuery(''); go({ kind: 'home' }) }} aria-label="Handbook home"><span className="logo">C9</span><b>Handbook</b></button>
+        <button className="brand" onClick={() => { setQuery(''); go({ kind: 'home' }) }} aria-label="C9MYR VIP Retention Handbook, home"><span className="logo">C9</span><span className="brandtext"><small>C9MYR</small><b>VIP Retention Handbook</b></span></button>
         <button className={'navitem homeitem' + (route.kind === 'home' ? ' active' : '')} aria-current={route.kind === 'home' ? 'page' : undefined}
           onClick={() => { setQuery(''); go({ kind: 'home' }) }}><span>Home</span></button>
         <nav aria-label="Handbook sections">
@@ -290,45 +290,44 @@ function Home({ go, nav: NAV, pages: PAGES, notice, query, setQuery, results, op
     .sort((a, b) => b.t - a.t)
     .slice(0, 5)
   const q = query.trim()
+  const dept = deptFacts(PAGES)
   return (
     <div className="view home">
       {notice && <div className="banner">{notice}</div>}
       <section className="hero">
-        <h1>What do you need to do?</h1>
-        <p className="muted">Search every SOP, policy and playbook. Always the current version.</p>
-        <input className="herosearch" type="search" value={query} autoFocus
+        <div className="eyebrow">C9MYR · VIP Retention</div>
+        <h1>VIP Retention Handbook</h1>
+        <p className="herolead">Every SOP, policy and playbook the department runs on. Always the current version.</p>
+        <label className="searchlabel" htmlFor="homesearch">What do you need to do?</label>
+        <input id="homesearch" className="herosearch" type="search" value={query} autoFocus
           onChange={e => setQuery(e.target.value)}
-          placeholder="Try “bonus”, “vpn”, “handover”…" aria-label="Search the handbook" />
+          placeholder="Try “bonus”, “vpn”, “handover”…" />
+        {dept.facts.length > 0 && (
+          <ul className="facts" aria-label="The department at a glance">
+            {dept.facts.map(([n, label]) => <li key={label}><b>{n}</b><span>{label}</span></li>)}
+          </ul>
+        )}
       </section>
 
       {q
         ? <SearchResults query={query} results={results} open={open} pages={PAGES} embedded />
         : <>
           {essentials.length > 0 && <>
-            <div className="sectitle"><h2>Daily essentials</h2></div>
-            <div className="tiles">
-              {essentials.map(id => (
-                <button key={id} className="tile" onClick={() => go({ kind: 'page', key: id })}>
-                  <b>{PAGES[id].title}</b>
-                  <small>{String(PAGES[id].crumb || '').replace(/^SOP Book · /, '')}</small>
-                </button>
+            <div className="sectitle"><h2>Daily essentials</h2><p>The pages you open every shift, in order.</p></div>
+            <ol className="tiles">
+              {essentials.map((id, i) => (
+                <li key={id}>
+                  <button className="tile" onClick={() => go({ kind: 'page', key: id })}>
+                    <span className="tilenum" aria-hidden="true">{i + 1}</span>
+                    <b>{PAGES[id].title}</b>
+                    <small>{String(PAGES[id].crumb || '').replace(/^SOP Book · /, '')}</small>
+                  </button>
+                </li>
               ))}
-            </div>
+            </ol>
           </>}
 
-          <About pages={PAGES} go={go} />
-
-          {recent.length > 0 && <>
-            <div className="sectitle"><h2>Recently updated</h2></div>
-            <div className="list">
-              {recent.map(({ id, p }) => (
-                <Row key={id} title={p.title} sub={p.crumb}
-                  meta={(p.meta || []).find(m => m.startsWith('Updated'))}
-                  chip={versionOf(p)}
-                  onClick={() => go({ kind: 'page', key: id })} />
-              ))}
-            </div>
-          </>}
+          <About pages={PAGES} go={go} dept={dept} />
 
           <div className="sectitle"><h2>Browse by section</h2></div>
           <div className="list">
@@ -341,42 +340,92 @@ function Home({ go, nav: NAV, pages: PAGES, notice, query, setQuery, results, op
               )
             })}
           </div>
+
+          {recent.length > 0 && <>
+            <div className="sectitle"><h2>Recently updated</h2></div>
+            <div className="list">
+              {recent.map(({ id, p }) => (
+                <Row key={id} title={p.title} sub={p.crumb}
+                  meta={(p.meta || []).find(m => m.startsWith('Updated'))}
+                  chip={versionOf(p)}
+                  onClick={() => go({ kind: 'page', key: id })} />
+              ))}
+            </div>
+          </>}
         </>}
     </div>
   )
 }
 
-// "Who we are": mission from Department Overview, the 5 Pillars from Culture &
-// Conduct. Read from the pages themselves, so an edit there updates Home too.
-function About({ pages: PAGES, go }) {
-  const dept = PAGES['department-overview'], culture = PAGES.culture
-  const after = (page, head) => {
-    if (!page) return []
-    const i = page.blocks.findIndex(b => b.t === 'h2' && head.test(b.x))
-    return i < 0 ? [] : page.blocks.slice(i + 1)
-  }
-  const mission = after(dept, /mission/i).find(b => b.t === 'p')?.x
-  const pillars = after(culture, /pillars/i).find(b => b.t === 'table')?.rows || []
-  if (!mission && !pillars.length) return null
+// Everything on Home about the department is read from its own pages
+// (Department Overview, Culture & Conduct), so an edit there updates Home too.
+function sectionAfter(page, head) {
+  if (!page) return []
+  const i = page.blocks.findIndex(b => b.t === 'h2' && head.test(b.x))
+  if (i < 0) return []
+  const end = page.blocks.findIndex((b, j) => j > i && b.t === 'h2')
+  return page.blocks.slice(i + 1, end < 0 ? undefined : end)
+}
+function deptFacts(PAGES) {
+  const dept = PAGES['department-overview']
+  const table = (head) => sectionAfter(dept, head).find(b => b.t === 'table')?.rows || []
+  // "Brands | 25, across Team A..." -> ["25", "brands"]. Rows without a leading number are skipped.
+  const facts = table(/scope/i)
+    .map(([cat, cov]) => { const m = String(cov).match(/^(\d+)/); return m && [m[1], String(cat).toLowerCase()] })
+    .filter(Boolean)
+  const roles = table(/roles/i).map(([role, fn, scope]) => ({ role, fn, scope }))
+  const teams = table(/brands by team/i).map(([team, list]) => ({
+    team: String(team).replace(/\s*\(\d+\)$/, ''),
+    brands: String(list).split(/,\s*/).map(x => ({ name: x.replace(/\s*\(TC\)$/, ''), tc: /\(TC\)$/.test(x) })),
+  }))
+  if (teams.length) facts.splice(1, 0, [String(teams.length), 'teams'])
+  return { mission: sectionAfter(dept, /mission/i).find(b => b.t === 'p')?.x, facts, roles, teams }
+}
+
+function About({ pages: PAGES, go, dept }) {
+  const pillars = sectionAfter(PAGES.culture, /pillars/i).find(b => b.t === 'table')?.rows || []
+  const { mission, roles, teams } = dept
+  if (!mission && !pillars.length && !roles.length) return null
+  const chain = roles.filter(r => !/admin/i.test(r.role)), support = roles.filter(r => /admin/i.test(r.role))
   return (
     <>
       <div className="sectitle"><h2>Who we are</h2></div>
-      <section className="about">
-        <div className="aboutmain">
-          <h3>VIP Retention (VIP RTN)</h3>
-          {mission && <p>{mission}</p>}
-          <div className="aboutlinks">
-            {dept && <button className="crumblink" onClick={() => go({ kind: 'page', key: 'department-overview' })}>Department overview ›</button>}
-            {PAGES['team-structure'] && <button className="crumblink" onClick={() => go({ kind: 'page', key: 'team-structure' })}>Team structure ›</button>}
-          </div>
+      <section className="who">
+        {mission && <blockquote className="mission"><p>{mission}</p></blockquote>}
+
+        <div className="whogrid">
+          {chain.length > 0 && (
+            <div className="whocard">
+              <h3>How we're organised</h3>
+              <ol className="chain">
+                {chain.map(r => <li key={r.role}><b>{r.role}</b><span>{r.fn}</span></li>)}
+              </ol>
+              {support.map(r => <p key={r.role} className="support"><b>{r.role}</b> {r.scope}</p>)}
+              <button className="crumblink" onClick={() => go({ kind: 'page', key: 'team-structure' })}>Team structure ›</button>
+            </div>
+          )}
+          {teams.length > 0 && (
+            <div className="whocard">
+              <h3>Our brands</h3>
+              {teams.map(t => (
+                <div key={t.team} className="team">
+                  <div className="teamname">{t.team} <span>{t.brands.length}</span></div>
+                  <div className="brandchips">{t.brands.map(b => <span key={b.name} className={'brandchip' + (b.tc ? ' tc' : '')}>{b.name}</span>)}</div>
+                </div>
+              ))}
+              <p className="legend"><span className="brandchip tc">TC</span> TC Gaming <span className="brandchip">Zyra</span> Zyra Gaming</p>
+              <button className="crumblink" onClick={() => go({ kind: 'page', key: 'department-overview' })}>Department overview ›</button>
+            </div>
+          )}
         </div>
-        {pillars.length > 0 && (
-          <div className="aboutpillars">
-            <h3>Our culture: the 5 Pillars</h3>
-            <ul>{pillars.map(([name, short]) => <li key={name}><b>{name}</b><span>{short}</span></li>)}</ul>
-            <button className="crumblink" onClick={() => go({ kind: 'page', key: 'culture' })}>Culture &amp; Conduct ›</button>
-          </div>
-        )}
+
+        {pillars.length > 0 && <>
+          <h3 className="pillarhead">Our culture: the {pillars.length} Pillars</h3>
+          <ol className="pillars">
+            {pillars.map(([name, short]) => <li key={name}><b>{name}</b><span>{short}</span></li>)}
+          </ol>
+          <button className="crumblink" onClick={() => go({ kind: 'page', key: 'culture' })}>Culture &amp; Conduct ›</button>
+        </>}
       </section>
     </>
   )

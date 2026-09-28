@@ -23,15 +23,15 @@ export default function App() {
     if (me === undefined) return
     if (!me.email) {
       setContent(localContent(IMPORTED))
-      setNotice('Preview. Showing the built-in sample content, not the live database.')
+      setNotice('Preview mode: sample content only. Nothing you change here is saved.')
       return
     }
     if (!me.approved) return
     api.sops()
       .then(rows => { setContent({ ...fromRows(rows), source: 'live' }); setNotice(null) })
-      .catch(e => {
+      .catch(() => {
         setContent(localContent(IMPORTED))
-        setNotice('Could not load the live handbook (' + e.message + '). Showing the built-in copy, which may be out of date.')
+        setNotice("Couldn't load the latest handbook, so you're seeing a saved copy that may be out of date. Reload the page to try again.")
       })
   }, [me])
 
@@ -62,7 +62,7 @@ function Pending({ email }) {
     <div className="center">
       <div className="card">
         <h1>Almost there</h1>
-        <p className="muted">Your account ({email}) is waiting for admin approval. You will get access once an admin approves you.</p>
+        <p className="muted">Your account ({email}) is waiting for an admin to approve it. Once approved, reload this page to open the handbook. Need it sooner? Ask your ATL.</p>
         <button className="btn" onClick={signOut} type="button">Sign out</button>
       </div>
     </div>

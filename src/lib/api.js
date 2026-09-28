@@ -2,12 +2,28 @@
 // Identity comes from Cloudflare Access (the Worker reads the Access email
 // header); there is no auth code in the browser.
 
+// Plain-language errors for staff. The raw server text stays on err.detail
+// and in the console for debugging.
+const FRIENDLY = {
+  401: 'Your sign-in has expired. Reload the page to sign in again.',
+  403: "You don't have permission to do that.",
+  404: "That couldn't be found. It may have been renamed or removed.",
+}
+const SERVER = 'Something went wrong on our side. Try again in a minute. If it keeps happening, tell an admin.'
+
 async function req(path, opts = {}) {
-  const res = await fetch(path, { headers: { 'content-type': 'application/json' }, ...opts })
+  let res
+  try {
+    res = await fetch(path, { headers: { 'content-type': 'application/json' }, ...opts })
+  } catch (e) {
+    throw Object.assign(new Error("Can't reach the handbook. Check your connection and try again."), { detail: String(e) })
+  }
   if (!res.ok) {
     const body = await res.json().catch(() => ({}))
-    const err = new Error(body.error || ('API ' + res.status))
+    const err = new Error(FRIENDLY[res.status] || SERVER)
     err.status = res.status
+    err.detail = body.error || ('API ' + res.status)
+    console.error(path, res.status, err.detail)
     throw err
   }
   return res.json()

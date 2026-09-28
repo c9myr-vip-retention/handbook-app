@@ -220,7 +220,7 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
               type="search"
               value={query}
               onChange={e => setQuery(e.target.value)}
-              placeholder="Search SOPs, keywords…"
+              placeholder="Search the handbook…"
               aria-label="Search the handbook"
             />
           </div>
@@ -450,7 +450,7 @@ function Approvals({ preview }) {
       <h1>Approvals</h1>
       <p className="muted">People who signed in with a personal email and are waiting for access. Approve only staff you recognise. Company emails are approved automatically.</p>
       {preview && <div className="stubbox">Preview: sample entries only. Nothing is saved.</div>}
-      {err && <p className="err">{err}</p>}
+      {err && <p className="err" role="alert">{err}</p>}
       {list === null && !err && <p className="muted">Loading…</p>}
       {list && list.length === 0 && <div className="stubbox">No one is waiting for approval.</div>}
       {list && list.length > 0 && (
@@ -517,11 +517,11 @@ function Editor({ id, sec, pages: PAGES, preview, go, onPageSaved }) {
   }, [id, preview])
 
   const blocks = useMemo(() => (show ? parseBody(text) : []), [show, text])
-  const cancel = () => { if (!dirty || confirm('Discard your changes?')) go({ kind: 'page', key: id }) }
+  const cancel = () => { if (!dirty || confirm('Leave without saving? Your changes will be lost.')) go({ kind: 'page', key: id }) }
   const save = async () => {
     const t = title.trim(), v = version.trim()
-    if (!t) return setErr('Title cannot be empty.')
-    if (!/^V\d+(\.\d+)?$/.test(v)) return setErr('Version must look like V1.2')
+    if (!t) return setErr('Add a title before saving.')
+    if (!/^V\d+(\.\d+)?$/.test(v)) return setErr('Version must be a V followed by numbers, like V1.2.')
     setSaving(true); setErr(null)
     const body = [...all.slice(0, range[0]), ...parseBody(text), ...all.slice(range[1])]
     const meta = editedMeta(row?.meta || page?.meta, v)
@@ -549,7 +549,7 @@ function Editor({ id, sec, pages: PAGES, preview, go, onPageSaved }) {
       {show
         ? <div className="edpreview">{blocks.map((b, i) => <Block key={i} b={b} />)}</div>
         : <textarea className="edtext" value={text} onChange={e => setText(e.target.value)} spellCheck />}
-      {err && <p className="err">{err}</p>}
+      {err && <p className="err" role="alert">{err}</p>}
       <div className="edactions">
         <button className="btn small ghost" onClick={cancel} disabled={saving}>Cancel</button>
         <button className="btn small" onClick={save} disabled={saving || !row || !dirty}>{saving ? 'Saving…' : 'Save'}</button>
@@ -568,7 +568,7 @@ function History({ id, pages: PAGES, preview, go, onPageSaved }) {
     api.versions(id).then(setList).catch(e => setErr(e.message))
   }, [id, preview])
   const restore = async (v) => {
-    if (!confirm('Restore ' + v.version + ' from ' + v.edited_at + ' UTC? The current text is kept in History.')) return
+    if (!confirm('Restore ' + v.version + ' (saved ' + v.edited_at + ' UTC)? The current version stays in History, so you can undo this.')) return
     try { await api.restore(id, v.id); await onPageSaved?.(id); go({ kind: 'page', key: id }) }
     catch (e) { setErr(e.message) }
   }
@@ -576,14 +576,14 @@ function History({ id, pages: PAGES, preview, go, onPageSaved }) {
     <div className="view doc">
       <div className="doctools"><button className="btn small ghost" onClick={() => go({ kind: 'page', key: id })}>Back to page</button></div>
       <h1>History</h1>
-      <p className="muted">{PAGES[id]?.title}. Each entry is the page as it was just before a save or restore.</p>
+      <p className="muted">Earlier versions of {PAGES[id]?.title}, newest first. Each one is the page as it was just before someone saved or restored it.</p>
       {preview && <div className="stubbox">History needs the live app. Nothing to show in preview.</div>}
-      {err && <p className="err">{err}</p>}
+      {err && <p className="err" role="alert">{err}</p>}
       {!preview && list === null && !err && <p className="muted">Loading…</p>}
       {list && list.length === 0 && <div className="stubbox">No earlier versions yet. The first save creates one.</div>}
       {list && list.length > 0 && (
         <div className="tbl-wrap"><table>
-          <thead><tr><th>Version</th><th>Title</th><th>Replaced by</th><th>When (UTC)</th><th><span className="sr-only">Action</span></th></tr></thead>
+          <thead><tr><th>Version</th><th>Title</th><th>Changed by</th><th>When (UTC)</th><th><span className="sr-only">Action</span></th></tr></thead>
           <tbody>{list.map(v => (
             <tr key={v.id}><td>{v.version}</td><td>{v.title}</td><td>{v.edited_by}</td><td>{v.edited_at}</td>
               <td style={{ textAlign: 'right' }}><button className="btn small ghost" onClick={() => restore(v)}>Restore</button></td></tr>))}
@@ -702,7 +702,7 @@ function Flow({ code }) {
   return (
     <figure className="figure flow">
       <div ref={ref} role="img" aria-label={flowLabel(code)} />
-      {err && <p className="err">Chart has an error: {err}</p>}
+      {err && <p className="err" role="alert">This chart couldn't be drawn. An admin can fix the chart code in Edit. ({err})</p>}
     </figure>
   )
 }
@@ -772,10 +772,10 @@ function parseHash(hash, NAV) {
 }
 
 function Stub({ title, status }) {
-  const msg = status === 'external' ? 'This one lives as a Lark doc. In the app it links out or gets imported.'
-    : status === 'restricted' ? 'Restricted content. Visible to admins only.'
-    : status === 'planned' ? 'Not written yet. This SOP will be authored, then imported.'
-    : 'Content for this page imports from the database. Coming soon.'
+  const msg = status === 'external' ? "This document is in Lark for now, not in the handbook yet. Ask your ATL for the link."
+    : status === 'restricted' ? 'Only admins can see this page.'
+    : status === 'planned' ? "This SOP hasn't been written yet. Until it is, ask your ATL how to handle this task."
+    : "This page is coming soon. Until it's here, ask your ATL."
   return (
     <div className="view">
       <div className="crumb"><b>{title}</b></div>
@@ -808,7 +808,7 @@ function SearchResults({ query, results, open, pages: PAGES, embedded }) {
       {!embedded && <h1>Search</h1>}
       <p className="muted lead" role="status">{results.length} {results.length === 1 ? 'result' : 'results'} for “{query.trim()}”</p>
       {results.length === 0
-        ? <div className="stubbox">No SOP matches that. Try another word, like “bonus”, “otp”, or “vpn”.</div>
+        ? <div className="stubbox">Nothing matches “{query.trim()}”. Try a shorter or different word, like “bonus”, “otp” or “vpn”.</div>
         : <div className="list">
             {results.map(item => (
               <button key={(item.id || item.title)} className="row" onClick={() => open(item)}>

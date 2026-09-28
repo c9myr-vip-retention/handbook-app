@@ -46,13 +46,32 @@ export async function onRequest(context) {
         const { results } = await stmt.all()
         return json(results.map(deserialize))
       }
-      if (request.method === 'GET' && parts[1]) {
+      if (request.method === 'GET' && parts[1] && !parts[2]) {
         const row = await env.DB.prepare('select * from sops where id = ?').bind(parts[1]).first()
         if (!row) return json({ error: 'not found' }, 404)
         if (row.restricted && !isAdmin) return json({ error: 'restricted' }, 403)
         return json(deserialize(row))
       }
       if (!isAdmin) return json({ error: 'admins only' }, 403)
+      // Version history: snapshots taken before each save (newest first).
+      if (request.method === 'GET' && parts[1] && parts[2] === 'versions') {
+        const { results } = await env.DB.prepare(
+          'select id, title, version, edited_by, edited_at from sop_versions where sop_id = ? order by id desc limit 50'
+        ).bind(parts[1]).all()
+        return json(results)
+      }
+      // Restore a snapshot: the current state is snapshotted first, so a restore can be undone.
+      if (request.method === 'POST' && parts[1] && parts[2] === 'restore' && parts[3]) {
+        const v = await env.DB.prepare('select * from sop_versions where id = ? and sop_id = ?').bind(parts[3], parts[1]).first()
+        if (!v) return json({ error: 'version not found' }, 404)
+        const cur = await env.DB.prepare('select title, body, version from sops where id = ?').bind(parts[1]).first()
+        if (!cur) return json({ error: 'not found' }, 404)
+        await env.DB.prepare('insert into sop_versions (sop_id, title, body, version, edited_by) values (?,?,?,?,?)')
+          .bind(parts[1], cur.title, cur.body, cur.version, email).run()
+        await env.DB.prepare(`update sops set title=?, body=?, version=?, updated_by=?, updated_at=datetime('now') where id=?`)
+          .bind(v.title, v.body, v.version, email, parts[1]).run()
+        return json({ ok: true })
+      }
       if (request.method === 'POST') {
         const b = await request.json()
         const id = b.id || crypto.randomUUID()
@@ -75,6 +94,9 @@ export async function onRequest(context) {
           `update sops set title=?, category=?, body=?, version=?, restricted=?, status=?, keywords=?, updated_by=?, updated_at=datetime('now') where id=?`
         ).bind(b.title, b.category || null, JSON.stringify(b.body || []), b.version || 'V1.0',
           b.restricted ? 1 : 0, b.status || 'live', b.keywords || null, email, parts[1]).run()
+        if (Array.isArray(b.meta)) {
+          await env.DB.prepare('update sops set meta=? where id=?').bind(JSON.stringify(b.meta), parts[1]).run()
+        }
         return json({ ok: true })
       }
       if (request.method === 'DELETE' && parts[1]) {

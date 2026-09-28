@@ -19,6 +19,8 @@ export const api = {
   sop: (id) => req('/api/sops/' + encodeURIComponent(id)),
   saveSop: (id, data) => req('/api/sops/' + encodeURIComponent(id), { method: 'PUT', body: JSON.stringify(data) }),
   createSop: (data) => req('/api/sops', { method: 'POST', body: JSON.stringify(data) }),
+  versions: (id) => req('/api/sops/' + encodeURIComponent(id) + '/versions'),
+  restore: (id, vid) => req('/api/sops/' + encodeURIComponent(id) + '/restore/' + vid, { method: 'POST' }),
   approvals: () => req('/api/admin/approvals'),
   approve: (email) => req('/api/admin/approvals/' + encodeURIComponent(email), { method: 'POST' }),
 }

@@ -35,12 +35,22 @@ export default function App() {
       })
   }, [me])
 
+  // After an edit or restore: reload live rows, or in preview patch the local copy.
+  const onPageSaved = async (id, patch) => {
+    if (me?.email) {
+      const rows = await api.sops()
+      setContent({ ...fromRows(rows), source: 'live' })
+    } else if (patch) {
+      setContent(c => ({ ...c, pages: { ...c.pages, [id]: { ...c.pages[id], ...patch } } }))
+    }
+  }
+
   if (me === undefined) return <Centered>Loading…</Centered>
   if (me.email && !me.approved) return <Pending email={me.email} />
   if (content === undefined) return <Centered>Loading handbook…</Centered>
-  if (!me.email) return <Handbook content={content} notice={notice} preview />
+  if (!me.email) return <Handbook content={content} notice={notice} preview onPageSaved={onPageSaved} />
   return <Handbook content={content} notice={notice}
-    profile={{ email: me.email, full_name: me.full_name, role: me.role }} onSignOut={signOut} />
+    profile={{ email: me.email, full_name: me.full_name, role: me.role }} onSignOut={signOut} onPageSaved={onPageSaved} />
 }
 
 function Centered({ children }) {

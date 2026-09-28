@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { api } from './lib/api.js'
+import { parseBody, toMarkdown } from './lib/markdown.js'
 
 const STATUS_LABEL = { pending: 'Coming soon', planned: 'Not written yet', external: 'Lark doc', restricted: 'Admins only' }
 
@@ -58,7 +59,7 @@ function search(index, q) {
     .map(r => r.item)
 }
 
-export default function Handbook({ content, profile, onSignOut, preview, notice }) {
+export default function Handbook({ content, profile, onSignOut, preview, notice, onPageSaved }) {
   const { nav: NAV, pages: PAGES } = content
   const INDEX = useMemo(() => buildIndex(NAV, PAGES), [NAV, PAGES])
   const [route, setRoute] = useState({ kind: 'home' })
@@ -74,6 +75,7 @@ export default function Handbook({ content, profile, onSignOut, preview, notice 
     go(item.real ? { kind: 'page', key: item.id } : { kind: 'stub', title: item.title, status: item.status })
   }
   const results = useMemo(() => search(INDEX, query.trim()), [INDEX, query])
+  const canEdit = profile?.role === 'admin' || !!preview
   const toggleTheme = () => {
     const cur = document.documentElement.getAttribute('data-theme')
     const dark = cur ? cur === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches
@@ -86,6 +88,8 @@ export default function Handbook({ content, profile, onSignOut, preview, notice 
     if (route.kind === 'page') return PAGES[route.key]?.title || route.key
     if (route.kind === 'stub') return route.title
     if (route.kind === 'approvals') return 'Approvals'
+    if (route.kind === 'edit') return 'Edit: ' + (PAGES[route.key]?.title || route.key)
+    if (route.kind === 'history') return 'History: ' + (PAGES[route.key]?.title || route.key)
     return ''
   }, [route])
 
@@ -142,7 +146,9 @@ export default function Handbook({ content, profile, onSignOut, preview, notice 
             : <>
                 {route.kind === 'home' && <Home go={go} nav={NAV} pages={PAGES} notice={notice} />}
                 {route.kind === 'domain' && <DomainList name={route.key} go={go} nav={NAV} pages={PAGES} />}
-                {route.kind === 'page' && <Page id={route.key} pages={PAGES} />}
+                {route.kind === 'page' && <Page id={route.key} pages={PAGES} canEdit={canEdit} go={go} />}
+                {route.kind === 'edit' && <Editor id={route.key} pages={PAGES} preview={preview} go={go} onPageSaved={onPageSaved} />}
+                {route.kind === 'history' && <History id={route.key} pages={PAGES} preview={preview} go={go} onPageSaved={onPageSaved} />}
                 {route.kind === 'stub' && <Stub title={route.title} status={route.status} />}
                 {route.kind === 'approvals' && <Approvals preview={preview} />}
               </>}
@@ -264,6 +270,114 @@ function Approvals({ preview }) {
   )
 }
 
+// Header chips: keep the version chip and the "Updated" chip in step with an edit.
+const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+const verOf = (page) => (page?.meta || []).find(m => /^V\d/.test(m)) || 'V1.0'
+function editedMeta(meta, version) {
+  const d = new Date(), updated = 'Updated ' + d.getDate() + ' ' + MON[d.getMonth()] + ' ' + d.getFullYear()
+  const out = [...(meta || [])]
+  const vi = out.findIndex(m => /^V\d/.test(m))
+  if (vi >= 0) out[vi] = version; else out.unshift(version)
+  const ui = out.findIndex(m => /^Updated /.test(m))
+  if (ui >= 0) out[ui] = updated; else out.push(updated)
+  return out
+}
+
+// Admin editor. The page text is edited as markdown (the same format as the SOP
+// book) and saved as blocks. Every save keeps the previous version in History.
+function Editor({ id, pages: PAGES, preview, go, onPageSaved }) {
+  const page = PAGES[id]
+  const startText = useMemo(() => toMarkdown(page?.blocks || []), [id])
+  const [row, setRow] = useState(preview ? {} : null)
+  const [title, setTitle] = useState(page?.title || '')
+  const [version, setVersion] = useState(verOf(page))
+  const [text, setText] = useState(startText)
+  const [show, setShow] = useState(false)
+  const [err, setErr] = useState(null)
+  const [saving, setSaving] = useState(false)
+  const dirty = title !== (page?.title || '') || text !== startText || version !== verOf(page)
+
+  useEffect(() => {
+    if (preview) return
+    api.sop(id).then(setRow).catch(e => setErr(e.message))
+  }, [id, preview])
+
+  const blocks = useMemo(() => (show ? parseBody(text) : []), [show, text])
+  const cancel = () => { if (!dirty || confirm('Discard your changes?')) go({ kind: 'page', key: id }) }
+  const save = async () => {
+    const t = title.trim(), v = version.trim()
+    if (!t) return setErr('Title cannot be empty.')
+    if (!/^V\d+(\.\d+)?$/.test(v)) return setErr('Version must look like V1.2')
+    setSaving(true); setErr(null)
+    const body = parseBody(text)
+    const meta = editedMeta(row?.meta || page?.meta, v)
+    try {
+      if (!preview) await api.saveSop(id, { ...row, title: t, version: v, body, meta })
+      await onPageSaved?.(id, { title: t, blocks: body, meta })
+      go({ kind: 'page', key: id })
+    } catch (e) { setErr(e.message) } finally { setSaving(false) }
+  }
+
+  if (!page) return <Stub title={id} />
+  return (
+    <div className="view doc editor">
+      {preview && <div className="stubbox">Preview: edits stay in this browser tab and are not saved to the live handbook.</div>}
+      <div className="edrow">
+        <label>Title<input value={title} onChange={e => setTitle(e.target.value)} /></label>
+        <label className="ver">Version<input value={version} onChange={e => setVersion(e.target.value)} /></label>
+      </div>
+      <div className="edtabs">
+        <button className={'tab' + (!show ? ' on' : '')} onClick={() => setShow(false)}>Write</button>
+        <button className={'tab' + (show ? ' on' : '')} onClick={() => setShow(true)}>Preview</button>
+        <span className="muted small">## heading · - bullet · 1. step · | table | · &gt; [!warn|Title] callout · **bold**</span>
+      </div>
+      {show
+        ? <div className="edpreview">{blocks.map((b, i) => <Block key={i} b={b} />)}</div>
+        : <textarea className="edtext" value={text} onChange={e => setText(e.target.value)} spellCheck />}
+      {err && <p className="err">{err}</p>}
+      <div className="edactions">
+        <button className="btn small ghost" onClick={cancel} disabled={saving}>Cancel</button>
+        <button className="btn small" onClick={save} disabled={saving || !row || !dirty}>{saving ? 'Saving…' : 'Save'}</button>
+      </div>
+    </div>
+  )
+}
+
+// Saved versions of one page, newest first. Restore snapshots the current text
+// first, so a restore can itself be undone.
+function History({ id, pages: PAGES, preview, go, onPageSaved }) {
+  const [list, setList] = useState(null)
+  const [err, setErr] = useState(null)
+  useEffect(() => {
+    if (preview) return
+    api.versions(id).then(setList).catch(e => setErr(e.message))
+  }, [id, preview])
+  const restore = async (v) => {
+    if (!confirm('Restore ' + v.version + ' from ' + v.edited_at + ' UTC? The current text is kept in History.')) return
+    try { await api.restore(id, v.id); await onPageSaved?.(id); go({ kind: 'page', key: id }) }
+    catch (e) { setErr(e.message) }
+  }
+  return (
+    <div className="view doc">
+      <div className="doctools"><button className="btn small ghost" onClick={() => go({ kind: 'page', key: id })}>Back to page</button></div>
+      <h1>History</h1>
+      <p className="muted">{PAGES[id]?.title}. Each entry is the page as it was just before a save or restore.</p>
+      {preview && <div className="stubbox">History needs the live app. Nothing to show in preview.</div>}
+      {err && <p className="err">{err}</p>}
+      {!preview && list === null && !err && <p className="muted">Loading…</p>}
+      {list && list.length === 0 && <div className="stubbox">No earlier versions yet. The first save creates one.</div>}
+      {list && list.length > 0 && (
+        <div className="tbl-wrap"><table>
+          <thead><tr><th>Version</th><th>Title</th><th>Replaced by</th><th>When (UTC)</th><th></th></tr></thead>
+          <tbody>{list.map(v => (
+            <tr key={v.id}><td>{v.version}</td><td>{v.title}</td><td>{v.edited_by}</td><td>{v.edited_at}</td>
+              <td style={{ textAlign: 'right' }}><button className="btn small ghost" onClick={() => restore(v)}>Restore</button></td></tr>))}
+          </tbody>
+        </table></div>)}
+    </div>
+  )
+}
+
 function Row({ title, sub, meta, chip, onClick }) {
   return (
     <button className="row" onClick={onClick}>
@@ -275,11 +389,17 @@ function Row({ title, sub, meta, chip, onClick }) {
   )
 }
 
-function Page({ id, pages: PAGES }) {
+function Page({ id, pages: PAGES, canEdit, go }) {
   const p = PAGES[id]
   if (!p) return <Stub title={id} />
   return (
     <div className="view doc">
+      {canEdit && (
+        <div className="doctools">
+          <button className="btn small ghost" onClick={() => go({ kind: 'history', key: id })}>History</button>
+          <button className="btn small" onClick={() => go({ kind: 'edit', key: id })}>Edit</button>
+        </div>
+      )}
       {p.crumb && <div className="crumb">{p.crumb}</div>}
       <h1>{p.title}</h1>
       {p.meta && <div className="docmeta">{p.meta.map((m, i) => <span key={i}>{m}</span>)}</div>}

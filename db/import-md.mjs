@@ -9,6 +9,7 @@
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs'
 import { join, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { parseBody } from '../src/lib/markdown.js'
 
 const here = dirname(fileURLToPath(import.meta.url))
 const SRC = process.argv[2] || 'C:/Dev/personal-assistant/projects/sop-book'
@@ -107,19 +108,6 @@ function metaFrom(h) {
   return meta
 }
 
-const cells = (line) => line.trim().replace(/^\|/, '').replace(/\|$/, '').split('|').map(c => c.trim())
-const isSep = (line) => /^\|?\s*:?-{2,}/.test(line.trim())
-
-// Unsettled items in the source ([CONFIRM ...]) become a visible pending
-// callout instead of reading as settled fact.
-function withPending(text, blocks, push) {
-  const m = text.match(/^(.*?)\s*\[CONFIRM\s+([^\]]+)\]\s*(.*)$/i)
-  if (!m) return push(text)
-  if (m[1]) push(m[1])
-  blocks.push({ t: 'callout', tone: 'warn', title: 'Pending confirmation', x: 'Confirm ' + m[2].trim() })
-  if (m[3]) push(m[3])
-}
-
 export function convert(md) {
   const lines = md.replace(/^\uFEFF/, '').split(/\r?\n/)
   const headerLines = []
@@ -133,63 +121,7 @@ export function convert(md) {
   const h = parseHeader(headerLines)
   const blocks = []
   if (h['applies to']) blocks.push({ t: 'p', x: '**Applies to:** ' + h['applies to'] })
-
-  while (i < lines.length) {
-    const line = lines[i]
-    if (!line.trim() || /^---\s*$/.test(line)) { i++; continue }
-
-    if (line.startsWith('## ') || line.startsWith('### ')) {
-      // Keep the section number: body text cross-references it ("see Section 5").
-      blocks.push({ t: 'h2', x: line.replace(/^#+\s+/, '') })
-      i++; continue
-    }
-    if (line.startsWith('```')) {
-      const body = []
-      i++
-      while (i < lines.length && !lines[i].startsWith('```')) body.push(lines[i++])
-      i++
-      blocks.push({ t: 'code', x: body.join('\n') })
-      continue
-    }
-    if (line.startsWith('|')) {
-      const rows = []
-      while (i < lines.length && lines[i].startsWith('|')) {
-        if (!isSep(lines[i])) rows.push(cells(lines[i]))
-        i++
-      }
-      blocks.push({ t: 'table', head: rows[0], rows: rows.slice(1) })
-      continue
-    }
-    if (/^[-*]\s+/.test(line)) {
-      const items = []
-      while (i < lines.length && /^[-*]\s+/.test(lines[i])) items.push(lines[i++].replace(/^[-*]\s+/, ''))
-      // Bullets marking an unsettled item (UNCONFIRMED / OPEN:) come out of the
-      // list as warn callouts, so they never read as a settled rule.
-      const open = items.filter(x => /\bUNCONFIRMED\b|\bOPEN:/.test(x))
-      const rest = items.filter(x => !open.includes(x))
-      if (rest.length) blocks.push({ t: 'list', x: rest })
-      for (const x of open) blocks.push({ t: 'callout', tone: 'warn', title: 'Open item', x })
-      continue
-    }
-    if (/^\d+\.\s+/.test(line)) {
-      const items = []
-      while (i < lines.length && /^\d+\.\s+/.test(lines[i])) items.push(lines[i++].replace(/^\d+\.\s+/, ''))
-      blocks.push({ t: 'steps', x: items })
-      continue
-    }
-    if (line.startsWith('> ')) {
-      const text = []
-      while (i < lines.length && lines[i].startsWith('>')) text.push(lines[i++].replace(/^>\s?/, ''))
-      const x = text.join(' ')
-      // A quote flagging an unsettled item must not read as a neutral note.
-      blocks.push(/unresolved|conflict|confirm with|confirm the/i.test(x)
-        ? { t: 'callout', tone: 'warn', title: 'Open item', x }
-        : { t: 'callout', tone: 'info', x })
-      continue
-    }
-    withPending(line.trim(), blocks, (x) => blocks.push({ t: 'p', x }))
-    i++
-  }
+  blocks.push(...parseBody(lines.slice(i).join('\n')))
   const ver = h.version && h.version.match(/^\d+(\.\d+)?/)
   return {
     version: ver ? 'V' + (ver[0].includes('.') ? ver[0] : ver[0] + '.0') : 'V1.0',

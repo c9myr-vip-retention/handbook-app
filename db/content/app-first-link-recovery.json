@@ -221,29 +221,24 @@
    "t": "list",
    "x": [
     "Why the five-minute cap: in the source case an agent checked for ten minutes, found nothing, and lost the chat to inactivity. At five minutes it becomes an escalation instead of a lost player.",
-    "**Rollout prerequisites (status as recorded in the Lark doc on 15 Aug 2026; confirm current status):**"
+    "The Lark source says \"all seven brands\". Team B now runs 8 brands, so the locked reference must cover all 8."
    ]
   },
   {
-   "t": "p",
-   "x": "1. Locked domain reference table in Lark, all brands, ATL edit rights only. Owner: ATL. Status then: not built, blocker for steps 2 and 5."
+   "t": "h2",
+   "x": "10. Rollout Prerequisites"
   },
   {
    "t": "p",
-   "x": "2. Download-button screenshots stored in the R2 bucket, one per brand. Owner: ATL. Status then: one exists, agent-taken, blocker for step 3."
+   "x": "Status as recorded in the Lark doc on 15 Aug 2026. Confirm the current status before relying on it."
   },
   {
-   "t": "p",
-   "x": "3. Canned responses loaded into LiveChat and Telegram saved replies. Owner: Trainer. Status then: pending."
-  },
-  {
-   "t": "p",
-   "x": "4. Team briefed and acknowledgement confirmed. Owner: Trainer and QA PIC. Status then: pending."
-  },
-  {
-   "t": "list",
+   "t": "steps",
    "x": [
-    "The Lark source says \"all seven brands\". Team B now runs 8 brands, so the locked reference must cover all 8."
+    "Locked domain reference table in Lark, all brands, ATL edit rights only. Owner: ATL. Status then: not built, blocker for steps 2 and 5.",
+    "Download-button screenshots stored in the R2 bucket, one per brand. Owner: ATL. Status then: one exists, agent-taken, blocker for step 3.",
+    "Canned responses loaded into LiveChat and Telegram saved replies. Owner: Trainer. Status then: pending.",
+    "Team briefed and acknowledgement confirmed. Owner: Trainer and QA PIC. Status then: pending."
    ]
   }
  ]

@@ -117,6 +117,11 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
               </div>
             </div>
           ))}
+          {(profile?.role === 'admin' || preview) && (
+            <div className="navsec admin-nav">
+              <button className="navitem" onClick={() => { setQuery(''); go({ kind: 'approvals' }) }}>Approvals (admin)</button>
+            </div>
+          )}
         </nav>
       </aside>
 
@@ -134,8 +139,8 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
             />
           </div>
           {profile && <span className="who">{profile.full_name || profile.email} · <b>{profile.role}</b></span>}
-          {preview && <span className="chip pending">preview</span>}
-          {(profile?.role === 'admin' || preview) && <button className="btn small ghost" onClick={() => { setQuery(''); go({ kind: 'approvals' }) }}>Approvals</button>}
+          {preview && <span className="chip pending preview-chip">preview</span>}
+          {(profile?.role === 'admin' || preview) && <button className="btn small ghost admin-btn" onClick={() => { setQuery(''); go({ kind: 'approvals' }) }}>Approvals</button>}
           <button className="icon" aria-label="Toggle theme" onClick={toggleTheme}>◐</button>
           {onSignOut && <button className="btn small" onClick={onSignOut}>Sign out</button>}
         </header>
@@ -170,10 +175,22 @@ function NavLeaf({ it, route, go, pages: PAGES }) {
   )
 }
 
+const MONTH_IX = { Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5, Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dec: 11 }
+// "Updated 26 Sep 2026" chip -> timestamp (0 when the page has none).
+function updatedTime(page) {
+  const m = (page?.meta || []).map(x => x.match(/^Updated (\d{1,2}) ([A-Z][a-z]{2}) (\d{4})/)).find(Boolean)
+  return m && MONTH_IX[m[2]] != null ? new Date(+m[3], MONTH_IX[m[2]], +m[1]).getTime() : 0
+}
+const versionOf = (page) => (page?.meta || []).find(m => /^V\d/.test(m)) || 'V1.0'
+
 function Home({ go, nav: NAV, pages: PAGES, notice }) {
   const leafRoute = (it) => it.id && PAGES[it.id] ? { kind: 'page', key: it.id } : { kind: 'stub', title: it.title, status: it.status }
-  const recent = [['culture', 'Start Here'], ['grace', 'SOP Book · Money Control'], ['pnl', 'SOP Book · Engagement']]
-    .filter(([id]) => PAGES[id])
+  const recent = Object.entries(PAGES)
+    .map(([id, p]) => ({ id, p, t: updatedTime(p) }))
+    .filter(x => x.t)
+    .sort((a, b) => b.t - a.t)
+    .slice(0, 5)
+    .map(x => [x.id, x.p.crumb])
   return (
     <div className="view">
       {notice && <div className="banner">{notice}</div>}
@@ -211,14 +228,14 @@ function DomainList({ name, go, nav: NAV, pages: PAGES }) {
     <div className="view">
       <div className="crumb">SOP Book / <b>{name}</b></div>
       <h1>{name}</h1>
-      <p className="muted lead">SOPs in this domain. The ones marked Open have real content.</p>
+      <p className="muted lead">{items.length} {items.length === 1 ? 'SOP' : 'SOPs'} in this domain.</p>
       <div className="list">
         {items.map(it => {
           const real = !!it.id && !!PAGES[it.id]
           return (
             <Row key={it.id || it.title} title={it.title}
-              meta={real ? 'Open' : STATUS_LABEL[it.status] || ''}
-              chip={real ? 'ver' : it.status}
+              meta={real ? (PAGES[it.id].meta || []).find(m => m.startsWith('Updated')) || '' : STATUS_LABEL[it.status] || ''}
+              chip={real ? versionOf(PAGES[it.id]) : it.status}
               onClick={() => real ? go({ kind: 'page', key: it.id }) : go({ kind: 'stub', title: it.title, status: it.status })} />
           )
         })}
@@ -383,7 +400,7 @@ function Row({ title, sub, meta, chip, onClick }) {
     <button className="row" onClick={onClick}>
       <span className={'mk ' + (chip === 'restricted' ? 'restricted' : '')} />
       <span className="rmain"><b>{title}</b>{sub && <small>{sub}</small>}</span>
-      {chip && <span className={'chip ' + chip}>{chip === 'ver' ? 'V1.0' : chip}</span>}
+      {chip && <span className={'chip ' + (/^V\d/.test(chip) ? 'ver' : chip)}>{chip}</span>}
       {meta && <span className="rmeta">{meta}</span>}
     </button>
   )

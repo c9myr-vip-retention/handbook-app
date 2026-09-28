@@ -76,7 +76,7 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
   const [openSecs, setOpenSecs] = useState(() => ({ start: true }))
   const [query, setQuery] = useState('')
 
-  const scrollPos = useRef({}), pushing = useRef(false)
+  const scrollPos = useRef({}), pushing = useRef(false), firstRoute = useRef(true)
   useEffect(() => {
     const onScroll = () => { scrollPos.current[location.hash || '#/'] = scrollY }
     addEventListener('scroll', onScroll, { passive: true })
@@ -85,7 +85,16 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
   useEffect(() => {
     const y = pushing.current ? 0 : (scrollPos.current[location.hash || '#/'] || 0)
     pushing.current = false
-    requestAnimationFrame(() => scrollTo(0, y))
+    requestAnimationFrame(() => {
+      scrollTo(0, y)
+      // Keyboard and screen-reader users land on the new page's heading.
+      // Skipped on first load and on Home, where the search box takes focus.
+      if (!firstRoute.current && route.kind !== 'home') {
+        const h = document.querySelector('.content h1')
+        if (h) { h.tabIndex = -1; h.focus({ preventScroll: true }) }
+      }
+      firstRoute.current = false
+    })
   }, [route])
 
   const go = (r) => {
@@ -97,7 +106,8 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
     else setRoute(r)
   }
   const back = () => (history.length > 1 ? history.back() : go({ kind: 'home' }))
-  // Keyboard: "/" focuses search, Escape clears it.
+  // Keyboard: "/" focuses search, Escape closes the mobile menu or clears search.
+  const menuBtn = useRef(null)
   useEffect(() => {
     const onKey = (e) => {
       const typing = /^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement?.tagName)
@@ -105,13 +115,16 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
         e.preventDefault()
         const box = document.querySelector(route.kind === 'home' ? '.herosearch' : '.searchbar input')
         box?.focus()
+      } else if (e.key === 'Escape' && navOpen) {
+        setNavOpen(false)
+        menuBtn.current?.focus()
       } else if (e.key === 'Escape' && query) {
         setQuery('')
       }
     }
     addEventListener('keydown', onKey)
     return () => removeEventListener('keydown', onKey)
-  }, [route, query])
+  }, [route, query, navOpen])
   const openLeaf = (item) => {
     setQuery('')
     go(item.real ? { kind: 'page', key: item.id } : { kind: 'stub', title: item.title, status: item.status })
@@ -150,15 +163,17 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
     if (route.kind === 'history') return 'History: ' + (PAGES[route.key]?.title || route.key)
     return ''
   }, [route])
+  useEffect(() => { document.title = (title && title !== 'Home' ? title + ' · ' : '') + 'C9MYR Handbook' }, [title])
 
   return (
     <div className={'hb' + (navOpen ? ' nav-open' : '')}>
+      <a className="skip" href="#main" onClick={e => { e.preventDefault(); document.getElementById('main')?.focus() }}>Skip to content</a>
       <div className="scrim" onClick={() => setNavOpen(false)} />
-      <aside className="side">
+      <aside className="side" id="sidenav">
         <button className="brand" onClick={() => { setQuery(''); go({ kind: 'home' }) }} aria-label="Handbook home"><span className="logo">C9</span><b>Handbook</b></button>
         <button className={'navitem homeitem' + (route.kind === 'home' ? ' active' : '')} aria-current={route.kind === 'home' ? 'page' : undefined}
           onClick={() => { setQuery(''); go({ kind: 'home' }) }}><span>Home</span></button>
-        <nav>
+        <nav aria-label="Handbook sections">
           {NAV.map(sec => (
             <div key={sec.id} className={'navsec' + (openSecs[sec.id] ? ' open' : '')}>
               <button className="navhead" aria-expanded={!!openSecs[sec.id]} onClick={() => setOpenSecs(s => ({ ...s, [sec.id]: !s[sec.id] }))}>
@@ -197,7 +212,7 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
 
       <div className="main">
         <header className="top">
-          <button className="icon menu" aria-label="Menu" onClick={() => setNavOpen(true)}>☰</button>
+          <button ref={menuBtn} className="icon menu" aria-label="Menu" aria-expanded={navOpen} aria-controls="sidenav" onClick={() => setNavOpen(true)}>☰</button>
           {route.kind !== 'home' && <button className="icon backbtn" onClick={back} aria-label="Go back" title="Back"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg></button>}
           <div className="ptitle">{title}</div>
           <div className={'searchbar' + (route.kind === 'home' ? ' on-home' : '')}>
@@ -216,7 +231,7 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
           {onSignOut && <button className="btn small" onClick={onSignOut}>Sign out</button>}
         </header>
 
-        <div className="content">
+        <main className="content" id="main" tabIndex={-1}>
           {route.kind === 'home'
             ? <Home go={go} nav={NAV} pages={PAGES} notice={notice} query={query} setQuery={setQuery} results={results} open={openLeaf} />
             : query.trim()
@@ -229,7 +244,7 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
                 {route.kind === 'stub' && <Stub title={route.title} status={route.status} />}
                 {route.kind === 'approvals' && <Approvals preview={preview} />}
               </>}
-        </div>
+        </main>
       </div>
     </div>
   )
@@ -243,6 +258,7 @@ function NavLeaf({ it, route, go, pages: PAGES }) {
     <button className={'navitem' + (active ? ' active' : '')} aria-current={active ? 'page' : undefined} onClick={onClick}>
       <span>{it.title}</span>
       {!real && it.status && <span className={'dot ' + it.status} title={STATUS_LABEL[it.status]} />}
+      {!real && it.status && <span className="sr-only">({STATUS_LABEL[it.status]})</span>}
     </button>
   )
 }
@@ -439,7 +455,7 @@ function Approvals({ preview }) {
       {list && list.length === 0 && <div className="stubbox">No one is waiting for approval.</div>}
       {list && list.length > 0 && (
         <div className="tbl-wrap"><table>
-          <thead><tr><th>Email</th><th>Name</th><th></th></tr></thead>
+          <thead><tr><th>Email</th><th>Name</th><th><span className="sr-only">Action</span></th></tr></thead>
           <tbody>{list.map(p => (
             <tr key={p.email}>
               <td>{p.email}</td><td>{p.full_name || '-'}</td>
@@ -526,8 +542,8 @@ function Editor({ id, sec, pages: PAGES, preview, go, onPageSaved }) {
         <label className="ver">Version<input value={version} onChange={e => setVersion(e.target.value)} /></label>
       </div>
       <div className="edtabs">
-        <button className={'tab' + (!show ? ' on' : '')} onClick={() => setShow(false)}>Write</button>
-        <button className={'tab' + (show ? ' on' : '')} onClick={() => setShow(true)}>Preview</button>
+        <button className={'tab' + (!show ? ' on' : '')} aria-pressed={!show} onClick={() => setShow(false)}>Write</button>
+        <button className={'tab' + (show ? ' on' : '')} aria-pressed={show} onClick={() => setShow(true)}>Preview</button>
         <span className="muted small">## heading · - bullet · 1. step · | table | · &gt; [!warn|Title] callout · **bold** · ```mermaid chart</span>
       </div>
       {show
@@ -567,7 +583,7 @@ function History({ id, pages: PAGES, preview, go, onPageSaved }) {
       {list && list.length === 0 && <div className="stubbox">No earlier versions yet. The first save creates one.</div>}
       {list && list.length > 0 && (
         <div className="tbl-wrap"><table>
-          <thead><tr><th>Version</th><th>Title</th><th>Replaced by</th><th>When (UTC)</th><th></th></tr></thead>
+          <thead><tr><th>Version</th><th>Title</th><th>Replaced by</th><th>When (UTC)</th><th><span className="sr-only">Action</span></th></tr></thead>
           <tbody>{list.map(v => (
             <tr key={v.id}><td>{v.version}</td><td>{v.title}</td><td>{v.edited_by}</td><td>{v.edited_at}</td>
               <td style={{ textAlign: 'right' }}><button className="btn small ghost" onClick={() => restore(v)}>Restore</button></td></tr>))}
@@ -595,14 +611,19 @@ function Page({ id, pages: PAGES, nav: NAV, canEdit, go }) {
   const group = siblingsOf(NAV, id).filter(it => it.id && PAGES[it.id])
   const at = group.findIndex(it => it.id === id)
   const prev = at > 0 ? group[at - 1] : null, next = at >= 0 && at < group.length - 1 ? group[at + 1] : null
-  const jump = (i) => document.getElementById('sec-' + i)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  const jump = (i) => {
+    const h = document.getElementById('sec-' + i)
+    if (!h) return
+    h.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    h.tabIndex = -1; h.focus({ preventScroll: true })
+  }
   return (
     <div className="pagewrap">
     {heads.length > 2 && (
-      <aside className="toc" aria-label="On this page">
-        <div className="tochead">On this page</div>
+      <nav className="toc" aria-label="On this page">
+        <div className="tochead" aria-hidden="true">On this page</div>
         {heads.map(h => <button key={h.i} className="tocitem" onClick={() => jump(h.i)}>{h.x}</button>)}
-      </aside>
+      </nav>
     )}
     <div className="view doc">
       <div className="doctools">
@@ -680,10 +701,17 @@ function Flow({ code }) {
   }, [code, document.documentElement.getAttribute('data-theme')])
   return (
     <figure className="figure flow">
-      <div ref={ref} />
+      <div ref={ref} role="img" aria-label={flowLabel(code)} />
       {err && <p className="err">Chart has an error: {err}</p>}
     </figure>
   )
+}
+
+// Screen-reader text for a chart: the node labels in the order written.
+function flowLabel(code) {
+  const seen = new Set()
+  for (const m of String(code).matchAll(/[\[({]+"?([^\])}"]+)"?[\])}]+/g)) seen.add(m[1].trim())
+  return 'Flow chart' + (seen.size ? ': ' + [...seen].join(', then ') : '')
 }
 
 function Block({ b, id, version }) {
@@ -778,7 +806,7 @@ function SearchResults({ query, results, open, pages: PAGES, embedded }) {
   return (
     <div className="view">
       {!embedded && <h1>Search</h1>}
-      <p className="muted lead">{results.length} {results.length === 1 ? 'result' : 'results'} for “{query.trim()}”</p>
+      <p className="muted lead" role="status">{results.length} {results.length === 1 ? 'result' : 'results'} for “{query.trim()}”</p>
       {results.length === 0
         ? <div className="stubbox">No SOP matches that. Try another word, like “bonus”, “otp”, or “vpn”.</div>
         : <div className="list">

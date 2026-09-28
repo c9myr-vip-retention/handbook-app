@@ -1,11 +1,11 @@
 {
  "id": "precaution-security",
  "source": "../handbook-app/pages/hr/Precaution_Security.md",
- "version": "V1.1",
+ "version": "V1.2",
  "meta": [
-  "V1.1",
+  "V1.2",
   "HR / Policy",
-  "Updated 25 Sep 2026"
+  "Updated 28 Sep 2026"
  ],
  "body": [
   {
@@ -83,7 +83,22 @@
   },
   {
    "t": "h2",
-   "x": "4. Remarks"
+   "x": "4. Handbook App Access"
+  },
+  {
+   "t": "list",
+   "x": [
+    "Sign in to the Handbook App with your company email. A personal email is allowed only if it is registered with your ATL first.",
+    "The first sign-in with a personal email waits for admin approval. Do not share or forward your sign-in with anyone.",
+    "Use the Handbook App as the only current version of SOPs and policies. The old HANDBOOK(new) workbook is kept for reference only.",
+    "Do not copy, screenshot or share Handbook content outside the department.",
+    "Access is removed the same day a staff member resigns, is terminated, or moves out of the department.",
+    "Report lost access, or a login you do not recognise, to your ATL at once."
+   ]
+  },
+  {
+   "t": "h2",
+   "x": "5. Remarks"
   },
   {
    "t": "list",

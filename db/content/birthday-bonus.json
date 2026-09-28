@@ -100,7 +100,7 @@
      "Tier 3 = Total Deposit x 0.1% (floor RM 38, max RM 188). Tier V = 0.1% (floor RM 68, max RM 388). Reference Last Month Deposit; below Floor use Floor. No SW deduction. See table C.",
      "Final within floor and max; no SW deduction; 3x TO",
      "Calc table C; BO",
-     "Low-deposit case is unresolved (see flag); do not issue until confirmed"
+     "Below the floor, issue the floor (Tier 3 RM 38, Tier V RM 68). Never above the calculated amount otherwise. ATL-confirmed 24 Sep 2026."
     ],
     [
      "7",

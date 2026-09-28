@@ -86,7 +86,7 @@
   },
   {
    "t": "img",
-   "alt": "Flow chart: Attendance (Pre-Shift Setup)",
+   "alt": "Flow chart of the Attendance (Pre-Shift Setup) steps, the same steps as the Procedure table above",
    "src": "/flowcharts/attendance-pre-shift.png"
   },
   {
@@ -119,44 +119,7 @@
   },
   {
    "t": "h2",
-   "x": "4. Procedure: Pre-Shift Setup (Action / Sequence / Degree / Tool)"
-  },
-  {
-   "t": "table",
-   "head": [
-    "#",
-    "Action",
-    "Sequence (when)",
-    "Degree / standard",
-    "Tool"
-   ],
-   "rows": [
-    [
-     "1",
-     "Log in to NordLayer VPN",
-     "First, before clock-in",
-     "Select server M01, M02 or M03; verify your location is correct (not the wrong country); check IP at whatismyipaddress.com",
-     "NordLayer"
-    ],
-    [
-     "2",
-     "Clock in on the Insightful (Workpuls) app",
-     "Before starting work",
-     "At least 5 minutes early, to avoid a late record from system lag",
-     "Insightful"
-    ],
-    [
-     "3",
-     "Open Google Chrome in Incognito mode",
-     "Before browsing",
-     "Always browse in private mode for security",
-     "Chrome"
-    ]
-   ]
-  },
-  {
-   "t": "h2",
-   "x": "5. Guards"
+   "x": "4. Guards"
   },
   {
    "t": "list",
@@ -168,7 +131,7 @@
   },
   {
    "t": "h2",
-   "x": "6. Remarks"
+   "x": "5. Remarks"
   },
   {
    "t": "list",

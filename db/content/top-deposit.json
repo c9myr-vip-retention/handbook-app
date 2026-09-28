@@ -110,7 +110,7 @@
   },
   {
    "t": "img",
-   "alt": "Flow chart: Top Deposit",
+   "alt": "Flow chart of the Top Deposit steps, the same steps as the Procedure table above",
    "src": "/flowcharts/top-deposit.png"
   },
   {
@@ -145,7 +145,7 @@
   },
   {
    "t": "h2",
-   "x": "4. Procedure: TC Gaming Platform (Action / Sequence / Degree / Tool)"
+   "x": "4. Detailed steps: TC Gaming Platform"
   },
   {
    "t": "table",
@@ -252,7 +252,7 @@
   },
   {
    "t": "h2",
-   "x": "5. Procedure: Zyra Platform (Action / Sequence / Degree / Tool)"
+   "x": "5. Detailed steps: Zyra Platform"
   },
   {
    "t": "table",

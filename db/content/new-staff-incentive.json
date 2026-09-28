@@ -118,7 +118,7 @@
   },
   {
    "t": "img",
-   "alt": "Flow chart: New Staff Incentive Eligibility",
+   "alt": "Flow chart of the New Staff Incentive Eligibility steps, the same steps as the Procedure table above",
    "src": "/flowcharts/new-staff-incentive.png"
   },
   {
@@ -209,72 +209,7 @@
   },
   {
    "t": "h2",
-   "x": "6. Procedure (Action / Sequence / Degree / Tool)"
-  },
-  {
-   "t": "table",
-   "head": [
-    "#",
-    "Action",
-    "Sequence (when)",
-    "Degree / standard",
-    "Tool"
-   ],
-   "rows": [
-    [
-     "1",
-     "Mark the new hire as probationary",
-     "On join",
-     "Flag probation status in the KPI / payout tracker; incentive gate = OFF",
-     "HR Portal, KPI tracker"
-    ],
-    [
-     "2",
-     "Score KPI monthly for evaluation",
-     "Month-end during probation",
-     "Score per the KPI Scoring SOP; label evaluation-only, no payout",
-     "Scorecard"
-    ],
-    [
-     "3",
-     "Run the probation evaluation",
-     "At end of probation",
-     "Per the JNR Probation Checklist; ATL decision",
-     "JNR Probation Checklist"
-    ],
-    [
-     "4",
-     "On pass: switch the incentive gate ON",
-     "On confirmation",
-     "Entitlement starts from the confirmation date forward; not backdated to probation",
-     "KPI tracker, HR Portal"
-    ],
-    [
-     "5",
-     "On extension: keep the gate OFF through the extension",
-     "On extension decision",
-     "No incentive during the extended probation; re-evaluate at the new end date",
-     "KPI tracker"
-    ],
-    [
-     "6",
-     "On termination: no entitlement",
-     "On termination decision",
-     "Gate stays OFF; close the record",
-     "KPI tracker"
-    ],
-    [
-     "7",
-     "Record the entitlement change",
-     "After decision",
-     "Log the confirmation date and the incentive start; role titles only",
-     "Lark, KPI tracker"
-    ]
-   ]
-  },
-  {
-   "t": "h2",
-   "x": "7. Guards"
+   "x": "6. Guards"
   },
   {
    "t": "list",
@@ -286,7 +221,7 @@
   },
   {
    "t": "h2",
-   "x": "8. Remarks and Notes"
+   "x": "7. Remarks and Notes"
   },
   {
    "t": "list",

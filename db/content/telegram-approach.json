@@ -76,7 +76,7 @@
      "First contact: New Approach record (date, username, brand, tier, reason). Follow-up: sub-record under the original.",
      "All fields filled. Do not duplicate the entry.",
      "Customer Approaching File",
-     ""
+     "Livechat referral or Friendly Player: create the record with that tag."
     ],
     [
      "4",
@@ -110,7 +110,7 @@
   },
   {
    "t": "img",
-   "alt": "Flow chart: Telegram Approach",
+   "alt": "Flow chart of the Telegram Approach steps, the same steps as the Procedure table above",
    "src": "/flowcharts/telegram-approach.png"
   },
   {
@@ -203,93 +203,7 @@
   },
   {
    "t": "h2",
-   "x": "5. Procedure (Action / Sequence / Degree / Tool)"
-  },
-  {
-   "t": "table",
-   "head": [
-    "#",
-    "Action",
-    "Sequence (when)",
-    "Degree / standard",
-    "Tool"
-   ],
-   "rows": [
-    [
-     "1",
-     "Open Customer Approaching File > Telegram section for the current month",
-     "Task start",
-     "Prior-month follow-ups: open the prior month's file",
-     "Customer Approaching File"
-    ],
-    [
-     "2",
-     "Review the priority list, identify the highest-priority players for this session",
-     "After opening",
-     "Start at Priority 1, work down",
-     "Customer Approaching File"
-    ],
-    [
-     "3",
-     "For a Livechat referral or Friendly Player, create a record tagged accordingly",
-     "As encountered",
-     "Correct tag",
-     "Customer Approaching File"
-    ],
-    [
-     "4",
-     "First approach: create a New Approach record with date, username, brand, tier, reason",
-     "On first contact",
-     "All fields filled",
-     "Customer Approaching File"
-    ],
-    [
-     "5",
-     "Follow-up: add a sub-record under the original entry",
-     "On follow-up",
-     "Do not duplicate the entry",
-     "Customer Approaching File"
-    ],
-    [
-     "6",
-     "Verify the player has a registered Telegram contact before approaching",
-     "Before sending",
-     "Registered contact confirmed",
-     "Telegram"
-    ],
-    [
-     "7",
-     "Send the approach message with the right tone for the segment",
-     "On send",
-     "One message per session; wait for a reply before follow-up",
-     "Telegram"
-    ],
-    [
-     "8",
-     "Record the outcome immediately",
-     "Right after send",
-     "Response Received, No Response, Deposit Made, or Referred to Livechat",
-     "Customer Approaching File"
-    ],
-    [
-     "9",
-     "If they respond via Livechat after Telegram, record a successful Livechat conversion and link the reference",
-     "On Livechat response",
-     "Link the reference",
-     "Customer Approaching File"
-    ],
-    [
-     "10",
-     "Update the QA Record at end of shift",
-     "End of shift",
-     "Total approached and conversion count",
-     "Lark Base"
-    ]
-   ]
-  },
-  {
-   "t": "h2",
-   "x": "6. Engagement Scenarios"
+   "x": "5. Engagement Scenarios"
   },
   {
    "t": "table",
@@ -318,7 +232,7 @@
   },
   {
    "t": "h2",
-   "x": "7. Timing Guardrails"
+   "x": "6. Timing Guardrails"
   },
   {
    "t": "list",
@@ -331,7 +245,7 @@
   },
   {
    "t": "h2",
-   "x": "8. Soft-Skill Playbook (Part C)"
+   "x": "7. Soft-Skill Playbook (Part C)"
   },
   {
    "t": "steps",
@@ -349,7 +263,7 @@
   },
   {
    "t": "h2",
-   "x": "9. Guards"
+   "x": "8. Guards"
   },
   {
    "t": "list",
@@ -361,7 +275,7 @@
   },
   {
    "t": "h2",
-   "x": "10. Remarks"
+   "x": "9. Remarks"
   },
   {
    "t": "list",

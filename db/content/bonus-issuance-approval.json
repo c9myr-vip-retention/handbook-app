@@ -116,7 +116,7 @@
   },
   {
    "t": "img",
-   "alt": "Flow chart: Bonus Issuance and Approval",
+   "alt": "Flow chart of the Bonus Issuance and Approval steps, the same steps as the Procedure table above",
    "src": "/flowcharts/bonus-issuance-approval.png"
   },
   {
@@ -192,72 +192,7 @@
   },
   {
    "t": "h2",
-   "x": "5. Procedure (Action / Sequence / Degree / Tool)"
-  },
-  {
-   "t": "table",
-   "head": [
-    "#",
-    "Action",
-    "Sequence (when)",
-    "Degree / standard",
-    "Tool"
-   ],
-   "rows": [
-    [
-     "1",
-     "Verify eligibility and contact-before-deposit",
-     "Before anything",
-     "Player on the eligible list; a logged contact precedes the deposit within the task window; unique ID; one count/player/month",
-     "Eligible list, contact_log, BO"
-    ],
-    [
-     "2",
-     "Identify the task and its ladder",
-     "After eligibility",
-     "Exactly one task per event; never stack; confirm no same-day Reload/Comp/LTV reward",
-     "Bonus ladders (11-bonus-rules)"
-    ],
-    [
-     "3",
-     "Update the Secret Wallet",
-     "Same day, before sizing",
-     "SW refreshed today; no exception",
-     "BO, SW field"
-    ],
-    [
-     "4",
-     "Size against the SW cap",
-     "After SW update",
-     "Final amount <= cap %; match the highest eligible 8-ending amount within it; if above Max, use Max",
-     "Ladder + bonus calculator"
-    ],
-    [
-     "5",
-     "Check the approval gate",
-     "Before issuing",
-     "Route to ATL if it crosses a threshold (Section 6); otherwise CS may issue within cap",
-     "Lark escalation"
-    ],
-    [
-     "6",
-     "Issue and set turnover + validity",
-     "On approval / within cap",
-     "Apply the task's TO; state the validity period; apply next-day-deposit rule where the task requires it",
-     "BO, claim ticket"
-    ],
-    [
-     "7",
-     "Record the issuance",
-     "Immediately after issuing",
-     "Log player, task, amount, TO, SW deduction (y/n), issued by, time; tag status; claim via the task ticket query",
-     "QA Record, Lark ticket"
-    ]
-   ]
-  },
-  {
-   "t": "h2",
-   "x": "6. Approval Authority"
+   "x": "5. Approval Authority"
   },
   {
    "t": "table",
@@ -286,7 +221,7 @@
   },
   {
    "t": "h2",
-   "x": "7. Claim Ticket Queries"
+   "x": "6. Claim Ticket Queries"
   },
   {
    "t": "table",
@@ -319,7 +254,7 @@
   },
   {
    "t": "h2",
-   "x": "8. Over-Issuance Guards"
+   "x": "7. Over-Issuance Guards"
   },
   {
    "t": "list",
@@ -332,7 +267,7 @@
   },
   {
    "t": "h2",
-   "x": "9. Remarks"
+   "x": "8. Remarks"
   },
   {
    "t": "list",

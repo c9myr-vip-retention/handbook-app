@@ -94,7 +94,7 @@
   },
   {
    "t": "img",
-   "alt": "Flow chart: Checking Conversation History (VVIP)",
+   "alt": "Flow chart of the Checking Conversation History (VVIP) steps, the same steps as the Procedure table above",
    "src": "/flowcharts/checking-conversation-history.png"
   },
   {
@@ -148,51 +148,7 @@
   },
   {
    "t": "h2",
-   "x": "5. Procedure (Action / Sequence / Degree / Tool)"
-  },
-  {
-   "t": "table",
-   "head": [
-    "#",
-    "Action",
-    "Sequence (when)",
-    "Degree / standard",
-    "Tool"
-   ],
-   "rows": [
-    [
-     "1",
-     "Identify the arrival channel",
-     "On contact",
-     "LiveChat or Telegram",
-     "Customer Approaching System"
-    ],
-    [
-     "2",
-     "Open the player's other-channel history before replying",
-     "Before the first reply",
-     "LiveChat arrival: open Last Telegram Chat Link. Telegram arrival: open Last LiveChat Link",
-     "LiveChat / Telegram"
-    ],
-    [
-     "3",
-     "Review the full history",
-     "Before replying",
-     "Note unresolved issues and pending requests; never ask the player to repeat",
-     "Both channels"
-    ],
-    [
-     "4",
-     "Update the player record after the interaction",
-     "After handling",
-     "Record the outcome and any follow-ups",
-     "Customer Approaching System"
-    ]
-   ]
-  },
-  {
-   "t": "h2",
-   "x": "6. CS Responsibilities"
+   "x": "5. CS Responsibilities"
   },
   {
    "t": "steps",
@@ -206,7 +162,7 @@
   },
   {
    "t": "h2",
-   "x": "7. Expected Outcome"
+   "x": "6. Expected Outcome"
   },
   {
    "t": "list",
@@ -220,7 +176,7 @@
   },
   {
    "t": "h2",
-   "x": "8. Remarks"
+   "x": "7. Remarks"
   },
   {
    "t": "list",

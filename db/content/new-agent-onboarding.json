@@ -110,7 +110,7 @@
   },
   {
    "t": "img",
-   "alt": "Flow chart: New Agent Onboarding",
+   "alt": "Flow chart of the New Agent Onboarding steps, the same steps as the Procedure table above",
    "src": "/flowcharts/new-agent-onboarding.png"
   },
   {
@@ -144,65 +144,7 @@
   },
   {
    "t": "h2",
-   "x": "4. Procedure (Action / Sequence / Degree / Tool)"
-  },
-  {
-   "t": "table",
-   "head": [
-    "#",
-    "Action",
-    "Sequence (when)",
-    "Degree / standard",
-    "Tool"
-   ],
-   "rows": [
-    [
-     "1",
-     "Pre-arrival setup",
-     "Before day 1",
-     "CS logins per brand (per Login Provisioning SOP), Lark, HR Portal, console access",
-     "BO, HR Portal, consoles"
-    ],
-    [
-     "2",
-     "Orientation",
-     "Day 1",
-     "Department overview, team structure, house rules (RG, no em dash, no names), security",
-     "Handbook: Dept Overview, Precaution & Security"
-    ],
-    [
-     "3",
-     "Assign a buddy",
-     "Week 1",
-     "A Senior mentors; new hire shadows the daily SOPs",
-     "Roster"
-    ],
-    [
-     "4",
-     "Train through the SOP Book",
-     "Weeks 1-2",
-     "Awareness to skill to willingness (read, drill, assessment)",
-     "SOP Book, KPI Framework"
-    ],
-    [
-     "5",
-     "Supervised execution",
-     "Weeks 2-4",
-     "New hire runs shift SOPs with buddy check; QA sampled",
-     "Daily task checklist, QA Record"
-    ],
-    [
-     "6",
-     "Probation evaluation",
-     "Per cycle",
-     "Evaluate against the JNR Probation Checklist; ATL decision",
-     "JNR Probation Checklist"
-    ]
-   ]
-  },
-  {
-   "t": "h2",
-   "x": "5. Guards"
+   "x": "4. Guards"
   },
   {
    "t": "list",
@@ -212,7 +154,7 @@
   },
   {
    "t": "h2",
-   "x": "6. Remarks"
+   "x": "5. Remarks"
   },
   {
    "t": "list",

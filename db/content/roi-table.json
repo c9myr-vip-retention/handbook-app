@@ -110,7 +110,7 @@
   },
   {
    "t": "img",
-   "alt": "Flow chart: ROI Table",
+   "alt": "Flow chart of the ROI Table steps, the same steps as the Procedure table above",
    "src": "/flowcharts/roi-table.png"
   },
   {
@@ -188,7 +188,7 @@
   },
   {
    "t": "h2",
-   "x": "5. Procedure: Filter the ROI Table (Action / Sequence / Degree / Tool)"
+   "x": "5. Detailed steps: Filter the ROI Table"
   },
   {
    "t": "table",
@@ -246,7 +246,7 @@
   },
   {
    "t": "h2",
-   "x": "6. Procedure: TC Gaming Retrieval (Action / Sequence / Degree / Tool)"
+   "x": "6. Detailed steps: TC Gaming Retrieval"
   },
   {
    "t": "table",
@@ -339,7 +339,7 @@
   },
   {
    "t": "h2",
-   "x": "7. Procedure: Zyra Retrieval (Action / Sequence / Degree / Tool)"
+   "x": "7. Detailed steps: Zyra Retrieval"
   },
   {
    "t": "table",

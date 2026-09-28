@@ -110,7 +110,7 @@
   },
   {
    "t": "img",
-   "alt": "Flow chart: SMS Script (List Preparation)",
+   "alt": "Flow chart of the SMS Script (List Preparation) steps, the same steps as the Procedure table above",
    "src": "/flowcharts/sms-script.png"
   },
   {
@@ -144,79 +144,7 @@
   },
   {
    "t": "h2",
-   "x": "4. Procedure: List Preparation (Action / Sequence / Degree / Tool)"
-  },
-  {
-   "t": "table",
-   "head": [
-    "#",
-    "Action",
-    "Sequence (when)",
-    "Degree / standard",
-    "Tool"
-   ],
-   "rows": [
-    [
-     "1",
-     "Open the Team Engagement File",
-     "Before any update",
-     "Use the latest version",
-     "Team Engagement File"
-    ],
-    [
-     "2",
-     "Check the latest player segmentation",
-     "Before changes",
-     "Confirm segments are current",
-     "Team Engagement File"
-    ],
-    [
-     "3",
-     "Update engagement data under the correct segment and category",
-     "During update",
-     "Mismatched segments cause wrong approach and reporting errors",
-     "Team Engagement File"
-    ],
-    [
-     "4",
-     "Record player info under the correct date and section",
-     "During update",
-     "Not under a previous or future date",
-     "Team Engagement File"
-    ],
-    [
-     "5",
-     "Check for duplicated or missing records",
-     "Before saving",
-     "Duplicates cause double-counting",
-     "Team Engagement File"
-    ],
-    [
-     "6",
-     "If the promotion has a 3-day validity, update the expiration date",
-     "During update",
-     "Align expiration with the latest update date",
-     "Team Engagement File"
-    ],
-    [
-     "7",
-     "Verify the expiration date is not lapsed",
-     "Before saving",
-     "Never send expired content",
-     "Team Engagement File"
-    ],
-    [
-     "8",
-     "Double-check all entries before handing to Retention Team Admin",
-     "At handover",
-     "VIP CS scope ends at handover; Admin sends",
-     "Team Engagement File"
-    ]
-   ]
-  },
-  {
-   "t": "h2",
-   "x": "5. Guards"
+   "x": "4. Guards"
   },
   {
    "t": "list",
@@ -228,7 +156,7 @@
   },
   {
    "t": "h2",
-   "x": "6. Remarks"
+   "x": "5. Remarks"
   },
   {
    "t": "list",

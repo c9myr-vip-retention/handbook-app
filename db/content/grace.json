@@ -118,7 +118,7 @@
   },
   {
    "t": "img",
-   "alt": "Flow chart: Grace Period List (daily send)",
+   "alt": "Flow chart of the Grace Period List (daily send) steps, the same steps as the Procedure table above",
    "src": "/flowcharts/grace.png"
   },
   {
@@ -234,72 +234,7 @@
   },
   {
    "t": "h2",
-   "x": "6. Procedure (Action / Sequence / Degree / Tool)"
-  },
-  {
-   "t": "table",
-   "head": [
-    "#",
-    "Action",
-    "Sequence (when)",
-    "Degree / standard",
-    "Tool"
-   ],
-   "rows": [
-    [
-     "1",
-     "Receive the Grace Period database from Retention Team (Admin)",
-     "Task start, on a scheduled send day (Mon/Tue/Thu/Fri)",
-     "Via Team Engagement File > Handover Tab; Admin provides the daily data, VIP CS extracts",
-     "Team Engagement File"
-    ],
-    [
-     "2",
-     "Copy the database, paste into Customer Approaching Lark Base > Grace Period (Day)",
-     "After receiving",
-     "Paste values only, to protect formulas",
-     "Lark Base"
-    ],
-    [
-     "3",
-     "Apply filters to separate Valid and Invalid by brand and status",
-     "After paste",
-     "Per Section 5 (Grace Period Player vs Potential Player)",
-     "Lark Base"
-    ],
-    [
-     "4",
-     "Move filtered data to the Engagement Tab under the Grace Period column",
-     "After filtering",
-     "Each player under the correct brand column",
-     "Lark Base"
-    ],
-    [
-     "5",
-     "VALID players: pass username list to Admin for SMS; send IM + Push",
-     "On send",
-     "SMS is Admin-side, not VIP CS",
-     "Lark / BO"
-    ],
-    [
-     "6",
-     "INVALID players: send IM + Push only",
-     "On send",
-     "No SMS, no bonus mention; engagement only",
-     "Lark / BO"
-    ],
-    [
-     "7",
-     "Update the QA Record",
-     "After all IM sent",
-     "Attach a BO screenshot as proof",
-     "Lark Base"
-    ]
-   ]
-  },
-  {
-   "t": "h2",
-   "x": "7. Bonus Logic: Grace Period Deposit Challenge"
+   "x": "6. Bonus Logic: Grace Period Deposit Challenge"
   },
   {
    "t": "p",
@@ -376,7 +311,7 @@
   },
   {
    "t": "h2",
-   "x": "8. Guards"
+   "x": "7. Guards"
   },
   {
    "t": "list",
@@ -388,7 +323,7 @@
   },
   {
    "t": "h2",
-   "x": "9. Remarks"
+   "x": "8. Remarks"
   },
   {
    "t": "list",

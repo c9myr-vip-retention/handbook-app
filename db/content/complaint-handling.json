@@ -94,7 +94,7 @@
   },
   {
    "t": "img",
-   "alt": "Flow chart: Complaint Handling (Livechat)",
+   "alt": "Flow chart of the Complaint Handling (Livechat) steps, the same steps as the Procedure table above",
    "src": "/flowcharts/complaint-handling.png"
   },
   {
@@ -161,51 +161,7 @@
   },
   {
    "t": "h2",
-   "x": "5. Procedure (Action / Sequence / Degree / Tool)"
-  },
-  {
-   "t": "table",
-   "head": [
-    "#",
-    "Action",
-    "Sequence (when)",
-    "Degree / standard",
-    "Tool"
-   ],
-   "rows": [
-    [
-     "1",
-     "Acknowledge the emotion first",
-     "On complaint open",
-     "Validate the feeling before any solution or redirect",
-     "Livechat"
-    ],
-    [
-     "2",
-     "Read the player profile",
-     "Before responding",
-     "Check losses, SW balance, recent credits, risk/abuse tag",
-     "BO"
-    ],
-    [
-     "3",
-     "Match the scenario and respond",
-     "After assessment",
-     "Per Section 4; SW credit only where the scenario allows, sized by tier % and remaining allowance",
-     "Livechat, Bonus rules"
-    ],
-    [
-     "4",
-     "Log the outcome",
-     "After handling",
-     "QA Record; if compensation was issued, Lark ticket (query `VVIP Complain player`)",
-     "Lark Base"
-    ]
-   ]
-  },
-  {
-   "t": "h2",
-   "x": "6. Building Relationships Through Complaint Moments"
+   "x": "5. Building Relationships Through Complaint Moments"
   },
   {
    "t": "list",
@@ -218,7 +174,7 @@
   },
   {
    "t": "h2",
-   "x": "7. Guards"
+   "x": "6. Guards"
   },
   {
    "t": "list",
@@ -230,7 +186,7 @@
   },
   {
    "t": "h2",
-   "x": "8. Remarks"
+   "x": "7. Remarks"
   },
   {
    "t": "list",

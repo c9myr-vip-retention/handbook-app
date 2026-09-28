@@ -110,7 +110,7 @@
   },
   {
    "t": "img",
-   "alt": "Flow chart: Internal Mail Approach",
+   "alt": "Flow chart of the Internal Mail Approach steps, the same steps as the Procedure table above",
    "src": "/flowcharts/internal-mail-approach.png"
   },
   {
@@ -144,7 +144,7 @@
   },
   {
    "t": "h2",
-   "x": "4. Procedure: TC Gaming Back Office (Action / Sequence / Degree / Tool)"
+   "x": "4. Detailed steps: TC Gaming Back Office"
   },
   {
    "t": "table",
@@ -230,7 +230,7 @@
   },
   {
    "t": "h2",
-   "x": "5. Procedure: Zyra Back Office (Action / Sequence / Degree / Tool)"
+   "x": "5. Detailed steps: Zyra Back Office"
   },
   {
    "t": "table",

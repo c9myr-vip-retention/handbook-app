@@ -102,7 +102,7 @@
   },
   {
    "t": "img",
-   "alt": "Flow chart: Shift Handover",
+   "alt": "Flow chart of the Shift Handover steps, the same steps as the Procedure table above",
    "src": "/flowcharts/shift-handover.png"
   },
   {
@@ -135,58 +135,7 @@
   },
   {
    "t": "h2",
-   "x": "4. Procedure (Action / Sequence / Degree / Tool)"
-  },
-  {
-   "t": "table",
-   "head": [
-    "#",
-    "Action",
-    "Sequence (when)",
-    "Degree / standard",
-    "Tool"
-   ],
-   "rows": [
-    [
-     "1",
-     "Log open items",
-     "Last 15 min of shift",
-     "Open cases, pending tickets, uncontacted lists, escalations in flight, next-shift priorities",
-     "Team Engagement File, Handover tab"
-    ],
-    [
-     "2",
-     "Note follow-ups with deadlines",
-     "At handover",
-     "Each item: UID/brand, status, what is needed, by when",
-     "Handover tab"
-    ],
-    [
-     "3",
-     "Hand over to incoming",
-     "Shift change",
-     "Incoming reads and acknowledges the handover",
-     "Lark"
-    ],
-    [
-     "4",
-     "Incoming picks up",
-     "Shift start",
-     "Work the flagged items first; query the outgoing CS if anything is unclear",
-     "Handover tab"
-    ],
-    [
-     "5",
-     "Close the loop",
-     "On resolution",
-     "Update status; tag done",
-     "QA Record"
-    ]
-   ]
-  },
-  {
-   "t": "h2",
-   "x": "5. Guards"
+   "x": "4. Guards"
   },
   {
    "t": "list",
@@ -196,7 +145,7 @@
   },
   {
    "t": "h2",
-   "x": "6. Remarks"
+   "x": "5. Remarks"
   },
   {
    "t": "list",

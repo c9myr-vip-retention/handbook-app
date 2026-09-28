@@ -102,7 +102,7 @@
   },
   {
    "t": "img",
-   "alt": "Flow chart: Case Study Logging",
+   "alt": "Flow chart of the Case Study Logging steps, the same steps as the Procedure table above",
    "src": "/flowcharts/case-study-logging.png"
   },
   {
@@ -135,58 +135,7 @@
   },
   {
    "t": "h2",
-   "x": "4. Procedure (Action / Sequence / Degree / Tool)"
-  },
-  {
-   "t": "table",
-   "head": [
-    "#",
-    "Action",
-    "Sequence (when)",
-    "Degree / standard",
-    "Tool"
-   ],
-   "rows": [
-    [
-     "1",
-     "Spot a case worth logging",
-     "On a notable incident",
-     "Real incident with a lesson; skip the trivial",
-     "Chat, BO, reports"
-    ],
-    [
-     "2",
-     "Categorise and rate severity",
-     "After spotting",
-     "Operational Error / Player Abuse-Exploit / Provider-System Issue; severity Critical/High/Medium/Low",
-     "Category definitions"
-    ],
-    [
-     "3",
-     "Write the case row",
-     "After categorising",
-     "What Happened, Why It Happened, What We Learn, Rule or SOP it maps to; role titles only",
-     "Case Study Library"
-    ],
-    [
-     "4",
-     "Link the full write-up",
-     "If detailed",
-     "Summary in the library, full write-up in a Lark Doc, link in Reference",
-     "Lark Docs"
-    ],
-    [
-     "5",
-     "Review and fold back",
-     "Periodically",
-     "Senior/ATL review; if a case reveals an SOP gap, feed it to the SOP owner",
-     "SOP Book"
-    ]
-   ]
-  },
-  {
-   "t": "h2",
-   "x": "5. Guards"
+   "x": "4. Guards"
   },
   {
    "t": "list",
@@ -196,7 +145,7 @@
   },
   {
    "t": "h2",
-   "x": "6. Remarks"
+   "x": "5. Remarks"
   },
   {
    "t": "list",

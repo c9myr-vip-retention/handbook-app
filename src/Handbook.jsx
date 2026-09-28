@@ -658,6 +658,8 @@ function siblingsOf(NAV, id) {
 }
 
 // SOP template header, laid out like the Lark SOP sheet.
+// Blank until the SOP is approved (SOP template header standard).
+const PENDING = new Set(['Effective date', 'Approved by'])
 function SopHeader({ f = [], version }) {
   const get = (k) => (f.find(([key]) => key.toLowerCase() === k.toLowerCase()) || [])[1]
   const cells = [['Process name', get('Process name')], ['Version number', version || get('Version')],
@@ -666,7 +668,7 @@ function SopHeader({ f = [], version }) {
   return (
     <div className="sophead">
       <div className="sophead-title">Standard Operating Procedure</div>
-      <dl>{cells.map(([k, v]) => <div key={k}><dt>{k}</dt><dd>{v || <span className="unset">Not set</span>}</dd></div>)}</dl>
+      <dl>{cells.map(([k, v]) => <div key={k}><dt>{k}</dt><dd>{v || <span className="unset">{PENDING.has(k) ? 'Pending approval' : 'Not set'}</span>}</dd></div>)}</dl>
     </div>
   )
 }
@@ -674,9 +676,18 @@ function SopHeader({ f = [], version }) {
 // Mermaid flow chart, drawn in the browser in the handbook's colours.
 // The library loads only when a page has a chart.
 let mermaidReady = null
+// Long left-to-right charts get squeezed to an unreadable size in the page
+// column, so charts with more than 5 boxes are drawn top-down instead.
+function orient(code) {
+  const boxes = new Set([...String(code).matchAll(/[\[({]+"?([^\])}"]+)"?[\])}]+/g)].map(m => m[1])).size
+  return boxes > 5 ? code.replace(/^(\s*(?:flowchart|graph))\s+(LR|RL)\b/m, '$1 TD') : code
+}
+
 function Flow({ code }) {
   const ref = useRef(null)
   const [err, setErr] = useState(null)
+  const [svgHtml, setSvgHtml] = useState('')
+  const [zoom, setZoom] = useState(false)
   useEffect(() => {
     let alive = true
     const css = getComputedStyle(document.documentElement)
@@ -692,18 +703,66 @@ function Flow({ code }) {
         },
         flowchart: { curve: 'basis', htmlLabels: false },
       })
+      // Status colours follow the theme: `class X stop|warn|good` in the chart code.
+      const tone = (name, soft, line) => `classDef ${name} fill:${v(soft)},stroke:${v(line)},color:${v('--text')}`
+      const themed = orient(code) + '\n' + [tone('stop', '--restricted-soft', '--restricted'),
+        tone('warn', '--planned-soft', '--planned'), tone('good', '--good-soft', '--good')].join('\n')
       try {
-        const { svg } = await mermaid.render('flow' + Math.random().toString(36).slice(2), code)
-        if (alive && ref.current) { ref.current.innerHTML = svg; setErr(null) }
+        const { svg } = await mermaid.render('flow' + Math.random().toString(36).slice(2), themed)
+        if (alive && ref.current) {
+          ref.current.innerHTML = svg
+          // Draw at natural size (readable text); the figure scrolls sideways if wider.
+          const el = ref.current.querySelector('svg'), w = el?.viewBox?.baseVal?.width
+          if (w) { el.setAttribute('width', Math.ceil(w)); el.style.maxWidth = 'none' }
+          setSvgHtml(ref.current.innerHTML); setErr(null)
+        }
       } catch (e) { if (alive) setErr(String(e.message || e).split('\n')[0]) }
     })
     return () => { alive = false }
   }, [code, document.documentElement.getAttribute('data-theme')])
+  const label = flowLabel(code)
   return (
     <figure className="figure flow">
-      <div ref={ref} role="img" aria-label={flowLabel(code)} />
+      <div ref={ref} role="img" aria-label={label} />
       {err && <p className="err" role="alert">This chart couldn't be drawn. An admin can fix the chart code in Edit. ({err})</p>}
+      {svgHtml && <figcaption className="figcap"><button className="crumblink" onClick={() => setZoom(true)}>Enlarge chart</button></figcaption>}
+      <Zoom open={zoom} onClose={() => setZoom(false)} label="Flow chart">
+        <div role="img" aria-label={label} dangerouslySetInnerHTML={{ __html: svgHtml }} />
+      </Zoom>
     </figure>
+  )
+}
+
+// Chart image from the enrolled Lark template. Shown at page width; Enlarge
+// opens it at full size.
+function ImageFigure({ src, alt }) {
+  const [zoom, setZoom] = useState(false)
+  return (
+    <figure className="figure">
+      <img src={src} alt={alt || ''} loading="lazy" onClick={() => setZoom(true)} style={{ cursor: 'zoom-in' }} />
+      <figcaption className="figcap"><button className="crumblink" onClick={() => setZoom(true)}>Enlarge chart</button></figcaption>
+      <Zoom open={zoom} onClose={() => setZoom(false)} label={alt || 'Chart'}>
+        <img src={src} alt={alt || ''} />
+      </Zoom>
+    </figure>
+  )
+}
+
+// Full-size view in a native modal dialog: focus is trapped, Escape closes.
+function Zoom({ open, onClose, label, children }) {
+  const ref = useRef(null)
+  useEffect(() => {
+    const d = ref.current
+    if (!d) return
+    if (open && !d.open) d.showModal()
+    if (!open && d.open) d.close()
+  }, [open])
+  return (
+    <dialog ref={ref} className="zoom" aria-label={label} onClose={onClose}
+      onClick={e => { if (e.target === ref.current) onClose() }}>
+      <div className="zoombar"><span>{label}</span><button className="btn small ghost" onClick={onClose}>Close</button></div>
+      <div className="zoombody">{open && children}</div>
+    </dialog>
   )
 }
 
@@ -717,7 +776,7 @@ function flowLabel(code) {
 function Block({ b, id, version }) {
   if (b.t === 'h2') return <h2 id={id}>{b.x}</h2>
   if (b.t === 'sopheader') return <SopHeader f={b.f} version={version} />
-  if (b.t === 'img') return <figure className="figure"><img src={b.src} alt={b.alt || ''} loading="lazy" /></figure>
+  if (b.t === 'img') return <ImageFigure src={b.src} alt={b.alt} />
   if (b.t === 'flow') return <Flow code={b.x} />
   if (b.t === 'p') return <p><Inline x={b.x} /></p>
   if (b.t === 'callout') return (

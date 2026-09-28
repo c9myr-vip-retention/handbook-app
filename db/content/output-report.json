@@ -110,7 +110,7 @@
   },
   {
    "t": "img",
-   "alt": "Flow chart: Output Report",
+   "alt": "Flow chart of the Output Report steps, the same steps as the Procedure table above",
    "src": "/flowcharts/output-report.png"
   },
   {
@@ -144,7 +144,7 @@
   },
   {
    "t": "h2",
-   "x": "4. Procedure: Pull Data from Lark Base (Action / Sequence / Degree / Tool)"
+   "x": "4. Detailed steps: Pull Data from Lark Base"
   },
   {
    "t": "table",
@@ -199,7 +199,7 @@
   },
   {
    "t": "h2",
-   "x": "5. Procedure: Paste into CS Output (Action / Sequence / Degree / Tool)"
+   "x": "5. Detailed steps: Paste into CS Output"
   },
   {
    "t": "table",

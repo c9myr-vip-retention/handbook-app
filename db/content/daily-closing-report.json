@@ -110,7 +110,7 @@
   },
   {
    "t": "img",
-   "alt": "Flow chart: Daily Closing Report",
+   "alt": "Flow chart of the Daily Closing Report steps, the same steps as the Procedure table above",
    "src": "/flowcharts/daily-closing-report.png"
   },
   {
@@ -145,65 +145,7 @@
   },
   {
    "t": "h2",
-   "x": "4. Procedure (Action / Sequence / Degree / Tool)"
-  },
-  {
-   "t": "table",
-   "head": [
-    "#",
-    "Action",
-    "Sequence (when)",
-    "Degree / standard",
-    "Tool"
-   ],
-   "rows": [
-    [
-     "1",
-     "Wait for post-close data",
-     "After daily close",
-     "Same-day provisional excluded",
-     "Dashboard"
-    ],
-    [
-     "2",
-     "Pull per-brand figures",
-     "After close",
-     "All brands; missing = dash",
-     "BO / dashboard"
-    ],
-    [
-     "3",
-     "Compute team totals",
-     "On collation",
-     "Weighted: sum depositors / sum population; never average percentages",
-     "Sheet formulas"
-    ],
-    [
-     "4",
-     "Assemble sections in brand order",
-     "After compute",
-     "Section 1 brand order (LPK, BM, HOT, RM, SK, ACE, JK); name concentration risk",
-     "Report template"
-    ],
-    [
-     "5",
-     "Flag artifacts and risks",
-     "Before sending",
-     "Quantify any data-artifact gain; flag cross-day comparisons",
-     "Report notes"
-    ],
-    [
-     "6",
-     "Review and submit",
-     "End of shift",
-     "Totals reconcile vs the scorecard ledger; no em dashes; submit to the closing file",
-     "Closing file, Lark"
-    ]
-   ]
-  },
-  {
-   "t": "h2",
-   "x": "5. Guards"
+   "x": "4. Guards"
   },
   {
    "t": "list",
@@ -213,7 +155,7 @@
   },
   {
    "t": "h2",
-   "x": "6. Remarks"
+   "x": "5. Remarks"
   },
   {
    "t": "list",

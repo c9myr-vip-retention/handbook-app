@@ -110,7 +110,7 @@
   },
   {
    "t": "img",
-   "alt": "Flow chart: Compensation (Livechat)",
+   "alt": "Flow chart of the Compensation (Livechat) steps, the same steps as the Procedure table above",
    "src": "/flowcharts/compensation.png"
   },
   {
@@ -144,65 +144,7 @@
   },
   {
    "t": "h2",
-   "x": "4. Procedure (Action / Sequence / Degree / Tool)"
-  },
-  {
-   "t": "table",
-   "head": [
-    "#",
-    "Action",
-    "Sequence (when)",
-    "Degree / standard",
-    "Tool"
-   ],
-   "rows": [
-    [
-     "1",
-     "Verify the case",
-     "First",
-     "Significant loss this week, SW has balance, no recent credit; acknowledge the emotion",
-     "BO profile, LC"
-    ],
-    [
-     "2",
-     "Determine eligibility and tier",
-     "After verify",
-     "Losing-a-lot to SW credit; losing-little to validate + game suggestion (no credit); habitual asker to decline gently, redirect",
-     "Profile"
-    ],
-    [
-     "3",
-     "Size the compensation",
-     "If eligible",
-     "Tier percentage of the base (T3 = 3%, TV = 5%), within remaining monthly allowance; SW based",
-     "Bonus SOP, SW field"
-    ],
-    [
-     "4",
-     "Check the approval gate",
-     "Before issuing",
-     "Within limit to CS; above to ATL",
-     "Lark"
-    ],
-    [
-     "5",
-     "Issue and message",
-     "On approval",
-     "Issue SW credit; empathetic message; state validity; no false promise",
-     "BO, templates"
-    ],
-    [
-     "6",
-     "Record",
-     "After issuing",
-     "Log player, reason, amount, tier, issued by; tag",
-     "QA Record"
-    ]
-   ]
-  },
-  {
-   "t": "h2",
-   "x": "5. Guards"
+   "x": "4. Guards"
   },
   {
    "t": "list",
@@ -212,7 +154,7 @@
   },
   {
    "t": "h2",
-   "x": "6. Remarks"
+   "x": "5. Remarks"
   },
   {
    "t": "list",

@@ -60,7 +60,7 @@
      "Before build: subject and content from the approved Template Tab or campaign set; ATL (or above) approval for any new or edited copy.",
      "No ad-hoc copy without ATL (or above) approval.",
      "Template Tab, Lark approval",
-     ""
+     "ATL (or above) is the working default, not yet confirmed by the Supervisor. See the Open item at the end."
     ],
     [
      "2",
@@ -110,7 +110,7 @@
   },
   {
    "t": "img",
-   "alt": "Flow chart: Push Notification (General)",
+   "alt": "Flow chart of the Push Notification (General) steps, the same steps as the Procedure table above",
    "src": "/flowcharts/push-notification.png"
   },
   {
@@ -176,65 +176,7 @@
   },
   {
    "t": "h2",
-   "x": "5. Procedure (Action / Sequence / Degree / Tool)"
-  },
-  {
-   "t": "table",
-   "head": [
-    "#",
-    "Action",
-    "Sequence (when)",
-    "Degree / standard",
-    "Tool"
-   ],
-   "rows": [
-    [
-     "1",
-     "Confirm the push is approved and copy is ready",
-     "Before build",
-     "Subject + content from the approved Template Tab or campaign set; ATL (or above) approval for any new or edited copy",
-     "Template Tab, Lark approval"
-    ],
-    [
-     "2",
-     "Build the recipient list by segment",
-     "After approval",
-     "Correct brand tab; target segment only (tier / DSLD / campaign list); RG and chase-flagged excluded",
-     "Team Engagement File, BO"
-    ],
-    [
-     "3",
-     "Export in the platform's format",
-     "Before upload",
-     "TC `.txt`, Zyra `.csv`; verify the format before leaving the file",
-     "Team Engagement File / Zyra BO"
-    ],
-    [
-     "4",
-     "Open the push tool for the platform",
-     "Ready to send",
-     "Follow the exact entry path in Section 4 for that platform",
-     "TC BO / Zyra BO"
-    ],
-    [
-     "5",
-     "Upload the list, input subject + content, send",
-     "On send",
-     "Upload the file; paste the approved subject + content per language slot (EN/BM/CN where the push requires it); TC click OK, Zyra click Create",
-     "TC BO / Zyra BO"
-    ],
-    [
-     "6",
-     "Log the send",
-     "Immediately after",
-     "QA Record: brand, segment, push type, recipient count, time; attach BO screenshot",
-     "QA Record, Lark Base"
-    ]
-   ]
-  },
-  {
-   "t": "h2",
-   "x": "6. Guards"
+   "x": "5. Guards"
   },
   {
    "t": "list",
@@ -247,7 +189,7 @@
   },
   {
    "t": "h2",
-   "x": "7. Remarks"
+   "x": "6. Remarks"
   },
   {
    "t": "list",

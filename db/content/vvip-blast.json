@@ -102,7 +102,7 @@
   },
   {
    "t": "img",
-   "alt": "Flow chart: VVIP Blast",
+   "alt": "Flow chart of the VVIP Blast steps, the same steps as the Procedure table above",
    "src": "/flowcharts/vvip-blast.png"
   },
   {
@@ -136,58 +136,7 @@
   },
   {
    "t": "h2",
-   "x": "4. Procedure (Action / Sequence / Degree / Tool)"
-  },
-  {
-   "t": "table",
-   "head": [
-    "#",
-    "Action",
-    "Sequence (when)",
-    "Degree / standard",
-    "Tool"
-   ],
-   "rows": [
-    [
-     "1",
-     "Confirm the upgraded VVIP list is updated by ATL or above",
-     "Before proceeding, after the 2:00 PM update",
-     "Do not send until verified",
-     "Team Engagement File"
-    ],
-    [
-     "2",
-     "Copy and save the New Welcome Players column",
-     "After confirmation",
-     "Use today's latest list only",
-     "Team Engagement File"
-    ],
-    [
-     "3",
-     "Get the IM subject and content from Template Tab > New Players",
-     "Before sending",
-     "Do not use a template from another campaign type",
-     "Team Engagement File"
-    ],
-    [
-     "4",
-     "Send IM to all newly upgraded VVIP players",
-     "At 3:00 PM (morning shift)",
-     "Verify segment and brand per player; use the correct template",
-     "BO (TC/Zyra)"
-    ],
-    [
-     "5",
-     "Update the QA Record",
-     "After all IM is sent",
-     "Attach a BO screenshot",
-     "Lark Base"
-    ]
-   ]
-  },
-  {
-   "t": "h2",
-   "x": "5. Messaging Principles"
+   "x": "4. Messaging Principles"
   },
   {
    "t": "list",
@@ -202,7 +151,7 @@
   },
   {
    "t": "h2",
-   "x": "6. Guards"
+   "x": "5. Guards"
   },
   {
    "t": "list",
@@ -214,7 +163,7 @@
   },
   {
    "t": "h2",
-   "x": "7. Remarks"
+   "x": "6. Remarks"
   },
   {
    "t": "list",

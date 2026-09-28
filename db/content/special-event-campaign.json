@@ -126,7 +126,7 @@
   },
   {
    "t": "img",
-   "alt": "Flow chart: Special Event Campaign",
+   "alt": "Flow chart of the Special Event Campaign steps, the same steps as the Procedure table above",
    "src": "/flowcharts/special-event-campaign.png"
   },
   {
@@ -206,79 +206,7 @@
   },
   {
    "t": "h2",
-   "x": "5. Procedure (Action / Sequence / Degree / Tool)"
-  },
-  {
-   "t": "table",
-   "head": [
-    "#",
-    "Action",
-    "Sequence (when)",
-    "Degree / standard",
-    "Tool"
-   ],
-   "rows": [
-    [
-     "1",
-     "Draft the event proposal",
-     "Before anything",
-     "Window (start + end), brands, eligible tiers, bonus structure, platform split (TC/Zyra), content scope; role titles only",
-     "Proposal doc, Lark"
-    ],
-    [
-     "2",
-     "Get sign-off",
-     "Before any build",
-     "Supervisor approves structure and budget for every special event; nothing is built until approved",
-     "Lark approval"
-    ],
-    [
-     "3",
-     "Build the content set",
-     "After approval",
-     "SMS (<160, no em dash, Cari tag verbatim), IM (Zyra EN/CN/BM, TC Manglish), Push per the Push SOP; per brand x language",
-     "Templates, Push Notification SOP"
-    ],
-    [
-     "4",
-     "Prepare and upload banners",
-     "Before go-live",
-     "TC carousel: Communications > Announcements > Carousel > Create; widen Announcement Date to the full window; pop-ups under Promo Popup; set a real end date",
-     "TC BO, banner files"
-    ],
-    [
-     "5",
-     "Lock the bonus rule",
-     "Before go-live",
-     "Ladder, SW cap, turnover, validity and ticket query set through the Bonus SOP; approval gate applied",
-     "Bonus Issuance & Approval SOP"
-    ],
-    [
-     "6",
-     "Go live and issue within the window",
-     "During the window only",
-     "Issue only between start and end; contact precedes deposit; tag per event; honour any weekday/weekend limits in the proposal",
-     "BO, claim ticket"
-    ],
-    [
-     "7",
-     "Track through the event",
-     "Daily during",
-     "Update QA Record; monitor take-up and ROI; flag concentration or abuse to the ATL",
-     "QA Record, ROI Table"
-    ],
-    [
-     "8",
-     "Tear down",
-     "At window end",
-     "Expire or pull banners; close event tags; short post-event review (result vs target)",
-     "TC BO, ROI Table, review doc"
-    ]
-   ]
-  },
-  {
-   "t": "h2",
-   "x": "6. Guards"
+   "x": "5. Guards"
   },
   {
    "t": "list",
@@ -292,7 +220,7 @@
   },
   {
    "t": "h2",
-   "x": "7. Remarks"
+   "x": "6. Remarks"
   },
   {
    "t": "list",

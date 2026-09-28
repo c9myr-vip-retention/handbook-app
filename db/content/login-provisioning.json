@@ -110,7 +110,7 @@
   },
   {
    "t": "img",
-   "alt": "Flow chart: Login Provisioning & Rotation (BO)",
+   "alt": "Flow chart of the Login Provisioning & Rotation (BO) steps, the same steps as the Procedure table above",
    "src": "/flowcharts/login-provisioning.png"
   },
   {
@@ -173,65 +173,7 @@
   },
   {
    "t": "h2",
-   "x": "5. Procedure (Action / Sequence / Degree / Tool)"
-  },
-  {
-   "t": "table",
-   "head": [
-    "#",
-    "Action",
-    "Sequence (when)",
-    "Degree / standard",
-    "Tool"
-   ],
-   "rows": [
-    [
-     "1",
-     "Raise the provisioning request",
-     "On new hire or new brand assignment",
-     "ATL lists the CS (role title) and the exact brands for this batch; assigned brands only, not all by default",
-     "Lark request to IT"
-    ],
-    [
-     "2",
-     "IT creates the BO login",
-     "After the request",
-     "IT / holding PIC creates the login per assigned brand; scope limited to those brands",
-     "Brand BO"
-    ],
-    [
-     "3",
-     "Issue the login to the CS",
-     "After creation",
-     "The CS's own team leader (ATL) hands over one login per assigned brand; credential never posted in the repo or synced cloud. [OPEN: the exact channel used for the handover]",
-     "Team leader to CS"
-    ],
-    [
-     "4",
-     "CS verifies access",
-     "First shift on the assignment",
-     "CS logs into each assigned BO; reports any failure to ATL / IT at once",
-     "Brand BO"
-    ],
-    [
-     "5",
-     "Track the holding",
-     "Ongoing",
-     "ATL keeps a current CS-to-brand access map, updated on every change. [OPEN: where the login directory lives]",
-     "Login directory [OPEN]"
-    ],
-    [
-     "6",
-     "Revoke on exit or reassignment",
-     "Same day as the leaver / reassignment",
-     "IT or the PIC cuts the BO connection; ATL confirms the revocation is done",
-     "Brand BO"
-    ]
-   ]
-  },
-  {
-   "t": "h2",
-   "x": "6. Guards"
+   "x": "5. Guards"
   },
   {
    "t": "list",
@@ -244,7 +186,7 @@
   },
   {
    "t": "h2",
-   "x": "7. Remarks"
+   "x": "6. Remarks"
   },
   {
    "t": "list",

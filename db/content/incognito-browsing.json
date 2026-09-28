@@ -110,7 +110,7 @@
   },
   {
    "t": "img",
-   "alt": "Flow chart: Incognito Browsing (work shift)",
+   "alt": "Flow chart of the Incognito Browsing (work shift) steps, the same steps as the Procedure table above",
    "src": "/flowcharts/incognito-browsing.png"
   },
   {
@@ -140,70 +140,12 @@
     "Open Lark files by copying the file link and pasting it into the Incognito window, not through the Lark app or a normal browser.",
     "Never use a normal (non-Incognito) Chrome window for work.",
     "Never save or autofill work logins or passwords in Chrome.",
-    "Non-compliance is a disciplinary matter (see Section 5)."
+    "Non-compliance is a disciplinary matter (see Section 4)."
    ]
   },
   {
    "t": "h2",
-   "x": "4. Procedure (Action / Sequence / Degree / Tool)"
-  },
-  {
-   "t": "table",
-   "head": [
-    "#",
-    "Action",
-    "Sequence (when)",
-    "Degree / standard",
-    "Tool"
-   ],
-   "rows": [
-    [
-     "1",
-     "Open Chrome in Incognito",
-     "Before any work browsing, at shift start",
-     "Ctrl+Shift+N, or Chrome menu > New Incognito window; confirm the dark Incognito window is active",
-     "Chrome"
-    ],
-    [
-     "2",
-     "Log in to the BO in the Incognito window",
-     "Each BO session",
-     "Every back office opened inside the Incognito window; log in fresh, do not save the password",
-     "Chrome Incognito, BO"
-    ],
-    [
-     "3",
-     "Open Lark files and work sites in Incognito",
-     "Throughout the shift",
-     "For a Lark file or doc: open it, copy its link, and paste the link into the Incognito window. Do not open it in the Lark app or a normal browser. Open any other work site directly in Incognito",
-     "Lark; Chrome Incognito"
-    ],
-    [
-     "4",
-     "Keep no normal Chrome window for work",
-     "Throughout the shift",
-     "Do not use a regular (profile, history-saving) Chrome window for any work task",
-     "Chrome"
-    ],
-    [
-     "5",
-     "Close the Incognito window at breaks and shift end",
-     "On break and at shift end",
-     "Close it so no session or cache persists on the machine",
-     "Chrome"
-    ],
-    [
-     "6",
-     "Report if Incognito is blocked or unavailable",
-     "On any issue",
-     "Tell the ATL or TL at once; do not fall back to a normal window",
-     "Lark"
-    ]
-   ]
-  },
-  {
-   "t": "h2",
-   "x": "5. Enforcement"
+   "x": "4. Enforcement"
   },
   {
    "t": "table",
@@ -236,7 +178,7 @@
   },
   {
    "t": "h2",
-   "x": "6. Guards"
+   "x": "5. Guards"
   },
   {
    "t": "list",
@@ -248,7 +190,7 @@
   },
   {
    "t": "h2",
-   "x": "7. Remarks"
+   "x": "6. Remarks"
   },
   {
    "t": "list",

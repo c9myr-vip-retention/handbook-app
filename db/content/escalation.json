@@ -100,7 +100,7 @@
   },
   {
    "t": "img",
-   "alt": "Flow chart: Escalation",
+   "alt": "Flow chart of the Escalation steps, the same steps as the Procedure table above",
    "src": "/flowcharts/escalation.png"
   },
   {
@@ -143,58 +143,7 @@
   },
   {
    "t": "h2",
-   "x": "5. Procedure (Action / Sequence / Degree / Tool)"
-  },
-  {
-   "t": "table",
-   "head": [
-    "#",
-    "Action",
-    "Sequence (when)",
-    "Degree / standard",
-    "Tool"
-   ],
-   "rows": [
-    [
-     "1",
-     "Attempt at your level",
-     "First",
-     "Check the relevant SOP / Case Library; resolve if within your authority",
-     "SOP Book, Case Library"
-    ],
-    [
-     "2",
-     "Package the issue",
-     "If you cannot close",
-     "UID/username, brand, amount, screenshots, steps tried; role titles only",
-     "Lark"
-    ],
-    [
-     "3",
-     "Route to the right level",
-     "After packaging",
-     "Senior for junior-level cases; ATL for confirmed faults, high-value or approval gates; WL/Support/PYM for their domains; SPV/Head only via ATL",
-     "Lark escalation groups"
-    ],
-    [
-     "4",
-     "Time-box and follow up",
-     "After routing",
-     "If unresolved past the case SLA (e.g. WD delay over 10 min), follow up",
-     "Tracker"
-    ],
-    [
-     "5",
-     "Confirm and close",
-     "On resolution",
-     "Recheck BO, notify the player, tag the thread SOLVED, log the outcome",
-     "BO, QA Record"
-    ]
-   ]
-  },
-  {
-   "t": "h2",
-   "x": "6. Common Escalation Triggers"
+   "x": "5. Common Escalation Triggers"
   },
   {
    "t": "list",
@@ -208,7 +157,7 @@
   },
   {
    "t": "h2",
-   "x": "7. Guards"
+   "x": "6. Guards"
   },
   {
    "t": "list",
@@ -219,7 +168,7 @@
   },
   {
    "t": "h2",
-   "x": "8. Remarks"
+   "x": "7. Remarks"
   },
   {
    "t": "p",

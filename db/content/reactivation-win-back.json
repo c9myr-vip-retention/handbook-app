@@ -92,7 +92,7 @@
      "On redeposit, credit only if a contact preceded it. Apply the idle-days weighting; one count per player per month.",
      "Credited only with prior contact; correct weighting; one count",
      "contact_log; QA Record",
-     "Most recent contact owns the count; no double count"
+     "Most recent contact owns the count; no double count. Idle-days weighting: 1-6d = 0.10, 7-13d = 0.50, 14-29d = 0.75, 30d+ = 1.00."
     ]
    ]
   },
@@ -102,7 +102,7 @@
   },
   {
    "t": "img",
-   "alt": "Flow chart: Reactivation and Win-back",
+   "alt": "Flow chart of the Reactivation and Win-back steps, the same steps as the Procedure table above",
    "src": "/flowcharts/reactivation-win-back.png"
   },
   {
@@ -165,58 +165,7 @@
   },
   {
    "t": "h2",
-   "x": "5. Procedure (Action / Sequence / Degree / Tool)"
-  },
-  {
-   "t": "table",
-   "head": [
-    "#",
-    "Action",
-    "Sequence (when)",
-    "Degree / standard",
-    "Tool"
-   ],
-   "rows": [
-    [
-     "1",
-     "Pull the inactive list by DSLD tier",
-     "Daily / scheduled",
-     "Segment by DSLD (7+/14+/30+); exclude RG and risk-tagged",
-     "BO / dashboard, risk tags"
-    ],
-    [
-     "2",
-     "Match message to tier",
-     "After segmenting",
-     "Check-in for early; win-back offer for deeper; Telegram never promises a bonus",
-     "Templates"
-    ],
-    [
-     "3",
-     "Contact before any offer",
-     "First touch",
-     "Log the contact; it must precede any redeposit for credit",
-     "contact_log, IM / Push / SMS / Telegram"
-    ],
-    [
-     "4",
-     "Size any bonus via the Bonus SOP",
-     "If the player responds/deposits",
-     "Per Bonus Issuance & Approval (SW cap, ladder)",
-     "Bonus SOP"
-    ],
-    [
-     "5",
-     "Record the reactivation",
-     "On redeposit",
-     "Credit only if contact preceded; idle-days weighting 1-6d=0.10, 7-13d=0.50, 14-29d=0.75, 30d+=1.00; one count/player/month",
-     "contact_log, QA Record"
-    ]
-   ]
-  },
-  {
-   "t": "h2",
-   "x": "6. Guards"
+   "x": "5. Guards"
   },
   {
    "t": "list",
@@ -228,7 +177,7 @@
   },
   {
    "t": "h2",
-   "x": "7. Remarks"
+   "x": "6. Remarks"
   },
   {
    "t": "list",

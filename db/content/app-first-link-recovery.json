@@ -126,7 +126,7 @@
   },
   {
    "t": "img",
-   "alt": "Flow chart: App-First Link Recovery",
+   "alt": "Flow chart of the App-First Link Recovery steps, the same steps as the Procedure table above",
    "src": "/flowcharts/app-first-link-recovery.png"
   },
   {
@@ -175,79 +175,7 @@
   },
   {
    "t": "h2",
-   "x": "4. Procedure (Action / Sequence / Degree / Tool)"
-  },
-  {
-   "t": "table",
-   "head": [
-    "#",
-    "Action",
-    "Sequence (when)",
-    "Degree / standard",
-    "Tool"
-   ],
-   "rows": [
-    [
-     "1",
-     "Acknowledge and point to the app",
-     "First reply",
-     "Confirm the problem first: site not loading, or not findable (different problems). Say the app is the fastest way in. Do not explain why the site is missing from search, do not speculate on the cause",
-     "LiveChat / Telegram"
-    ],
-    [
-     "2",
-     "Send the app download link",
-     "After step 1",
-     "One link only, copied from the locked reference. Check you are on the correct brand row before sending",
-     "Locked reference (Lark)"
-    ],
-    [
-     "3",
-     "Send the download-button screenshot",
-     "Straight after the link, as a separate message",
-     "Use the stored brand asset from the bucket. Do not screenshot it yourself",
-     "Stored brand asset"
-    ],
-    [
-     "4",
-     "Confirm the download worked",
-     "After step 3",
-     "Ask directly (\"Download done boss?\") and wait for the answer. Do not move to step 5 until the player confirms. No reply after 3 minutes: prompt once, do not close the chat",
-     "LiveChat / Telegram"
-    ],
-    [
-     "5",
-     "Send the official site link as backup",
-     "After the download is confirmed",
-     "One link only, from the locked reference. Tell the player to save it and invite them to the official Telegram channel",
-     "Locked reference (Lark)"
-    ],
-    [
-     "6",
-     "Give the trusted-source warning",
-     "Every chat, no exceptions",
-     "Use the canned line word for word. Never name the fake domain, even when warning about it",
-     "Canned response"
-    ],
-    [
-     "7",
-     "Capture UID and log",
-     "After the access is fixed",
-     "Ask for UID now, not earlier. No answer: ask once more before closing. Log in contact_log with the tag Access Recovery. No UID means no attribution",
-     "contact_log"
-    ],
-    [
-     "8",
-     "If the player reports a suspicious site",
-     "Whenever it comes up",
-     "Ask for a screenshot only. Do not ask for the URL, do not open it. Escalate to ATL the same shift with the screenshot attached",
-     "Screenshot, ATL"
-    ]
-   ]
-  },
-  {
-   "t": "h2",
-   "x": "5. Canned Responses, English"
+   "x": "4. Canned Responses, English"
   },
   {
    "t": "code",
@@ -259,7 +187,7 @@
   },
   {
    "t": "h2",
-   "x": "6. Canned Responses, Bahasa Malaysia"
+   "x": "5. Canned Responses, Bahasa Malaysia"
   },
   {
    "t": "code",
@@ -267,7 +195,7 @@
   },
   {
    "t": "h2",
-   "x": "7. Guards (never do this)"
+   "x": "6. Guards (never do this)"
   },
   {
    "t": "list",
@@ -284,7 +212,7 @@
   },
   {
    "t": "h2",
-   "x": "8. Escalation Ladder"
+   "x": "7. Escalation Ladder"
   },
   {
    "t": "table",
@@ -330,7 +258,7 @@
   },
   {
    "t": "h2",
-   "x": "9. Remarks"
+   "x": "8. Remarks"
   },
   {
    "t": "list",
@@ -341,7 +269,7 @@
   },
   {
    "t": "h2",
-   "x": "10. Rollout Prerequisites"
+   "x": "9. Rollout Prerequisites"
   },
   {
    "t": "p",

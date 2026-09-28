@@ -117,7 +117,7 @@
   },
   {
    "t": "img",
-   "alt": "Flow chart: KPI Scoring",
+   "alt": "Flow chart of the KPI Scoring steps, the same steps as the Procedure table above",
    "src": "/flowcharts/kpi-scoring.png"
   },
   {
@@ -184,72 +184,7 @@
   },
   {
    "t": "h2",
-   "x": "5. Procedure (Action / Sequence / Degree / Tool)"
-  },
-  {
-   "t": "table",
-   "head": [
-    "#",
-    "Action",
-    "Sequence (when)",
-    "Degree / standard",
-    "Tool"
-   ],
-   "rows": [
-    [
-     "1",
-     "Pull evidence per metric",
-     "Month-end, after close",
-     "Each metric from its named source; post-close data only",
-     "contact_log, QA sheet, LC report, mistake log, Lark"
-    ],
-    [
-     "2",
-     "Score each metric to a band",
-     "After evidence",
-     "Map raw to 0/40/60/80/100 by the cutoffs; threshold takes the lower band",
-     "Scorecard bands"
-    ],
-    [
-     "3",
-     "Apply the person's locked weights",
-     "After scoring",
-     "The weights set before the month; weighted = weight x score",
-     "Scorecard"
-    ],
-    [
-     "4",
-     "Sum and sense-check",
-     "After weighting",
-     "Total = sum of weighted; does it match the person's real level (Section 4)?",
-     "Scorecard total"
-    ],
-    [
-     "5",
-     "If the number feels wrong, fix next month's scorecard, not this month's cell",
-     "On mismatch",
-     "Note it and adjust metrics or weights for next month; never hand-lower a score or change this month's weights",
-     "Next month's scorecard"
-    ],
-    [
-     "6",
-     "Evidence-review any disputed metric",
-     "Before finalising",
-     "A score moves only if the evidence supports it (e.g. Reporting = 40 needs the logs)",
-     "Source logs"
-    ],
-    [
-     "7",
-     "Record and release",
-     "After sign-off",
-     "Lock the sheet, note the weights version and date; brief the agent with the coaching 5-step",
-     "Scorecard, Lark"
-    ]
-   ]
-  },
-  {
-   "t": "h2",
-   "x": "6. Over-Scoring Guards"
+   "x": "5. Over-Scoring Guards"
   },
   {
    "t": "list",
@@ -261,7 +196,7 @@
   },
   {
    "t": "h2",
-   "x": "7. Remarks"
+   "x": "6. Remarks"
   },
   {
    "t": "list",

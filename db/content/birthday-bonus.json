@@ -134,7 +134,7 @@
   },
   {
    "t": "img",
-   "alt": "Flow chart: Birthday Bonus (issuance)",
+   "alt": "Flow chart of the Birthday Bonus (issuance) steps, the same steps as the Procedure table above",
    "src": "/flowcharts/birthday-bonus.png"
   },
   {
@@ -169,65 +169,7 @@
   },
   {
    "t": "h2",
-   "x": "4. Procedure (Action / Sequence / Degree / Tool)"
-  },
-  {
-   "t": "table",
-   "head": [
-    "#",
-    "Action",
-    "Sequence (when)",
-    "Degree / standard",
-    "Tool"
-   ],
-   "rows": [
-    [
-     "1",
-     "Pull today's Tier 3 / Tier V birthday list",
-     "Task start",
-     "Birthday source available; Birthday Reward Claimed This Year = No",
-     "Birthday source, BO"
-    ],
-    [
-     "2",
-     "Basic screening per player",
-     "Before sizing",
-     "Skip on any Yes: already claimed this year, risk/abuse tag, or same-day Reload/Compensation/LTV",
-     "BO"
-    ],
-    [
-     "3",
-     "Confirm the calculation base",
-     "After screening",
-     "Has SW: SW base, deduct SW, 1x TO. No SW: Last Month Deposit base, no deduction, 3x TO",
-     "BO"
-    ],
-    [
-     "4",
-     "Size the credit",
-     "After base set",
-     "Per Section 7 (SW base) or Section 8 (deposit base); match the highest eligible 8-ending amount within the cap; above Max use Max, below Floor use Floor",
-     "Bonus calc"
-    ],
-    [
-     "5",
-     "Apply the ATL approval gate",
-     "Before issuing a high-value case",
-     "Total Deposit >= RM 100,000: ATL or above confirms value, claim history, risk tag, final amount; tag `Birthday Credit - ATL Reviewed`",
-     "Lark, ATL"
-    ],
-    [
-     "6",
-     "Issue and record",
-     "On issuance",
-     "Mark Birthday Credit Rewarded; record tier, base, amount, TO, SW deduction (y/n), issued by, time; set Birthday Reward Claimed This Year = Yes",
-     "BO, QA Record"
-    ]
-   ]
-  },
-  {
-   "t": "h2",
-   "x": "5. Step 1: Pull the Birthday List"
+   "x": "4. Step 1: Pull the Birthday List"
   },
   {
    "t": "list",
@@ -239,7 +181,7 @@
   },
   {
    "t": "h2",
-   "x": "6. Step 2: Basic Screening"
+   "x": "5. Step 2: Basic Screening"
   },
   {
    "t": "p",
@@ -272,7 +214,7 @@
   },
   {
    "t": "h2",
-   "x": "7. Step 3 and 4A: Confirm the Base, SW Base Calculation"
+   "x": "6. Step 3 and 4A: Confirm the Base, SW Base Calculation"
   },
   {
    "t": "table",
@@ -342,7 +284,7 @@
   },
   {
    "t": "h2",
-   "x": "8. Step 4B: Deposit Base Calculation (No SW)"
+   "x": "7. Step 4B: Deposit Base Calculation (No SW)"
   },
   {
    "t": "table",
@@ -396,7 +338,7 @@
   },
   {
    "t": "h2",
-   "x": "9. Step 5: ATL Approval Gate"
+   "x": "8. Step 5: ATL Approval Gate"
   },
   {
    "t": "p",
@@ -412,7 +354,7 @@
   },
   {
    "t": "h2",
-   "x": "10. Step 6: Issue and Record"
+   "x": "9. Step 6: Issue and Record"
   },
   {
    "t": "p",
@@ -428,7 +370,7 @@
   },
   {
    "t": "h2",
-   "x": "11. Guards"
+   "x": "10. Guards"
   },
   {
    "t": "list",
@@ -441,7 +383,7 @@
   },
   {
    "t": "h2",
-   "x": "12. Remarks"
+   "x": "11. Remarks"
   },
   {
    "t": "list",

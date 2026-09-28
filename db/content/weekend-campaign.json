@@ -110,7 +110,7 @@
   },
   {
    "t": "flow",
-   "x": "flowchart LR\n  A([Reload task]) --> B{On roster today?}\n  B -- No --> X[Not your roster day: do not issue]\n  B -- Yes --> C[Verify tier in the BO]\n  C --> D{TC or Zyra?}\n  D -- TC --> E[Issue Ang Bao: Normal RM 2 to 8 Tier 3, Special RM 8 to 18 Tier V]\n  D -- Zyra --> F[Send Redeem Code: one claim per player, RM 100 deposit activates]\n  E --> G([Tag + QA])\n  F --> G\n  classDef stop fill:#FDEEEC,stroke:#B42318,color:#7A1A12\n  class X stop"
+   "x": "flowchart LR\n  A([Reload task]) --> B{On roster today?}\n  B -- No --> X[Not your roster day: do not issue]\n  B -- Yes --> C[Verify tier in the BO]\n  C --> D{TC or Zyra?}\n  D -- TC --> E[Issue Ang Bao: Normal RM 2 to 8 Tier 3, Special RM 8 to 18 Tier V]\n  D -- Zyra --> F[Send Redeem Code: one claim per player, RM 100 deposit activates]\n  E --> G([Tag + QA])\n  F --> G\n  class X stop"
   },
   {
    "t": "h2",

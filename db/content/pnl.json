@@ -110,7 +110,7 @@
   },
   {
    "t": "img",
-   "alt": "Flow chart: Top PNL",
+   "alt": "Flow chart of the Top PNL steps, the same steps as the Procedure table above",
    "src": "/flowcharts/pnl.png"
   },
   {
@@ -276,7 +276,7 @@
   },
   {
    "t": "h2",
-   "x": "6. Procedure: TC Gaming Platform (Action / Sequence / Degree / Tool)"
+   "x": "6. Detailed steps: TC Gaming Platform"
   },
   {
    "t": "table",
@@ -404,7 +404,7 @@
   },
   {
    "t": "h2",
-   "x": "7. Procedure: Zyra Platform (Action / Sequence / Degree / Tool)"
+   "x": "7. Detailed steps: Zyra Platform"
   },
   {
    "t": "table",

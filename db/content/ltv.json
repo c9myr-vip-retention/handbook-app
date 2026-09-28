@@ -118,7 +118,7 @@
   },
   {
    "t": "img",
-   "alt": "Flow chart: LTV List",
+   "alt": "Flow chart of the LTV List steps, the same steps as the Procedure table above",
    "src": "/flowcharts/ltv.png"
   },
   {
@@ -226,107 +226,7 @@
   },
   {
    "t": "h2",
-   "x": "6. Procedure (Action / Sequence / Degree / Tool)"
-  },
-  {
-   "t": "table",
-   "head": [
-    "#",
-    "Action",
-    "Sequence (when)",
-    "Degree / standard",
-    "Tool"
-   ],
-   "rows": [
-    [
-     "1",
-     "Open Team Engagement File > Handover Tab; locate today's 10-player batch",
-     "Task start",
-     "Use today's exact day; do not pull another day's batch",
-     "Team Engagement File"
-    ],
-    [
-     "2",
-     "Copy today's 10 entries",
-     "After locating",
-     "Do not exceed the 10-player quota",
-     "Team Engagement File"
-    ],
-    [
-     "3",
-     "Paste into Customer Approaching Lark Base > LTV (Day)",
-     "After copy",
-     "Paste values only",
-     "Lark Base"
-    ],
-    [
-     "4",
-     "Deduplicate: remove anyone who already got Daily P&L or this week's LTV",
-     "After paste",
-     "If under 10 remain, fill down the ranking",
-     "Lark Base"
-    ],
-    [
-     "5",
-     "Pre-check per player: not yet given this week, currently active, SW sufficient",
-     "After dedup",
-     "All three must pass",
-     "Lark Base"
-    ],
-    [
-     "6",
-     "SW check: bonus <= SW x 40%",
-     "During pre-check",
-     "Over 40% of SW means Invalid",
-     "Lark Base"
-    ],
-    [
-     "7",
-     "Open with a greeting and observe; active: issue, cold: can delay",
-     "On contact",
-     "Player must engage before issuance",
-     "Livechat / Telegram"
-    ],
-    [
-     "8",
-     "Valid: pass username list to Admin for SMS; send IM + Push",
-     "On send",
-     "SMS is Admin-side",
-     "Lark / BO"
-    ],
-    [
-     "9",
-     "Invalid: IM + Push only, no SMS, no bonus mention",
-     "On send",
-     "Engagement only",
-     "Lark / BO"
-    ],
-    [
-     "10",
-     "On target: submit Lark ticket (query `VVIP LTV 70 BONUS`) with username, bonus amount, conversation screenshot; tick Claimed",
-     "On issuance",
-     "Complete all ticket fields",
-     "Lark Base"
-    ],
-    [
-     "11",
-     "Tag `Weekly LTV Rewarded (Week XX)`",
-     "After claim",
-     "Use the correct week number",
-     "Lark Base"
-    ],
-    [
-     "12",
-     "Update the QA Record",
-     "After all IM and issuance",
-     "Attach a BO screenshot",
-     "Lark Base"
-    ]
-   ]
-  },
-  {
-   "t": "h2",
-   "x": "7. Bonus Tier Ladder"
+   "x": "6. Bonus Tier Ladder"
   },
   {
    "t": "p",
@@ -416,7 +316,7 @@
   },
   {
    "t": "h2",
-   "x": "8. Guards"
+   "x": "7. Guards"
   },
   {
    "t": "list",
@@ -428,7 +328,7 @@
   },
   {
    "t": "h2",
-   "x": "9. Remarks"
+   "x": "8. Remarks"
   },
   {
    "t": "list",

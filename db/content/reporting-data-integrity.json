@@ -108,7 +108,7 @@
   },
   {
    "t": "img",
-   "alt": "Flow chart: Reporting and Data Integrity",
+   "alt": "Flow chart of the Reporting and Data Integrity steps, the same steps as the Procedure table above",
    "src": "/flowcharts/reporting-data-integrity.png"
   },
   {
@@ -146,65 +146,7 @@
   },
   {
    "t": "h2",
-   "x": "4. Procedure (Action / Sequence / Degree / Tool)"
-  },
-  {
-   "t": "table",
-   "head": [
-    "#",
-    "Action",
-    "Sequence (when)",
-    "Degree / standard",
-    "Tool"
-   ],
-   "rows": [
-    [
-     "1",
-     "Use post-close data",
-     "Before reporting",
-     "Same-day = provisional statement only; report from post-close",
-     "Dashboard"
-    ],
-    [
-     "2",
-     "Compute with the correct method",
-     "On collation",
-     "Weighted average; retention = sum depositors / sum population; never average percentages",
-     "Sheet formulas"
-    ],
-    [
-     "3",
-     "Handle gaps honestly",
-     "On missing data",
-     "Dash for missing, \"[not visible]\" for unknown; never a zero or a guess",
-     "Report template"
-    ],
-    [
-     "4",
-     "Attribute correctly",
-     "On any credit",
-     "Contact precedes deposit; unique ID; one count per player per month",
-     "contact_log"
-    ],
-    [
-     "5",
-     "Flag risks and artifacts",
-     "Before sending",
-     "Name concentration risk; if a gain is mostly a data artifact, say so and quantify",
-     "Report notes"
-    ],
-    [
-     "6",
-     "Reconcile and sign",
-     "Before release",
-     "Totals reconcile across brands and against the scorecard ledger; no em dashes; ATL sign-off",
-     "Scorecard ledger"
-    ]
-   ]
-  },
-  {
-   "t": "h2",
-   "x": "5. Guards"
+   "x": "4. Guards"
   },
   {
    "t": "list",
@@ -215,7 +157,7 @@
   },
   {
    "t": "h2",
-   "x": "6. Remarks"
+   "x": "5. Remarks"
   },
   {
    "t": "p",

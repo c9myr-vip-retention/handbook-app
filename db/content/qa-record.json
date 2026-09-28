@@ -110,7 +110,7 @@
   },
   {
    "t": "img",
-   "alt": "Flow chart: QA Record",
+   "alt": "Flow chart of the QA Record steps, the same steps as the Procedure table above",
    "src": "/flowcharts/qa-record.png"
   },
   {
@@ -203,86 +203,7 @@
   },
   {
    "t": "h2",
-   "x": "5. Procedure (Action / Sequence / Degree / Tool)"
-  },
-  {
-   "t": "table",
-   "head": [
-    "#",
-    "Action",
-    "Sequence (when)",
-    "Degree / standard",
-    "Tool"
-   ],
-   "rows": [
-    [
-     "1",
-     "Screenshot from the BO immediately after each task",
-     "Right after each task",
-     "Must clearly show the completion confirmation",
-     "BO"
-    ],
-    [
-     "2",
-     "Open the Customer Approaching QA table in Lark Base",
-     "After screenshot",
-     "Correct table",
-     "Lark Base"
-    ],
-    [
-     "3",
-     "Check if today's date record exists; if not, create one",
-     "Before attaching",
-     "One parent QA record per calendar date",
-     "Lark Base"
-    ],
-    [
-     "4",
-     "Attach the screenshot under the correct date entry",
-     "After the date record exists",
-     "Correct date and category, not the wrong one",
-     "Lark Base"
-    ],
-    [
-     "5",
-     "Select the correct task category",
-     "While recording",
-     "Grace Period, LTV, VVIP Blast, Risk Push, Top PNL, Top Deposit, IM Blast, Telegram, LC Complaint",
-     "Lark Base"
-    ],
-    [
-     "6",
-     "Record validity status: Valid or Invalid",
-     "While recording",
-     "If both, record both counts separately",
-     "Lark Base"
-    ],
-    [
-     "7",
-     "Record the total players approached this shift",
-     "While recording",
-     "Feeds output reporting and performance",
-     "Lark Base"
-    ],
-    [
-     "8",
-     "Confirm entries are saved before the next task",
-     "Before next task",
-     "Saved and verified",
-     "Lark Base"
-    ],
-    [
-     "9",
-     "Complete and submit all QA records before shift end",
-     "End of shift",
-     "Incomplete records break the Output Report",
-     "Lark Base"
-    ]
-   ]
-  },
-  {
-   "t": "h2",
-   "x": "6. Guards"
+   "x": "5. Guards"
   },
   {
    "t": "list",
@@ -294,7 +215,7 @@
   },
   {
    "t": "h2",
-   "x": "7. Remarks"
+   "x": "6. Remarks"
   },
   {
    "t": "list",

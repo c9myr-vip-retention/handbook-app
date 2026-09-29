@@ -6,10 +6,10 @@
   "description": "C9MYR VIP Retention Handbook app. React + Vite front end; Cloudflare Pages + D1 + Access back end.",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && node scripts/check-public.mjs",
     "preview": "vite preview",
     "pages:dev": "wrangler pages dev dist --d1 DB=handbook --compatibility-date=2026-01-01",
-    "deploy": "vite build && wrangler pages deploy dist --project-name=c9myr-rtn-handbook --branch=main",
+    "deploy": "npm run build && wrangler pages deploy dist --project-name=c9myr-rtn-handbook --branch=main",
     "sync": "node db/sync.mjs",
     "export": "node db/export.mjs"
   },

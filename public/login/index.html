@@ -10,7 +10,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 <style>
-  /* Public sign-in page (Access bypass on /login). Same tokens as the app. */
+  /* Public sign-in page. Only /api and /flowcharts sit behind Access; the button
+     goes through /api/login so Access runs the Google sign-in. Same tokens as the app. */
   :root {
     --bg:#F6F7F9; --surface:#FFFFFF; --border:#E3E6EB; --text:#111827; --muted:#4B5563; --faint:#636B77;
     --accent:#2F4FD1; --accent-hover:#2641B0; --on-accent:#FFFFFF; --gold:#D4AF37; --gold-tx:#7F6208;
@@ -54,7 +55,7 @@
     <p class="slogan">Winning Together! Growing Forever!</p>
     <h1 id="title" class="eyebrow">VIP Retention Handbook</h1>
 
-    <a class="btn" href="/">
+    <a class="btn" id="signin" href="/api/login">
       <svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.8 2.4 30.3 0 24 0 14.6 0 6.6 5.4 2.7 13.2l7.9 6.2C12.5 13.6 17.8 9.5 24 9.5z"/><path fill="#4285F4" d="M46.1 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.4c-.5 2.9-2.2 5.3-4.6 6.9l7.4 5.7c4.3-4 6.9-9.9 6.9-17.1z"/><path fill="#FBBC05" d="M10.6 28.6c-.5-1.4-.8-3-.8-4.6s.3-3.2.8-4.6l-7.9-6.2C1 16.6 0 20.2 0 24s1 7.4 2.7 10.8l7.9-6.2z"/><path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.4-5.7c-2.1 1.4-4.8 2.3-8.5 2.3-6.2 0-11.5-4.1-13.4-9.9l-7.9 6.2C6.6 42.6 14.6 48 24 48z"/></svg>
       Sign in with Google
     </a>
@@ -62,5 +63,17 @@
     <footer>Authorised personnel only. Access via your superior.</footer>
   </section>
 </main>
+<script>
+  // Keep the page someone asked for (a #/ route) through the sign-in.
+  var next = new URLSearchParams(location.search).get('next') || ''
+  if (!/^#\/[\w\-\/%.]*$/.test(next)) next = ''
+  var go = '/api/login' + (next ? '?next=' + encodeURIComponent(next) : '')
+  document.getElementById('signin').href = go
+  // Already signed in? Skip this page.
+  fetch('/api/me', { redirect: 'manual', credentials: 'same-origin' })
+    .then(function (r) { return r.ok ? r.json() : null })
+    .then(function (m) { if (m && m.email) location.replace('/' + next) })
+    .catch(function () {})
+</script>
 </body>
 </html>

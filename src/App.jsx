@@ -1,38 +1,59 @@
 import { useEffect, useState } from 'react'
 import { api, signOut } from './lib/api.js'
-import { fromRows, localContent } from './lib/content.js'
-import { IMPORTED } from './lib/imported.js'
+import { fromRows } from './lib/rows.js'
 import Handbook from './Handbook.jsx'
 
-// Auth is handled by Cloudflare Access in front of the app: it does the Google
-// login and only lets allowed emails through. The Worker reads the Access email
-// and returns the role/approval. Locally (no Access) /api/me returns no email
-// and we render the reader UI in preview mode on the built-in repo content.
-// Signed in, content comes live from D1 via /api/sops.
+// Auth is handled by Cloudflare Access. In production only /api (and the flow
+// chart images) sit behind Access; the app shell itself is public and holds no
+// handbook content. So the shell asks /api/me first: signed out (Access
+// intercepts the call) -> send the visitor to /login. Signed in, content comes
+// live from D1 via /api/sops.
+//
+// Locally (npm run dev, no Access) /api/me returns no email and the reader runs
+// in preview mode on the repo content, which is only loaded in development
+// builds so it never ships in the public bundle.
+
+const goLogin = () => {
+  const next = /^#\/[\w\-/%.]*$/.test(location.hash) ? location.hash : ''
+  location.replace('/login/' + (next ? '?next=' + encodeURIComponent(next) : ''))
+}
+
+async function previewContent() {
+  const [{ IMPORTED }, { localContent }] = await Promise.all([import('./lib/imported.js'), import('./lib/content.js')])
+  return localContent(IMPORTED)
+}
 
 export default function App() {
   const [me, setMe] = useState(undefined)           // undefined = loading
   const [content, setContent] = useState(undefined) // { nav, pages, source }
   const [notice, setNotice] = useState(null)
+  const [failed, setFailed] = useState(null)
 
   useEffect(() => {
-    api.me().then(setMe).catch(() => setMe({ email: null }))
+    api.me()
+      .then(m => {
+        if (!m.email && !import.meta.env.DEV) return goLogin()
+        setMe(m)
+      })
+      .catch(e => {
+        if (e.status === 401) return goLogin()
+        if (import.meta.env.DEV) return setMe({ email: null })
+        setFailed(e.message)
+      })
   }, [])
 
   useEffect(() => {
     if (me === undefined) return
     if (!me.email) {
-      setContent(localContent(IMPORTED))
+      if (!import.meta.env.DEV) return
+      previewContent().then(setContent)
       setNotice('Preview mode: sample content only. Nothing you change here is saved.')
       return
     }
     if (!me.approved) return
     api.sops()
       .then(rows => { setContent({ ...fromRows(rows), source: 'live' }); setNotice(null) })
-      .catch(() => {
-        setContent(localContent(IMPORTED))
-        setNotice("Couldn't load the latest handbook, so you're seeing a saved copy that may be out of date. Reload the page to try again.")
-      })
+      .catch(e => (e.status === 401 ? goLogin() : setFailed(e.message)))
   }, [me])
 
   // After an edit or restore: reload live rows, or in preview patch the local copy.
@@ -45,6 +66,7 @@ export default function App() {
     }
   }
 
+  if (failed) return <Failed message={failed} />
   if (me === undefined) return <Centered>Loading…</Centered>
   if (me.email && !me.approved) return <Pending email={me.email} />
   if (content === undefined) return <Centered>Loading handbook…</Centered>
@@ -57,12 +79,24 @@ function Centered({ children }) {
   return <div className="center"><div className="muted">{children}</div></div>
 }
 
+function Failed({ message }) {
+  return (
+    <div className="center">
+      <div className="card">
+        <h1>Couldn't load the handbook</h1>
+        <p className="muted">{message}</p>
+        <button className="btn" onClick={() => location.reload()} type="button">Try again</button>
+      </div>
+    </div>
+  )
+}
+
 function Pending({ email }) {
   return (
     <div className="center">
       <div className="card">
         <h1>Almost there</h1>
-        <p className="muted">Your account ({email}) is waiting for an admin to approve it. Once approved, reload this page to open the handbook. Need it sooner? Ask your ATL.</p>
+        <p className="muted">Your account ({email}) is waiting for an admin to approve it. Once approved, reload this page to open the handbook. Need it sooner? Ask your superior.</p>
         <button className="btn" onClick={signOut} type="button">Sign out</button>
       </div>
     </div>

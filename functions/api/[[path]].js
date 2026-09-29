@@ -32,6 +32,15 @@ export async function onRequest(context) {
       return json({ email, full_name: p.full_name, role: p.role, approved: !!p.approved })
     }
 
+    // Sign-in hop from the public /login page. Access only lets the request
+    // reach here after Google sign-in, so we just send the person back into the
+    // app, to the page they asked for (a #/ route only, never another site).
+    if (parts[0] === 'login' && request.method === 'GET') {
+      const next = url.searchParams.get('next') || ''
+      const safe = /^#\/[\w\-/%.]*$/.test(next) ? next : ''
+      return new Response(null, { status: 302, headers: { location: url.origin + '/' + safe, 'cache-control': 'no-store' } })
+    }
+
     if (!email) return json({ error: 'unauthenticated' }, 401)
     const me = await ensureProfile(env, email)
     if (!me.approved) return json({ error: 'pending approval' }, 403)

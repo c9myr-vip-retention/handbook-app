@@ -14,9 +14,14 @@ const SERVER = 'Something went wrong on our side. Try again in a minute. If it k
 async function req(path, opts = {}) {
   let res
   try {
-    res = await fetch(path, { headers: { 'content-type': 'application/json' }, ...opts })
+    // redirect: 'manual' so a signed-out call (Access answers with a redirect to
+    // its login) shows up as a 401 instead of a cross-origin fetch error.
+    res = await fetch(path, { headers: { 'content-type': 'application/json' }, redirect: 'manual', ...opts })
   } catch (e) {
     throw Object.assign(new Error("Can't reach the handbook. Check your connection and try again."), { detail: String(e) })
+  }
+  if (res.type === 'opaqueredirect') {
+    throw Object.assign(new Error(FRIENDLY[401]), { status: 401, detail: 'Access redirect (signed out)' })
   }
   if (!res.ok) {
     const body = await res.json().catch(() => ({}))

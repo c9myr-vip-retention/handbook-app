@@ -44,6 +44,7 @@ export const api = {
   restore: (id, vid) => req('/api/sops/' + encodeURIComponent(id) + '/restore/' + vid, { method: 'POST' }),
   approvals: () => req('/api/admin/approvals'),
   approve: (email) => req('/api/admin/approvals/' + encodeURIComponent(email), { method: 'POST' }),
+  reject: (email) => req('/api/admin/approvals/' + encodeURIComponent(email) + '/reject', { method: 'POST' }),
 }
 
 // Sign out: Access's logout ends the session for every Access app and clears

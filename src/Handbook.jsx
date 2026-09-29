@@ -475,8 +475,9 @@ function DomainList({ name, go, nav: NAV, pages: PAGES }) {
 
 // Admin: people who signed in through Access but are not approved yet.
 // Company emails are approved on first sign-in; personal emails land here.
-// In preview (no API) it shows a clearly labelled sample so the layout can be reviewed.
-const SAMPLE = [{ email: 'staff.one@example.com' }, { email: 'staff.two@example.com' }]
+// Waiting people can be approved or rejected; rejected people stay listed below
+// so a mistake can be undone. In preview (no API) it shows a labelled sample.
+const SAMPLE = [{ email: 'staff.one@example.com', approved: 0 }, { email: 'staff.two@example.com', approved: -1 }]
 function Approvals({ preview }) {
   const [list, setList] = useState(preview ? SAMPLE : null)
   const [err, setErr] = useState(null)
@@ -485,13 +486,29 @@ function Approvals({ preview }) {
     if (preview) return
     api.approvals().then(setList).catch(e => setErr(e.message))
   }, [preview])
-  const approve = async (email) => {
+  const decide = async (email, reject) => {
+    if (reject && !confirm('Reject ' + email + '? They will see "access declined". You can approve them later from this page.')) return
     setBusy(email); setErr(null)
     try {
-      if (!preview) await api.approve(email)
-      setList(l => l.filter(p => p.email !== email))
+      if (!preview) await (reject ? api.reject(email) : api.approve(email))
+      setList(l => reject ? l.map(p => p.email === email ? { ...p, approved: -1 } : p) : l.filter(p => p.email !== email))
     } catch (e) { setErr(e.message) } finally { setBusy(null) }
   }
+  const waiting = (list || []).filter(p => p.approved !== -1), rejected = (list || []).filter(p => p.approved === -1)
+  const table = (rows, isRejected) => (
+    <div className="tbl-wrap"><table>
+      <thead><tr><th>Email</th><th>Name</th><th><span className="sr-only">Action</span></th></tr></thead>
+      <tbody>{rows.map(p => (
+        <tr key={p.email}>
+          <td>{p.email}</td><td>{p.full_name || '-'}</td>
+          <td style={{ textAlign: 'right', whiteSpace: 'nowrap' }}>
+            {!isRejected && <button className="btn small ghost" disabled={busy === p.email} onClick={() => decide(p.email, true)}>Reject</button>}{' '}
+            <button className="btn small" disabled={busy === p.email} onClick={() => decide(p.email, false)}>{busy === p.email ? 'Saving…' : 'Approve'}</button>
+          </td>
+        </tr>))}
+      </tbody>
+    </table></div>
+  )
   return (
     <div className="view doc">
       <h1>Approvals</h1>
@@ -499,19 +516,13 @@ function Approvals({ preview }) {
       {preview && <div className="stubbox">Preview: sample entries only. Nothing is saved.</div>}
       {err && <p className="err" role="alert">{err}</p>}
       {list === null && !err && <p className="muted">Loading…</p>}
-      {list && list.length === 0 && <div className="stubbox">No one is waiting for approval.</div>}
-      {list && list.length > 0 && (
-        <div className="tbl-wrap"><table>
-          <thead><tr><th>Email</th><th>Name</th><th><span className="sr-only">Action</span></th></tr></thead>
-          <tbody>{list.map(p => (
-            <tr key={p.email}>
-              <td>{p.email}</td><td>{p.full_name || '-'}</td>
-              <td style={{ textAlign: 'right' }}>
-                <button className="btn small" disabled={busy === p.email} onClick={() => approve(p.email)}>{busy === p.email ? 'Approving…' : 'Approve'}</button>
-              </td>
-            </tr>))}
-          </tbody>
-        </table></div>)}
+      {list && waiting.length === 0 && <div className="stubbox">No one is waiting for approval.</div>}
+      {waiting.length > 0 && table(waiting, false)}
+      {rejected.length > 0 && <>
+        <h2>Rejected</h2>
+        <p className="muted small">They see "access declined". Approve to let them in after all.</p>
+        {table(rejected, true)}
+      </>}
     </div>
   )
 }

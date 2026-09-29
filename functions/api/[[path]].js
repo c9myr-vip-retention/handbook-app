@@ -8,7 +8,10 @@
 export async function onRequest(context) {
   const { request, env } = context
   const url = new URL(request.url)
-  const parts = url.pathname.replace(/^\/api\/?/, '').split('/').filter(Boolean)
+  // Segments are URL-encoded (an email arrives as name%40gmail.com): decode them.
+  const parts = url.pathname.replace(/^\/api\/?/, '').split('/').filter(Boolean).map(s => {
+    try { return decodeURIComponent(s) } catch { return s }
+  })
   const json = (data, status = 200) =>
     new Response(JSON.stringify(data), { status, headers: { 'content-type': 'application/json' } })
 
@@ -29,7 +32,8 @@ export async function onRequest(context) {
     if (parts[0] === 'me') {
       if (!email) return json({ email: null })
       const p = await ensureProfile(env, email)
-      return json({ email, full_name: p.full_name, role: p.role, approved: !!p.approved })
+      // approved: 1 approved, 0 pending, -1 rejected. Only exactly 1 gets in.
+      return json({ email, full_name: p.full_name, role: p.role, approved: p.approved === 1, rejected: p.approved === -1 })
     }
 
     // Sign-in hop from the public /login page. Access only lets the request
@@ -43,7 +47,7 @@ export async function onRequest(context) {
 
     if (!email) return json({ error: 'unauthenticated' }, 401)
     const me = await ensureProfile(env, email)
-    if (!me.approved) return json({ error: 'pending approval' }, 403)
+    if (me.approved !== 1) return json({ error: me.approved === -1 ? 'access declined' : 'pending approval' }, 403)
     const isAdmin = me.role === 'admin'
 
     // SOP content
@@ -114,15 +118,23 @@ export async function onRequest(context) {
       }
     }
 
-    // Approvals (admin): list pending, approve one
+    // Approvals (admin): list pending and rejected; approve or reject one.
+    // POST /api/admin/approvals/<email>          approve
+    // POST /api/admin/approvals/<email>/reject   reject (can be approved later)
     if (parts[0] === 'admin' && parts[1] === 'approvals') {
       if (!isAdmin) return json({ error: 'admins only' }, 403)
       if (request.method === 'GET') {
-        const { results } = await env.DB.prepare('select email, full_name, role, approved from profiles where approved = 0').all()
+        const { results } = await env.DB.prepare(
+          'select email, full_name, role, approved, created_at from profiles where approved in (0, -1) order by approved desc, created_at desc'
+        ).all()
         return json(results)
       }
       if (request.method === 'POST' && parts[2]) {
-        await env.DB.prepare('update profiles set approved = 1 where email = ?').bind(parts[2]).run()
+        if (parts[2].toLowerCase() === email.toLowerCase()) return json({ error: 'cannot change your own access' }, 400)
+        const value = parts[3] === 'reject' ? -1 : parts[3] ? null : 1
+        if (value === null) return json({ error: 'not found' }, 404)
+        const r = await env.DB.prepare('update profiles set approved = ? where email = ?').bind(value, parts[2]).run()
+        if (!r.meta?.changes) return json({ error: 'not found' }, 404)
         return json({ ok: true })
       }
     }

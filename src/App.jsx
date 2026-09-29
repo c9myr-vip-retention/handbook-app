@@ -68,6 +68,7 @@ export default function App() {
 
   if (failed) return <Failed message={failed} />
   if (me === undefined) return <Centered>Loading…</Centered>
+  if (me.email && me.rejected) return <Declined email={me.email} />
   if (me.email && !me.approved) return <Pending email={me.email} />
   if (content === undefined) return <Centered>Loading handbook…</Centered>
   if (!me.email) return <Handbook content={content} notice={notice} preview onPageSaved={onPageSaved} />
@@ -86,6 +87,18 @@ function Failed({ message }) {
         <h1>Couldn't load the handbook</h1>
         <p className="muted">{message}</p>
         <button className="btn" onClick={() => location.reload()} type="button">Try again</button>
+      </div>
+    </div>
+  )
+}
+
+function Declined({ email }) {
+  return (
+    <div className="center">
+      <div className="card">
+        <h1>Access declined</h1>
+        <p className="muted">Your account ({email}) was not approved for the handbook. If you think this is a mistake, ask your superior.</p>
+        <button className="btn" onClick={signOut} type="button">Sign out</button>
       </div>
     </div>
   )

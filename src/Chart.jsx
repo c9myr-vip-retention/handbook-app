@@ -92,7 +92,9 @@ function measure(kind, text, across) {
 
 // Lays the chart out along a main axis (m) with branches on the cross axis (c).
 // across = left to right (Lark style); otherwise top to bottom.
-export function layout(chart, across) {
+// balance: pad the lighter side so the main line sits in the middle of the frame.
+// Turned off when a balanced chart would not fit its column.
+export function layout(chart, across, balance = true) {
   const shapes = [], edges = [], labels = []
   const sz = (b) => across ? { m: b.w, c: b.h } : { m: b.h, c: b.w }
   let cursor = 0
@@ -160,7 +162,9 @@ export function layout(chart, across) {
   // Keep the main line in the middle: pad the lighter side so both sides of the
   // line reach equally far.
   const titleW = chart.title ? chart.title.length * 8.6 : 0
-  const reach = Math.max(across ? 0 : titleW / 2, ...shapes.map(s => Math.abs(s.c) + sz(s).c / 2), ...edges.flatMap(e => e.pts.map(p => Math.abs(p[1]))))
+  const reach = balance
+    ? Math.max(across ? 0 : titleW / 2, ...shapes.map(s => Math.abs(s.c) + sz(s).c / 2), ...edges.flatMap(e => e.pts.map(p => Math.abs(p[1]))))
+    : (across ? 0 : titleW / 2)
   const all = [...shapes.flatMap(s => { const [x, y] = xy([s.m, s.c]); return [[x - s.w / 2, y - s.h / 2], [x + s.w / 2, y + s.h / 2]] }),
     ...edges.flatMap(e => e.pts.map(xy)), xy([0, -reach]), xy([0, reach]), ...(across && titleW ? [[titleW, 0]] : [])]
   const minX = Math.min(...all.map(p => p[0])), maxX = Math.max(...all.map(p => p[0]))
@@ -200,11 +204,12 @@ function Shape({ s }) {
   )
 }
 
-export function ChartSvg({ chart, across }) {
-  const L = useMemo(() => layout(chart, across), [chart, across])
+export function ChartSvg({ chart, across, balance = true, fit = false }) {
+  const L = useMemo(() => layout(chart, across, balance), [chart, across, balance])
   const id = useMemo(() => 'ar' + Math.random().toString(36).slice(2, 8), [])
   return (
-    <svg className="chartsvg" viewBox={`0 0 ${L.width} ${L.height}`} width={L.width} height={L.height} role="img" aria-label={chartText(chart)}>
+    <svg className="chartsvg" viewBox={`0 0 ${L.width} ${L.height}`} width={L.width} height={L.height} role="img" aria-label={chartText(chart)}
+      style={fit ? { width: '100%', height: 'auto' } : undefined}>
       <defs><marker id={id} viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" className="ch-arrow" /></marker></defs>
       {chart.title && <text className="ch-title" x={across ? 18 : L.centre} y="28" textAnchor={across ? 'start' : 'middle'} fontSize="15" fontWeight="700">{chart.title}</text>}
       {L.edges.map((e, i) => <polyline key={i} className="ch-edge" points={e.pts.map(p => p.join(',')).join(' ')} markerEnd={e.arrow ? `url(#${id})` : undefined} />)}
@@ -226,12 +231,26 @@ export function Chart({ code, onEnlarge }) {
     ro.observe(el)
     return () => ro.disconnect()
   }, [])
-  const acrossW = useMemo(() => layout(chart, true).width, [chart])
-  const across = width > 0 && acrossW <= width
+  // Pick the first that fits the column: left to right; top-down with the main
+  // line centred; top-down without the centring padding; that, shrunk to fit
+  // (down to 70%); otherwise scroll, starting on the main line.
+  const plan = useMemo(() => {
+    if (!width) return null
+    if (layout(chart, true).width <= width) return { across: true, balance: true }
+    if (layout(chart, false).width <= width) return { across: false, balance: true }
+    const tight = layout(chart, false, false)
+    if (tight.width <= width) return { across: false, balance: false }
+    if (width / tight.width >= 0.7) return { across: false, balance: false, fit: true }
+    return { across: false, balance: false, scroll: tight.centre }
+  }, [chart, width])
+  useEffect(() => {
+    const el = wrapRef.current
+    if (el && plan?.scroll != null) el.scrollLeft = Math.max(0, plan.scroll - el.clientWidth / 2)
+  }, [plan])
   if (!chart.nodes.length) return <p className="err" role="alert">This chart is empty. An admin can add steps in Edit.</p>
   return (
     <div ref={wrapRef} className="chartwrap">
-      {width > 0 && <ChartSvg chart={chart} across={across} />}
+      {plan && <ChartSvg chart={chart} across={plan.across} balance={plan.balance} fit={plan.fit} />}
     </div>
   )
 }

@@ -70,11 +70,12 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
   const INDEX = useMemo(() => buildIndex(NAV, PAGES), [NAV, PAGES])
   const [route, setRoute] = useState(() => parseHash(location.hash, NAV))
   useEffect(() => {
-    const onHash = () => { setRoute(parseHash(location.hash, NAV)); setNavOpen(false); setQuery('') }
+    const onHash = () => { setRoute(parseHash(location.hash, NAV)); setNavOpen(false); setRailOpen(false); setQuery('') }
     addEventListener('hashchange', onHash)
     return () => removeEventListener('hashchange', onHash)
   }, [NAV])
   const [navOpen, setNavOpen] = useState(false)
+  const [railOpen, setRailOpen] = useState(false) // page tools drawer (narrow screens)
   const [openSecs, setOpenSecs] = useState(() => ({ start: true }))
   const [query, setQuery] = useState('')
 
@@ -117,6 +118,8 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
         e.preventDefault()
         const box = document.querySelector(route.kind === 'home' ? '.herosearch' : '.searchbar input')
         box?.focus()
+      } else if (e.key === 'Escape' && railOpen) {
+        setRailOpen(false)
       } else if (e.key === 'Escape' && navOpen) {
         setNavOpen(false)
         menuBtn.current?.focus()
@@ -126,7 +129,7 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
     }
     addEventListener('keydown', onKey)
     return () => removeEventListener('keydown', onKey)
-  }, [route, query, navOpen])
+  }, [route, query, navOpen, railOpen])
   const openLeaf = (item) => {
     setQuery('')
     go(item.real ? { kind: 'page', key: item.id } : { kind: 'stub', title: item.title, status: item.status })
@@ -169,9 +172,9 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
   useEffect(() => { document.title = (title && title !== 'Home' ? title + ' · ' : '') + 'C9MYR VIP Retention Handbook' }, [title])
 
   return (
-    <div className={'hb' + (navOpen ? ' nav-open' : '')}>
+    <div className={'hb' + (navOpen ? ' nav-open' : '') + (railOpen ? ' rail-open' : '')}>
       <a className="skip" href="#main" onClick={e => { e.preventDefault(); document.getElementById('main')?.focus() }}>Skip to content</a>
-      <div className="scrim" onClick={() => setNavOpen(false)} />
+      <div className="scrim" onClick={() => { setNavOpen(false); setRailOpen(false) }} />
       <aside className="side" id="sidenav">
         <button className="brand" onClick={() => { setQuery(''); go({ kind: 'home' }) }} aria-label="C9MYR VIP Retention Handbook, home"><svg className="logo" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 6C39 23 12 37 12 58c0 13 11 22 23 20 6-1 10-4 13-8-1 10-5 18-12 24h28c-7-6-11-14-12-24 3 4 7 7 13 8 12 2 23-7 23-20 0-21-27-35-38-52z" /></svg><span className="brandtext"><small>C9MYR</small><b>VIP Retention Handbook</b></span></button>
         <button className={'navitem homeitem' + (route.kind === 'home' ? ' active' : '')} aria-current={route.kind === 'home' ? 'page' : undefined}
@@ -231,6 +234,11 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
           {profile && <span className="who">{profile.full_name || profile.email} · <b>{profile.role}</b></span>}
           {preview && <span className="chip pending preview-chip">preview</span>}
           {(profile?.role === 'admin' || preview) && <button className="btn small ghost admin-btn" onClick={() => { setQuery(''); go({ kind: 'approvals' }) }}>Approvals</button>}
+          {route.kind === 'page' && !query.trim() && (
+            <button className="icon railbtn" aria-label="Page tools" title="Page tools" aria-expanded={railOpen} aria-controls="pagerail" onClick={() => setRailOpen(o => !o)}>
+              <svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true"><rect x="3" y="3.5" width="14" height="13" rx="2.5"/><path d="M12 3.5v13"/><path d="M14 7h1M14 10h1M14 13h1" strokeLinecap="round"/></svg>
+            </button>
+          )}
           <button className="btn small ghost theme-btn" onClick={toggleTheme} aria-label={dark ? 'Switch to light mode' : 'Switch to dark mode'}>{dark ? 'Light' : 'Dark'}</button>
           {onSignOut && <button className="btn small" onClick={onSignOut}>Sign out</button>}
         </header>
@@ -242,7 +250,7 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
             ? <SearchResults query={query} results={results} open={openLeaf} pages={PAGES} />
             : <>
                 {route.kind === 'domain' && <DomainList name={route.key} go={go} nav={NAV} pages={PAGES} />}
-                {route.kind === 'page' && <Page id={route.key} pages={PAGES} nav={NAV} canEdit={canEdit} go={go} />}
+                {route.kind === 'page' && <Page id={route.key} pages={PAGES} nav={NAV} canEdit={canEdit} go={go} railOpen={railOpen} onRailClose={() => setRailOpen(false)} />}
                 {route.kind === 'edit' && <Editor key={route.key + '/' + (route.sec ?? '')} id={route.key} sec={route.sec} pages={PAGES} preview={preview} go={go} onPageSaved={onPageSaved} />}
                 {route.kind === 'history' && <History id={route.key} pages={PAGES} preview={preview} go={go} onPageSaved={onPageSaved} />}
                 {route.kind === 'stub' && <Stub title={route.title} status={route.status} />}
@@ -552,14 +560,17 @@ function ChartReview({ pages: PAGES, go }) {
 // Header chips: keep the version chip and the "Updated" chip in step with an edit.
 const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 const verOf = (page) => (page?.meta || []).find(m => /^V\d/.test(m)) || 'V1.0'
-function editedMeta(meta, version) {
+function editedMeta(meta, version, note) {
   const d = new Date(), updated = 'Updated ' + d.getDate() + ' ' + MON[d.getMonth()] + ' ' + d.getFullYear()
   const out = [...(meta || [])]
   const vi = out.findIndex(m => /^V\d/.test(m))
   if (vi >= 0) out[vi] = version; else out.unshift(version)
   const ui = out.findIndex(m => /^Updated /.test(m))
   if (ui >= 0) out[ui] = updated; else out.push(updated)
-  return out
+  // Change note for the side panel: replaced on every save, dropped when left empty.
+  const kept = out.filter(m => !/^Change: /.test(m))
+  const n = String(note || '').replace(/\s+/g, ' ').trim()
+  return n ? [...kept, 'Change: ' + n] : kept
 }
 
 // Admin editor. The page text is edited as markdown (the same format as the SOP
@@ -577,11 +588,12 @@ function Editor({ id, sec, pages: PAGES, preview, go, onPageSaved }) {
   const [row, setRow] = useState(preview ? {} : null)
   const [title, setTitle] = useState(page?.title || '')
   const [version, setVersion] = useState(verOf(page))
+  const [note, setNote] = useState('')
   const [text, setText] = useState(startText)
   const [show, setShow] = useState(false)
   const [err, setErr] = useState(null)
   const [saving, setSaving] = useState(false)
-  const dirty = title !== (page?.title || '') || text !== startText || version !== verOf(page)
+  const dirty = title !== (page?.title || '') || text !== startText || version !== verOf(page) || note.trim() !== ''
 
   // Warn before closing the tab with unsaved edits.
   useEffect(() => {
@@ -622,7 +634,7 @@ function Editor({ id, sec, pages: PAGES, preview, go, onPageSaved }) {
     if (!/^V\d+(\.\d+)?$/.test(v)) return setErr('Version must be a V followed by numbers, like V1.2.')
     setSaving(true); setErr(null)
     const body = [...all.slice(0, range[0]), ...parseBody(text), ...all.slice(range[1])]
-    const meta = editedMeta(row?.meta || page?.meta, v)
+    const meta = editedMeta(row?.meta || page?.meta, v, note)
     try {
       if (!preview) await api.saveSop(id, { ...row, title: t, version: v, body, meta })
       await onPageSaved?.(id, { title: t, blocks: body, meta })
@@ -638,6 +650,7 @@ function Editor({ id, sec, pages: PAGES, preview, go, onPageSaved }) {
       <div className="edrow">
         <label>Title<input value={title} onChange={e => setTitle(e.target.value)} /></label>
         <label className="ver">Version<input value={version} onChange={e => setVersion(e.target.value)} /></label>
+        <label className="note">What changed <span className="optional">(optional, shown to readers)</span><input value={note} maxLength={140} placeholder="e.g. Floor rule updated" onChange={e => setNote(e.target.value)} /></label>
       </div>
       <div className="edtabs">
         <button className={'tab' + (!show ? ' on' : '')} aria-pressed={!show} onClick={() => setShow(false)}>Write</button>
@@ -706,7 +719,95 @@ function Row({ title, sub, meta, chip, onClick }) {
   )
 }
 
-function Page({ id, pages: PAGES, nav: NAV, canEdit, go }) {
+// Thin reading-progress line under the top bar, on SOP pages.
+function ReadBar() {
+  const ref = useRef(null)
+  useEffect(() => {
+    let raf = 0
+    const draw = () => {
+      raf = 0
+      const max = document.documentElement.scrollHeight - innerHeight
+      if (ref.current) ref.current.style.width = (max > 0 ? Math.min(100, (scrollY / max) * 100) : 0) + '%'
+    }
+    const onScroll = () => { if (!raf) raf = requestAnimationFrame(draw) }
+    draw()
+    addEventListener('scroll', onScroll, { passive: true }); addEventListener('resize', onScroll)
+    return () => { removeEventListener('scroll', onScroll); removeEventListener('resize', onScroll); cancelAnimationFrame(raf) }
+  }, [])
+  return <div className="readbar" aria-hidden="true"><i ref={ref} /></div>
+}
+
+// Right-hand panel of an SOP page: contents, a small flow chart (hidden while the
+// full chart is on screen), related pages and what changed. On narrow screens it
+// becomes a drawer opened from the "Page tools" button in the top bar.
+function PageRail({ p, id, heads, jump, related, canEdit, go, open, onClose }) {
+  const ref = useRef(null)
+  const chartBlock = p.blocks.find(b => b.t === 'chart')
+  const chart = useMemo(() => (chartBlock ? parseChart(chartBlock.x) : null), [chartBlock?.x])
+  const [zoom, setZoom] = useState(false)
+  const [chartInView, setChartInView] = useState(false)
+  const version = versionOf(p)
+  const updated = (p.meta || []).find(m => /^Updated /.test(m))
+  const note = (p.meta || []).find(m => /^Change: /.test(m))?.slice(8)
+
+  // Stick at the top when the panel fits the screen; otherwise let it scroll with
+  // the page and stick once its bottom is on screen (no scrollbar of its own).
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const fit = () => { el.style.top = Math.min(80, innerHeight - el.offsetHeight - 16) + 'px' }
+    fit()
+    const ro = new ResizeObserver(fit); ro.observe(el)
+    addEventListener('resize', fit)
+    return () => { ro.disconnect(); removeEventListener('resize', fit) }
+  }, [id])
+
+  // The same chart never shows twice: hide the small copy while the full one is visible.
+  useEffect(() => {
+    if (!chart) return
+    const big = document.querySelector('.doc .chartfig')
+    if (!big) return
+    const io = new IntersectionObserver(([e]) => setChartInView(e.isIntersecting), { rootMargin: '-60px 0px -80px 0px', threshold: 0.15 })
+    io.observe(big)
+    return () => io.disconnect()
+  }, [id, chart])
+
+  const hasToc = heads.length > 2
+  if (!hasToc && !chart && !related.length) return null
+  return (
+    <aside ref={ref} id="pagerail" className={'rail' + (open ? ' open' : '')} aria-label="Page tools">
+      <div className="railhead"><b>Page tools</b><button className="btn small ghost" onClick={onClose}>Close</button></div>
+      {hasToc && (
+        <nav className="railsec" aria-label="On this page">
+          <div className="tochead">On this page</div>
+          {heads.map(h => <button key={h.i} className="tocitem" onClick={() => { onClose(); jump(h.i) }}>{h.x}</button>)}
+        </nav>
+      )}
+      {chart && (
+        <button className={'railcard railchart' + (chartInView ? ' away' : '')} onClick={() => setZoom(true)}
+          aria-label="Open the flow chart full size" tabIndex={chartInView ? -1 : 0}>
+          <span className="tochead">Flow chart</span>
+          <ChartSvg chart={chart} across={false} />
+          <span className="railhint">Click to enlarge</span>
+        </button>
+      )}
+      {chart && <Zoom open={zoom} onClose={() => setZoom(false)} label={chart.title || 'Flow chart'}><ChartSvg chart={chart} across /></Zoom>}
+      {related.length > 0 && (
+        <div className="railcard">
+          <div className="tochead">Related SOPs</div>
+          {related.map(it => <button key={it.id} className="raillink" onClick={() => { onClose(); go({ kind: 'page', key: it.id }) }}><span>{it.title}</span><span aria-hidden="true">›</span></button>)}
+        </div>
+      )}
+      <div className="railcard">
+        <div className="tochead">What changed</div>
+        <p className="railp"><b>{version}</b>{updated && <> · {updated.replace(/^Updated /, 'updated ')}</>}</p>
+        <p className="railp muted">{note || 'No change note for this version.'}{canEdit && <> <button className="crumblink" onClick={() => { onClose(); go({ kind: 'history', key: id }) }}>History ›</button></>}</p>
+      </div>
+    </aside>
+  )
+}
+
+function Page({ id, pages: PAGES, nav: NAV, canEdit, go, railOpen, onRailClose }) {
   const p = PAGES[id]
   if (!p) return <Stub title={id} />
   const heads = p.blocks.map((b, i) => b.t === 'h2' ? { i, x: b.x } : null).filter(Boolean)
@@ -719,14 +820,14 @@ function Page({ id, pages: PAGES, nav: NAV, canEdit, go }) {
     h.scrollIntoView({ behavior: 'smooth', block: 'start' })
     h.tabIndex = -1; h.focus({ preventScroll: true })
   }
+  const meta = (p.meta || []).filter(m => !/^Change: /.test(m))
+  const words = bodyText(p).split(/\s+/).filter(Boolean).length
+  const readMin = Math.max(1, Math.round(words / 200))
   return (
     <div className="pagewrap">
-    {heads.length > 2 && (
-      <nav className="toc" aria-label="On this page">
-        <div className="tochead" aria-hidden="true">On this page</div>
-        {heads.map(h => <button key={h.i} className="tocitem" onClick={() => jump(h.i)}>{h.x}</button>)}
-      </nav>
-    )}
+    <PageRail p={p} id={id} heads={heads} jump={jump} related={group.filter(it => it.id !== id).slice(0, 4)}
+      canEdit={canEdit} go={go} open={railOpen} onClose={onRailClose} />
+    <ReadBar />
     <div className="view doc">
       <div className="doctools">
         <button className="btn small ghost" onClick={() => print()}>Print / PDF</button>
@@ -735,7 +836,7 @@ function Page({ id, pages: PAGES, nav: NAV, canEdit, go }) {
       </div>
       {p.crumb && <Crumb crumb={p.crumb} go={go} nav={NAV} />}
       <h1>{p.title}</h1>
-      {p.meta && <div className="docmeta">{p.meta.map((m, i) => <span key={i}>{m}</span>)}</div>}
+      <div className="docmeta">{meta.map((m, i) => <span key={i}>{m}</span>)}<span>About {readMin} min read</span></div>
       {p.blocks.map((b, i) => b.t === 'h2' && canEdit
         ? <h2 key={i} id={'sec-' + i} className="edh2">{b.x}<button className="secedit" onClick={() => go({ kind: 'edit', key: id, sec: i })} aria-label={'Edit section ' + b.x}>Edit</button></h2>
         : <Block key={i} b={b} id={b.t === 'h2' ? 'sec-' + i : undefined} version={versionOf(p)} />)}

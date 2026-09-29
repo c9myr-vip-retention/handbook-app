@@ -173,7 +173,7 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
       <a className="skip" href="#main" onClick={e => { e.preventDefault(); document.getElementById('main')?.focus() }}>Skip to content</a>
       <div className="scrim" onClick={() => setNavOpen(false)} />
       <aside className="side" id="sidenav">
-        <button className="brand" onClick={() => { setQuery(''); go({ kind: 'home' }) }} aria-label="C9MYR VIP Retention Handbook, home"><span className="logo">C9</span><span className="brandtext"><small>C9MYR</small><b>VIP Retention Handbook</b></span></button>
+        <button className="brand" onClick={() => { setQuery(''); go({ kind: 'home' }) }} aria-label="C9MYR VIP Retention Handbook, home"><svg className="logo" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 6C39 23 12 37 12 58c0 13 11 22 23 20 6-1 10-4 13-8-1 10-5 18-12 24h28c-7-6-11-14-12-24 3 4 7 7 13 8 12 2 23-7 23-20 0-21-27-35-38-52z" /></svg><span className="brandtext"><small>C9MYR</small><b>VIP Retention Handbook</b></span></button>
         <button className={'navitem homeitem' + (route.kind === 'home' ? ' active' : '')} aria-current={route.kind === 'home' ? 'page' : undefined}
           onClick={() => { setQuery(''); go({ kind: 'home' }) }}><span>Home</span></button>
         <nav aria-label="Handbook sections">
@@ -301,6 +301,7 @@ function Home({ go, nav: NAV, pages: PAGES, notice, query, setQuery, results, op
       {notice && <div className="banner">{notice}</div>}
       <section className="hero">
         <div className="eyebrow">C9MYR · VIP Retention</div>
+        <p className="slogan">Winning Together! Growing Forever!</p>
         <h1>VIP Retention Handbook</h1>
         <p className="herolead">Every SOP, policy and playbook the department runs on. Always the current version.</p>
         <label className="searchlabel" htmlFor="homesearch">What do you need to do?</label>

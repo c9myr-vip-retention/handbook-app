@@ -719,6 +719,22 @@ function Row({ title, sub, meta, chip, onClick }) {
   )
 }
 
+// Only on paper: a printed SOP can go out of date, so say so, with the version
+// and the moment it was printed (refreshed just before printing).
+function PrintNote({ version }) {
+  const stamp = () => {
+    const d = new Date()
+    return d.getDate() + ' ' + MON[d.getMonth()] + ' ' + d.getFullYear() + ', ' + String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0')
+  }
+  const [when, setWhen] = useState(stamp)
+  useEffect(() => {
+    const on = () => setWhen(stamp())
+    addEventListener('beforeprint', on)
+    return () => removeEventListener('beforeprint', on)
+  }, [])
+  return <p className="printnote">Printed copy of {version}, {when}. It may be out of date: check the VIP Retention Handbook for the current version before use.</p>
+}
+
 // Thin reading-progress line under the top bar, on SOP pages.
 function ReadBar() {
   const ref = useRef(null)
@@ -837,6 +853,7 @@ function Page({ id, pages: PAGES, nav: NAV, canEdit, go, railOpen, onRailClose }
       {p.crumb && <Crumb crumb={p.crumb} go={go} nav={NAV} />}
       <h1>{p.title}</h1>
       <div className="docmeta">{meta.map((m, i) => <span key={i}>{m}</span>)}<span>About {readMin} min read</span></div>
+      <PrintNote version={versionOf(p)} />
       {p.blocks.map((b, i) => b.t === 'h2' && canEdit
         ? <h2 key={i} id={'sec-' + i} className="edh2">{b.x}<button className="secedit" onClick={() => go({ kind: 'edit', key: id, sec: i })} aria-label={'Edit section ' + b.x}>Edit</button></h2>
         : <Block key={i} b={b} id={b.t === 'h2' ? 'sec-' + i : undefined} version={versionOf(p)} />)}

@@ -46,5 +46,10 @@ export const api = {
   approve: (email) => req('/api/admin/approvals/' + encodeURIComponent(email), { method: 'POST' }),
 }
 
-// Cloudflare Access logout URL.
-export const signOut = () => { window.location.href = '/cdn-cgi/access/logout' }
+// Sign out: Access's logout ends the session for every Access app and clears
+// the cookie here. Call it in the background, then land on our own sign-in
+// page instead of Cloudflare's "logged out" card.
+export const signOut = async () => {
+  try { await fetch('/cdn-cgi/access/logout', { redirect: 'manual', credentials: 'same-origin', cache: 'no-store' }) } catch {}
+  location.replace('/login/?out=1')
+}

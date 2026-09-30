@@ -103,9 +103,6 @@ function BirthdayCalc() {
         <input inputMode="decimal" value={amt} onChange={e => setAmt(e.target.value)} placeholder={hasSw ? '400' : '10000'} aria-invalid={bad} />
       </label>
       {bad && <p className="err" role="alert">Enter an amount in RM, numbers only.</p>}
-      {out && hasSw && out.amount != null && out.amount >= 1000 && out.amount < T.max && (
-        <p className="tour-note warn" role="note">[CONFIRM] Above RM 1,000 the SOP disagrees with itself: its rule gives this amount, but its example (Tier V, SW RM 4,000) says RM 1,188, not RM 1,198. Check with the ATL before issuing.</p>
-      )}
       <div className="calc-out" aria-live="polite">
         {out
           ? <><p className="calc-amt">{out.amount == null ? 'Check with the ATL' : rm(out.amount)}</p>

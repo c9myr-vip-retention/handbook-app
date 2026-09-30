@@ -11,7 +11,7 @@
   --pending:#4B5563; --pending-soft:#EEF0F3;
   --good:#1B7A3E; --good-soft:#EAF6EE;
   --err:#B42318;
-  --gold:#D4AF37; --gold-tx:#7F6208;
+  --gold:#D4AF37; --gold-tx:#7F6208; --gold-soft:#FAF1D6;
   --ch-term:#E1F5EE; --ch-term-ln:#0F6E56; --ch-term-tx:#04342C;
   --ch-step:#E6F1FB; --ch-step-ln:#185FA5; --ch-step-tx:#0C447C;
   --ch-check:#FAEEDA; --ch-check-ln:#BA7517; --ch-check-tx:#412402;
@@ -37,7 +37,7 @@
   --pending:#AEB5C1; --pending-soft:#232833;
   --good:#6BCB8B; --good-soft:#15261B;
   --err:#F2877D;
-  --gold:#D4AF37; --gold-tx:#E3C35A;
+  --gold:#D4AF37; --gold-tx:#E3C35A; --gold-soft:#2A2412;
   --ch-term:#12302A; --ch-term-ln:#4FB89A; --ch-term-tx:#CFF3E7;
   --ch-step:#16263A; --ch-step-ln:#6FA3DD; --ch-step-tx:#D6E7FA;
   --ch-check:#33270F; --ch-check-ln:#E0A64A; --ch-check-tx:#F8E3C0;
@@ -106,8 +106,9 @@ input { width:100%; padding:9px 12px; border:1px solid var(--input-border); bord
 .searchbar.on-home { visibility:hidden; }
 .searchbtn, .searchclose { display:none; }
 .searchbar input { padding:7px 12px; font-size:var(--fs-sm); background:var(--surface-2); border-color:var(--input-border); }
-.top .who { font-size:var(--fs-xs); color:var(--muted); white-space:nowrap; margin-left:auto; }
-.top .who + .preview-chip, .top .searchbar + .preview-chip { margin-left:auto; }
+.whoami { display:flex; align-items:center; gap:6px; flex:none; font-size:var(--fs-xs); color:var(--muted); white-space:nowrap; margin-left:auto; }
+.rolechip { padding:1px 7px; border-radius:999px; background:var(--surface-2); border:1px solid var(--border); color:var(--text); font-weight:600; }
+.top .whoami + .preview-chip, .top .searchbar + .preview-chip { margin-left:auto; }
 .ptitle { font-size:var(--fs-md); font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:260px; }
 .icon { width:34px; height:34px; border:1px solid var(--border-strong); border-radius:var(--r-sm); background:var(--surface); color:var(--text); cursor:pointer; }
 .icon.menu { display:none; }
@@ -138,7 +139,7 @@ h1 { font-size:var(--fs-2xl); font-weight:700; letter-spacing:-.02em; line-heigh
 
 .who { display:flex; flex-direction:column; gap:14px; }
 .mission { margin:0; padding:18px 22px; border-left:4px solid var(--accent); background:var(--accent-soft); border-radius:0 var(--r) var(--r) 0; }
-.mission p { margin:0; font-size:var(--fs-lg); line-height:1.6; color:var(--text); font-weight:500; }
+.mission p { margin:0; max-width:68ch; font-size:var(--fs-lg); line-height:1.6; color:var(--text); font-weight:500; }
 .whogrid { display:grid; grid-template-columns:1fr 1.25fr; gap:14px; }
 .whocard { padding:18px 20px; border:1px solid var(--border); border-radius:var(--r); background:var(--surface); }
 .whocard h3, .pillarhead { font-size:var(--fs-md); font-weight:650; margin:0 0 12px; }
@@ -154,7 +155,7 @@ h1 { font-size:var(--fs-2xl); font-weight:700; letter-spacing:-.02em; line-heigh
 .teamname { font-size:var(--fs-xs); font-weight:650; margin-bottom:6px; } .teamname span { color:var(--faint); font-weight:500; }
 .brandchips { display:flex; flex-wrap:wrap; gap:5px; }
 .brandchip { font-size:var(--fs-xs); font-weight:600; padding:2px 9px; border-radius:999px; background:var(--surface-2); border:1px solid var(--border); color:var(--text); font-variant-numeric:tabular-nums; }
-.brandchip.tc { background:var(--accent-soft); border-color:transparent; color:var(--accent); }
+.brandchip.tc { background:var(--gold-soft); border-color:transparent; color:var(--gold-tx); }
 .legend { display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin:12px 0 10px; font-size:var(--fs-xs); color:var(--muted); }
 .legend .brandchip + .brandchip { margin-left:8px; }
 .pillarhead { margin:6px 0 0; }
@@ -315,7 +316,8 @@ tbody tr:last-child td { border-bottom:0; }
 .edpreview { border:1px dashed var(--border-strong); border-radius:var(--r); padding:16px; min-height:30vh; background:var(--surface); }
 .edactions { display:flex; gap:8px; justify-content:flex-end; margin-top:12px; }
 
-.edh2 { display:flex; align-items:baseline; gap:10px; }
+.edh2 { display:flex; align-items:baseline; gap:10px; margin:32px 0 10px; }
+.doc .edh2 h2 { margin:0; }
 .secedit { margin-left:auto; border:0; background:transparent; color:var(--faint); font-size:var(--fs-xs); font-weight:500; cursor:pointer; min-height:28px; padding:4px 8px; border-radius:5px; opacity:0; transition:opacity .12s; }
 .edh2:hover .secedit, .secedit:focus-visible { opacity:1; }
 .secedit:hover { color:var(--accent); background:var(--accent-soft); }
@@ -356,6 +358,7 @@ mark { background:color-mix(in srgb, var(--accent) 18%, transparent); color:inhe
   h1, .doc h1 { font-size:18pt; margin:0 0 4pt; }
   .docmeta { font-size:8.5pt; margin-bottom:8pt; padding-bottom:6pt; }
   .doc h2 { font-size:12pt; margin:14pt 0 5pt; break-after:avoid; }
+  .doc .edh2 { margin:14pt 0 5pt; break-after:avoid; }
   .doc p { margin:0 0 6pt; }
   .bullets { gap:2pt; margin-bottom:6pt; }
   /* Controlled-copy notice at the top of every printed SOP */
@@ -411,7 +414,7 @@ mark { background:color-mix(in srgb, var(--accent) 18%, transparent); color:inhe
 }
 @media (max-width:640px){
   .top { gap:8px; padding:8px 12px; }
-  .top .admin-btn, .top .preview-chip, .top .who { display:none; }
+  .top .admin-btn, .top .preview-chip, .top .whoami { display:none; }
   .admin-nav { display:block; border-top:1px solid var(--border); margin-top:8px; padding-top:8px; }
   /* Phone: search sits behind an icon and opens over the whole top bar. */
   .searchbar { display:none; }

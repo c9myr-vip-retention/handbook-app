@@ -250,7 +250,7 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
               <svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="m13 13 4 4"/></svg>
             </button>
           )}
-          {profile && <span className="who">{profile.full_name || profile.email} · <b>{profile.role}</b></span>}
+          {profile && <span className="whoami" title={profile.email}>{profile.full_name || profile.email} <span className="rolechip">{profile.role}</span></span>}
           {preview && <span className="chip pending preview-chip">preview</span>}
           {(profile?.role === 'admin' || preview) && <button className="btn small ghost admin-btn" onClick={() => { setQuery(''); go({ kind: 'approvals' }) }}>Approvals</button>}
           {route.kind === 'page' && !query.trim() && (
@@ -884,7 +884,7 @@ function Page({ id, pages: PAGES, nav: NAV, canEdit, go, railOpen, onRailClose }
       <div className="docmeta">{meta.map((m, i) => <span key={i}>{m}</span>)}<span>About {readMin} min read</span></div>
       <PrintNote version={versionOf(p)} />
       {p.blocks.map((b, i) => b.t === 'h2' && canEdit
-        ? <h2 key={i} id={'sec-' + i} className="edh2">{b.x}<button className="secedit" onClick={() => go({ kind: 'edit', key: id, sec: i })} aria-label={'Edit section ' + b.x}>Edit</button></h2>
+        ? <div key={i} className="edh2"><h2 id={'sec-' + i}>{b.x}</h2><button className="secedit" onClick={() => go({ kind: 'edit', key: id, sec: i })} aria-label={'Edit section ' + b.x}>Edit</button></div>
         : <Block key={i} b={b} id={b.t === 'h2' ? 'sec-' + i : undefined} version={versionOf(p)} />)}
       {(prev || next) && (
         <nav className="pager" aria-label="More in this section">

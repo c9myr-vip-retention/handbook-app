@@ -23,11 +23,13 @@ function bodyText(page) {
 }
 
 // Inline marks inside block text: **bold** and `code`. Plain text otherwise.
+// Bare URLs get a span that may break anywhere, so they never widen a table.
 function Inline({ x }) {
-  const parts = String(x ?? '').split(/(\*\*[^*]+\*\*|`[^`]+`)/g)
+  const parts = String(x ?? '').split(/(\*\*[^*]+\*\*|`[^`]+`|https?:\/\/\S+)/g)
   return parts.map((s, i) =>
     s.startsWith('**') && s.endsWith('**') && s.length > 4 ? <b key={i}>{s.slice(2, -2)}</b>
     : s.startsWith('`') && s.endsWith('`') && s.length > 2 ? <code key={i}>{s.slice(1, -1)}</code>
+    : /^https?:\/\//.test(s) ? <span key={i} className="url">{s}</span>
     : s)
 }
 function buildIndex(nav, pages) {
@@ -1007,9 +1009,10 @@ function TableBlock({ b }) {
     if (!el) return
     const check = () => setOver(el.scrollWidth > el.clientWidth + 1)
     check()
-    const ro = new ResizeObserver(check); ro.observe(el)
+    // Watch the table too: a new page can put different content in the same wrapper.
+    const ro = new ResizeObserver(check); ro.observe(el); if (el.firstElementChild) ro.observe(el.firstElementChild)
     return () => ro.disconnect()
-  }, [])
+  }, [b])
   const stack = b.head.length >= 5
   const numbered = stack && /^(step\s*no\.?|no\.?|#)$/i.test(String(b.head[0]).trim())
   const plain = (s) => String(s ?? '').replace(/\*\*|`/g, '')

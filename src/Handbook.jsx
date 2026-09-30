@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { api } from './lib/api.js'
 import { parseBody, toMarkdown } from './lib/markdown.js'
 import { Chart, ChartSvg, ChartDrawer, parseChart, chartText } from './Chart.jsx'
+import { LearnHome, LearnModule, QuizPage, ScoresPage, SopLearnLink } from './Learn.jsx'
 
 const STATUS_LABEL = { pending: 'Coming soon', planned: 'Not written yet', external: 'Lark doc', restricted: 'Admins only' }
 
@@ -148,6 +149,13 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
   }
   const results = useMemo(() => search(INDEX, query.trim()), [INDEX, query])
   const canEdit = profile?.role === 'admin' || !!preview
+  const isAdmin = profile?.role === 'admin'
+  const [learnMods, setLearnMods] = useState([])
+  useEffect(() => {
+    if (preview) return
+    api.learn().then(setLearnMods, () => setLearnMods([]))
+  }, [preview, route.kind])
+  const showLearn = !preview && (isAdmin || learnMods.some(m => m.state !== 'draft'))
   const [dark, setDark] = useState(() => document.documentElement.getAttribute('data-theme') === 'dark')
   const toggleTheme = () => {
     const next = !dark
@@ -177,6 +185,9 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
     if (route.kind === 'stub') return route.title
     if (route.kind === 'approvals') return 'Approvals'
     if (route.kind === 'charts') return 'Chart review'
+    if (route.kind === 'learn') return route.key ? 'Learn: ' + (PAGES[route.key]?.title || route.key) : 'Learn'
+    if (route.kind === 'quiz') return 'Quiz: ' + (PAGES[route.key]?.title || route.key)
+    if (route.kind === 'scores') return 'Learning scores'
     if (route.kind === 'edit') return 'Edit: ' + (PAGES[route.key]?.title || route.key)
     if (route.kind === 'history') return 'History: ' + (PAGES[route.key]?.title || route.key)
     return ''
@@ -191,6 +202,8 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
         <button className="brand" onClick={() => { setQuery(''); go({ kind: 'home' }) }} aria-label="C9MYR VIP Retention Handbook, home"><svg className="logo" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 6C39 23 12 37 12 58c0 13 11 22 23 20 6-1 10-4 13-8-1 10-5 18-12 24h28c-7-6-11-14-12-24 3 4 7 7 13 8 12 2 23-7 23-20 0-21-27-35-38-52z" /></svg><span className="brandtext"><small>C9MYR</small><b>VIP Retention Handbook</b></span></button>
         <button className={'navitem homeitem' + (route.kind === 'home' ? ' active' : '')} aria-current={route.kind === 'home' ? 'page' : undefined}
           onClick={() => { setQuery(''); go({ kind: 'home' }) }}><span>Home</span></button>
+        {showLearn && <button className={'navitem homeitem' + (['learn', 'quiz', 'scores'].includes(route.kind) ? ' active' : '')} aria-current={route.kind === 'learn' && !route.key ? 'page' : undefined}
+          onClick={() => { setQuery(''); go({ kind: 'learn' }) }}><span>Learn</span></button>}
         <nav aria-label="Handbook sections">
           {NAV.map(sec => (
             <div key={sec.id} className={'navsec' + (openSecs[sec.id] ? ' open' : '')}>
@@ -264,17 +277,20 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
 
         <main className="content" id="main" tabIndex={-1}>
           {route.kind === 'home'
-            ? <Home go={go} nav={NAV} pages={PAGES} notice={notice} query={query} setQuery={setQuery} results={results} open={openLeaf} />
+            ? <Home go={go} nav={NAV} pages={PAGES} notice={notice} query={query} setQuery={setQuery} results={results} open={openLeaf} showLearn={showLearn} />
             : query.trim()
             ? <SearchResults query={query} results={results} open={openLeaf} pages={PAGES} />
             : <>
                 {route.kind === 'domain' && <DomainList name={route.key} go={go} nav={NAV} pages={PAGES} />}
-                {route.kind === 'page' && <Page id={route.key} pages={PAGES} nav={NAV} canEdit={canEdit} go={go} railOpen={railOpen} onRailClose={() => setRailOpen(false)} />}
+                {route.kind === 'page' && <Page id={route.key} sec={route.sec} mod={learnMods.find(m => m.id === route.key)} pages={PAGES} nav={NAV} canEdit={canEdit} go={go} railOpen={railOpen} onRailClose={() => setRailOpen(false)} />}
                 {route.kind === 'edit' && <Editor key={route.key + '/' + (route.sec ?? '')} id={route.key} sec={route.sec} pages={PAGES} preview={preview} go={go} onPageSaved={onPageSaved} />}
                 {route.kind === 'history' && <History id={route.key} pages={PAGES} preview={preview} go={go} onPageSaved={onPageSaved} />}
                 {route.kind === 'stub' && <Stub title={route.title} status={route.status} />}
                 {route.kind === 'approvals' && <Approvals preview={preview} />}
                 {route.kind === 'charts' && <ChartReview pages={PAGES} go={go} />}
+                {route.kind === 'learn' && (route.key ? <LearnModule key={route.key} id={route.key} go={go} canEdit={isAdmin} /> : <LearnHome go={go} canEdit={isAdmin} />)}
+                {route.kind === 'quiz' && <QuizPage key={route.key} id={route.key} go={go} />}
+                {route.kind === 'scores' && <ScoresPage go={go} />}
               </>}
         </main>
       </div>
@@ -313,7 +329,7 @@ const SECTION_DESC = {
   lib: 'Templates, tags, case studies and tools',
 }
 
-function Home({ go, nav: NAV, pages: PAGES, notice, query, setQuery, results, open }) {
+function Home({ go, nav: NAV, pages: PAGES, notice, query, setQuery, results, open, showLearn }) {
   const leafRoute = (it) => it.id && PAGES[it.id] ? { kind: 'page', key: it.id } : { kind: 'stub', title: it.title, status: it.status }
   const essentials = ESSENTIALS.filter(id => PAGES[id])
   const recent = Object.entries(PAGES)
@@ -339,6 +355,7 @@ function Home({ go, nav: NAV, pages: PAGES, notice, query, setQuery, results, op
       {q
         ? <SearchResults query={query} results={results} open={open} pages={PAGES} embedded />
         : <>
+          {showLearn && <div className="learnlink home"><span><b>New here, or want a refresher?</b> Learn the key SOPs in 5-minute guides with a quick quiz.</span><button className="btn small" onClick={() => go({ kind: 'learn' })}>Start learning</button></div>}
           {essentials.length > 0 && <>
             <div className="sectitle"><h2>Daily essentials</h2><p>The pages you open every shift.</p></div>
             <ul className="tiles">
@@ -852,7 +869,19 @@ function PageRail({ p, id, heads, jump, related, canEdit, go, open, onClose }) {
   )
 }
 
-function Page({ id, pages: PAGES, nav: NAV, canEdit, go, railOpen, onRailClose }) {
+function Page({ id, sec, mod, pages: PAGES, nav: NAV, canEdit, go, railOpen, onRailClose }) {
+  // Arriving with a section (#/p/<id>/s/<section name>), e.g. from a Learn guide:
+  // scroll to that heading after the route's own scroll and focus have run.
+  useEffect(() => {
+    if (!sec) return
+    const t = setTimeout(() => {
+      // Match on the section name, ignoring its number ("9. Step 5: ..." matches "Step 5"), so renumbering never breaks a link.
+      const name = (x) => x.textContent.trim().replace(/^\d+\.\s*/, '')
+      const h = [...document.querySelectorAll('.doc h2')].find(x => name(x).startsWith(sec) || x.textContent.trim().startsWith(sec))
+      if (h) { h.scrollIntoView({ block: 'start' }); h.tabIndex = -1; h.focus({ preventScroll: true }) }
+    }, 120)
+    return () => clearTimeout(t)
+  }, [id, sec])
   const p = PAGES[id]
   if (!p) return <Stub title={id} />
   const heads = p.blocks.map((b, i) => b.t === 'h2' ? { i, x: b.x } : null).filter(Boolean)
@@ -883,9 +912,11 @@ function Page({ id, pages: PAGES, nav: NAV, canEdit, go, railOpen, onRailClose }
       <h1>{p.title}</h1>
       <div className="docmeta">{meta.map((m, i) => <span key={i}>{m}</span>)}<span>About {readMin} min read</span></div>
       <PrintNote version={versionOf(p)} />
+      <SopLearnLink mod={mod} go={go} />
       {p.blocks.map((b, i) => b.t === 'h2' && canEdit
         ? <div key={i} className="edh2"><h2 id={'sec-' + i}>{b.x}</h2><button className="secedit" onClick={() => go({ kind: 'edit', key: id, sec: i })} aria-label={'Edit section ' + b.x}>Edit</button></div>
         : <Block key={i} b={b} id={b.t === 'h2' ? 'sec-' + i : undefined} version={versionOf(p)} />)}
+      <SopLearnLink mod={mod} go={go} place="end" />
       {(prev || next) && (
         <nav className="pager" aria-label="More in this section">
           {prev ? <button className="pagerbtn" onClick={() => go({ kind: 'page', key: prev.id })}><small>Previous</small><b>{prev.title}</b></button> : <span />}
@@ -1031,24 +1062,30 @@ function TableBlock({ b }) {
 // route <-> URL hash
 function toHash(r) {
   const e = encodeURIComponent
-  if (r.kind === 'page') return '#/p/' + e(r.key)
+  if (r.kind === 'page') return '#/p/' + e(r.key) + (r.sec ? '/s/' + e(r.sec) : '')
   if (r.kind === 'domain') return '#/d/' + e(r.key)
   if (r.kind === 'stub') return '#/s/' + e(r.title)
   if (r.kind === 'edit') return '#/edit/' + e(r.key) + (r.sec != null ? '/' + r.sec : '')
   if (r.kind === 'history') return '#/history/' + e(r.key)
   if (r.kind === 'approvals') return '#/approvals'
   if (r.kind === 'charts') return '#/charts'
+  if (r.kind === 'learn') return '#/learn' + (r.key ? '/' + e(r.key) : '')
+  if (r.kind === 'quiz') return '#/quiz/' + e(r.key)
+  if (r.kind === 'scores') return '#/scores'
   return '#/'
 }
 function parseHash(hash, NAV) {
   const [, kind, raw] = String(hash || '').match(/^#\/([a-z]+)\/?(.*)$/) || []
   const v = raw ? decodeURIComponent(raw) : ''
-  if (kind === 'p' && v) return { kind: 'page', key: v }
+  if (kind === 'p' && v) { const [key, sec] = v.split('/s/'); return sec ? { kind: 'page', key, sec } : { kind: 'page', key } }
   if (kind === 'd' && v) return { kind: 'domain', key: v }
   if (kind === 'edit' && v) { const [key, sec] = v.split('/'); return sec != null && sec !== '' ? { kind: 'edit', key, sec: +sec } : { kind: 'edit', key } }
   if (kind === 'history' && v) return { kind: 'history', key: v }
   if (kind === 'approvals') return { kind: 'approvals' }
   if (kind === 'charts') return { kind: 'charts' }
+  if (kind === 'learn') return v ? { kind: 'learn', key: v } : { kind: 'learn' }
+  if (kind === 'quiz' && v) return { kind: 'quiz', key: v }
+  if (kind === 'scores') return { kind: 'scores' }
   if (kind === 's' && v) {
     for (const sec of NAV) for (const it of (sec.domains ? sec.domains.flatMap(d => d.items) : sec.items))
       if (it.title === v) return { kind: 'stub', title: v, status: it.status }

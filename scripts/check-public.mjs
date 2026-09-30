@@ -26,6 +26,19 @@ for (const f of readdirSync(content).filter(f => f.endsWith('.json'))) {
     .forEach(s => probes.add(s.slice(0, 40)))
 }
 
+// Learn modules (db/learn): quiz questions, answers' reasons, guide text and
+// glossary meanings are served by /api/learn only, never bundled.
+const learnDir = join(root, 'db', 'learn')
+for (const f of readdirSync(learnDir).filter(f => f.endsWith('.json'))) {
+  const c = JSON.parse(readFileSync(join(learnDir, f), 'utf8')).content || {}
+  const texts = [
+    ...(c.quiz?.pool || []).flatMap(q => [q.q, q.why]),
+    ...(c.tour || []).flatMap(t => [t.title, t.done, t.yes, ...(t.items || []).flat()]),
+    ...(c.words || []).map(([, d]) => d),
+  ]
+  texts.filter(t => typeof t === 'string' && t.length >= 30).forEach(t => probes.add(t.slice(0, 30)))
+}
+
 const files = []
 const walk = (dir) => {
   for (const name of readdirSync(dir)) {

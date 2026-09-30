@@ -332,6 +332,107 @@ mark { background:color-mix(in srgb, var(--accent) 18%, transparent); color:inhe
 /* Print: always the light theme, compact, only what belongs on paper. */
 .printnote { display:none; }
 @page { size:A4; margin:14mm 14mm 16mm; }
+/* Learn: guides, step cards, calculator, quiz, scores (src/Learn.jsx) */
+.tour { margin:18px 0 28px; padding:18px 20px 16px; border:1px solid var(--border); border-radius:var(--r); background:var(--surface); }
+.tour-head { display:flex; align-items:center; gap:8px; margin:0 0 14px; }
+.tour-head h2 { margin:0; font-size:var(--fs-lg); font-weight:600; }
+.tour-all { margin-left:auto; font-size:var(--fs-sm); }
+.tour-tabs { display:flex; gap:6px; overflow-x:auto; padding:2px; margin:0 0 14px; }
+.tour-tab { display:inline-flex; align-items:center; gap:8px; min-height:40px; padding:6px 14px 6px 6px; border:1px solid var(--border); border-radius:999px; background:var(--surface); color:var(--muted); font-size:var(--fs-sm); font-weight:600; cursor:pointer; white-space:nowrap; }
+.tour-tab:hover { color:var(--text); border-color:var(--border-strong); }
+.tour-tab.on { border-color:var(--accent); background:var(--accent-soft); color:var(--accent); }
+.tour-tab.seen { color:var(--text); }
+.tour-dot { display:grid; place-items:center; width:26px; height:26px; border-radius:50%; background:var(--surface-2); font-size:var(--fs-xs); }
+.tour-tab.on .tour-dot { background:var(--accent); color:var(--on-accent); }
+.tour-tab.seen .tour-dot { background:var(--good-soft); color:var(--good); }
+.tour-panel { min-height:200px; padding:16px 18px; border-radius:var(--r); background:var(--surface-2); }
+.tour-panel h3 { margin:0 0 12px; font-size:var(--fs-lg); font-weight:600; }
+.tour-stack { display:grid; gap:10px; }
+.tour-stack .tour-panel { min-height:0; }
+.tour-finish { display:flex; flex-direction:column; justify-content:center; text-align:center; }
+.tour-nav { display:flex; align-items:center; justify-content:space-between; gap:8px; margin:12px 0 0; }
+.tour-checks { list-style:none; margin:0; padding:0; display:grid; gap:6px; }
+.tour-checks label { display:flex; align-items:center; gap:10px; min-height:44px; padding:8px 12px; border:1px solid var(--border); border-radius:var(--r-sm); background:var(--surface); cursor:pointer; font-size:var(--fs-md); }
+.tour-checks input { width:18px; height:18px; accent-color:var(--accent); }
+.tour-note { margin:12px 0 0; padding:8px 12px; border-radius:var(--r-sm); background:var(--surface); font-size:var(--fs-sm); color:var(--muted); }
+.tour-note.ok { background:var(--good-soft); color:var(--good); font-weight:600; }
+.tour-note.warn { background:var(--planned-soft); color:var(--planned); font-weight:600; }
+.tour-steps { list-style:none; counter-reset:ts; margin:0; padding:0; display:grid; gap:8px; }
+.tour-steps li { counter-increment:ts; display:grid; grid-template-columns:28px minmax(0,1fr); column-gap:10px; }
+.tour-steps li::before { content:counter(ts); grid-row:span 2; display:grid; place-items:center; width:28px; height:28px; border-radius:50%; background:var(--accent-soft); color:var(--accent); font-size:var(--fs-xs); font-weight:700; }
+.tour-steps b { font-size:var(--fs-md); }
+.tour-steps span { color:var(--muted); font-size:var(--fs-sm); }
+.tour-never { list-style:none; margin:0; padding:0; display:grid; gap:8px; }
+.tour-never li { position:relative; padding:10px 12px 10px 40px; border-radius:var(--r-sm); background:var(--restricted-soft); color:var(--text); font-size:var(--fs-md); }
+.tour-never li::before { content:"✕"; position:absolute; left:12px; top:10px; width:20px; text-align:center; color:var(--restricted); font-weight:700; }
+.tour-q { margin:0 0 10px; font-size:var(--fs-md); font-weight:600; }
+.seg { display:inline-flex; padding:3px; border:1px solid var(--border-strong); border-radius:var(--r-sm); background:var(--surface); }
+.seg button { min-height:36px; min-width:72px; padding:4px 14px; border:0; border-radius:5px; background:transparent; color:var(--muted); font-size:var(--fs-sm); font-weight:600; cursor:pointer; }
+.seg button.on { background:var(--accent); color:var(--on-accent); }
+.calc { display:grid; gap:10px; }
+.calc-row { display:grid; grid-template-columns:170px minmax(0,1fr); align-items:center; gap:12px; }
+.calc-lbl { font-size:var(--fs-sm); font-weight:600; color:var(--muted); }
+.calc-row input { max-width:220px; padding:8px 12px; font-size:var(--fs-md); border:1px solid var(--input-border); border-radius:var(--r-sm); background:var(--surface); color:var(--text); }
+.calc-out { margin-top:4px; padding:12px 14px; border-radius:var(--r-sm); background:var(--surface); border:1px solid var(--border); }
+.calc-amt { margin:0; font-size:var(--fs-2xl); font-weight:700; color:var(--accent); }
+.calc-why { margin:2px 0 8px; font-size:var(--fs-sm); color:var(--muted); }
+.calc-tags { display:flex; flex-wrap:wrap; gap:6px; margin:0; }
+.qcard-changed { margin:14px 0 0; padding:8px 12px; border-radius:var(--r-sm); background:var(--planned-soft); color:var(--text); font-size:var(--fs-sm); }
+.qcard-actions { display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:14px 0 0; padding-top:12px; border-top:1px solid var(--border); }
+.qcard-done { font-size:var(--fs-sm); font-weight:600; color:var(--good); }
+.quiz { max-width:720px; }
+.quiz-top { display:flex; justify-content:space-between; font-size:var(--fs-sm); color:var(--muted); margin:8px 0 6px; }
+.quiz-timer.low { color:var(--restricted); font-weight:600; }
+.quiz-bar { height:4px; border-radius:2px; background:var(--surface-2); margin:0 0 18px; }
+.quiz-bar > div { height:4px; border-radius:2px; background:var(--accent); }
+.doc .quiz-q { font-size:var(--fs-lg); font-weight:600; line-height:1.45; margin:0 0 14px; }
+.quiz-opts { display:grid; gap:8px; margin:0 0 12px; }
+.quiz-opt { min-height:44px; padding:10px 14px; text-align:left; border:1px solid var(--border-strong); border-radius:var(--r-sm); background:var(--surface); color:var(--text); font-size:var(--fs-md); cursor:pointer; }
+.quiz-opt:hover:not(:disabled) { background:var(--surface-2); }
+.quiz-opt.sel { border:2px solid var(--accent); background:var(--accent-soft); }
+.quiz-opt.ok { border:2px solid var(--good); background:var(--good-soft); color:var(--text); }
+.quiz-opt.bad { border:2px solid var(--restricted); background:var(--restricted-soft); color:var(--text); }
+.quiz-opt:disabled { cursor:default; }
+.quiz-actions { display:flex; flex-wrap:wrap; gap:8px; margin:16px 0 0; }
+.quiz-result { margin:16px 0 0; padding:20px; border:1px solid var(--border); border-radius:var(--r); background:var(--surface); text-align:center; }
+.quiz-result p { margin:4px 0; }
+.quiz-score { font-size:var(--fs-2xl); font-weight:700; }
+.quiz-result.pass .quiz-score { color:var(--good); }
+.quiz-result.retry .quiz-score { color:var(--planned); }
+.scorestats { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; margin:0 0 14px; }
+.scorestats > div { padding:12px 14px; border-radius:var(--r); background:var(--surface-2); display:flex; flex-direction:column; }
+.scorestats span { font-size:var(--fs-xs); color:var(--muted); }
+.scorestats b { font-size:var(--fs-lg); }
+.chip.scorepass { background:var(--good-soft); color:var(--good); }
+@media (max-width:640px){ .tour { padding:14px; } .tour-panel { padding:14px; } .calc-row { grid-template-columns:1fr; gap:4px; } .tour-tab { padding-right:10px; } }
+
+.learnlink { display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin:16px 0 20px; padding:12px 16px; border:1px solid var(--border); border-left:3px solid var(--accent); border-radius:0 var(--r) var(--r) 0; background:var(--accent-soft); font-size:var(--fs-sm); }
+.learnlink.end { margin:28px 0 16px; }
+.learnlink.home { margin:0 0 8px; }
+.learn { max-width:820px; }
+.learn-progress { margin:0 0 12px; font-size:var(--fs-sm); color:var(--muted); }
+.learn-path { list-style:none; margin:0 0 16px; padding:0; display:grid; gap:10px; }
+.learn-mod { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:center; gap:2px 12px; width:100%; padding:14px 16px; text-align:left; border:1px solid var(--border); border-radius:var(--r); background:var(--surface); color:var(--text); cursor:pointer; }
+.learn-mod:hover { border-color:var(--accent); box-shadow:var(--shadow-sm); }
+.learn-mod b { font-size:var(--fs-md); }
+.learn-mod small { grid-column:1; font-size:var(--fs-xs); color:var(--muted); }
+.learn-mod .chip { grid-column:2; grid-row:1 / span 2; }
+.learn-soon { cursor:default; border-style:dashed; color:var(--muted); }
+.learn-soon:hover { border-color:var(--border); box-shadow:none; }
+.learn-links { display:flex; flex-wrap:wrap; gap:8px; margin:12px 0 16px; }
+.words { margin:0 0 18px; padding:14px 18px; border:1px solid var(--border); border-radius:var(--r); background:var(--surface); }
+.doc .words h2 { margin:0 0 10px; font-size:var(--fs-md); }
+.words dl { margin:0; display:grid; gap:6px; }
+.words dl > div { display:grid; grid-template-columns:170px minmax(0,1fr); gap:12px; font-size:var(--fs-sm); }
+.words dt { font-weight:600; }
+.words dd { margin:0; color:var(--muted); }
+.words-todo { color:var(--planned); font-weight:600; }
+.tour-src { margin-top:12px; font-size:var(--fs-sm); }
+.learn-test { margin:8px 0 0; }
+.learn-admin { margin:0 0 18px; padding:12px 16px; border:1px dashed var(--border-strong); border-radius:var(--r); background:var(--surface-2); font-size:var(--fs-sm); }
+.learn-admin p { margin:0 0 6px; }
+.doc .learn-test h2 { margin:18px 0 6px; }
+@media (max-width:640px){ .words dl > div { grid-template-columns:1fr; gap:0; } .learn-mod { grid-template-columns:1fr; } .learn-mod .chip { grid-column:1; grid-row:auto; justify-self:start; margin-top:6px; } }
 @media print {
   :root, :root[data-theme="dark"], :root[data-theme="light"] {
     --bg:#FFFFFF; --surface:#FFFFFF; --surface-2:#F2F4F7; --solid:#FFFFFF;
@@ -349,7 +450,7 @@ mark { background:color-mix(in srgb, var(--accent) 18%, transparent); color:inhe
     --ch-edge:#5F5E5A; --ch-title:#185FA5;
     color-scheme:light;
   }
-  .side, .top, .rail, .readbar, .pager, .doctools, .banner, .scrim, .crumb, .figcap, .secedit { display:none !important; }
+  .side, .top, .rail, .readbar, .pager, .doctools, .banner, .scrim, .crumb, .figcap, .secedit, .learnlink { display:none !important; }
   .hb { display:block; } .content { padding:0; max-width:none; }
   .pagewrap { display:block; } .doc { max-width:none; }
   .doc > p, .doc .bullets, .doc .steps { max-width:none; }

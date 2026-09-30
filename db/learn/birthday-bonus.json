@@ -1,0 +1,92 @@
+{
+  "id": "birthday-bonus",
+  "sop_version": "V1.2",
+  "content": {
+    "minutes": 5,
+    "words": [
+      ["Secret Wallet (SW)", null],
+      ["Turnover (TO)", null],
+      ["Back office (BO)", null],
+      ["Risk tag", null],
+      ["Floor and max", "The lowest and the highest credit allowed for the tier. Below the floor, give the floor. Never go above the max."],
+      ["Ending in 8", "Credits end in 8 (RM 48, RM 118). Take the highest one at or below your result."],
+      ["Stacking", "Giving a player two rewards on the same day. Not allowed."]
+    ],
+    "tour": [
+      {
+        "key": "when", "label": "When", "kind": "check", "title": "Is this player due a birthday credit?",
+        "sec": "Step 1", "secLabel": "Step 1, pull the list",
+        "items": ["Tier 3 or Tier V player", "Birthday is today", "Birthday Reward Claimed This Year = No"],
+        "done": "All three: carry on to the steps.",
+        "notYet": "Tick all three. Any \"no\" means no birthday credit today."
+      },
+      {
+        "key": "do", "label": "Do", "kind": "steps", "title": "Five steps, in this order",
+        "sec": "Procedure", "secLabel": "Procedure",
+        "items": [
+          ["Screen", "Skip on any yes: claimed this year, risk tag, same-day reward."],
+          ["Pick the base", "Has a Secret Wallet? SW base. No SW? Deposit base."],
+          ["Size", "Work out the amount. The Numbers card does it for you."],
+          ["Issue", "Set the turnover and tell the player the validity."],
+          ["Record", "Claimed This Year = Yes, then update the QA Record."]
+        ]
+      },
+      {
+        "key": "never", "label": "Never", "kind": "never", "title": "Three hard stops",
+        "sec": "Guards", "secLabel": "Guards",
+        "items": [
+          "Stack it with a same-day Reload, Compensation or LTV reward.",
+          "Go above the tier max.",
+          "Promise an amount before the eligibility check."
+        ]
+      },
+      {
+        "key": "numbers", "label": "Numbers", "kind": "calc", "title": "Work out the amount",
+        "sec": "Step 3", "secLabel": "Step 3 and 4, the base and sizing",
+        "calc": {
+          "tiers": [["3", "Tier 3"], ["V", "Tier V"]],
+          "baseLabel": "Secret Wallet?",
+          "bases": [
+            { "key": "sw", "label": "Has SW", "input": "SW balance (RM)", "example": "400",
+              "pct": { "3": 25, "V": 30 }, "max": { "3": 888, "V": 1688 }, "floor": null,
+              "notes": ["1x turnover", "Deduct from SW"] },
+            { "key": "dep", "label": "No SW", "input": "Deposit (RM)", "example": "10000",
+              "pct": { "3": 0.1, "V": 0.1 }, "max": { "3": 188, "V": 388 }, "floor": { "3": 38, "V": 68 },
+              "notes": ["3x turnover", "No SW deduction"],
+              "confirm": "[CONFIRM] Which deposit figure: last month's deposit or total deposit? The SOP says both." }
+          ]
+        }
+      },
+      {
+        "key": "approver", "label": "Approver", "kind": "gate", "title": "Who can issue it?",
+        "sec": "Step 5", "secLabel": "Step 5, ATL approval",
+        "q": "Is the Total Deposit RM 100,000 or more?",
+        "yes": "ATL or above only. The ATL confirms value, claim history, risk tag and amount, then tags \"Birthday Credit - ATL Reviewed\".",
+        "no": "CS issues it, within the tier cap."
+      }
+    ],
+    "quiz": {
+      "count": 5, "pass": 80, "seconds": 60,
+      "pool": [
+        { "id": "sw-tierv-400", "q": "Tier V player has a Secret Wallet of RM 400. What birthday credit do you issue?",
+          "o": ["RM 120", "RM 118", "RM 128", "RM 68"], "a": 1,
+          "why": "400 x 30% = 120. Use the highest amount ending in 8 at or below it: RM 118. Deduct from SW, 1x turnover." },
+        { "id": "dep-floor-t3", "q": "Tier 3 player, no Secret Wallet. The deposit-base amount works out to RM 10 (0.1% of RM 10,000). What do you issue?",
+          "o": ["RM 10", "RM 18", "RM 38", "RM 188"], "a": 2,
+          "why": "RM 10 is below the Tier 3 floor. Issue the floor, RM 38, with 3x turnover." },
+        { "id": "gate-150k", "q": "A player's Total Deposit is RM 150,000. Who issues the birthday credit?",
+          "o": ["CS, within the cap", "ATL or above, tagged ATL Reviewed", "Any Senior", "Nobody, skip the player"], "a": 1,
+          "why": "RM 100,000 or more goes to the ATL or above. CS cannot issue it directly." },
+        { "id": "no-stack-reload", "q": "The player received a Reload bonus this morning. Their birthday is today. What do you do?",
+          "o": ["Issue both", "Issue half the birthday credit", "Skip the birthday credit", "Ask the player to choose"], "a": 2,
+          "why": "No stacking with a same-day Reload, Compensation or LTV reward. Skip." },
+        { "id": "sw-turnover", "q": "The player has a Secret Wallet. Which turnover applies?",
+          "o": ["1x, and deduct from SW", "3x, no deduction", "1x, no deduction", "3x, and deduct from SW"], "a": 0,
+          "why": "SW base: deduct from SW, 1x turnover. The deposit base is 3x with no deduction." },
+        { "id": "stale-sw", "q": "The SW figure you have is from yesterday. What do you do first?",
+          "o": ["Size on yesterday's SW", "Use the deposit base instead", "Refresh the SW today, then size", "Ask the ATL"], "a": 2,
+          "why": "A stale SW is not a valid base. Refresh it the same day before sizing." }
+      ]
+    }
+  }
+}

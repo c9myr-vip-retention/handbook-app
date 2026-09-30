@@ -11,7 +11,8 @@
     "pages:dev": "wrangler pages dev dist --d1 DB=handbook --compatibility-date=2026-01-01",
     "deploy": "npm run build && wrangler pages deploy dist --project-name=c9myr-rtn-handbook --branch=main",
     "sync": "node db/sync.mjs",
-    "export": "node db/export.mjs"
+    "export": "node db/export.mjs",
+    "dev:full": "wrangler pages dev dist --port 8788"
   },
   "dependencies": {
     "react": "^18.3.1",

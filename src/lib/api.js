@@ -25,7 +25,9 @@ async function req(path, opts = {}) {
   }
   if (!res.ok) {
     const body = await res.json().catch(() => ({}))
-    const err = new Error(FRIENDLY[res.status] || SERVER)
+    // 400 and 409 carry messages written for staff (for example "This quiz is paused").
+    const own = (res.status === 400 || res.status === 409) && body.error
+    const err = new Error(own || FRIENDLY[res.status] || SERVER)
     err.status = res.status
     err.detail = body.error || ('API ' + res.status)
     console.error(path, res.status, err.detail)
@@ -45,6 +47,14 @@ export const api = {
   approvals: () => req('/api/admin/approvals'),
   approve: (email) => req('/api/admin/approvals/' + encodeURIComponent(email), { method: 'POST' }),
   reject: (email) => req('/api/admin/approvals/' + encodeURIComponent(email) + '/reject', { method: 'POST' }),
+  // Learn (guides and quizzes). Quiz answers are marked on the server.
+  learn: () => req('/api/learn'),
+  learnModule: (id, draft) => req('/api/learn/' + encodeURIComponent(id) + (draft ? '?draft=1' : '')),
+  learnRead: (id) => req('/api/learn/' + encodeURIComponent(id) + '/read', { method: 'POST' }),
+  learnStart: (id) => req('/api/learn/' + encodeURIComponent(id) + '/attempts', { method: 'POST' }),
+  learnAnswer: (aid, qid, choice) => req('/api/learn/attempts/' + encodeURIComponent(aid) + '/answer', { method: 'POST', body: JSON.stringify({ qid, choice }) }),
+  learnPublish: (id) => req('/api/learn/' + encodeURIComponent(id) + '/publish', { method: 'POST' }),
+  learnScores: () => req('/api/learn/scores'),
 }
 
 // Sign out: Access's logout ends the session for every Access app and clears

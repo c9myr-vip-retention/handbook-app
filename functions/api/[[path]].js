@@ -5,6 +5,8 @@
 // approval live in D1 and are enforced here on every request (D1 has no
 // row-level security, so this Worker is the wall).
 
+import { handleLearn } from '../../server/learn.js'
+
 export async function onRequest(context) {
   const { request, env } = context
   const url = new URL(request.url)
@@ -25,6 +27,10 @@ export async function onRequest(context) {
     } catch (e) {
       return json({ error: 'invalid access token' }, 401)
     }
+  } else if (env.DEV_EMAIL && (url.hostname === 'localhost' || url.hostname === '127.0.0.1')) {
+    // Local testing only (wrangler pages dev): DEV_EMAIL comes from .dev.vars,
+    // which is never deployed, and only a localhost address can use it.
+    email = String(env.DEV_EMAIL).toLowerCase()
   }
 
   try {
@@ -117,6 +123,9 @@ export async function onRequest(context) {
         return json({ ok: true })
       }
     }
+
+    // Learn section (guides and quizzes). See server/learn.js.
+    if (parts[0] === 'learn') return await handleLearn({ request, env, parts, email, isAdmin, json })
 
     // Approvals (admin): list pending and rejected; approve or reject one.
     // POST /api/admin/approvals/<email>          approve

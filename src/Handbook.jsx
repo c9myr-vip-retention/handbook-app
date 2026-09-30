@@ -327,7 +327,6 @@ function Home({ go, nav: NAV, pages: PAGES, notice, query, setQuery, results, op
     <div className="view home">
       {notice && <div className="banner">{notice}</div>}
       <section className="hero">
-        <div className="eyebrow">C9MYR · VIP Retention</div>
         <p className="slogan">Winning Together! Growing Forever!</p>
         <h1>VIP Retention Handbook</h1>
         <p className="herolead">Every SOP, policy and playbook the department runs on. Always the current version.</p>
@@ -341,18 +340,17 @@ function Home({ go, nav: NAV, pages: PAGES, notice, query, setQuery, results, op
         ? <SearchResults query={query} results={results} open={open} pages={PAGES} embedded />
         : <>
           {essentials.length > 0 && <>
-            <div className="sectitle"><h2>Daily essentials</h2><p>The pages you open every shift, in order.</p></div>
-            <ol className="tiles">
-              {essentials.map((id, i) => (
+            <div className="sectitle"><h2>Daily essentials</h2><p>The pages you open every shift.</p></div>
+            <ul className="tiles">
+              {essentials.map((id) => (
                 <li key={id}>
                   <button className="tile" onClick={() => go({ kind: 'page', key: id })}>
-                    <span className="tilenum" aria-hidden="true">{i + 1}</span>
                     <b>{PAGES[id].title}</b>
                     <small>{String(PAGES[id].crumb || '').replace(/^SOP Book · /, '')}</small>
                   </button>
                 </li>
               ))}
-            </ol>
+            </ul>
           </>}
 
           <About pages={PAGES} go={go} dept={dept} />
@@ -918,7 +916,7 @@ function SopHeader({ f = [], version }) {
     ['Process owner', get('Process owner')], ['Approved by', get('Approved by')]]
   return (
     <div className="sophead">
-      <div className="sophead-title">Standard Operating Procedure</div>
+      <div className="sophead-title">Standard operating procedure</div>
       <dl>{cells.map(([k, v]) => <div key={k}><dt>{k}</dt><dd>{v || <span className="unset">{PENDING.has(k) ? 'Pending approval' : 'Not set'}</span>}</dd></div>)}</dl>
     </div>
   )

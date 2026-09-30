@@ -122,7 +122,7 @@ Every change must keep all of these true:
 
 ## 11. Motion
 
-- One short page entrance (`rise`, 0.18 s). Drawers slide (0.2 s). Hover changes colour, or adds  on tiles.
+- One short page entrance (`rise`, 0.18 s). Drawers slide (0.2 s). Hover changes colour, or adds `--shadow-sm` on tiles.
 - No scroll-triggered effects, no motion that is not a response to the reader.
 
 ## 12. Print

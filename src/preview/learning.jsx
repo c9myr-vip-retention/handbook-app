@@ -8,17 +8,21 @@ const LEARN = {
   'birthday-bonus': {
     version: 'V1.2',
     changed: 'Deposit-base floor confirmed (24 Sep 2026). The old examples were replaced.',
-    quick: [
-      ['When', 'Tier 3 or Tier V player, birthday today, not claimed this year.'],
-      ['Do', 'Screen, pick the base, size, issue, record.'],
-      ['Never', 'Stack with a same-day Reload, Compensation or LTV reward. Go above the tier max.'],
-      ['Numbers', 'Has SW: Tier 3 25% (max RM 888), Tier V 30% (max RM 1,688), 1x TO, deduct SW. No SW: 0.1% of deposit, floor RM 38 / RM 68, max RM 188 / RM 388, 3x TO.'],
-      ['Approver', 'ATL or above when Total Deposit is RM 100,000 or more.'],
+    // The 30-second version as five short cards. Each card does one job.
+    tour: [
+      { key: 'when', label: 'When', kind: 'check', title: 'Is this player due a birthday credit?',
+        items: ['Tier 3 or Tier V player', 'Birthday is today', 'Birthday Reward Claimed This Year = No'],
+        done: 'All three: carry on to the steps.', notYet: 'Tick all three. Any "no" means no birthday credit today.' },
+      { key: 'do', label: 'Do', kind: 'steps', title: 'Five steps, in this order',
+        items: [['Screen', 'Skip on any yes: claimed this year, risk tag, same-day reward.'], ['Pick the base', 'Has a Secret Wallet? SW base. No SW? Deposit base.'], ['Size', 'Use the calculator on the Numbers card.'], ['Issue', 'Set the turnover and tell the player the validity.'], ['Record', 'Claimed This Year = Yes, then update the QA Record.']] },
+      { key: 'never', label: 'Never', kind: 'never', title: 'Three hard stops',
+        items: ['Stack it with a same-day Reload, Compensation or LTV reward.', 'Go above the tier max.', 'Promise an amount before the eligibility check.'] },
+      { key: 'numbers', label: 'Numbers', kind: 'calc', title: 'Work out the amount' },
+      { key: 'approver', label: 'Approver', kind: 'gate', title: 'Who can issue it?',
+        q: 'Is the Total Deposit RM 100,000 or more?',
+        yes: 'ATL or above only. The ATL confirms value, claim history, risk tag and amount, then tags "Birthday Credit - ATL Reviewed".',
+        no: 'CS issues it, within the tier cap.' },
     ],
-    practice: {
-      q: 'Tier 3 player, no Secret Wallet, deposited RM 10,000 last month. 0.1% is RM 10. What do you issue?',
-      a: 'RM 38. Below the floor, issue the floor. 3x turnover, no SW deduction.',
-    },
     quiz: {
       title: 'Birthday Bonus', count: 5, pass: 80, seconds: 60,
       pool: [
@@ -53,31 +57,163 @@ export function PreviewBanner() {
   return <div className="banner">Preview of the learning features. Not live; nothing here is saved.</div>
 }
 
+// Highest amount ending in 8 at or below x (the SOP's "8-ending" rule). null when none fits.
+const eight = (x) => (x < 8 ? null : Math.floor((x - 8) / 10) * 10 + 8)
+const rm = (n) => 'RM ' + Number(n).toLocaleString('en-US', { maximumFractionDigits: 2 })
+
+// Numbers card: the SOP's sizing tables as a calculator (Birthday Bonus V1.2).
+function BirthdayCalc() {
+  const [tier, setTier] = useState('3')
+  const [hasSw, setHasSw] = useState(true)
+  const [amt, setAmt] = useState('')
+  const v = Number(String(amt).replace(/[, ]/g, ''))
+  const T = hasSw
+    ? { pct: tier === '3' ? 0.25 : 0.30, max: tier === '3' ? 888 : 1688, floor: null, to: '1x turnover', sw: 'Deduct from SW' }
+    : { pct: 0.001, max: tier === '3' ? 188 : 388, floor: tier === '3' ? 38 : 68, to: '3x turnover', sw: 'No SW deduction' }
+  let out = null
+  if (amt !== '' && Number.isFinite(v) && v >= 0) {
+    const raw = v * T.pct
+    const pctTx = hasSw ? Math.round(T.pct * 100) + '%' : '0.1%'
+    if (raw >= T.max) out = { amount: T.max, why: `${rm(v)} x ${pctTx} = ${rm(raw)}, above the max. Issue the max.` }
+    else if (T.floor != null && raw < T.floor) out = { amount: T.floor, why: `${rm(v)} x ${pctTx} = ${rm(raw)}, below the floor. Issue the floor.` }
+    else {
+      const e = eight(raw)
+      out = e == null
+        ? { amount: null, why: `${rm(v)} x ${pctTx} = ${rm(raw)}. No amount ending in 8 fits. Check with the ATL.` }
+        : { amount: e, why: `${rm(v)} x ${pctTx} = ${rm(raw)}. Highest amount ending in 8: ${rm(e)}.` }
+    }
+  }
+  const bad = amt !== '' && !(Number.isFinite(v) && v >= 0)
+  return (
+    <div className="calc">
+      <div className="calc-row">
+        <span className="calc-lbl" id="calc-tier">Tier</span>
+        <div className="seg" role="radiogroup" aria-labelledby="calc-tier">
+          {[['3', 'Tier 3'], ['V', 'Tier V']].map(([k, t]) => <button key={k} role="radio" aria-checked={tier === k} className={tier === k ? 'on' : ''} onClick={() => setTier(k)}>{t}</button>)}
+        </div>
+      </div>
+      <div className="calc-row">
+        <span className="calc-lbl" id="calc-sw">Secret Wallet?</span>
+        <div className="seg" role="radiogroup" aria-labelledby="calc-sw">
+          {[[true, 'Has SW'], [false, 'No SW']].map(([k, t]) => <button key={t} role="radio" aria-checked={hasSw === k} className={hasSw === k ? 'on' : ''} onClick={() => setHasSw(k)}>{t}</button>)}
+        </div>
+      </div>
+      <label className="calc-row">
+        <span className="calc-lbl">{hasSw ? 'SW balance (RM)' : 'Last month deposit (RM)'}</span>
+        <input inputMode="decimal" value={amt} onChange={e => setAmt(e.target.value)} placeholder={hasSw ? '400' : '10000'} aria-invalid={bad} />
+      </label>
+      {bad && <p className="err" role="alert">Enter an amount in RM, numbers only.</p>}
+      {out && hasSw && out.amount != null && out.amount >= 1000 && out.amount < T.max && (
+        <p className="tour-note warn" role="note">[CONFIRM] Above RM 1,000 the SOP disagrees with itself: its rule gives this amount, but its example (Tier V, SW RM 4,000) says RM 1,188, not RM 1,198. Check with the ATL before issuing.</p>
+      )}
+      <div className="calc-out" aria-live="polite">
+        {out
+          ? <><p className="calc-amt">{out.amount == null ? 'Check with the ATL' : rm(out.amount)}</p>
+              <p className="calc-why">{out.why}</p>
+              <p className="calc-tags"><span className="chip ver">{T.to}</span><span className="chip ver">{T.sw}</span>{T.floor != null && <span className="chip ver">Floor {rm(T.floor)}</span>}<span className="chip ver">Max {rm(T.max)}</span></p></>
+          : <p className="muted">Pick the tier and base, then type the amount.</p>}
+      </div>
+    </div>
+  )
+}
+
+function TourPanel({ s }) {
+  const [ticks, setTicks] = useState(() => (s.items || []).map(() => false))
+  const [ans, setAns] = useState(null)
+  if (s.kind === 'check') {
+    const all = ticks.every(Boolean)
+    return (
+      <>
+        <ul className="tour-checks">
+          {s.items.map((t, i) => (
+            <li key={t}><label><input type="checkbox" checked={ticks[i]} onChange={() => setTicks(a => a.map((x, j) => (j === i ? !x : x)))} /> {t}</label></li>
+          ))}
+        </ul>
+        <p className={'tour-note' + (all ? ' ok' : '')} aria-live="polite">{all ? s.done : s.notYet}</p>
+      </>
+    )
+  }
+  if (s.kind === 'steps') return (
+    <ol className="tour-steps">{s.items.map(([t, d]) => <li key={t}><b>{t}</b><span>{d}</span></li>)}</ol>
+  )
+  if (s.kind === 'never') return (
+    <ul className="tour-never">{s.items.map(t => <li key={t}>{t}</li>)}</ul>
+  )
+  if (s.kind === 'calc') return <BirthdayCalc />
+  if (s.kind === 'gate') return (
+    <>
+      <p className="tour-q">{s.q}</p>
+      <div className="seg" role="radiogroup" aria-label={s.q}>
+        {[['yes', 'Yes'], ['no', 'No']].map(([k, t]) => <button key={k} role="radio" aria-checked={ans === k} className={ans === k ? 'on' : ''} onClick={() => setAns(k)}>{t}</button>)}
+      </div>
+      {ans && <p className={'tour-note' + (ans === 'yes' ? ' warn' : ' ok')} aria-live="polite">{ans === 'yes' ? s.yes : s.no}</p>}
+    </>
+  )
+  return null
+}
+
 export function QuickCard({ id, go, canEdit }) {
   const L = LEARN[id]
   const [read, setRead] = useState(!!mine.read[id])
-  const [open, setOpen] = useState(false)
+  const [at, setAt] = useState(0)
+  const [seen, setSeen] = useState(() => new Set([0]))
+  const [all, setAll] = useState(false)
   if (!L) return null
+  const steps = L.tour, n = steps.length, finished = at >= n
   const best = mine.best[id]
+  const goTo = (i) => { setAt(i); setSeen(prev => new Set([...prev, i])) }
+  const onKeys = (e) => {
+    if (e.key === 'ArrowRight') { e.preventDefault(); goTo(Math.min(n - 1, at + 1)) }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(Math.max(0, at - 1)) }
+  }
+  const s = steps[at]
   return (
-    <section className="qcard" aria-labelledby="qcard-title">
-      <div className="qcard-head">
-        <h2 id="qcard-title">The 30-second version</h2>
+    <section className="tour" aria-labelledby="tour-title">
+      <div className="tour-head">
+        <h2 id="tour-title">The 30-second version</h2>
         <span className="chip ver">{L.version}</span>
+        <button className="crumblink tour-all" aria-pressed={all} onClick={() => setAll(a => !a)}>{all ? 'One card at a time' : 'Show all'}</button>
       </div>
-      <dl className="qcard-list">
-        {L.quick.map(([k, v]) => <div key={k}><dt>{k}</dt><dd>{v}</dd></div>)}
-      </dl>
+
+      {all ? (
+        <div className="tour-stack">
+          {steps.map(x => <div key={x.key} className="tour-panel"><h3>{x.label}: {x.title}</h3><TourPanel s={x} /></div>)}
+        </div>
+      ) : (
+        <>
+          <div className="tour-tabs" role="tablist" aria-label="The 30-second version" onKeyDown={onKeys}>
+            {steps.map((x, i) => (
+              <button key={x.key} role="tab" id={'tt-' + x.key} aria-selected={at === i} aria-controls="tour-body" tabIndex={at === i ? 0 : -1}
+                className={'tour-tab' + (at === i ? ' on' : '') + (seen.has(i) && at !== i ? ' seen' : '')} onClick={() => goTo(i)}>
+                <span className="tour-dot" aria-hidden="true">{seen.has(i) && at !== i ? '✓' : i + 1}</span>{x.label}
+              </button>
+            ))}
+          </div>
+          {finished ? (
+            <div className="tour-panel tour-finish">
+              <h3>That's the 30-second version.</h3>
+              <p className="muted">The full procedure is below for when you need the detail.</p>
+            </div>
+          ) : (
+            <div className="tour-panel" id="tour-body" role="tabpanel" aria-labelledby={'tt-' + s.key}>
+              <h3>{s.title}</h3>
+              <TourPanel key={s.key} s={s} />
+            </div>
+          )}
+          <div className="tour-nav">
+            <button className="btn small ghost" onClick={() => goTo(Math.max(0, (finished ? n : at) - 1))} disabled={at === 0}>Back</button>
+            <span className="muted small">{finished ? `${n} of ${n}` : `${at + 1} of ${n}`}</span>
+            {!finished && <button className="btn small" onClick={() => (at === n - 1 ? setAt(n) : goTo(at + 1))}>{at === n - 1 ? 'Finish' : 'Next'}</button>}
+          </div>
+        </>
+      )}
+
       <p className="qcard-changed"><b>What changed in {L.version}:</b> {L.changed}</p>
-      <div className="qcard-case">
-        <button className="crumblink" aria-expanded={open} onClick={() => setOpen(o => !o)}>{open ? 'Hide' : 'Try'} a practice case</button>
-        {open && <><p>{L.practice.q}</p><p className="muted">{L.practice.a}</p></>}
-      </div>
       <div className="qcard-actions">
         {read
           ? <span className="qcard-done">Read {L.version} today</span>
           : <button className="btn small ghost" onClick={() => { mine.read[id] = true; setRead(true) }}>I've read {L.version}</button>}
-        <button className="btn small" onClick={() => go({ kind: 'quiz', key: id })}>{best != null ? `Retake quiz (best ${best}%)` : `Take the quiz (${L.quiz.count} questions)`}</button>
+        <button className="btn small" onClick={() => go({ kind: 'quiz', key: id })}>{best != null ? `Retake quiz (best ${best}%)` : `Test yourself (${L.quiz.count} questions)`}</button>
         {canEdit && <button className="btn small ghost" onClick={() => go({ kind: 'scores' })}>Team scores</button>}
       </div>
     </section>

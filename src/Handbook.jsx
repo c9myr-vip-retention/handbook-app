@@ -887,7 +887,7 @@ function Page({ id, pages: PAGES, nav: NAV, canEdit, go, railOpen, onRailClose }
       <h1>{p.title}</h1>
       <div className="docmeta">{meta.map((m, i) => <span key={i}>{m}</span>)}<span>About {readMin} min read</span></div>
       <PrintNote version={versionOf(p)} />
-      <QuickCard id={id} go={go} canEdit={canEdit} />
+      <QuickCard key={id} id={id} go={go} canEdit={canEdit} />
       {p.blocks.map((b, i) => b.t === 'h2' && canEdit
         ? <div key={i} className="edh2"><h2 id={'sec-' + i}>{b.x}</h2><button className="secedit" onClick={() => go({ kind: 'edit', key: id, sec: i })} aria-label={'Edit section ' + b.x}>Edit</button></div>
         : <Block key={i} b={b} id={b.t === 'h2' ? 'sec-' + i : undefined} version={versionOf(p)} />)}

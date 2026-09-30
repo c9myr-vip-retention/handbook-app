@@ -1,4 +1,4 @@
-// PREVIEW ONLY (branch preview/learning). Quick-version cards, a scenario quiz
+// PREVIEW ONLY (branch preview/learning). A Learn section: guides, a scenario quiz
 // and an admin scoreboard, shown inside the real layout for review. Nothing is
 // saved: read receipts and scores live in memory, and the scoreboard is sample data.
 // Content comes from the confirmed Birthday Bonus SOP V1.2 (floor confirmed 24 Sep 2026).
@@ -6,19 +6,30 @@ import { useEffect, useState } from 'react'
 
 const LEARN = {
   'birthday-bonus': {
-    version: 'V1.2',
+    version: 'V1.2', // SOP version this guide and quiz were written for
+    minutes: 5,
+    // Terms a beginner meets on this page. null = meaning not in any source yet; the ATL writes it.
+    words: [
+      ['Secret Wallet (SW)', null],
+      ['Turnover (TO)', null],
+      ['Back office (BO)', null],
+      ['Risk tag', null],
+      ['Floor and max', 'The lowest and the highest credit allowed for the tier. Below the floor, give the floor. Never go above the max.'],
+      ['Ending in 8', 'Credits end in 8 (RM 48, RM 118). Take the highest one at or below your result.'],
+      ['Stacking', 'Giving a player two rewards on the same day. Not allowed.'],
+    ],
     changed: 'Deposit-base floor confirmed (24 Sep 2026). The old examples were replaced.',
     // The 30-second version as five short cards. Each card does one job.
     tour: [
-      { key: 'when', label: 'When', kind: 'check', title: 'Is this player due a birthday credit?',
+      { key: 'when', label: 'When', kind: 'check', sec: '4. Step 1', secLabel: 'Step 1, pull the list', title: 'Is this player due a birthday credit?',
         items: ['Tier 3 or Tier V player', 'Birthday is today', 'Birthday Reward Claimed This Year = No'],
         done: 'All three: carry on to the steps.', notYet: 'Tick all three. Any "no" means no birthday credit today.' },
-      { key: 'do', label: 'Do', kind: 'steps', title: 'Five steps, in this order',
-        items: [['Screen', 'Skip on any yes: claimed this year, risk tag, same-day reward.'], ['Pick the base', 'Has a Secret Wallet? SW base. No SW? Deposit base.'], ['Size', 'Use the calculator on the Numbers card.'], ['Issue', 'Set the turnover and tell the player the validity.'], ['Record', 'Claimed This Year = Yes, then update the QA Record.']] },
-      { key: 'never', label: 'Never', kind: 'never', title: 'Three hard stops',
+      { key: 'do', label: 'Do', kind: 'steps', sec: 'Procedure', secLabel: 'Procedure', title: 'Five steps, in this order',
+        items: [['Screen', 'Skip on any yes: claimed this year, risk tag, same-day reward.'], ['Pick the base', 'Has a Secret Wallet? SW base. No SW? Deposit base.'], ['Size', 'Work out the amount. The Numbers card does it for you.'], ['Issue', 'Set the turnover and tell the player the validity.'], ['Record', 'Claimed This Year = Yes, then update the QA Record.']] },
+      { key: 'never', label: 'Never', kind: 'never', sec: '10. Guards', secLabel: 'Guards', title: 'Three hard stops',
         items: ['Stack it with a same-day Reload, Compensation or LTV reward.', 'Go above the tier max.', 'Promise an amount before the eligibility check.'] },
-      { key: 'numbers', label: 'Numbers', kind: 'calc', title: 'Work out the amount' },
-      { key: 'approver', label: 'Approver', kind: 'gate', title: 'Who can issue it?',
+      { key: 'numbers', label: 'Numbers', kind: 'calc', sec: '6. Step 3', secLabel: 'Step 3 and 4, the base and sizing', title: 'Work out the amount' },
+      { key: 'approver', label: 'Approver', kind: 'gate', sec: '8. Step 5', secLabel: 'Step 5, ATL approval', title: 'Who can issue it?',
         q: 'Is the Total Deposit RM 100,000 or more?',
         yes: 'ATL or above only. The ATL confirms value, claim history, risk tag and amount, then tags "Birthday Credit - ATL Reviewed".',
         no: 'CS issues it, within the tier cap.' },
@@ -50,7 +61,8 @@ const mine = { read: {}, best: {}, tries: {} }
 const shuffle = (a) => a.map(x => [Math.random(), x]).sort((x, y) => x[0] - y[0]).map(x => x[1])
 
 export const learningTitle = (route, PAGES) =>
-  route.kind === 'quiz' ? 'Quiz: ' + (PAGES[route.key]?.title || route.key)
+  route.kind === 'learn' ? (route.key ? 'Learn: ' + (PAGES[route.key]?.title || route.key) : 'Learn')
+  : route.kind === 'quiz' ? 'Quiz: ' + (PAGES[route.key]?.title || route.key)
   : route.kind === 'scores' ? 'Learning scores' : null
 
 export function PreviewBanner() {
@@ -149,32 +161,50 @@ function TourPanel({ s }) {
   return null
 }
 
-export function QuickCard({ id, go, canEdit }) {
+// Version the page carries (same rule as versionOf in Handbook.jsx).
+const sopVersionOf = (page) => (page?.meta || []).find(m => /^V\d/.test(m)) || 'V1.0'
+// Preview-only switch that pretends the SOP moved on, to show the paused state.
+const simulated = {}
+export const moduleState = (id, PAGES) => {
   const L = LEARN[id]
-  const [read, setRead] = useState(!!mine.read[id])
+  if (!L) return null
+  const sop = simulated[id] || sopVersionOf(PAGES[id])
+  return { L, sop, stale: sop !== L.version }
+}
+
+// Open the SOP and land on the section whose heading starts with `sec`.
+// (Preview: finds the heading by text. The real build gets proper section links.)
+export function openSop(go, id, sec) {
+  go({ kind: 'page', key: id })
+  if (!sec) return
+  setTimeout(() => {
+    const h = [...document.querySelectorAll('.doc h2')].find(x => x.textContent.trim().startsWith(sec))
+    if (h) { h.scrollIntoView({ block: 'start' }); h.tabIndex = -1; h.focus({ preventScroll: true }) }
+  }, 450)
+}
+
+function TourCard({ id, go }) {
+  const L = LEARN[id]
   const [at, setAt] = useState(0)
   const [seen, setSeen] = useState(() => new Set([0]))
   const [all, setAll] = useState(false)
-  if (!L) return null
   const steps = L.tour, n = steps.length, finished = at >= n
-  const best = mine.best[id]
   const goTo = (i) => { setAt(i); setSeen(prev => new Set([...prev, i])) }
   const onKeys = (e) => {
     if (e.key === 'ArrowRight') { e.preventDefault(); goTo(Math.min(n - 1, at + 1)) }
     if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(Math.max(0, at - 1)) }
   }
   const s = steps[at]
+  const official = (x) => <button className="crumblink tour-src" onClick={() => openSop(go, id, x.sec)}>Official rule: {x.secLabel} ›</button>
   return (
     <section className="tour" aria-labelledby="tour-title">
       <div className="tour-head">
         <h2 id="tour-title">The 30-second version</h2>
-        <span className="chip ver">{L.version}</span>
         <button className="crumblink tour-all" aria-pressed={all} onClick={() => setAll(a => !a)}>{all ? 'One card at a time' : 'Show all'}</button>
       </div>
-
       {all ? (
         <div className="tour-stack">
-          {steps.map(x => <div key={x.key} className="tour-panel"><h3>{x.label}: {x.title}</h3><TourPanel s={x} /></div>)}
+          {steps.map(x => <div key={x.key} className="tour-panel"><h3>{x.label}: {x.title}</h3><TourPanel s={x} />{official(x)}</div>)}
         </div>
       ) : (
         <>
@@ -189,12 +219,13 @@ export function QuickCard({ id, go, canEdit }) {
           {finished ? (
             <div className="tour-panel tour-finish">
               <h3>That's the 30-second version.</h3>
-              <p className="muted">The full procedure is below for when you need the detail.</p>
+              <p className="muted">Next: test yourself below, or read the full SOP.</p>
             </div>
           ) : (
             <div className="tour-panel" id="tour-body" role="tabpanel" aria-labelledby={'tt-' + s.key}>
               <h3>{s.title}</h3>
               <TourPanel key={s.key} s={s} />
+              {official(s)}
             </div>
           )}
           <div className="tour-nav">
@@ -204,16 +235,122 @@ export function QuickCard({ id, go, canEdit }) {
           </div>
         </>
       )}
-
-      <p className="qcard-changed"><b>What changed in {L.version}:</b> {L.changed}</p>
-      <div className="qcard-actions">
-        {read
-          ? <span className="qcard-done">Read {L.version} today</span>
-          : <button className="btn small ghost" onClick={() => { mine.read[id] = true; setRead(true) }}>I've read {L.version}</button>}
-        <button className="btn small" onClick={() => go({ kind: 'quiz', key: id })}>{best != null ? `Retake quiz (best ${best}%)` : `Test yourself (${L.quiz.count} questions)`}</button>
-        {canEdit && <button className="btn small ghost" onClick={() => go({ kind: 'scores' })}>Team scores</button>}
-      </div>
     </section>
+  )
+}
+
+function Words({ words }) {
+  return (
+    <section className="words" aria-labelledby="words-title">
+      <h2 id="words-title">Words you need</h2>
+      <dl>
+        {words.map(([t, d]) => (
+          <div key={t}><dt>{t}</dt><dd>{d || <span className="words-todo">[CONFIRM] Meaning to be written by the ATL.</span>}</dd></div>
+        ))}
+      </dl>
+    </section>
+  )
+}
+
+function StaleNote({ L, sop }) {
+  return (
+    <div className="callout warn" role="status">
+      <div><b>The SOP was updated to {sop}.</b><p>This guide was written for {L.version}. It is under review, and the quiz is paused until an admin approves the updated guide and questions. Use the SOP for now.</p></div>
+    </div>
+  )
+}
+
+// Learn section home: the learning path.
+export function LearnHome({ pages: PAGES, go, canEdit }) {
+  const ids = Object.keys(LEARN)
+  const done = ids.filter(id => (mine.best[id] ?? 0) >= LEARN[id].quiz.pass).length
+  return (
+    <div className="view doc learn">
+      <PreviewBanner />
+      <h1>Learn</h1>
+      <p className="lead">Short guides and quizzes for new joiners and refreshers. The SOP Book stays the official rule; each guide links to it.</p>
+      <p className="learn-progress"><b>{done} of {ids.length}</b> modules passed</p>
+      <ol className="learn-path">
+        {ids.map(id => {
+          const st = moduleState(id, PAGES), best = mine.best[id]
+          const status = st.stale ? <span className="chip planned">Under review</span>
+            : best >= st.L.quiz.pass ? <span className="chip scorepass">Passed {best}%</span>
+            : best != null ? <span className="chip planned">Best {best}%</span>
+            : <span className="chip pending">Not started</span>
+          return (
+            <li key={id}>
+              <button className="learn-mod" onClick={() => go({ kind: 'learn', key: id })}>
+                <b>{PAGES[id]?.title || id}</b>
+                <small>{st.L.minutes} min · 5 cards · {st.L.quiz.count}-question quiz · based on SOP {st.L.version}</small>
+                {status}
+              </button>
+            </li>
+          )
+        })}
+        <li><div className="learn-mod learn-soon"><b>More modules</b><small>Grace Period List and others after the pilot.</small></div></li>
+      </ol>
+      {canEdit && <button className="btn small ghost" onClick={() => go({ kind: 'scores' })}>Team scores</button>}
+    </div>
+  )
+}
+
+// One module: words, the step cards, then the quiz. Links back to the SOP throughout.
+export function LearnModule({ id, pages: PAGES, go, canEdit }) {
+  const [, force] = useState(0)
+  const [read, setRead] = useState(!!mine.read[id])
+  const st = moduleState(id, PAGES)
+  if (!st) return <p>No guide for this page yet.</p>
+  const { L, sop, stale } = st
+  const title = PAGES[id]?.title || id
+  const best = mine.best[id]
+  return (
+    <div className="view doc learn">
+      <PreviewBanner />
+      <div className="crumb"><button className="crumblink" onClick={() => go({ kind: 'learn' })}>Learn</button> / <b>{title}</b></div>
+      <h1>{title}</h1>
+      <div className="docmeta"><span>{L.minutes} min guide</span><span>Based on SOP {L.version}</span><span>SOP now {sop}</span></div>
+      <div className="learn-links">
+        <button className="btn small ghost" onClick={() => openSop(go, id)}>Open the official SOP</button>
+        {canEdit && <button className="btn small ghost" onClick={() => { simulated[id] = stale ? undefined : 'V1.3'; force(n => n + 1) }}>{stale ? 'Undo the simulated update' : 'Preview: simulate an SOP update'}</button>}
+      </div>
+      {stale && <StaleNote L={L} sop={sop} />}
+      <Words words={L.words} />
+      <TourCard id={id} go={go} />
+      <section className="learn-test" aria-labelledby="test-title">
+        <h2 id="test-title">Test yourself</h2>
+        {stale
+          ? <p className="muted">Paused while the guide is reviewed.</p>
+          : <>
+              <p className="muted">{L.quiz.count} scenario questions, {L.quiz.seconds} seconds each, pass mark {L.quiz.pass}%. Retakes allowed.</p>
+              <div className="qcard-actions">
+                <button className="btn small" onClick={() => go({ kind: 'quiz', key: id })}>{best != null ? `Retake quiz (best ${best}%)` : 'Start the quiz'}</button>
+                {read
+                  ? <span className="qcard-done">Guide read today</span>
+                  : <button className="btn small ghost" onClick={() => { mine.read[id] = true; setRead(true) }}>Mark the guide as read</button>}
+                {canEdit && <button className="btn small ghost" onClick={() => go({ kind: 'scores' })}>Team scores</button>}
+              </div>
+            </>}
+      </section>
+    </div>
+  )
+}
+
+// On the SOP page: the way into the guide (top) and a reminder at the end.
+export function SopLearnLink({ id, pages: PAGES, go, place }) {
+  const st = moduleState(id, PAGES)
+  if (!st) return null
+  const { L, stale } = st
+  if (place === 'end') return (
+    <div className="learnlink end">
+      <span><b>Test yourself on this SOP.</b> {L.quiz.count} questions, about {L.minutes} minutes with the guide.</span>
+      <button className="btn small" onClick={() => go({ kind: 'learn', key: id })}>Go to the guide</button>
+    </div>
+  )
+  return (
+    <div className="learnlink">
+      <span><b>New to this?</b> {stale ? 'The short guide is being updated for this version.' : `Learn it in ${L.minutes} minutes: 5 short cards and a quiz.`}</span>
+      <button className="btn small ghost" onClick={() => go({ kind: 'learn', key: id })}>Open the guide</button>
+    </div>
   )
 }
 
@@ -239,6 +376,14 @@ export function QuizPage({ id, pages: PAGES, go }) {
   }, [qs, i, left, shown])
   if (!Q) return <p>No quiz for this page yet.</p>
   const title = PAGES[id]?.title || id
+  if (moduleState(id, PAGES).stale) return (
+    <div className="view doc quiz">
+      <PreviewBanner />
+      <h1>Quiz paused: {title}</h1>
+      <p className="lead">The SOP was updated. This quiz comes back once an admin approves the updated questions.</p>
+      <div className="quiz-actions"><button className="btn small ghost" onClick={() => go({ kind: 'learn', key: id })}>Back to the guide</button></div>
+    </div>
+  )
 
   if (!qs) return (
     <div className="view doc quiz">
@@ -251,7 +396,7 @@ export function QuizPage({ id, pages: PAGES, go }) {
       </ul>
       <div className="quiz-actions">
         <button className="btn small" onClick={start}>Start quiz</button>
-        <button className="btn small ghost" onClick={() => go({ kind: 'page', key: id })}>Back to the SOP</button>
+        <button className="btn small ghost" onClick={() => go({ kind: 'learn', key: id })}>Back to the guide</button>
       </div>
     </div>
   )
@@ -268,7 +413,7 @@ export function QuizPage({ id, pages: PAGES, go }) {
         </div>
         <div className="quiz-actions">
           <button className="btn small" onClick={start}>Retake with new questions</button>
-          <button className="btn small ghost" onClick={() => go({ kind: 'page', key: id })}>Back to the SOP</button>
+          <button className="btn small ghost" onClick={() => go({ kind: 'learn', key: id })}>Back to the guide</button>
         </div>
       </div>
     )
@@ -341,7 +486,7 @@ export function ScoresPage({ pages: PAGES, go }) {
                   <td>{s.best == null ? <span className="chip pending">Not started</span> : s.best >= LEARN[id].quiz.pass ? <span className="chip scorepass">Passed</span> : <span className="chip planned">Retake</span>}</td></tr>
               ))}</tbody>
             </table></div>
-            <button className="btn small ghost" onClick={() => go({ kind: 'page', key: id })}>Open the SOP</button>
+            <button className="btn small ghost" onClick={() => go({ kind: 'learn', key: id })}>Open the guide</button>
           </section>
         )
       })}

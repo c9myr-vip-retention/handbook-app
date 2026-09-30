@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { api } from './lib/api.js'
 import { parseBody, toMarkdown } from './lib/markdown.js'
 import { Chart, ChartSvg, ChartDrawer, parseChart, chartText } from './Chart.jsx'
-import { QuickCard, QuizPage, ScoresPage, learningTitle } from './preview/learning.jsx' // PREVIEW branch only
+import { LearnHome, LearnModule, SopLearnLink, QuizPage, ScoresPage, learningTitle } from './preview/learning.jsx' // PREVIEW branch only
 
 const STATUS_LABEL = { pending: 'Coming soon', planned: 'Not written yet', external: 'Lark doc', restricted: 'Admins only' }
 
@@ -193,6 +193,8 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
         <button className="brand" onClick={() => { setQuery(''); go({ kind: 'home' }) }} aria-label="C9MYR VIP Retention Handbook, home"><svg className="logo" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 6C39 23 12 37 12 58c0 13 11 22 23 20 6-1 10-4 13-8-1 10-5 18-12 24h28c-7-6-11-14-12-24 3 4 7 7 13 8 12 2 23-7 23-20 0-21-27-35-38-52z" /></svg><span className="brandtext"><small>C9MYR</small><b>VIP Retention Handbook</b></span></button>
         <button className={'navitem homeitem' + (route.kind === 'home' ? ' active' : '')} aria-current={route.kind === 'home' ? 'page' : undefined}
           onClick={() => { setQuery(''); go({ kind: 'home' }) }}><span>Home</span></button>
+        <button className={'navitem homeitem' + (['learn', 'quiz'].includes(route.kind) ? ' active' : '')} aria-current={route.kind === 'learn' && !route.key ? 'page' : undefined}
+          onClick={() => { setQuery(''); go({ kind: 'learn' }) }}><span>Learn</span></button>
         <nav aria-label="Handbook sections">
           {NAV.map(sec => (
             <div key={sec.id} className={'navsec' + (openSecs[sec.id] ? ' open' : '')}>
@@ -277,6 +279,7 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
                 {route.kind === 'stub' && <Stub title={route.title} status={route.status} />}
                 {route.kind === 'approvals' && <Approvals preview={preview} />}
                 {route.kind === 'charts' && <ChartReview pages={PAGES} go={go} />}
+                {route.kind === 'learn' && (route.key ? <LearnModule key={route.key} id={route.key} pages={PAGES} go={go} canEdit={canEdit} /> : <LearnHome pages={PAGES} go={go} canEdit={canEdit} />)}
                 {route.kind === 'quiz' && <QuizPage key={route.key} id={route.key} pages={PAGES} go={go} />}
                 {route.kind === 'scores' && <ScoresPage pages={PAGES} go={go} />}
               </>}
@@ -343,6 +346,7 @@ function Home({ go, nav: NAV, pages: PAGES, notice, query, setQuery, results, op
       {q
         ? <SearchResults query={query} results={results} open={open} pages={PAGES} embedded />
         : <>
+          <div className="learnlink home"><span><b>New here, or want a refresher?</b> Learn the key SOPs in 5-minute guides with a quick quiz.</span><button className="btn small" onClick={() => go({ kind: 'learn' })}>Start learning</button></div>
           {essentials.length > 0 && <>
             <div className="sectitle"><h2>Daily essentials</h2><p>The pages you open every shift.</p></div>
             <ul className="tiles">
@@ -887,10 +891,11 @@ function Page({ id, pages: PAGES, nav: NAV, canEdit, go, railOpen, onRailClose }
       <h1>{p.title}</h1>
       <div className="docmeta">{meta.map((m, i) => <span key={i}>{m}</span>)}<span>About {readMin} min read</span></div>
       <PrintNote version={versionOf(p)} />
-      <QuickCard key={id} id={id} go={go} canEdit={canEdit} />
+      <SopLearnLink id={id} pages={PAGES} go={go} />
       {p.blocks.map((b, i) => b.t === 'h2' && canEdit
         ? <div key={i} className="edh2"><h2 id={'sec-' + i}>{b.x}</h2><button className="secedit" onClick={() => go({ kind: 'edit', key: id, sec: i })} aria-label={'Edit section ' + b.x}>Edit</button></div>
         : <Block key={i} b={b} id={b.t === 'h2' ? 'sec-' + i : undefined} version={versionOf(p)} />)}
+      <SopLearnLink id={id} pages={PAGES} go={go} place="end" />
       {(prev || next) && (
         <nav className="pager" aria-label="More in this section">
           {prev ? <button className="pagerbtn" onClick={() => go({ kind: 'page', key: prev.id })}><small>Previous</small><b>{prev.title}</b></button> : <span />}
@@ -1043,6 +1048,7 @@ function toHash(r) {
   if (r.kind === 'history') return '#/history/' + e(r.key)
   if (r.kind === 'approvals') return '#/approvals'
   if (r.kind === 'charts') return '#/charts'
+  if (r.kind === 'learn') return '#/learn' + (r.key ? '/' + e(r.key) : '')
   if (r.kind === 'quiz') return '#/quiz/' + e(r.key)
   if (r.kind === 'scores') return '#/scores'
   return '#/'
@@ -1056,6 +1062,7 @@ function parseHash(hash, NAV) {
   if (kind === 'history' && v) return { kind: 'history', key: v }
   if (kind === 'approvals') return { kind: 'approvals' }
   if (kind === 'charts') return { kind: 'charts' }
+  if (kind === 'learn') return v ? { kind: 'learn', key: v } : { kind: 'learn' }
   if (kind === 'quiz' && v) return { kind: 'quiz', key: v }
   if (kind === 'scores') return { kind: 'scores' }
   if (kind === 's' && v) {

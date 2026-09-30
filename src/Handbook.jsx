@@ -6,9 +6,10 @@ import { Chart, ChartSvg, ChartDrawer, parseChart, chartText } from './Chart.jsx
 const STATUS_LABEL = { pending: 'Coming soon', planned: 'Not written yet', external: 'Lark doc', restricted: 'Admins only' }
 
 // Flatten every nav leaf into a searchable list, once per content load.
+// The SOP header goes last: still searchable, but snippets show page text first.
 function bodyText(page) {
   if (!page) return ''
-  return page.blocks.map(b => {
+  const text = (b) => {
     if (b.t === 'p' || b.t === 'h2' || b.t === 'code' || b.t === 'flow') return b.x
     if (b.t === 'chart') return chartText(parseChart(b.x))
     if (b.t === 'sopheader') return (b.f || []).map(([k, v]) => k + ' ' + v).join(' ')
@@ -16,7 +17,9 @@ function bodyText(page) {
     if (b.t === 'steps' || b.t === 'list') return b.x.join(' ')
     if (b.t === 'table') return b.head.join(' ') + ' ' + b.rows.flat().join(' ')
     return ''
-  }).join(' ').replace(/\*\*|`/g, '')
+  }
+  const rest = page.blocks.filter(b => b.t !== 'sopheader'), head = page.blocks.filter(b => b.t === 'sopheader')
+  return [...rest, ...head].map(text).join(' ').replace(/\*\*|`/g, '')
 }
 
 // Inline marks inside block text: **bold** and `code`. Plain text otherwise.
@@ -70,12 +73,16 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
   const INDEX = useMemo(() => buildIndex(NAV, PAGES), [NAV, PAGES])
   const [route, setRoute] = useState(() => parseHash(location.hash, NAV))
   useEffect(() => {
-    const onHash = () => { setRoute(parseHash(location.hash, NAV)); setNavOpen(false); setRailOpen(false); setQuery('') }
+    const onHash = () => { setRoute(parseHash(location.hash, NAV)); setNavOpen(false); setRailOpen(false); setQuery(''); setSearchOpen(false) }
     addEventListener('hashchange', onHash)
     return () => removeEventListener('hashchange', onHash)
   }, [NAV])
   const [navOpen, setNavOpen] = useState(false)
   const [railOpen, setRailOpen] = useState(false) // page tools drawer (narrow screens)
+  const [searchOpen, setSearchOpen] = useState(false) // phone: search bar opened from its icon
+  const searchBtn = useRef(null), searchBox = useRef(null)
+  const closeSearch = () => { setSearchOpen(false); setQuery(''); searchBtn.current?.focus() }
+  useEffect(() => { if (searchOpen) searchBox.current?.focus() }, [searchOpen])
   const [openSecs, setOpenSecs] = useState(() => ({ start: true }))
   const [query, setQuery] = useState('')
 
@@ -117,19 +124,22 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
       if (e.key === '/' && !typing) {
         e.preventDefault()
         const box = document.querySelector(route.kind === 'home' ? '.herosearch' : '.searchbar input')
-        box?.focus()
+        if (box && !box.offsetParent) setSearchOpen(true)
+        else box?.focus()
       } else if (e.key === 'Escape' && railOpen) {
         setRailOpen(false)
       } else if (e.key === 'Escape' && navOpen) {
         setNavOpen(false)
         menuBtn.current?.focus()
+      } else if (e.key === 'Escape' && searchOpen) {
+        closeSearch()
       } else if (e.key === 'Escape' && query) {
         setQuery('')
       }
     }
     addEventListener('keydown', onKey)
     return () => removeEventListener('keydown', onKey)
-  }, [route, query, navOpen, railOpen])
+  }, [route, query, navOpen, railOpen, searchOpen])
   const openLeaf = (item) => {
     setQuery('')
     go(item.real ? { kind: 'page', key: item.id } : { kind: 'stub', title: item.title, status: item.status })
@@ -222,15 +232,22 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
           <button ref={menuBtn} className="icon menu" aria-label="Menu" aria-expanded={navOpen} aria-controls="sidenav" onClick={() => setNavOpen(true)}>☰</button>
           {route.kind !== 'home' && <button className="icon backbtn" onClick={back} aria-label="Go back" title="Back"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg></button>}
           <div className="ptitle">{title}</div>
-          <div className={'searchbar' + (route.kind === 'home' ? ' on-home' : '')}>
+          <div className={'searchbar' + (route.kind === 'home' ? ' on-home' : '') + (searchOpen ? ' open' : '')}>
             <input
+              ref={searchBox}
               type="search"
               value={query}
               onChange={e => setQuery(e.target.value)}
               placeholder="Search the handbook…"
               aria-label="Search the handbook"
             />
+            <button className="btn small ghost searchclose" onClick={closeSearch}>Cancel</button>
           </div>
+          {route.kind !== 'home' && (
+            <button ref={searchBtn} className="icon searchbtn" aria-label="Search the handbook" aria-expanded={searchOpen} onClick={() => setSearchOpen(true)}>
+              <svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="m13 13 4 4"/></svg>
+            </button>
+          )}
           {profile && <span className="who">{profile.full_name || profile.email} · <b>{profile.role}</b></span>}
           {preview && <span className="chip pending preview-chip">preview</span>}
           {(profile?.role === 'admin' || preview) && <button className="btn small ghost admin-btn" onClick={() => { setQuery(''); go({ kind: 'approvals' }) }}>Approvals</button>}
@@ -766,6 +783,18 @@ function PageRail({ p, id, heads, jump, related, canEdit, go, open, onClose }) {
   const updated = (p.meta || []).find(m => /^Updated /.test(m))
   const note = (p.meta || []).find(m => /^Change: /.test(m))?.slice(8)
 
+  // Drawer (narrow screens): focus moves in on open, and back to the Page tools
+  // button on close, unless the close already sent focus somewhere (a heading, a page).
+  const closeBtn = useRef(null), wasOpen = useRef(false)
+  useEffect(() => {
+    if (open) closeBtn.current?.focus()
+    else if (wasOpen.current) {
+      const a = document.activeElement
+      if (!a || a === document.body || ref.current?.contains(a)) document.querySelector('.railbtn')?.focus()
+    }
+    wasOpen.current = open
+  }, [open])
+
   // Stick at the top when the panel fits the screen; otherwise let it scroll with
   // the page and stick once its bottom is on screen (no scrollbar of its own).
   useEffect(() => {
@@ -792,7 +821,7 @@ function PageRail({ p, id, heads, jump, related, canEdit, go, open, onClose }) {
   if (!hasToc && !chart && !related.length) return null
   return (
     <aside ref={ref} id="pagerail" className={'rail' + (open ? ' open' : '')} aria-label="Page tools">
-      <div className="railhead"><b>Page tools</b><button className="btn small ghost" onClick={onClose}>Close</button></div>
+      <div className="railhead"><b>Page tools</b><button ref={closeBtn} className="btn small ghost" onClick={onClose}>Close</button></div>
       {hasToc && (
         <nav className="railsec" aria-label="On this page">
           <div className="tochead">On this page</div>
@@ -963,13 +992,39 @@ function Block({ b, id, version }) {
     <ul className="bullets">{b.x.map((s, i) => <li key={i}><Inline x={s} /></li>)}</ul>
   )
   if (b.t === 'code') return <pre className="codeblock">{b.x}</pre>
-  if (b.t === 'table') return (
-    <div className="tbl-wrap"><table>
-      <thead><tr>{b.head.map((h, i) => <th key={i}><Inline x={h} /></th>)}</tr></thead>
-      <tbody>{b.rows.map((r, i) => <tr key={i}>{r.map((c, j) => <td key={j}><Inline x={c} /></td>)}</tr>)}</tbody>
-    </table></div>
-  )
+  if (b.t === 'table') return <TableBlock b={b} />
   return null
+}
+
+// Tables of 5+ columns turn into one card per row on phones (see .tbl-stack).
+// Explicit roles keep them a table for screen readers once the CSS stacks them.
+// A table that still overflows becomes a focusable region, so keys can scroll it.
+function TableBlock({ b }) {
+  const ref = useRef(null)
+  const [over, setOver] = useState(false)
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const check = () => setOver(el.scrollWidth > el.clientWidth + 1)
+    check()
+    const ro = new ResizeObserver(check); ro.observe(el)
+    return () => ro.disconnect()
+  }, [])
+  const stack = b.head.length >= 5
+  const numbered = stack && /^(step\s*no\.?|no\.?|#)$/i.test(String(b.head[0]).trim())
+  const plain = (s) => String(s ?? '').replace(/\*\*|`/g, '')
+  const role = (r) => (stack ? { role: r } : {})
+  return (
+    <div ref={ref} className={'tbl-wrap' + (stack ? ' tbl-stack' : '') + (numbered ? ' tbl-num' : '')}
+      {...(over ? { tabIndex: 0, role: 'region', 'aria-label': 'Table: scroll sideways for more columns' } : {})}>
+      <table {...role('table')}>
+        <thead {...role('rowgroup')}><tr {...role('row')}>{b.head.map((h, i) => <th key={i} {...role('columnheader')}><Inline x={h} /></th>)}</tr></thead>
+        <tbody {...role('rowgroup')}>{b.rows.map((r, i) => (
+          <tr key={i} {...role('row')}>{r.map((c, j) => <td key={j} {...role('cell')} data-label={plain(b.head[j])} className={/^[\s-]*$/.test(plain(c)) ? 'blank' : undefined}><Inline x={c} /></td>)}</tr>
+        ))}</tbody>
+      </table>
+    </div>
+  )
 }
 
 // route <-> URL hash

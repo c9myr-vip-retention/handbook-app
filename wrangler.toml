@@ -14,3 +14,6 @@ database_id = "4e523ae5-28aa-4709-8082-ad6ed1507716"
 [vars]
 ACCESS_TEAM_DOMAIN = "c9myr-rtn.cloudflareaccess.com"
 ACCESS_AUD = "e19e1b564725f7b9a9ec4f4c26a01b6f20fbd1d9f081e5f605259256b3e1554a"
+
+# Learn section: "yes" opens published modules to staff. Anything else = admins only.
+LEARN_FOR_STAFF = "no"

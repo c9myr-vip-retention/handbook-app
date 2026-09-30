@@ -27,6 +27,12 @@ export async function handleLearn({ request, env, parts, email, isAdmin, json })
   const method = request.method
   const [, a, b, c] = parts // parts[0] === 'learn'
 
+  // Staff lock: until LEARN_FOR_STAFF = "yes" in wrangler.toml, Learn is admins
+  // only, even for published modules. Staff get an empty list and nothing else.
+  if (!isAdmin && env.LEARN_FOR_STAFF !== 'yes') {
+    return method === 'GET' && !a ? json([]) : json({ error: 'not found' }, 404)
+  }
+
   if (method === 'GET' && !a) return json(await listModules(DB, email, isAdmin))
   if (method === 'GET' && a === 'scores') {
     if (!isAdmin) return json({ error: 'admins only' }, 403)

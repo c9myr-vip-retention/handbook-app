@@ -332,6 +332,45 @@ mark { background:color-mix(in srgb, var(--accent) 18%, transparent); color:inhe
 /* Print: always the light theme, compact, only what belongs on paper. */
 .printnote { display:none; }
 @page { size:A4; margin:14mm 14mm 16mm; }
+/* PREVIEW (branch preview/learning): quick-version card, quiz, scores */
+.qcard { margin:18px 0 24px; padding:16px 18px; border:1px solid var(--border); border-left:3px solid var(--accent); border-radius:0 var(--r) var(--r) 0; background:var(--surface); }
+.qcard-head { display:flex; align-items:center; gap:8px; margin:0 0 10px; }
+.qcard-head h2 { margin:0; font-size:var(--fs-md); font-weight:600; }
+.qcard-list { display:grid; gap:6px; margin:0; }
+.qcard-list > div { display:grid; grid-template-columns:88px minmax(0,1fr); gap:12px; }
+.qcard-list dt { color:var(--muted); font-size:var(--fs-sm); font-weight:600; }
+.qcard-list dd { margin:0; }
+.qcard-changed { margin:12px 0 0; padding:8px 12px; border-radius:var(--r-sm); background:var(--planned-soft); color:var(--text); font-size:var(--fs-sm); }
+.qcard-case { margin:12px 0 0; font-size:var(--fs-sm); }
+.qcard-case p { margin:6px 0 0; }
+.qcard-actions { display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:14px 0 0; padding-top:12px; border-top:1px solid var(--border); }
+.qcard-done { font-size:var(--fs-sm); font-weight:600; color:var(--good); }
+.quiz { max-width:720px; }
+.quiz-top { display:flex; justify-content:space-between; font-size:var(--fs-sm); color:var(--muted); margin:8px 0 6px; }
+.quiz-timer.low { color:var(--restricted); font-weight:600; }
+.quiz-bar { height:4px; border-radius:2px; background:var(--surface-2); margin:0 0 18px; }
+.quiz-bar > div { height:4px; border-radius:2px; background:var(--accent); }
+.doc .quiz-q { font-size:var(--fs-lg); font-weight:600; line-height:1.45; margin:0 0 14px; }
+.quiz-opts { display:grid; gap:8px; margin:0 0 12px; }
+.quiz-opt { min-height:44px; padding:10px 14px; text-align:left; border:1px solid var(--border-strong); border-radius:var(--r-sm); background:var(--surface); color:var(--text); font-size:var(--fs-md); cursor:pointer; }
+.quiz-opt:hover:not(:disabled) { background:var(--surface-2); }
+.quiz-opt.sel { border:2px solid var(--accent); background:var(--accent-soft); }
+.quiz-opt.ok { border:2px solid var(--good); background:var(--good-soft); color:var(--text); }
+.quiz-opt.bad { border:2px solid var(--restricted); background:var(--restricted-soft); color:var(--text); }
+.quiz-opt:disabled { cursor:default; }
+.quiz-actions { display:flex; flex-wrap:wrap; gap:8px; margin:16px 0 0; }
+.quiz-result { margin:16px 0 0; padding:20px; border:1px solid var(--border); border-radius:var(--r); background:var(--surface); text-align:center; }
+.quiz-result p { margin:4px 0; }
+.quiz-score { font-size:var(--fs-2xl); font-weight:700; }
+.quiz-result.pass .quiz-score { color:var(--good); }
+.quiz-result.retry .quiz-score { color:var(--planned); }
+.scorestats { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; margin:0 0 14px; }
+.scorestats > div { padding:12px 14px; border-radius:var(--r); background:var(--surface-2); display:flex; flex-direction:column; }
+.scorestats span { font-size:var(--fs-xs); color:var(--muted); }
+.scorestats b { font-size:var(--fs-lg); }
+.chip.scorepass { background:var(--good-soft); color:var(--good); }
+@media (max-width:640px){ .qcard-list > div { grid-template-columns:1fr; gap:0; } }
+
 @media print {
   :root, :root[data-theme="dark"], :root[data-theme="light"] {
     --bg:#FFFFFF; --surface:#FFFFFF; --surface-2:#F2F4F7; --solid:#FFFFFF;
@@ -349,7 +388,7 @@ mark { background:color-mix(in srgb, var(--accent) 18%, transparent); color:inhe
     --ch-edge:#5F5E5A; --ch-title:#185FA5;
     color-scheme:light;
   }
-  .side, .top, .rail, .readbar, .pager, .doctools, .banner, .scrim, .crumb, .figcap, .secedit { display:none !important; }
+  .side, .top, .rail, .readbar, .pager, .doctools, .banner, .scrim, .crumb, .figcap, .secedit, .qcard-actions, .qcard-case { display:none !important; }
   .hb { display:block; } .content { padding:0; max-width:none; }
   .pagewrap { display:block; } .doc { max-width:none; }
   .doc > p, .doc .bullets, .doc .steps { max-width:none; }

@@ -26,6 +26,10 @@ for (const f of readdirSync(content).filter(f => f.endsWith('.json'))) {
     .forEach(s => probes.add(s.slice(0, 40)))
 }
 
+// The learning preview (branch preview/learning) bundles SOP numbers and quiz
+// answers. It must never deploy: this probe fails any build that includes it.
+probes.add('Preview of the learning features')
+
 const files = []
 const walk = (dir) => {
   for (const name of readdirSync(dir)) {

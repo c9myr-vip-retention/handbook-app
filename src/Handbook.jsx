@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { api } from './lib/api.js'
 import { parseBody, toMarkdown } from './lib/markdown.js'
 import { Chart, ChartSvg, ChartDrawer, parseChart, chartText } from './Chart.jsx'
+import { QuickCard, QuizPage, ScoresPage, learningTitle } from './preview/learning.jsx' // PREVIEW branch only
 
 const STATUS_LABEL = { pending: 'Coming soon', planned: 'Not written yet', external: 'Lark doc', restricted: 'Admins only' }
 
@@ -177,6 +178,7 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
     if (route.kind === 'stub') return route.title
     if (route.kind === 'approvals') return 'Approvals'
     if (route.kind === 'charts') return 'Chart review'
+    if (learningTitle(route, PAGES)) return learningTitle(route, PAGES)
     if (route.kind === 'edit') return 'Edit: ' + (PAGES[route.key]?.title || route.key)
     if (route.kind === 'history') return 'History: ' + (PAGES[route.key]?.title || route.key)
     return ''
@@ -275,6 +277,8 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
                 {route.kind === 'stub' && <Stub title={route.title} status={route.status} />}
                 {route.kind === 'approvals' && <Approvals preview={preview} />}
                 {route.kind === 'charts' && <ChartReview pages={PAGES} go={go} />}
+                {route.kind === 'quiz' && <QuizPage key={route.key} id={route.key} pages={PAGES} go={go} />}
+                {route.kind === 'scores' && <ScoresPage pages={PAGES} go={go} />}
               </>}
         </main>
       </div>
@@ -883,6 +887,7 @@ function Page({ id, pages: PAGES, nav: NAV, canEdit, go, railOpen, onRailClose }
       <h1>{p.title}</h1>
       <div className="docmeta">{meta.map((m, i) => <span key={i}>{m}</span>)}<span>About {readMin} min read</span></div>
       <PrintNote version={versionOf(p)} />
+      <QuickCard id={id} go={go} canEdit={canEdit} />
       {p.blocks.map((b, i) => b.t === 'h2' && canEdit
         ? <div key={i} className="edh2"><h2 id={'sec-' + i}>{b.x}</h2><button className="secedit" onClick={() => go({ kind: 'edit', key: id, sec: i })} aria-label={'Edit section ' + b.x}>Edit</button></div>
         : <Block key={i} b={b} id={b.t === 'h2' ? 'sec-' + i : undefined} version={versionOf(p)} />)}
@@ -1038,6 +1043,8 @@ function toHash(r) {
   if (r.kind === 'history') return '#/history/' + e(r.key)
   if (r.kind === 'approvals') return '#/approvals'
   if (r.kind === 'charts') return '#/charts'
+  if (r.kind === 'quiz') return '#/quiz/' + e(r.key)
+  if (r.kind === 'scores') return '#/scores'
   return '#/'
 }
 function parseHash(hash, NAV) {
@@ -1049,6 +1056,8 @@ function parseHash(hash, NAV) {
   if (kind === 'history' && v) return { kind: 'history', key: v }
   if (kind === 'approvals') return { kind: 'approvals' }
   if (kind === 'charts') return { kind: 'charts' }
+  if (kind === 'quiz' && v) return { kind: 'quiz', key: v }
+  if (kind === 'scores') return { kind: 'scores' }
   if (kind === 's' && v) {
     for (const sec of NAV) for (const it of (sec.domains ? sec.domains.flatMap(d => d.items) : sec.items))
       if (it.title === v) return { kind: 'stub', title: v, status: it.status }

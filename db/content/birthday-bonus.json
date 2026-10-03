@@ -1,13 +1,13 @@
 {
  "id": "birthday-bonus",
  "source": "22_Birthday_Bonus.md",
- "version": "V1.2",
+ "version": "V1.3",
  "meta": [
   "C9MYR-RTN-SOP-BD01",
-  "V1.2",
+  "V1.3",
   "Bonus / Engagement",
   "Owner: VIP RTN / ATL",
-  "Updated 24 Sep 2026"
+  "Updated 3 Oct 2026"
  ],
  "body": [
   {
@@ -65,10 +65,10 @@
     [
      "2",
      "Screen each player",
-     "Check one by one and skip on any Yes: 1) already claimed the birthday credit this year 2) risk or abuse tag 3) a same-day Reload, Compensation or LTV reward.",
+     "Check one by one and skip on any Yes: 1) already claimed the birthday credit this year 2) abuse or fraud flag 3) listed for another bonus (special reload, LTV or any other).",
      "All three checks clear before the player proceeds",
      "BO",
-     "Any Yes stops the player; no stacking with a same-day reward"
+     "Any Yes stops the player; no stacking with another bonus. The \"at risk\" days-since-deposit tag is not a reason to skip"
     ],
     [
      "3",
@@ -97,7 +97,7 @@
     [
      "6",
      "Size on the deposit base (No SW)",
-     "Tier 3 = Total Deposit x 0.1% (floor RM 38, max RM 188). Tier V = 0.1% (floor RM 68, max RM 388). Reference Last Month Deposit; below Floor use Floor. No SW deduction. See table C.",
+     "Tier 3 = Last Month Deposit x 0.1% (floor RM 38, max RM 188). Tier V = Last Month Deposit x 0.1% (floor RM 68, max RM 388). Below Floor use Floor. No SW deduction. See table C.",
      "Final within floor and max; no SW deduction; 3x TO",
      "Calc table C; BO",
      "Below the floor, issue the floor (Tier 3 RM 38, Tier V RM 68). Never above the calculated amount otherwise. ATL-confirmed 24 Sep 2026."
@@ -105,7 +105,7 @@
     [
      "7",
      "Apply the ATL approval gate",
-     "If Total Deposit is at or above RM 100,000, route to ATL or above. ATL confirms value, claim history, risk tag and final amount, then tags Birthday Credit - ATL Reviewed. Otherwise CS issues within the cap.",
+     "If the lifetime Total Deposit is at or above RM 100,000, route to ATL or above. ATL confirms value, claim history, abuse or fraud flag and final amount, then tags Birthday Credit - ATL Reviewed. Otherwise CS issues within the cap.",
      "High-value cases carry the ATL-Reviewed tag before issue",
      "Lark; ATL",
      "CS cannot issue a case at or above RM 100,000 directly"
@@ -134,7 +134,7 @@
   },
   {
    "t": "chart",
-   "x": "title: Birthday Bonus: issuance flow\nstart: Pull birthday list\ncheck: Screen pass? | yes: next | no: stop Skip player\ncheck: Has Secret Wallet? | yes: step SW base: deduct SW, 1x TO | no: step Deposit base: no deduct, 3x TO\ncheck: Deposit RM 100,000+? | yes: step ATL reviews and approves | no: step CS issues within cap\nstep: Issue credit, set TO\nstep: Record, Claimed = Yes\nend: Done"
+   "x": "title: Birthday Bonus: issuance flow\nstart: Pull birthday list\ncheck: Screen pass? | yes: next | no: stop Skip player\ncheck: Has Secret Wallet? | yes: step SW base: deduct SW, 1x TO | no: step Deposit base: no deduct, 3x TO\ncheck: Lifetime deposit RM 100,000+? | yes: step ATL reviews and approves | no: step CS issues within cap\nstep: Issue credit, set TO\nstep: Record, Claimed = Yes\nend: Done"
   },
   {
    "t": "h2",
@@ -150,7 +150,7 @@
   },
   {
    "t": "p",
-   "x": "Applies to all VIP CS on every brand. High-value cases (Total Deposit at or above RM 100,000) must be handled by the ATL or above. One claim per player per calendar year."
+   "x": "Applies to all VIP CS on every brand. High-value cases (lifetime Total Deposit at or above RM 100,000) must be handled by the ATL or above. One claim per player per calendar year."
   },
   {
    "t": "h2",
@@ -160,7 +160,7 @@
    "t": "list",
    "x": [
     "Has SW: deduct from SW, 1x turnover. No SW / deposit base: no SW deduction, 3x turnover.",
-    "Total Deposit at or above RM 100,000: ATL or above approval. CS cannot issue directly.",
+    "Lifetime Total Deposit at or above RM 100,000: ATL or above approval. CS cannot issue directly.",
     "One claim per player per calendar year.",
     "No guaranteed amount before the eligibility check.",
     "No stacking with any other reward."
@@ -200,16 +200,20 @@
      "Continue"
     ],
     [
-     "Risk / abuse tag",
+     "Abuse or fraud flag",
      "Skip",
      "Continue"
     ],
     [
-     "Same-day Reload / Compensation / LTV reward",
+     "Listed for another bonus (special reload, LTV or any other)",
      "Skip",
      "Continue"
     ]
    ]
+  },
+  {
+   "t": "p",
+   "x": "The \"at risk\" tag (days since last deposit, for example 3 Days at risk) is not a screening reason."
   },
   {
    "t": "h2",
@@ -278,7 +282,7 @@
     "Tier 3, SW 200: 200 x 25% = 50, final RM 48.",
     "Tier 3, SW 500: 500 x 25% = 125, final RM 118.",
     "Tier V, SW 400: 400 x 30% = 120, final RM 118.",
-    "Tier V, SW 4,000: 4,000 x 30% = 1,200, final RM 1,188."
+    "Tier V, SW 4,000: 4,000 x 30% = 1,200, final RM 1,198. (Corrected 30 Sep 2026, ATL-confirmed: the earlier RM 1,188 was a typo.)"
    ]
   },
   {
@@ -298,7 +302,7 @@
    "rows": [
     [
      "Tier 3",
-     "Total Deposit x 0.1%",
+     "Last Month Deposit x 0.1%",
      "RM 38",
      "RM 188",
      "3x",
@@ -306,7 +310,7 @@
     ],
     [
      "Tier V",
-     "Total Deposit x 0.1%",
+     "Last Month Deposit x 0.1%",
      "RM 68",
      "RM 388",
      "3x",
@@ -316,7 +320,7 @@
   },
   {
    "t": "p",
-   "x": "Amount rule: use Last Month Deposit as the reference. Match the highest eligible amount that does not exceed the calculated amount. If the calculated amount is below the Floor, use the Floor. No SW deduction."
+   "x": "Amount rule: the base is last month's deposit. Match the highest eligible amount that does not exceed the calculated amount. If the calculated amount is below the Floor, use the Floor. No SW deduction."
   },
   {
    "t": "p",
@@ -341,13 +345,13 @@
   },
   {
    "t": "p",
-   "x": "If Total Deposit is at or above RM 100,000:"
+   "x": "If the player's lifetime Total Deposit is at or above RM 100,000:"
   },
   {
    "t": "list",
    "x": [
     "Must be handled by the ATL or above. CS cannot issue directly.",
-    "The ATL confirms player value, claim history, risk tag and the final credit amount.",
+    "The ATL confirms player value, claim history, abuse or fraud flag and the final credit amount.",
     "Tag as `Birthday Credit - ATL Reviewed`."
    ]
   },
@@ -375,9 +379,9 @@
    "t": "list",
    "x": [
     "Any screening Yes means skip the player.",
-    "High-value cases (Total Deposit >= RM 100,000) are never issued by CS directly.",
+    "High-value cases (lifetime Total Deposit of RM 100,000 or more) are never issued by CS directly.",
     "Deposit base: never below the Floor (Tier 3 RM 38, Tier V RM 68), never above the calculated amount except to reach the Floor, never above the Max.",
-    "No stacking with any other reward; no guaranteed amount before the eligibility check."
+    "No stacking: skip a player listed for another bonus. No guaranteed amount before the eligibility check."
    ]
   },
   {
@@ -388,7 +392,8 @@
    "t": "list",
    "x": [
     "Deposit-base floor rule confirmed by the ATL on 24 Sep 2026 (table wins over the original source examples).",
-    "SW must be updated the same day before any SW-base sizing."
+    "SW must be updated the same day before any SW-base sizing.",
+    "V1.3 (3 Oct 2026, ATL-confirmed): deposit base is last month's deposit; the approval gate uses the lifetime Total Deposit; screening skips on an abuse or fraud flag, not the \"at risk\" tag; Tier V SW 4,000 example corrected to RM 1,198."
    ]
   }
  ]

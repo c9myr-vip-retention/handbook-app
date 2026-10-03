@@ -4,9 +4,9 @@
   "content": {
     "minutes": 5,
     "words": [
-      ["Secret Wallet (SW)", null],
-      ["Turnover (TO)", null],
-      ["Back office (BO)", null],
+      ["Secret Wallet (SW)", "The player's bonus budget. Tier 3 gets 3% of their lifetime P&L, Tier V gets 5%. Bonuses are paid out of this balance."],
+      ["Turnover (TO)", "The total valid bet amount. 1x or 3x is the turnover set on the credit."],
+      ["Back office (BO)", "The backend system where you check and update player details."],
       ["Risk tag", null],
       ["Floor and max", "The lowest and the highest credit allowed for the tier. Below the floor, give the floor. Never go above the max."],
       ["Ending in 8", "Credits end in 8 (RM 48, RM 118). Take the highest one at or below your result."],
@@ -50,10 +50,9 @@
             { "key": "sw", "label": "Has SW", "input": "SW balance (RM)", "example": "400",
               "pct": { "3": 25, "V": 30 }, "max": { "3": 888, "V": 1688 }, "floor": null,
               "notes": ["1x turnover", "Deduct from SW"] },
-            { "key": "dep", "label": "No SW", "input": "Deposit (RM)", "example": "10000",
+            { "key": "dep", "label": "No SW", "input": "Last month deposit (RM)", "example": "10000",
               "pct": { "3": 0.1, "V": 0.1 }, "max": { "3": 188, "V": 388 }, "floor": { "3": 38, "V": 68 },
-              "notes": ["3x turnover", "No SW deduction"],
-              "confirm": "[CONFIRM] Which deposit figure: last month's deposit or total deposit? The SOP says both." }
+              "notes": ["3x turnover", "No SW deduction"] }
           ]
         }
       },
@@ -71,7 +70,7 @@
         { "id": "sw-tierv-400", "q": "Tier V player has a Secret Wallet of RM 400. What birthday credit do you issue?",
           "o": ["RM 120", "RM 118", "RM 128", "RM 68"], "a": 1,
           "why": "400 x 30% = 120. Use the highest amount ending in 8 at or below it: RM 118. Deduct from SW, 1x turnover." },
-        { "id": "dep-floor-t3", "q": "Tier 3 player, no Secret Wallet. The deposit-base amount works out to RM 10 (0.1% of RM 10,000). What do you issue?",
+        { "id": "dep-floor-t3", "q": "Tier 3 player, no Secret Wallet. Last month's deposit was RM 10,000, so 0.1% is RM 10. What do you issue?",
           "o": ["RM 10", "RM 18", "RM 38", "RM 188"], "a": 2,
           "why": "RM 10 is below the Tier 3 floor. Issue the floor, RM 38, with 3x turnover." },
         { "id": "gate-150k", "q": "A player's Total Deposit is RM 150,000. Who issues the birthday credit?",

@@ -1,0 +1,96 @@
+{
+  "id": "weekend-campaign",
+  "sop_version": "V1.2",
+  "content": {
+    "minutes": 5,
+    "words": [
+      ["Roster", "The \"Reload - Angpao and Redeem code By Batch\" sheet in Lark. It says which team runs the reload on each date, on which brands, for which tier, with which codes."],
+      ["Ang Bao", "A small cash reward on TC brands. Normal Ang Bao (RM 2 to 8) for Tier 3, Special Ang Bao (RM 8 to 18) for Tier V."],
+      ["Redeem Code", "A code for Zyra brands. One claim per player per code. The player deposits RM 100 to activate it. It replaced Free Spin in September 2026."],
+      ["TC and Zyra", "The two platforms, TC Gaming and Zyra Gaming. Each brand sits on one of them (for example LPK777 on TC, BM69 on Zyra). The roster lists the brands for each day."],
+      ["Deposit Challenge", "A step-up deposit reward that is still under testing. Nobody issues it without ATL or TL sign-off."],
+      ["Back office (BO)", "The backend system where you check and update player details."],
+      ["Cross-issue", "Giving a reward on the wrong platform or to the wrong tier. Not allowed."]
+    ],
+    "tour": [
+      {
+        "key": "when", "label": "When", "kind": "check", "title": "Do you run the reload today?",
+        "sec": "Scope", "secLabel": "2. Scope",
+        "items": ["Your team is on today's roster", "The brand is listed for your team today", "You confirmed the player's tier in the BO"],
+        "done": "All three: carry on to the steps.",
+        "notYet": "Not on the roster, or the brand is not listed: do not issue. Off-roster issuance is a process violation."
+      },
+      {
+        "key": "do", "label": "Do", "kind": "steps", "title": "Five steps, in this order",
+        "sec": "Procedure", "secLabel": "Procedure",
+        "items": [
+          ["Check the roster", "Confirm today's team, brands, tier and redeem codes."],
+          ["Verify the tier", "Mon to Wed: TC Tier 3, Zyra Tier V. Thu to Sat: TC Tier V, Zyra Tier 3. Unsure? Check the BO."],
+          ["TC: Ang Bao", "Normal RM 2 to 8 for Tier 3. Special RM 8 to 18 for Tier V."],
+          ["Zyra: Redeem Code", "Send the day's code for that brand. One claim per player. RM 100 deposit activates it."],
+          ["Tag and QA", "Tag the player and update the QA Record."]
+        ]
+      },
+      {
+        "key": "never", "label": "Never", "kind": "never", "title": "Five hard stops",
+        "sec": "Guards", "secLabel": "7. Guards",
+        "items": [
+          "Issue on a day your team is not on the roster, or on a brand not listed for you.",
+          "Give Ang Bao on Zyra, or a Redeem Code on TC.",
+          "Give Special Ang Bao to Tier 3, or Normal Ang Bao to Tier V.",
+          "Share a redeem code with a player outside today's target list.",
+          "Issue Free Spin (stopped September 2026) or the Deposit Challenge without ATL or TL sign-off."
+        ]
+      },
+      {
+        "key": "numbers", "label": "Numbers", "kind": "steps", "title": "The amounts to know",
+        "sec": "Component 1", "secLabel": "4. Ang Bao",
+        "items": [
+          ["Normal Ang Bao", "RM 2 to RM 8. Tier 3 only. TC only."],
+          ["Special Ang Bao", "RM 8 to RM 18. Tier V only. TC only."],
+          ["Redeem Code", "Player deposits RM 100 to activate. One claim per player per code. Zyra only."],
+          ["Inside the Ang Bao range", "[CONFIRM] How does CS pick the exact amount inside RM 2 to 8 or RM 8 to 18?"]
+        ]
+      },
+      {
+        "key": "approver", "label": "Approver", "kind": "gate", "title": "Can you issue it yourself?",
+        "sec": "Component 3", "secLabel": "6. Deposit Challenge",
+        "q": "Is it the Deposit Challenge?",
+        "yes": "Stop. It is under testing. Only with explicit ATL or TL sign-off.",
+        "no": "Ang Bao or Redeem Code: you issue it, on your roster day, for the right platform and tier."
+      }
+    ],
+    "quiz": {
+      "count": 5, "pass": 80, "seconds": 60,
+      "pool": [
+        { "id": "off-roster", "q": "Your team is not on today's roster, but a Tier 3 LPK777 player asks for an Ang Bao. What do you do?",
+          "o": ["Give a Normal Ang Bao", "Give a Special Ang Bao", "Do not issue; it is not your roster day", "Give a Redeem Code instead"], "a": 2,
+          "why": "Only the team on the roster runs the reload that day. Off-roster issuance is a process violation." },
+        { "id": "ang-bao-tier-v", "q": "Roster day, TC brand, Tier V player. What do you give?",
+          "o": ["Normal Ang Bao, RM 2 to 8", "Special Ang Bao, RM 8 to 18", "A Redeem Code", "Free Spin"], "a": 1,
+          "why": "Tier V gets Special Ang Bao, RM 8 to 18. Tier 3 gets Normal. Never cross-issue." },
+        { "id": "zyra-reward", "q": "Roster day, Zyra brand (BM69). Which reward is used?",
+          "o": ["Ang Bao", "Redeem Code", "Free Spin", "Deposit Challenge"], "a": 1,
+          "why": "Zyra uses the Redeem Code. Ang Bao is TC only. Free Spin was stopped in September 2026." },
+        { "id": "code-activate", "q": "What must the player do to activate a Redeem Code?",
+          "o": ["Nothing, it works at once", "Deposit RM 100", "Deposit RM 588", "Reach 1x turnover"], "a": 1,
+          "why": "The player deposits RM 100 to activate the code. One claim per player per code." },
+        { "id": "mon-tiers", "q": "It is Monday. Which tiers are targeted?",
+          "o": ["TC Tier 3, Zyra Tier V", "TC Tier V, Zyra Tier 3", "Tier V on both", "Tier 3 on both"], "a": 0,
+          "why": "Monday to Wednesday: TC Tier 3, Zyra Tier V. Thursday to Saturday it flips. Always check the roster for the date." },
+        { "id": "free-spin", "q": "A Zyra player asks for the weekend Free Spin. What do you do?",
+          "o": ["Give 20 spins", "Give 30 spins", "Explain Free Spin has stopped; follow the roster", "Ask the ATL for spins"], "a": 2,
+          "why": "Free Spin was discontinued in September 2026. Zyra now uses the Redeem Code on the roster day." },
+        { "id": "deposit-challenge", "q": "A player wants the Deposit Challenge. Can you issue it?",
+          "o": ["Yes, from the table", "Yes, Tier V only", "Only with explicit ATL or TL sign-off", "Yes, on Saturday"], "a": 2,
+          "why": "The Deposit Challenge is under testing. Never issue it without explicit ATL or TL sign-off." },
+        { "id": "share-code", "q": "A player not on today's list asks for today's redeem code. What do you do?",
+          "o": ["Share it", "Share it if they are VIP", "Do not share it", "Share an old code"], "a": 2,
+          "why": "Never share redeem codes outside the players targeted for that day." },
+        { "id": "invalid-code", "q": "A player says the redeem code shows Invalid or Expired. What first?",
+          "o": ["Escalate to the ATL at once", "Follow the Redeem Code S0403 SOP", "Give an Ang Bao instead", "Send a new code"], "a": 1,
+          "why": "Follow the Redeem Code S0403 SOP before escalating." }
+      ]
+    }
+  }
+}

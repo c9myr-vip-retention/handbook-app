@@ -1,0 +1,102 @@
+{
+  "id": "grace",
+  "sop_version": "V1.1",
+  "content": {
+    "minutes": 5,
+    "words": [
+      ["Grace Period Player", "A player who has NOT reached the monthly deposit threshold yet and is still inside the grace window. Sent on Monday, followed up on Thursday."],
+      ["Potential Player", "A player who HAS reached or passed the monthly deposit threshold. Sent on Tuesday, followed up on Friday."],
+      ["Monthly deposit threshold", ""],
+      ["Grace window", ""],
+      ["Valid and invalid player", "[CONFIRM] The SOP says valid players get SMS + IM + Push and invalid players get IM + Push only, but it never says what makes a player invalid."],
+      ["Secret Wallet (SW)", "The player's bonus budget. Tier 3 gets 3% of their lifetime P&L, Tier V gets 5%. Bonuses are paid out of this balance."],
+      ["IM + Push", "An Internal Mail and a Push notification, both sent from the BO."],
+      ["Back office (BO)", "The backend system where you check and update player details."],
+      ["Paste values", "Paste the numbers only, not the formulas. A normal paste breaks the Lark Base formulas."]
+    ],
+    "tour": [
+      {
+        "key": "when", "label": "When", "kind": "check", "title": "Is today a Grace send day?",
+        "sec": "Sending Schedule", "secLabel": "4. Sending Schedule",
+        "items": ["Today is Monday, Tuesday, Thursday or Friday", "Today's database is in the Team Engagement File, Handover Tab", "The player has not deposited and the tier has not changed since the list was made"],
+        "done": "All three: carry on to the steps.",
+        "notYet": "No Grace send on Wednesday, Saturday or Sunday. An empty list still gets logged in the QA Record and told to the ATL."
+      },
+      {
+        "key": "do", "label": "Do", "kind": "steps", "title": "Seven steps, in this order",
+        "sec": "Procedure", "secLabel": "Procedure",
+        "items": [
+          ["Receive", "Take today's Grace Period database from the Handover Tab."],
+          ["Paste", "Paste values only into Customer Approaching Lark Base, Grace Period (Day)."],
+          ["Filter", "Split Grace Period Players from Potential Players, by brand and status."],
+          ["Move", "Put each player under the right brand column in the Engagement Tab."],
+          ["Send to valid", "Give the username list to Retention Admin for SMS, then send IM + Push."],
+          ["Send to invalid", "IM + Push only. No SMS, no bonus mention."],
+          ["Record", "Update the QA Record with a BO screenshot."]
+        ]
+      },
+      {
+        "key": "never", "label": "Never", "kind": "never", "title": "Four hard stops",
+        "sec": "Guards", "secLabel": "7. Guards",
+        "items": [
+          "Send the SMS yourself. Retention Admin sends it; you prepare the list.",
+          "Mention a bonus to an invalid player.",
+          "Issue a Grace bonus above SW x 20%, or size it on a SW that was not refreshed today.",
+          "Skip an empty list silently. Log it and tell the ATL."
+        ]
+      },
+      {
+        "key": "numbers", "label": "Numbers", "kind": "steps", "title": "Pick the Deposit Challenge offer",
+        "sec": "Bonus Logic", "secLabel": "6. Bonus Logic",
+        "items": [
+          ["Refresh the SW", "Update the Secret Wallet today first."],
+          ["Work out the cap", "SW x 20%. Example: SW RM 210 gives a cap of RM 42."],
+          ["Find the row", "Take the highest ladder row whose free bonus is at or below the cap. Cap RM 42: deposit RM 300 for RM 38 fits, RM 500 for RM 58 does not."],
+          ["Ladder, Tier 3", "RM 100 for RM 18, RM 200 for RM 28, RM 300 for RM 38, RM 500 for RM 58 (Tier 3 cap)."],
+          ["Ladder, Tier V", "RM 600 for RM 68, RM 700 for RM 78, RM 800 for RM 88, RM 900 for RM 98, RM 1,000 for RM 108 (Tier V cap). [CONFIRM] Can a Tier V player also take the RM 100 to RM 500 rows?"],
+          ["Tell the player", "Next-day deposit only, it has a validity period, and validity starts when they confirm. 1x turnover before withdrawal."],
+          ["Claim and tag", "Lark ticket, query VVIP Grace Period. Tag Grace Active when engaged, Grace Converted when deposited and claimed."]
+        ]
+      },
+      {
+        "key": "approver", "label": "Who sends", "kind": "gate", "title": "Who sends what?",
+        "sec": "Eligibility", "secLabel": "5. Eligibility",
+        "q": "Is the player a valid player?",
+        "yes": "Hand the username to Retention Admin for SMS, and you send IM + Push. They can take the Deposit Challenge.",
+        "no": "You send IM + Push only. No SMS and no bonus mention."
+      }
+    ],
+    "quiz": {
+      "count": 5, "pass": 80, "seconds": 60,
+      "pool": [
+        { "id": "wed-no-send", "q": "It is Wednesday. Is there a Grace Period send today?",
+          "o": ["Yes, a primary send", "Yes, a follow-up send", "No Grace send today", "Only for Tier V"], "a": 2,
+          "why": "Grace sends are Monday, Tuesday, Thursday and Friday. Wednesday, Saturday and Sunday are rest days for this task." },
+        { "id": "thu-followup", "q": "It is Thursday. Who do you follow up?",
+          "o": ["Monday's list (Grace Period Players)", "Tuesday's list (Potential Players)", "Everyone on both lists", "Nobody, Thursday is a rest day"], "a": 0,
+          "why": "Thursday follows up Monday's list, Friday follows up Tuesday's list. Target the non-responders and non-converts." },
+        { "id": "tue-potential", "q": "It is Tuesday. Which players get the primary send?",
+          "o": ["Players below the monthly threshold", "Players who reached or passed the monthly threshold", "Invalid players only", "Players who deposited today"], "a": 1,
+          "why": "Tuesday is the primary send to Potential Players, who reached or passed the monthly threshold." },
+        { "id": "sms-who", "q": "Who sends the SMS to valid Grace players?",
+          "o": ["You, from the BO", "Retention Team Admin", "The ATL", "Nobody, Grace is IM only"], "a": 1,
+          "why": "VIP CS prepares and hands over the username list. Retention Admin sends the SMS. You send the IM + Push." },
+        { "id": "invalid-bonus", "q": "An invalid player is on today's list. What do you send?",
+          "o": ["SMS + IM + Push with the bonus offer", "IM + Push with the bonus offer", "IM + Push only, no bonus mention", "Nothing, skip them"], "a": 2,
+          "why": "Invalid players get IM + Push only, for engagement. No SMS and no bonus mention." },
+        { "id": "cap-42", "q": "Tier 3 player. SW x 20% comes to RM 42. Which Deposit Challenge offer do you make?",
+          "o": ["Deposit RM 500 for RM 58", "Deposit RM 300 for RM 38", "Deposit RM 200 for RM 28", "No offer, below the minimum"], "a": 1,
+          "why": "Take the highest row whose free bonus is at or below the cap. RM 38 fits under RM 42; RM 58 does not." },
+        { "id": "empty-list", "q": "It is Monday and the Grace list is empty. What do you do?",
+          "o": ["Skip the task, nothing to send", "Record it in the QA Record and tell the ATL", "Use last week's list", "Send to Tuesday's list instead"], "a": 1,
+          "why": "Never skip silently. An empty list on a send day is logged in the QA Record and reported to the ATL." },
+        { "id": "paste-values", "q": "You are moving the database into Lark Base. How do you paste it?",
+          "o": ["Normal paste", "Paste values only", "Paste as a picture", "Type it in by hand"], "a": 1,
+          "why": "Paste values only. A normal paste breaks the formulas in Lark Base." },
+        { "id": "deposited-already", "q": "A player on today's list deposited this morning. What do you do?",
+          "o": ["Send the offer anyway", "Skip the player", "Offer double", "Send SMS only"], "a": 1,
+          "why": "Verify status before sending. Skip anyone who already deposited or whose tier changed." }
+      ]
+    }
+  }
+}

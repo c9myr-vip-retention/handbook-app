@@ -1,0 +1,271 @@
+{
+  "id": "bonus-issuance-approval",
+  "sop_version": "V1.0",
+  "content": {
+    "minutes": 6,
+    "words": [
+      [
+        "Secret Wallet (SW)",
+        "The player's bonus budget. Tier 3 gets 3% of their lifetime P&L, Tier V gets 5%. Bonuses are paid out of this balance."
+      ],
+      [
+        "SW cap",
+        "The most a task may pay, as a share of the SW. Grace 20%, Birthday 25% (Tier 3) or 30% (Tier V), LTV 40%, Top P&L 40%."
+      ],
+      [
+        "Turnover (TO)",
+        "The total valid bet amount. 1x means the player must bet the credit once before withdrawing."
+      ],
+      [
+        "Stacking",
+        "Giving a player two rewards for the same event or on the same day. Not allowed."
+      ],
+      [
+        "Contact precedes deposit",
+        "A logged contact must come before the player's (re)deposit. No logged contact first, no credit."
+      ],
+      [
+        "Ending in 8",
+        "Credits end in 8 (RM 38, RM 118). Take the highest one at or below the cap."
+      ],
+      [
+        "Approval gate",
+        "A line above which CS cannot issue alone and the ATL must approve first."
+      ],
+      [
+        "Back office (BO)",
+        "The backend system where you check and update player details."
+      ]
+    ],
+    "tour": [
+      {
+        "key": "when",
+        "label": "When",
+        "kind": "check",
+        "title": "Can this credit go ahead?",
+        "sec": "Golden Rules",
+        "secLabel": "3. Golden Rules",
+        "items": [
+          "The player is on the task's eligible list",
+          "A logged contact came before the (re)deposit",
+          "No Reload, Compensation or LTV reward went out to them today"
+        ],
+        "done": "All three: carry on to the steps.",
+        "notYet": "Any \"no\" means no credit. No contact first, no stacking."
+      },
+      {
+        "key": "do",
+        "label": "Do",
+        "kind": "steps",
+        "title": "Seven steps, for every bonus",
+        "sec": "Procedure",
+        "secLabel": "Procedure",
+        "items": [
+          [
+            "Verify",
+            "Eligible list, contact before deposit, one count per player per month."
+          ],
+          [
+            "Pick the ladder",
+            "Name the task (Grace, LTV, Top P&L, Birthday, Weekend) and its ladder."
+          ],
+          [
+            "Refresh the SW",
+            "Update the SW today before any sizing."
+          ],
+          [
+            "Size",
+            "Highest amount ending in 8 at or below the task's SW cap. Above the max, use the max."
+          ],
+          [
+            "Check the gate",
+            "Over a threshold: ATL. Otherwise CS issues within the cap."
+          ],
+          [
+            "Issue",
+            "Set the task's turnover and state the validity."
+          ],
+          [
+            "Record",
+            "Player, task, amount, TO, SW deducted or not, who issued, time. File the claim ticket."
+          ]
+        ]
+      },
+      {
+        "key": "never",
+        "label": "Never",
+        "kind": "never",
+        "title": "Five hard stops",
+        "sec": "Over-Issuance Guards",
+        "secLabel": "7. Over-Issuance Guards",
+        "items": [
+          "Credit a deposit that came before any logged contact.",
+          "Size on yesterday's SW, or go above the task's SW cap.",
+          "Stack two rewards on the same day.",
+          "Pay Top P&L to a player who is profitable this month, even after a loss today.",
+          "Hint at a bonus on Telegram."
+        ]
+      },
+      {
+        "key": "numbers",
+        "label": "Numbers",
+        "kind": "steps",
+        "title": "SW cap and turnover by task",
+        "sec": "SW Cap by Task",
+        "secLabel": "4. SW Cap by Task",
+        "items": [
+          [
+            "Grace Deposit Challenge",
+            "SW x 20%, 1x turnover."
+          ],
+          [
+            "Birthday, Tier 3",
+            "SW x 25%, 1x turnover (SW base). No SW: deposit base, 3x turnover."
+          ],
+          [
+            "Birthday, Tier V",
+            "SW x 30%, 1x turnover (SW base). No SW: deposit base, 3x turnover."
+          ],
+          [
+            "LTV List",
+            "SW x 40%, 1x turnover."
+          ],
+          [
+            "Top P&L",
+            "SW x 40%, 1x turnover. Monthly P&L must also be negative."
+          ],
+          [
+            "Example",
+            "Top P&L, loss RM 10,000 (ladder RM 118), SW RM 250: cap = RM 100. Issue RM 98, the highest ladder row at or below the cap."
+          ]
+        ]
+      },
+      {
+        "key": "approver",
+        "label": "Approver",
+        "kind": "gate",
+        "title": "Who can issue it?",
+        "sec": "Approval Authority",
+        "secLabel": "5. Approval Authority",
+        "q": "Is it a Birthday credit for a lifetime Total Deposit of RM 100,000 or more, the Weekend Deposit Challenge, a system fault (like S0403), or any other exception?",
+        "yes": "The ATL approves first. CS cannot self-issue an over-gate case.",
+        "no": "Within the SW cap on the standard ladder: CS issues it directly."
+      }
+    ],
+    "quiz": {
+      "count": 5,
+      "pass": 80,
+      "seconds": 60,
+      "pool": [
+        {
+          "id": "contact-first",
+          "q": "A player redeposited at 2 PM. Your first logged contact with them was at 4 PM. Can you give a retention credit?",
+          "o": [
+            "Yes, they deposited",
+            "Yes, if the SW allows",
+            "No, contact must come before the deposit",
+            "Only with ATL approval"
+          ],
+          "a": 2,
+          "why": "Contact precedes deposit. A deposit before any logged contact earns no retention or reactivation credit."
+        },
+        {
+          "id": "stale-sw",
+          "q": "You are sizing an LTV bonus and the SW figure is from yesterday. What do you do?",
+          "o": [
+            "Use it, it is close enough",
+            "Refresh the SW today, then size",
+            "Use the deposit instead",
+            "Skip the bonus"
+          ],
+          "a": 1,
+          "why": "A stale SW is not a valid base. Refresh it the same day before sizing."
+        },
+        {
+          "id": "grace-cap",
+          "q": "What is the SW cap for the Grace Period Deposit Challenge?",
+          "o": [
+            "SW x 20%",
+            "SW x 25%",
+            "SW x 30%",
+            "SW x 40%"
+          ],
+          "a": 0,
+          "why": "Grace is SW x 20%. Birthday is 25% or 30% by tier. LTV and Top P&L are 40%."
+        },
+        {
+          "id": "same-day-stack",
+          "q": "A player got an LTV reward this morning and now qualifies for Top P&L tonight. What do you do?",
+          "o": [
+            "Issue both",
+            "Issue the bigger one",
+            "Skip the second reward",
+            "Issue half of each"
+          ],
+          "a": 2,
+          "why": "No stacking. Skip if a same-day Reload, Compensation or LTV reward already went out."
+        },
+        {
+          "id": "top-pnl-monthly",
+          "q": "A player lost RM 5,000 today but is up RM 2,000 this month. Top P&L bonus?",
+          "o": [
+            "Yes, RM 68",
+            "Yes, half the ladder",
+            "No, monthly P&L must be negative",
+            "Ask the player"
+          ],
+          "a": 2,
+          "why": "Top P&L needs a negative monthly P&L too. A player who lost today but is profitable this month gets nothing."
+        },
+        {
+          "id": "s0403-approver",
+          "q": "A confirmed system fault (S0403) needs a goodwill credit. Who approves?",
+          "o": [
+            "CS, within the cap",
+            "The ATL",
+            "Any Senior",
+            "Nobody, faults are not credited"
+          ],
+          "a": 1,
+          "why": "A confirmed system fault or any exception goes to the ATL."
+        },
+        {
+          "id": "birthday-dep-to",
+          "q": "Birthday credit on the deposit base (no SW). Which turnover?",
+          "o": [
+            "1x",
+            "3x",
+            "5x",
+            "No turnover"
+          ],
+          "a": 1,
+          "why": "1x is the default. The Birthday deposit base is the exception: 3x turnover."
+        },
+        {
+          "id": "pnl-cap",
+          "q": "Top P&L: the player lost RM 10,000 today, which is RM 118 on the ladder. Their SW is RM 250, so SW x 40% = RM 100. What do you issue?",
+          "o": [
+            "RM 118",
+            "RM 100",
+            "RM 98",
+            "Nothing"
+          ],
+          "a": 2,
+          "why": "Never go above the cap. Take the highest ladder row at or below RM 100: RM 98 (the RM 8,000 row)."
+        },
+        {
+          "id": "telegram-bonus",
+          "q": "On Telegram, a player asks if there is a bonus this week. What can you say?",
+          "o": [
+            "Yes, tell them the amount",
+            "Hint that something is coming",
+            "No bonus promise or hint at all",
+            "Send the ladder"
+          ],
+          "a": 2,
+          "why": "Telegram never promises, implies or hints at a bonus."
+        }
+      ]
+    }
+  }
+}

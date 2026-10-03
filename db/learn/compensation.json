@@ -1,0 +1,86 @@
+{
+  "id": "compensation",
+  "sop_version": "V1.0",
+  "content": {
+    "minutes": 4,
+    "words": [
+      ["Compensation", "A Secret Wallet credit given to a losing or complaining VIP player on Livechat, so they feel looked after. Not every complaint earns one."],
+      ["Secret Wallet (SW)", "The player's bonus budget. Tier 3 gets 3% of their lifetime P&L, Tier V gets 5%. Bonuses are paid out of this balance."],
+      ["Monthly allowance", ""],
+      ["CS limit", ""],
+      ["Habitual asker", "A player who asks for free credit again and again with no qualifying reason."],
+      ["Stacking", "Giving a player two rewards on the same day. Not allowed."],
+      ["Back office (BO)", "The backend system where you check and update player details."]
+    ],
+    "tour": [
+      {
+        "key": "when", "label": "When", "kind": "check", "title": "Does this case earn a credit?",
+        "sec": "Procedure", "secLabel": "Procedure, step 1 and 2",
+        "items": ["The player lost a lot this week (a significant loss)", "The SW has a balance", "No recent credit, and no reward already given today"],
+        "done": "All three: the \"losing a lot\" case. Carry on to sizing.",
+        "notYet": "Small loss: validate and suggest a game, no credit. Habitual asker: decline gently and redirect."
+      },
+      {
+        "key": "do", "label": "Do", "kind": "steps", "title": "Six steps, in this order",
+        "sec": "Procedure", "secLabel": "Procedure",
+        "items": [
+          ["Acknowledge", "Name the feeling first, before any solution."],
+          ["Check the profile", "Loss this week, SW balance, recent credits, abuse or risk tag."],
+          ["Match the case", "Losing a lot: SW credit. Losing little: no credit, suggest a game. Habitual asker: decline gently."],
+          ["Size and check the gate", "Within the tier rule and the monthly allowance. Above the CS limit, route to the ATL."],
+          ["Issue and message", "Issue the SW credit with a kind message and state the validity."],
+          ["Record", "Player, reason, amount, tier, who issued. Tag the case."]
+        ]
+      },
+      {
+        "key": "never", "label": "Never", "kind": "never", "title": "Four hard stops",
+        "sec": "Guards", "secLabel": "4. Guards",
+        "items": [
+          "Jump to a solution before you acknowledge the emotion.",
+          "Promise a credit you cannot confirm. Say \"let me check\" first.",
+          "Go above the tier rule or the monthly allowance.",
+          "Stack it with a reward given the same day."
+        ]
+      },
+      {
+        "key": "numbers", "label": "Numbers", "kind": "steps", "title": "How much",
+        "sec": "Golden Rules", "secLabel": "3. Golden Rules",
+        "items": [
+          ["The tier rule", "[CONFIRM] The SOP says \"T3 = 3%, TV = 5%\". Those are the SW earn rates. What is the percentage taken of: the SW balance, this week's loss, or something else?"],
+          ["The monthly allowance", "[CONFIRM] How is the remaining monthly allowance worked out, and where does CS see it?"],
+          ["Ending in 8", "[CONFIRM] Does the ending-in-8 rule and a max apply to compensation too?"]
+        ]
+      },
+      {
+        "key": "approver", "label": "Approver", "kind": "gate", "title": "Who can issue it?",
+        "sec": "Procedure", "secLabel": "Procedure, step 4",
+        "q": "[CONFIRM] Is the amount above the CS limit (amount to be set by the ATL)?",
+        "yes": "Route it to the ATL. CS cannot self-issue over the limit.",
+        "no": "CS issues it, within the tier rule and the monthly allowance."
+      }
+    ],
+    "quiz": {
+      "count": 5, "pass": 80, "seconds": 60,
+      "pool": [
+        { "id": "emotion-first", "q": "An angry player says they lost everything today. What do you do first?",
+          "o": ["Offer a credit straight away", "Acknowledge how they feel", "Check the SW", "Suggest a new game"], "a": 1,
+          "why": "Emotion first. Acknowledge the feeling before any solution, check or redirect." },
+        { "id": "losing-little", "q": "The player lost a small amount, not enough for an SW credit, and is upset. What do you do?",
+          "o": ["Give a small credit anyway", "Validate the feeling, suggest a game, no credit", "Tell them it is their fault", "Escalate to the ATL"], "a": 1,
+          "why": "Losing little: acknowledge, suggest a fresh game and reframe toward hope. No credit committed." },
+        { "id": "habitual", "q": "A player asks for free credit every day with no qualifying reason. What do you do?",
+          "o": ["Give it to keep them happy", "Decline gently and redirect to a game", "Block the player", "Ignore the message"], "a": 1,
+          "why": "Decline gently, redirect to a game, and say you will let them know by SMS when there is something. They should still feel looked after." },
+        { "id": "not-sure", "q": "You are not sure the player qualifies for a credit. What do you tell them?",
+          "o": ["Yes, it is coming", "\"Let me check\"", "Probably yes", "No, never"], "a": 1,
+          "why": "Never promise a bonus you cannot deliver. Say \"let me check\" instead of a false commitment." },
+        { "id": "no-stack", "q": "The player qualifies for compensation but already got a Reload today. What do you do?",
+          "o": ["Issue both", "Skip the compensation today", "Issue half", "Ask the player to choose"], "a": 1,
+          "why": "No stacking with a same-day reward." },
+        { "id": "record", "q": "You issued a compensation credit. What must the record show?",
+          "o": ["Just the amount", "Player, reason, amount, tier and who issued it", "Only the chat screenshot", "Nothing, the BO keeps it"], "a": 1,
+          "why": "Log player, reason, amount, tier and who issued it, and tag the case. No record means an unverifiable credit." }
+      ]
+    }
+  }
+}

@@ -291,7 +291,7 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
                 {route.kind === 'charts' && <ChartReview pages={PAGES} go={go} />}
                 {route.kind === 'learn' && (route.key
                   ? (route.edit && isAdmin ? <LearnEditor key={route.key} id={route.key} go={go} /> : <LearnModule key={route.key} id={route.key} go={go} canEdit={isAdmin} />)
-                  : <LearnHome go={go} canEdit={isAdmin} pages={PAGES} />)}
+                  : <LearnHome go={go} canEdit={isAdmin} pages={PAGES} nav={NAV} />)}
                 {route.kind === 'quiz' && <QuizPage key={route.key} id={route.key} go={go} />}
                 {route.kind === 'scores' && <ScoresPage go={go} />}
               </>}

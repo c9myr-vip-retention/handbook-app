@@ -29,7 +29,21 @@ function StatusChip({ m }) {
 
 // ---- Learn home: the learning path --------------------------------------------
 
-export function LearnHome({ go, canEdit, pages: PAGES }) {
+// Group modules under their SOP Book category (from the page crumb
+// "SOP Book · <category>"), in the same order as the SOP Book sidebar.
+function groupByCategory(mods, PAGES, NAV) {
+  const order = (NAV || []).find(s => s.domains)?.domains.map(d => d.name) || []
+  const groups = new Map()
+  for (const m of mods) {
+    const cat = (PAGES?.[m.id]?.crumb || '').split(' · ')[1] || 'Other'
+    if (!groups.has(cat)) groups.set(cat, [])
+    groups.get(cat).push(m)
+  }
+  const rank = (c) => { const i = order.indexOf(c); return i < 0 ? order.length : i }
+  return [...groups].sort((a, b) => rank(a[0]) - rank(b[0]))
+}
+
+export function LearnHome({ go, canEdit, pages: PAGES, nav: NAV }) {
   const [mods, err] = useLoad(() => api.learn(), [])
   if (err) return <div className="view doc learn"><h1>Learn</h1><Err msg={err} /></div>
   if (!mods) return <div className="view doc learn"><h1>Learn</h1><Loading /></div>
@@ -42,17 +56,22 @@ export function LearnHome({ go, canEdit, pages: PAGES }) {
       {open.length > 0 && <p className="learn-progress"><b>{passed} of {open.length}</b> modules passed</p>}
       {mods.length === 0
         ? <div className="stubbox">No modules yet.</div>
-        : <ol className="learn-path">
-            {mods.map(m => (
-              <li key={m.id}>
-                <button className="learn-mod" onClick={() => go({ kind: 'learn', key: m.id })}>
-                  <b>{m.title}</b>
-                  <small>{m.minutes} min · 5 cards · {m.count}-question quiz{m.sop_version ? ` · based on SOP ${m.sop_version}` : ''}</small>
-                  <StatusChip m={m} />
-                </button>
-              </li>
-            ))}
-          </ol>}
+        : groupByCategory(mods, PAGES, NAV).map(([cat, list]) => (
+            <section key={cat} className="learn-group" aria-labelledby={'lc-' + cat}>
+              <h2 className="learn-cat" id={'lc-' + cat}>{cat}</h2>
+              <ol className="learn-path">
+                {list.map(m => (
+                  <li key={m.id}>
+                    <button className="learn-mod" onClick={() => go({ kind: 'learn', key: m.id })}>
+                      <b>{m.title}</b>
+                      <small>{m.minutes} min · 5 cards · {m.count}-question quiz{m.sop_version ? ` · based on SOP ${m.sop_version}` : ''}</small>
+                      <StatusChip m={m} />
+                    </button>
+                  </li>
+                ))}
+              </ol>
+            </section>
+          ))}
       {canEdit && <div className="learn-links"><button className="btn small ghost" onClick={() => go({ kind: 'scores' })}>Team scores</button></div>}
       {canEdit && <AddModule pages={PAGES} have={mods.map(m => m.id)} go={go} />}
     </div>

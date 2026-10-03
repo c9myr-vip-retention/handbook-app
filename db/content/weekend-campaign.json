@@ -73,8 +73,8 @@
     [
      "3",
      "Issue Ang Bao (TC only)",
-     "Normal Ang Bao RM 2 to 8 for Tier 3. Special Ang Bao RM 8 to 18 for Tier V. The amount is randomized within the range.",
-     "TC platform only. Tier 3 gets Normal only, Tier V gets Special only. Never cross-issue.",
+     "Issue the Ang Bao to the day's targeted tier. The amount is randomized, RM 8 to RM 18, for Tier 3 and Tier V.",
+     "TC platform only. Never cross-issue to Zyra.",
      "TC BO",
      ""
     ],
@@ -110,7 +110,7 @@
   },
   {
    "t": "chart",
-   "x": "title: Weekend Campaign v1.2: daily reload by roster\nstart: Reload task\ncheck: On roster today? | yes: next | no: stop Not your roster day: do not issue\nstep: Verify tier (BO)\ncheck: TC or Zyra? | yes: jump Issue Ang Bao (TC): Normal RM 2 to 8 = Tier 3, Special RM 8 to 18 = Tier V | no: jump Send Redeem Code (Zyra): one claim per player, RM 100 deposit activates | labels: TC, Zyra\nend: Tag + QA"
+   "x": "title: Weekend Campaign V1.3: daily reload by roster\nstart: Reload task\ncheck: On roster today? | yes: next | no: stop Not your roster day: do not issue\nstep: Verify tier (BO)\ncheck: TC or Zyra? | yes: jump Issue Ang Bao (TC): random RM 8 to 18, Tier 3 and Tier V | no: jump Send Redeem Code (Zyra): one claim per player, RM 100 deposit activates | labels: TC, Zyra\nend: Tag + QA"
   },
   {
    "t": "h2",
@@ -164,7 +164,7 @@
    "x": [
     "Follow the roster. Only the team on the roster runs the reload that day, on its listed brands.",
     "Ang Bao is TC only; Redeem Code is Zyra only. Never cross-issue.",
-    "Ang Bao tier split is strict: Normal (RM 2 to 8) Tier 3, Special (RM 8 to 18) Tier V.",
+    "Ang Bao is randomized, RM 8 to RM 18, for both tiers. CS does not pick the amount.",
     "Deposit Challenge is under testing. Confirm with ATL or TL before any issuance.",
     "If a player's tier is unclear, verify in the BO before issuing any reward."
    ]
@@ -183,15 +183,9 @@
    ],
    "rows": [
     [
-     "Normal Ang Bao",
-     "RM 2 to RM 8",
-     "Tier 3 only",
-     "TC"
-    ],
-    [
-     "Special Ang Bao",
-     "RM 8 to RM 18",
-     "Tier V only",
+     "Ang Bao",
+     "RM 8 to RM 18, randomized",
+     "Tier 3 and Tier V",
      "TC"
     ]
    ]
@@ -199,8 +193,7 @@
   {
    "t": "list",
    "x": [
-    "Tier 3 gets Normal only, Tier V gets Special only. Never cross-issue.",
-    "The amount is randomized within the range; CS does not pick it.",
+    "One range for both tiers. The Normal Ang Bao (RM 2 to 8) is no longer used.",
     "Claim ticket query: `Special Reload Bonus`.",
     "TC platform only. Not applicable on Zyra.",
     "On your team's roster day only."

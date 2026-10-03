@@ -10,7 +10,7 @@
       ],
       [
         "Ang Bao",
-        "A small cash reward on TC brands. Normal Ang Bao (RM 2 to 8) for Tier 3, Special Ang Bao (RM 8 to 18) for Tier V."
+        "A small cash reward on TC brands. The amount is randomized, RM 8 to RM 18, for Tier 3 and Tier V."
       ],
       [
         "Redeem Code",
@@ -30,7 +30,7 @@
       ],
       [
         "Cross-issue",
-        "Giving a reward on the wrong platform or to the wrong tier. Not allowed."
+        "Giving a reward on the wrong platform, for example an Ang Bao on Zyra. Not allowed."
       ]
     ],
     "tour": [
@@ -67,7 +67,7 @@
           ],
           [
             "TC: Ang Bao",
-            "Normal RM 2 to 8 for Tier 3. Special RM 8 to 18 for Tier V."
+            "Issue the Ang Bao. The amount is random, RM 8 to 18, for both tiers."
           ],
           [
             "Zyra: Redeem Code",
@@ -83,13 +83,12 @@
         "key": "never",
         "label": "Never",
         "kind": "never",
-        "title": "Five hard stops",
+        "title": "Four hard stops",
         "sec": "Guards",
         "secLabel": "7. Guards",
         "items": [
           "Issue on a day your team is not on the roster, or on a brand not listed for you.",
           "Give Ang Bao on Zyra, or a Redeem Code on TC.",
-          "Give Special Ang Bao to Tier 3, or Normal Ang Bao to Tier V.",
           "Share a redeem code with a player outside today's target list.",
           "Issue Free Spin (stopped September 2026) or the Deposit Challenge without ATL or TL sign-off."
         ]
@@ -103,20 +102,16 @@
         "secLabel": "4. Ang Bao",
         "items": [
           [
-            "Normal Ang Bao",
-            "RM 2 to RM 8. Tier 3 only. TC only."
-          ],
-          [
-            "Special Ang Bao",
-            "RM 8 to RM 18. Tier V only. TC only."
+            "Ang Bao",
+            "RM 8 to RM 18, randomized. Tier 3 and Tier V. TC only. You do not pick the amount."
           ],
           [
             "Redeem Code",
             "Player deposits RM 100 to activate. One claim per player per code. Zyra only."
           ],
           [
-            "Inside the Ang Bao range",
-            "The amount is randomized within the range. You do not pick it."
+            "Claim ticket",
+            "Query Special Reload Bonus."
           ]
         ]
       },
@@ -141,8 +136,8 @@
           "id": "off-roster",
           "q": "Your team is not on today's roster, but a Tier 3 LPK777 player asks for an Ang Bao. What do you do?",
           "o": [
-            "Give a Normal Ang Bao",
-            "Give a Special Ang Bao",
+            "Give the Ang Bao",
+            "Give a bigger Ang Bao",
             "Do not issue; it is not your roster day",
             "Give a Redeem Code instead"
           ],
@@ -150,16 +145,16 @@
           "why": "Only the team on the roster runs the reload that day. Off-roster issuance is a process violation."
         },
         {
-          "id": "ang-bao-tier-v",
-          "q": "Roster day, TC brand, Tier V player. What do you give?",
+          "id": "ang-bao-range",
+          "q": "Roster day, TC brand, Tier 3 player. What Ang Bao do you give?",
           "o": [
-            "Normal Ang Bao, RM 2 to 8",
-            "Special Ang Bao, RM 8 to 18",
-            "A Redeem Code",
-            "Free Spin"
+            "RM 2 to 8, you choose",
+            "A random amount, RM 8 to 18",
+            "RM 18 fixed",
+            "None, Tier 3 gets no Ang Bao"
           ],
           "a": 1,
-          "why": "Tier V gets Special Ang Bao, RM 8 to 18. Tier 3 gets Normal. Never cross-issue."
+          "why": "Ang Bao is one randomized range, RM 8 to 18, for Tier 3 and Tier V. The old RM 2 to 8 Normal Ang Bao is no longer used."
         },
         {
           "id": "zyra-reward",

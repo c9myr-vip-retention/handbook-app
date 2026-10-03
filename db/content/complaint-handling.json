@@ -1,13 +1,13 @@
 {
  "id": "complaint-handling",
  "source": "18_Complaint_Handling.md",
- "version": "V1.1",
+ "version": "V1.2",
  "meta": [
   "C9MYR-RTN-SOP-CHAT02",
-  "V1.1",
+  "V1.2",
   "Soft Skill / Engagement",
   "Owner: VIP RTN",
-  "Updated 7 Sep 2026"
+  "Updated 3 Oct 2026"
  ],
  "body": [
   {
@@ -74,7 +74,7 @@
      "3",
      "Match the scenario and respond",
      "After assessment: per the scenario table; SW credit only where the scenario allows.",
-     "Sized by tier % (T3 = 3%, TV = 5%) and remaining monthly allowance. No false commitment; if unsure say \"let me check\".",
+     "Any credit goes through the Compensation SOP (first-level handling, last-week P&L ladder, SW x 40%, ATL approval). No false commitment; if unsure say \"let me check\".",
      "Livechat, Bonus rules",
      ""
     ],
@@ -94,7 +94,7 @@
   },
   {
    "t": "chart",
-   "x": "title: Complaint Handling (Livechat): flow\nstart: Complaint opens\nstep: Acknowledge emotion\nstep: Read profile\ncheck: SW credit qualifies? | yes: next | no: jump Validate + redirect, no credit\nstep: Issue SW credit (tier %)\nend: Log outcome (QA)"
+   "x": "title: Complaint Handling (Livechat): flow\nstart: Complaint opens\nstep: Acknowledge emotion\nstep: Read profile\ncheck: Strong complaint, still upset? | yes: next | no: jump Validate + redirect, no credit\nstep: Compensation SOP (ATL approves)\nend: Log outcome (QA)"
   },
   {
    "t": "h2",
@@ -121,7 +121,7 @@
    "x": [
     "Always acknowledge the emotion before moving to a solution or redirection.",
     "Never promise a bonus you cannot deliver. If unsure, say \"let me check\", never a false commitment.",
-    "Use Secret Wallet credit only where the scenario qualifies; size by tier (T3 = 3%, TV = 5%) and remaining monthly allowance.",
+    "A credit is only ever given through the Compensation SOP: first-level handling first, last-week P&L ladder at SW x 40%, one per week, ATL approval.",
     "For the formal compensation decision, use the Compensation SOP; for amounts and tier rules, the Bonus rules."
    ]
   },
@@ -141,8 +141,8 @@
     [
      "Losing a lot",
      "Significant losses this week, SW has balance, no recent credits",
-     "\"Saya nampak boss memang rugi sikit hari ni. Saya bagi sikit credit untuk boss try balik.\"",
-     "Always use Secret Wallet credit here. Base the amount on tier (T3 = 3%, TV = 5%) and remaining monthly allowance."
+     "\"Saya nampak boss memang rugi sikit hari ni. Saya faham perasaan boss. Bagi saya check dulu ye.\"",
+     "Do first-level handling (luck, Jackpot, activities). If the player keeps asking and stays upset, follow the Compensation SOP. Never promise the credit before the ATL approves."
     ],
     [
      "Losing little",

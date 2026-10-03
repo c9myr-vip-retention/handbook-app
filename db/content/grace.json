@@ -1,13 +1,13 @@
 {
  "id": "grace",
  "source": "01_Grace_Period_List.md",
- "version": "V1.1",
+ "version": "V1.2",
  "meta": [
   "C9MYR-RTN-SOP-D01",
-  "V1.1",
+  "V1.2",
   "Day Shift / VIP",
   "Owner: VIP RTN",
-  "Updated 7 Sep 2026"
+  "Updated 3 Oct 2026"
  ],
  "body": [
   {
@@ -73,7 +73,7 @@
     [
      "3",
      "Filter valid vs invalid",
-     "Split Grace Period Players (below the monthly threshold) from Potential Players (at or above), by brand and status.",
+     "Split Grace Period Players (missed last month's threshold) from Potential Players (projected monthly deposit at or above the threshold), by brand and status; read Valid / Invalid from the formula column.",
      "Every player classified; none left unclassified",
      "Lark Base",
      "Wrong status sends the wrong message"
@@ -147,7 +147,8 @@
     "SMS is sent by Retention Team Admin, not VIP CS. VIP CS prepares the list only.",
     "Invalid players get IM + Push only. No SMS, no bonus mention.",
     "A Grace bonus is issued only when SW x 20% reaches the minimum eligible tier, and SW is updated the same day before issuance.",
-    "Verify player status before sending; skip anyone who already deposited or changed tier."
+    "Verify player status before sending; skip anyone who already deposited or changed tier.",
+    "Valid / Invalid comes from the Lark Base formula (Section 5). Only valid players get the SMS and the bonus offer."
    ]
   },
   {
@@ -221,15 +222,27 @@
    "rows": [
     [
      "**Grace Period Player** (Mon + Thu)",
-     "Has NOT achieved the monthly deposit threshold, still within the grace window.",
+     "Did NOT reach the tier's monthly deposit threshold last month; worked through the current month (the second-month chance).",
      "IM + Push. Pass eligible list to Admin for SMS. Goal: activate deposit."
     ],
     [
      "**Potential Player** (Tue + Fri)",
-     "HAS achieved or exceeded the monthly threshold.",
+     "Projected monthly deposit is at or above the threshold (forecast, see below). Filtered every weekend into the Handover File Tuesday column.",
      "IM + Push. Pass eligible list to Admin for SMS. Goal: maintain engagement and loyalty."
     ]
    ]
+  },
+  {
+   "t": "p",
+   "x": "**Projected monthly deposit** = current monthly deposit / data updated days x 30. Use yesterday's completed data. Example: today is the 18th, data runs to the 17th: RM 45,630 / 17 x 30 = RM 80,523.53."
+  },
+  {
+   "t": "p",
+   "x": "**Valid vs Invalid (Lark Base formula):** `IF(AND(Highest amount of BONUS > 0, (20% of SW - Highest amount of BONUS) >= 0), \"Valid\", \"Invalid\")`. Valid means SW x 20% covers at least the lowest bonus on the tier ladder (Tier 3 RM 18, Tier V RM 68). Invalid players get IM + Push only."
+  },
+  {
+   "t": "p",
+   "x": "**Monthly deposit threshold:** the monthly deposit a player needs to keep their tier. It is set by the VIP threshold mechanism and can move; read it from the list, never guess it."
   },
   {
    "t": "h2",
@@ -317,7 +330,8 @@
    "x": [
     "Empty list on a scheduled day: record it in the QA Record and inform the ATL. Never skip silently.",
     "Never issue a Grace bonus above the SW x 20% cap.",
-    "Do not send to players who already deposited or whose tier changed."
+    "Do not send to players who already deposited or whose tier changed.",
+    "If last month's Grace list is missing, run the current month's Grace mechanism (all Tier 3 and Tier V players below the threshold, one engagement broadcast) until last month's list arrives."
    ]
   },
   {
@@ -328,7 +342,9 @@
    "t": "list",
    "x": [
     "Eligible (Valid) enters segmentation and can claim the Deposit Challenge; Invalid gets IM + Push only.",
-    "SW must be refreshed the same day before any sizing; a stale SW is not a valid base."
+    "SW must be refreshed the same day before any sizing; a stale SW is not a valid base.",
+    "After a player meets the target, reduce contact step by step: week 1 normal follow-up, week 2 less proactive contact, week 3 light interaction only, month end stop all Grace contact. The exact pace can follow each team's strategy; the default is to reduce when the player is active.",
+    "Tier V uses the RM 600 to RM 1,000 rows of the ladder."
    ]
   }
  ]

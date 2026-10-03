@@ -1,18 +1,18 @@
 {
  "id": "compensation",
  "source": "30_Compensation.md",
- "version": "V1.0",
+ "version": "V1.1",
  "meta": [
   "C9MYR-RTN-SOP-BON02",
-  "V1.0",
+  "V1.1",
   "Bonus / Money Control",
   "Owner: VIP RTN",
-  "Updated 5 Sep 2026"
+  "Updated 3 Oct 2026"
  ],
  "body": [
   {
    "t": "p",
-   "x": "**Applies to:** All VIP CS; ATL for higher amounts"
+   "x": "**Applies to:** All VIP CS; ATL approves every compensation"
   },
   {
    "t": "sopheader",
@@ -56,50 +56,66 @@
    "rows": [
     [
      "1",
-     "Verify the case",
-     "Acknowledge the emotion first. Check for a significant loss this week, SW balance, and no recent credit.",
-     "Emotion acknowledged; loss and SW verified",
-     "BO profile; LC",
-     "Acknowledge the feeling before any solution"
+     "Assess the emotion",
+     "Acknowledge the feeling first. Sort the case: general inquiry, mild complaint, or strong complaint.",
+     "General inquiry: do not give. Mild complaint: soothe. Strong complaint: go to step 2.",
+     "Livechat",
+     "Emotion before any solution"
     ],
     [
      "2",
-     "Determine eligibility and tier",
-     "Losing a lot: SW credit. Losing little: validate and suggest a game, no credit. Habitual asker: decline gently and redirect.",
-     "Correct handling per scenario",
-     "Profile",
-     "Not every complaint earns a credit"
+     "First-level handling",
+     "Explain luck, guide the player to the Jackpot, guide them to the current activities.",
+     "Mandatory. No bonus at this step.",
+     "Livechat",
+     "Never offer a bonus on the first ask"
     ],
     [
      "3",
-     "Size the compensation",
-     "Tier percentage of the base (T3 = 3%, TV = 5%), within the remaining monthly allowance; SW based.",
-     "Within tier % and monthly allowance",
-     "Bonus SOP; SW field",
-     "Never exceed the tier % or the allowance"
+     "Decide on reward assessment",
+     "Go on only if the player keeps asking and the emotion does not come down.",
+     "Otherwise close with care, no bonus",
+     "Livechat",
+     ""
     ],
     [
      "4",
-     "Check the approval gate",
-     "Within the limit, CS issues; above it, route to ATL.",
-     "Over-limit cases ATL-approved first",
-     "Lark",
-     "CS cannot self-issue over the limit"
+     "Verify the data",
+     "Check: last week P&L is negative; no compensation received this week; SW is sufficient.",
+     "All three must pass. Any fail: cannot be given",
+     "BO profile; SW field",
+     "One compensation per player per week"
     ],
     [
      "5",
+     "Size against the ladder",
+     "Find last week's loss on the ladder (Section 4). The bonus must be at or below SW x 40%; if the ladder amount is higher, take the highest row that fits.",
+     "Bonus <= SW x 40%; ends in 8; max RM 288",
+     "Ladder; SW field",
+     "SW refreshed the same day"
+    ],
+    [
+     "6",
+     "ATL approval",
+     "Send the case and the sized amount to the ATL. Issue only after the ATL approves.",
+     "Every compensation is ATL-approved first",
+     "Lark; ATL",
+     "CS never self-issues compensation"
+    ],
+    [
+     "7",
      "Issue and message",
-     "Issue the SW credit with an empathetic message; state validity; make no false promise.",
+     "Issue the credit with an empathetic message; state the validity and the 1x turnover.",
      "Credit issued; validity stated; no false promise",
      "BO; templates",
      "Never promise a bonus you cannot deliver"
     ],
     [
-     "6",
+     "8",
      "Record",
-     "Log player, reason, amount, tier, issued by; tag the case.",
+     "Mark `Livechat Compensation Given`, note the complaint type, log player, amount, tier, approver and issuer; file the Lark ticket.",
      "Fully recorded and tagged",
-     "QA Record",
+     "QA Record; Lark ticket `VVIP Complain player`",
      "No record means an unverifiable credit"
     ]
    ]
@@ -110,7 +126,7 @@
   },
   {
    "t": "chart",
-   "x": "title: Compensation: flow\nstart: Loss / complaint\nstep: Verify + eligibility\nstep: Size (tier %)\ncheck: Over CS limit? | yes: step ATL approves | no: step CS issues\nstep: Issue + message\nstep: Record\nend: Done"
+   "x": "title: Compensation V1.1: flow\nstart: Livechat complaint\ncheck: Strong complaint? | yes: next | no: stop Inquiry: do not give. Mild: soothe\nstep: First-level handling (no bonus)\ncheck: Still asking and upset? | yes: next | no: stop Close with care, no bonus\ncheck: Last week loss, none this week, SW enough? | yes: next | no: stop Cannot be given\nstep: Size on ladder, max SW x 40%\nstep: ATL approves\nstep: Issue, 1x TO, state validity\nend: Record + tag"
   },
   {
    "t": "h2",
@@ -118,7 +134,7 @@
   },
   {
    "t": "p",
-   "x": "Compensate a losing or complaining VIP player consistently and within limits, so the player feels looked after without over-issuing."
+   "x": "Compensate a losing, complaining VIP player consistently and within limits, so the player feels looked after without over-issuing."
   },
   {
    "t": "h2",
@@ -126,7 +142,7 @@
   },
   {
    "t": "p",
-   "x": "Losing-player and service-failure complaint scenarios on Livechat that warrant compensation. Sizing and approval follow the Bonus Issuance & Approval SOP."
+   "x": "Tier 3 and Tier V players who come to VIP Livechat to complain about losses or to ask for a bonus. Day Shift and Night Shift, during duty hours. Losing players already covered by the Top 10 P&L and LTV plans are engaged through those plans."
   },
   {
    "t": "h2",
@@ -136,29 +152,134 @@
    "t": "list",
    "x": [
     "Acknowledge the emotion before any solution.",
-    "Compensate within the tier percentage and remaining monthly allowance; Secret Wallet based.",
-    "Never promise a bonus you cannot deliver.",
+    "First-level handling comes first and gives no bonus.",
+    "Compensation only for a negative last-week P&L, at or below SW x 40%.",
+    "One compensation per player per week.",
+    "The ATL approves every compensation before it is issued.",
+    "Never promise a bonus you cannot deliver. If unsure, say \"let me check\".",
     "No stacking with a same-day reward."
    ]
   },
   {
    "t": "h2",
-   "x": "4. Guards"
+   "x": "4. Compensation Ladder (last week P&L, SW x 40%)"
+  },
+  {
+   "t": "table",
+   "head": [
+    "Last week loss",
+    "Bonus",
+    "",
+    "Last week loss",
+    "Bonus"
+   ],
+   "rows": [
+    [
+     "RM 1,000",
+     "RM 18",
+     "",
+     "RM 11,000",
+     "RM 128"
+    ],
+    [
+     "RM 2,000",
+     "RM 28",
+     "",
+     "RM 12,000",
+     "RM 138"
+    ],
+    [
+     "RM 3,000",
+     "RM 38",
+     "",
+     "RM 13,000",
+     "RM 158"
+    ],
+    [
+     "RM 4,000",
+     "RM 58",
+     "",
+     "RM 14,000",
+     "RM 168"
+    ],
+    [
+     "RM 5,000",
+     "RM 68",
+     "",
+     "RM 15,000",
+     "RM 178"
+    ],
+    [
+     "RM 6,000",
+     "RM 78",
+     "",
+     "RM 16,000",
+     "RM 188"
+    ],
+    [
+     "RM 7,000",
+     "RM 88",
+     "",
+     "RM 17,000",
+     "RM 198"
+    ],
+    [
+     "RM 8,000",
+     "RM 98",
+     "",
+     "RM 18,000",
+     "RM 208"
+    ],
+    [
+     "RM 9,000",
+     "RM 108",
+     "",
+     "RM 19,000",
+     "RM 218"
+    ],
+    [
+     "RM 10,000",
+     "RM 118",
+     "",
+     "RM 20,000",
+     "RM 228"
+    ],
+    [
+     "",
+     "",
+     "",
+     "Above RM 20,000",
+     "RM 288 (max)"
+    ]
+   ]
+  },
+  {
+   "t": "p",
+   "x": "Example: last week loss RM 8,000 (ladder RM 98), SW RM 200, so SW x 40% = RM 80. Issue RM 78, the highest row at or below the cap, after ATL approval."
+  },
+  {
+   "t": "h2",
+   "x": "5. Guards"
   },
   {
    "t": "list",
    "x": [
-    "Emotion first; within tier and monthly allowance; no false promise; no stacking."
+    "Not a losing player (last week P&L not negative): cannot be given.",
+    "SW insufficient: cannot be given.",
+    "Already compensated this week: cannot be given again.",
+    "No ATL approval: do not issue."
    ]
   },
   {
    "t": "h2",
-   "x": "5. Remarks"
+   "x": "6. Remarks"
   },
   {
    "t": "list",
    "x": [
-    "The T3 3% / TV 5% basis is from Complaint Handling. Confirm the exact caps and steps with the ATL; refer to the Bonus rules for amounts."
+    "Withdrawable after 1x turnover.",
+    "For the conversation itself (scripts, relationship building), see the Complaint Handling SOP.",
+    "Sizing and approval also follow the Bonus Issuance & Approval SOP."
    ]
   }
  ]

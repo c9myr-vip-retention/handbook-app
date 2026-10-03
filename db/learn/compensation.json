@@ -1,6 +1,6 @@
 {
   "id": "compensation",
-  "sop_version": "V1.0",
+  "sop_version": "V1.1",
   "content": {
     "minutes": 5,
     "words": [
@@ -53,7 +53,7 @@
         "key": "do",
         "label": "Do",
         "kind": "steps",
-        "title": "Seven steps, in this order",
+        "title": "Eight steps, in this order",
         "sec": "Procedure",
         "secLabel": "Procedure",
         "items": [
@@ -78,6 +78,10 @@
             "Find last week's loss on the ladder. The bonus must be at or below SW x 40%."
           ],
           [
+            "ATL approval",
+            "Send the case and the amount to the ATL. Issue only after approval."
+          ],
+          [
             "Issue and message",
             "Kind message, state validity, 1x turnover."
           ],
@@ -91,7 +95,7 @@
         "key": "never",
         "label": "Never",
         "kind": "never",
-        "title": "Five hard stops",
+        "title": "Six hard stops",
         "sec": "Guards",
         "secLabel": "4. Guards",
         "items": [
@@ -99,7 +103,8 @@
           "Compensate a player whose last week P&L is not a loss.",
           "Give it twice in the same week.",
           "Go above SW x 40%, or give it when the SW is not enough.",
-          "Promise a credit you cannot confirm. Say \"let me check\" first."
+          "Promise a credit you cannot confirm. Say \"let me check\" first.",
+          "Issue a compensation before the ATL approves it."
         ]
       },
       {
@@ -144,12 +149,12 @@
         "key": "approver",
         "label": "Approver",
         "kind": "gate",
-        "title": "Who can issue it?",
+        "title": "Can you issue it now?",
         "sec": "Procedure",
-        "secLabel": "Procedure, step 4",
-        "q": "[CONFIRM] Does any compensation case need ATL approval (for example above a set amount), or does CS issue every case that passes the checks?",
-        "yes": "Route it to the ATL. CS cannot self-issue over the limit.",
-        "no": "CS issues it, within the tier rule and the monthly allowance."
+        "secLabel": "Procedure, step 6",
+        "q": "Has the ATL approved this compensation?",
+        "yes": "Issue it: kind message, state the validity, 1x turnover. Then record and tag.",
+        "no": "Do not issue. Every compensation needs ATL approval first, whatever the amount."
       }
     ],
     "quiz": {
@@ -276,6 +281,18 @@
           ],
           "a": 2,
           "why": "Never go above SW x 40%. The highest ladder row at or below RM 80 is RM 78."
+        },
+        {
+          "id": "atl-every",
+          "q": "The compensation is only RM 18 and passes every check. Can you issue it yourself?",
+          "o": [
+            "Yes, it is small",
+            "Yes, if the SW allows",
+            "No, the ATL approves every compensation",
+            "Only on night shift"
+          ],
+          "a": 2,
+          "why": "Every Livechat Compensation is ATL-approved before issuance, whatever the amount."
         }
       ]
     }

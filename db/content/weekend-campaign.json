@@ -1,13 +1,13 @@
 {
  "id": "weekend-campaign",
  "source": "15_Weekend_Campaign.md",
- "version": "V1.2",
+ "version": "V1.3",
  "meta": [
   "C9MYR-RTN-SOP-B01",
-  "V1.2",
+  "V1.3",
   "Bonus / Strategy",
   "Owner: VIP RTN / ATL",
-  "Updated 26 Sep 2026"
+  "Updated 3 Oct 2026"
  ],
  "body": [
   {
@@ -73,7 +73,7 @@
     [
      "3",
      "Issue Ang Bao (TC only)",
-     "Normal Ang Bao RM 2 to 8 for Tier 3. Special Ang Bao RM 8 to 18 for Tier V.",
+     "Normal Ang Bao RM 2 to 8 for Tier 3. Special Ang Bao RM 8 to 18 for Tier V. The amount is randomized within the range.",
      "TC platform only. Tier 3 gets Normal only, Tier V gets Special only. Never cross-issue.",
      "TC BO",
      ""
@@ -97,8 +97,8 @@
     [
      "6",
      "Tag + QA",
-     "After issuance: tag and update the QA Record.",
-     "",
+     "After issuance: tag, file the claim ticket (query `Special Reload Bonus`) and update the QA Record.",
+     "Ticket filed for every reward",
      "Lark Base",
      ""
     ]
@@ -200,6 +200,8 @@
    "t": "list",
    "x": [
     "Tier 3 gets Normal only, Tier V gets Special only. Never cross-issue.",
+    "The amount is randomized within the range; CS does not pick it.",
+    "Claim ticket query: `Special Reload Bonus`.",
     "TC platform only. Not applicable on Zyra.",
     "On your team's roster day only."
    ]

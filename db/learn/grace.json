@@ -1,6 +1,6 @@
 {
   "id": "grace",
-  "sop_version": "V1.1",
+  "sop_version": "V1.2",
   "content": {
     "minutes": 5,
     "words": [
@@ -10,7 +10,7 @@
       ],
       [
         "Potential Player",
-        "A player who HAS reached or passed the monthly deposit threshold. Sent on Tuesday, followed up on Friday."
+        "A player whose projected monthly deposit reaches the threshold (current monthly deposit / days of data x 30). Filtered every weekend. Sent on Tuesday, followed up on Friday."
       ],
       [
         "Monthly deposit threshold",
@@ -18,7 +18,7 @@
       ],
       [
         "Grace window",
-        "The current month, after the player missed last month's threshold. All Grace contact stops at month end."
+        "The current month, the player's second-month chance after missing last month's threshold. All Grace contact stops at month end."
       ],
       [
         "Valid and invalid player",
@@ -75,7 +75,7 @@
           ],
           [
             "Filter",
-            "Split Grace Period Players from Potential Players, by brand and status."
+            "Split Grace Period Players from Potential Players by brand and status. Read Valid / Invalid from the formula column."
           ],
           [
             "Move",
@@ -192,13 +192,13 @@
           "id": "tue-potential",
           "q": "It is Tuesday. Which players get the primary send?",
           "o": [
-            "Players below the monthly threshold",
-            "Players who reached or passed the monthly threshold",
+            "Players who missed last month's threshold",
+            "Players whose projected monthly deposit reaches the threshold",
             "Invalid players only",
             "Players who deposited today"
           ],
           "a": 1,
-          "why": "Tuesday is the primary send to Potential Players, who reached or passed the monthly threshold."
+          "why": "Tuesday is the primary send to Potential Players: their projected monthly deposit (current deposit / days of data x 30) reaches the threshold."
         },
         {
           "id": "sms-who",
@@ -295,6 +295,30 @@
           ],
           "a": 2,
           "why": "The Tier V ladder starts at RM 68. RM 50 does not reach it, so the player is invalid: IM + Push only."
+        },
+        {
+          "id": "projected",
+          "q": "Today is the 18th; data runs to the 17th. Current monthly deposit RM 45,630. What is the projected monthly deposit?",
+          "o": [
+            "RM 45,630",
+            "RM 76,050",
+            "RM 80,523.53",
+            "RM 85,556.25"
+          ],
+          "a": 2,
+          "why": "Projected = current monthly deposit / data updated days x 30 = 45,630 / 17 x 30 = RM 80,523.53."
+        },
+        {
+          "id": "step-down",
+          "q": "A Grace player hit the target in week 1 and stays active. How does contact change?",
+          "o": [
+            "Keep the same pace all month",
+            "Step it down: normal, then less, then light, stop at month end",
+            "Stop at once",
+            "Contact more to push a second deposit"
+          ],
+          "a": 1,
+          "why": "After the target is met, reduce contact step by step and stop all Grace contact at month end. Teams can set the exact pace."
         }
       ]
     }

@@ -1,6 +1,6 @@
 {
   "id": "bonus-issuance-approval",
-  "sop_version": "V1.0",
+  "sop_version": "V1.1",
   "content": {
     "minutes": 6,
     "words": [
@@ -10,7 +10,7 @@
       ],
       [
         "SW cap",
-        "The most a task may pay, as a share of the SW. Grace 20%, Birthday 25% (Tier 3) or 30% (Tier V), LTV 40%, Top P&L 40%."
+        "The most a task may pay, as a share of the SW. Grace 20%, Birthday 25% (Tier 3) or 30% (Tier V), LTV 40%, Top P&L 40%, Livechat Compensation 40%."
       ],
       [
         "Turnover (TO)",
@@ -67,7 +67,7 @@
           ],
           [
             "Pick the ladder",
-            "Name the task (Grace, LTV, Top P&L, Birthday, Weekend) and its ladder."
+            "Name the task (Grace, LTV, Top P&L, Birthday, Weekend, Compensation) and its ladder."
           ],
           [
             "Refresh the SW",
@@ -135,6 +135,10 @@
             "SW x 40%, 1x turnover. Monthly P&L must also be negative."
           ],
           [
+            "Livechat Compensation",
+            "SW x 40% on the last-week P&L ladder, 1x turnover, one per week, ATL approves every case."
+          ],
+          [
             "Example",
             "Top P&L, loss RM 10,000 (ladder RM 118), SW RM 250: cap = RM 100. Issue RM 98, the highest ladder row at or below the cap."
           ]
@@ -147,7 +151,7 @@
         "title": "Who can issue it?",
         "sec": "Approval Authority",
         "secLabel": "5. Approval Authority",
-        "q": "Is it a Birthday credit for a lifetime Total Deposit of RM 100,000 or more, the Weekend Deposit Challenge, a system fault (like S0403), or any other exception?",
+        "q": "Is it any Livechat Compensation, a Birthday credit for a lifetime Total Deposit of RM 100,000 or more, the Weekend Deposit Challenge, a system fault (like S0403), or any other exception?",
         "yes": "The ATL approves first. CS cannot self-issue an over-gate case.",
         "no": "Within the SW cap on the standard ladder: CS issues it directly."
       }
@@ -264,6 +268,30 @@
           ],
           "a": 2,
           "why": "Telegram never promises, implies or hints at a bonus."
+        },
+        {
+          "id": "comp-approver",
+          "q": "A Livechat Compensation of RM 38 passes every check. Who approves it?",
+          "o": [
+            "CS, it is within the cap",
+            "The ATL, every compensation case",
+            "Any Senior",
+            "No approval needed under RM 100"
+          ],
+          "a": 1,
+          "why": "Every Livechat Compensation needs ATL approval before it is issued."
+        },
+        {
+          "id": "tickets",
+          "q": "Which claim ticket query goes with the Birthday credit?",
+          "o": [
+            "Special Reload Bonus",
+            "Birthday bonus",
+            "VVIP Complain player",
+            "VVIP Grace Period"
+          ],
+          "a": 1,
+          "why": "Birthday uses Birthday bonus. Weekend uses Special Reload Bonus. Compensation uses VVIP Complain player."
         }
       ]
     }

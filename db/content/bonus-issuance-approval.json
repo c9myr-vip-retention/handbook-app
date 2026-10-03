@@ -1,10 +1,10 @@
 {
  "id": "bonus-issuance-approval",
  "source": "23_Bonus_Issuance_Approval.md",
- "version": "V1.1",
+ "version": "V1.2",
  "meta": [
   "C9MYR-RTN-SOP-BON01",
-  "V1.1",
+  "V1.2",
   "Bonus / Money Control",
   "Owner: VIP RTN / ATL",
   "Updated 3 Oct 2026"
@@ -89,7 +89,7 @@
     [
      "5",
      "Check the approval gate",
-     "If it crosses a threshold (see Approval authority), route to ATL; otherwise CS issues within the cap.",
+     "If it crosses a threshold (see Approval authority; every Livechat Compensation goes to the ATL), route to ATL; otherwise CS issues within the cap.",
      "Over-gate cases ATL-approved first",
      "Lark; ATL",
      "CS cannot self-issue an over-gate case"

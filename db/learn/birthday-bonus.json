@@ -7,7 +7,8 @@
       ["Secret Wallet (SW)", "The player's bonus budget. Tier 3 gets 3% of their lifetime P&L, Tier V gets 5%. Bonuses are paid out of this balance."],
       ["Turnover (TO)", "The total valid bet amount. 1x or 3x is the turnover set on the credit."],
       ["Back office (BO)", "The backend system where you check and update player details."],
-      ["Risk tag", null],
+      ["Risk tag (in screening)", "An abuse or fraud flag on the player. Not the days-since-deposit \"at risk\" tag."],
+      ["Total Deposit", "The player's lifetime total deposit. Used for the RM 100,000 ATL check."],
       ["Floor and max", "The lowest and the highest credit allowed for the tier. Below the floor, give the floor. Never go above the max."],
       ["Ending in 8", "Credits end in 8 (RM 48, RM 118). Take the highest one at or below your result."],
       ["Stacking", "Giving a player two rewards on the same day. Not allowed."]
@@ -24,7 +25,7 @@
         "key": "do", "label": "Do", "kind": "steps", "title": "Five steps, in this order",
         "sec": "Procedure", "secLabel": "Procedure",
         "items": [
-          ["Screen", "Skip on any yes: claimed this year, risk tag, same-day reward."],
+          ["Screen", "Skip on any yes: abuse or fraud flag, birthday bonus already claimed this year, or listed for another bonus (special reload, LTV or any other)."],
           ["Pick the base", "Has a Secret Wallet? SW base. No SW? Deposit base."],
           ["Size", "Work out the amount. The Numbers card does it for you."],
           ["Issue", "Set the turnover and tell the player the validity."],
@@ -35,7 +36,7 @@
         "key": "never", "label": "Never", "kind": "never", "title": "Three hard stops",
         "sec": "Guards", "secLabel": "Guards",
         "items": [
-          "Stack it with a same-day Reload, Compensation or LTV reward.",
+          "Give it to a player who is listed for another bonus (special reload, LTV or any other).",
           "Go above the tier max.",
           "Promise an amount before the eligibility check."
         ]
@@ -59,7 +60,7 @@
       {
         "key": "approver", "label": "Approver", "kind": "gate", "title": "Who can issue it?",
         "sec": "Step 5", "secLabel": "Step 5, ATL approval",
-        "q": "Is the Total Deposit RM 100,000 or more?",
+        "q": "Is the player's lifetime Total Deposit RM 100,000 or more?",
         "yes": "ATL or above only. The ATL confirms value, claim history, risk tag and amount, then tags \"Birthday Credit - ATL Reviewed\".",
         "no": "CS issues it, within the tier cap."
       }
@@ -73,7 +74,7 @@
         { "id": "dep-floor-t3", "q": "Tier 3 player, no Secret Wallet. Last month's deposit was RM 10,000, so 0.1% is RM 10. What do you issue?",
           "o": ["RM 10", "RM 18", "RM 38", "RM 188"], "a": 2,
           "why": "RM 10 is below the Tier 3 floor. Issue the floor, RM 38, with 3x turnover." },
-        { "id": "gate-150k", "q": "A player's Total Deposit is RM 150,000. Who issues the birthday credit?",
+        { "id": "gate-150k", "q": "A player's lifetime Total Deposit is RM 150,000. Who issues the birthday credit?",
           "o": ["CS, within the cap", "ATL or above, tagged ATL Reviewed", "Any Senior", "Nobody, skip the player"], "a": 1,
           "why": "RM 100,000 or more goes to the ATL or above. CS cannot issue it directly." },
         { "id": "no-stack-reload", "q": "The player received a Reload bonus this morning. Their birthday is today. What do you do?",

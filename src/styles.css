@@ -433,6 +433,35 @@ mark { background:color-mix(in srgb, var(--accent) 18%, transparent); color:inhe
 .learn-admin p { margin:0 0 6px; }
 .doc .learn-test h2 { margin:18px 0 6px; }
 @media (max-width:640px){ .words dl > div { grid-template-columns:1fr; gap:0; } .learn-mod { grid-template-columns:1fr; } .learn-mod .chip { grid-column:1; grid-row:auto; justify-self:start; margin-top:6px; } }
+/* Learn module editor (src/LearnEditor.jsx) */
+.led { max-width:860px; }
+.led-bar { position:sticky; top:64px; z-index:5; display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:12px 0 16px; padding:10px 14px; border:1px solid var(--border); border-radius:var(--r); background:var(--surface); box-shadow:var(--shadow-sm); }
+.led-bar > span { margin-right:auto; }
+.led-dirty { color:var(--planned); font-weight:600; }
+.led-ok { color:var(--good); }
+.led-sec { margin:0 0 28px; }
+.doc .led-sec h2 { margin:24px 0 8px; }
+.led-field { display:flex; flex-direction:column; gap:4px; margin:0 0 10px; font-size:var(--fs-sm); }
+.led-field > span { font-weight:600; color:var(--muted); }
+.led-field input, .led-field textarea, .led-field select, .led-opt input, .led-calc td input { width:100%; padding:8px 10px; font:inherit; font-size:var(--fs-md); color:var(--text); background:var(--surface); border:1px solid var(--input-border); border-radius:var(--r-sm); }
+.led-field textarea { resize:vertical; line-height:1.5; }
+.led-grid { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:0 12px; }
+.led-grid.three { grid-template-columns:repeat(3, minmax(0,1fr)); }
+.led-row { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,2fr) auto; gap:12px; align-items:start; padding:10px 0; border-bottom:1px solid var(--border); }
+.led-card, .led-base { margin:0 0 14px; padding:12px 16px 14px; border:1px solid var(--border); border-radius:var(--r); background:var(--surface); }
+.led-base { background:var(--surface-2); }
+.led-card legend, .led-base legend { padding:0 6px; font-weight:600; font-size:var(--fs-md); display:flex; align-items:center; gap:8px; }
+.led-tools { display:flex; gap:6px; align-items:center; justify-content:flex-end; margin-top:6px; }
+.led-tools .icon, .led-opt .icon { width:36px; height:36px; flex:none; }
+.led-opts { display:grid; gap:6px; margin:0 0 10px; }
+.led-opt { display:grid; grid-template-columns:auto minmax(0,1fr) auto; gap:8px; align-items:center; }
+.led-correct { display:flex; align-items:center; gap:6px; font-size:var(--fs-sm); color:var(--muted); white-space:nowrap; }
+.led-add { display:flex; flex-wrap:wrap; align-items:flex-end; gap:8px; }
+.led-add .led-field { margin:0; min-width:240px; }
+.led-calc td { padding:6px; }
+.learn-add { margin:28px 0 0; padding:14px 18px; border:1px dashed var(--border-strong); border-radius:var(--r); }
+.doc .learn-add h2 { margin:0 0 4px; font-size:var(--fs-md); }
+@media (max-width:640px){ .led-grid, .led-grid.three, .led-row { grid-template-columns:1fr; } .led-bar { top:56px; } }
 @media print {
   :root, :root[data-theme="dark"], :root[data-theme="light"] {
     --bg:#FFFFFF; --surface:#FFFFFF; --surface-2:#F2F4F7; --solid:#FFFFFF;

@@ -55,6 +55,8 @@ export const api = {
   learnAnswer: (aid, qid, choice) => req('/api/learn/attempts/' + encodeURIComponent(aid) + '/answer', { method: 'POST', body: JSON.stringify({ qid, choice }) }),
   learnPublish: (id) => req('/api/learn/' + encodeURIComponent(id) + '/publish', { method: 'POST' }),
   learnScores: () => req('/api/learn/scores'),
+  learnSaveDraft: (id, content) => req('/api/learn/' + encodeURIComponent(id) + '/draft', { method: 'PUT', body: JSON.stringify({ content }) }),
+  learnCreate: (id) => req('/api/learn/' + encodeURIComponent(id) + '/create', { method: 'POST' }),
 }
 
 // Sign out: Access's logout ends the session for every Access app and clears

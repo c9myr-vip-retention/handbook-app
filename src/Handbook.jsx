@@ -3,6 +3,7 @@ import { api } from './lib/api.js'
 import { parseBody, toMarkdown } from './lib/markdown.js'
 import { Chart, ChartSvg, ChartDrawer, parseChart, chartText } from './Chart.jsx'
 import { LearnHome, LearnModule, QuizPage, ScoresPage, SopLearnLink } from './Learn.jsx'
+import { LearnEditor } from './LearnEditor.jsx'
 
 const STATUS_LABEL = { pending: 'Coming soon', planned: 'Not written yet', external: 'Lark doc', restricted: 'Admins only' }
 
@@ -185,7 +186,7 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
     if (route.kind === 'stub') return route.title
     if (route.kind === 'approvals') return 'Approvals'
     if (route.kind === 'charts') return 'Chart review'
-    if (route.kind === 'learn') return route.key ? 'Learn: ' + (PAGES[route.key]?.title || route.key) : 'Learn'
+    if (route.kind === 'learn') return route.key ? (route.edit ? 'Edit guide: ' : 'Learn: ') + (PAGES[route.key]?.title || route.key) : 'Learn'
     if (route.kind === 'quiz') return 'Quiz: ' + (PAGES[route.key]?.title || route.key)
     if (route.kind === 'scores') return 'Learning scores'
     if (route.kind === 'edit') return 'Edit: ' + (PAGES[route.key]?.title || route.key)
@@ -288,7 +289,9 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
                 {route.kind === 'stub' && <Stub title={route.title} status={route.status} />}
                 {route.kind === 'approvals' && <Approvals preview={preview} />}
                 {route.kind === 'charts' && <ChartReview pages={PAGES} go={go} />}
-                {route.kind === 'learn' && (route.key ? <LearnModule key={route.key} id={route.key} go={go} canEdit={isAdmin} /> : <LearnHome go={go} canEdit={isAdmin} />)}
+                {route.kind === 'learn' && (route.key
+                  ? (route.edit && isAdmin ? <LearnEditor key={route.key} id={route.key} go={go} /> : <LearnModule key={route.key} id={route.key} go={go} canEdit={isAdmin} />)
+                  : <LearnHome go={go} canEdit={isAdmin} pages={PAGES} />)}
                 {route.kind === 'quiz' && <QuizPage key={route.key} id={route.key} go={go} />}
                 {route.kind === 'scores' && <ScoresPage go={go} />}
               </>}
@@ -1069,7 +1072,7 @@ function toHash(r) {
   if (r.kind === 'history') return '#/history/' + e(r.key)
   if (r.kind === 'approvals') return '#/approvals'
   if (r.kind === 'charts') return '#/charts'
-  if (r.kind === 'learn') return '#/learn' + (r.key ? '/' + e(r.key) : '')
+  if (r.kind === 'learn') return '#/learn' + (r.key ? '/' + e(r.key) + (r.edit ? '/edit' : '') : '')
   if (r.kind === 'quiz') return '#/quiz/' + e(r.key)
   if (r.kind === 'scores') return '#/scores'
   return '#/'
@@ -1083,7 +1086,7 @@ function parseHash(hash, NAV) {
   if (kind === 'history' && v) return { kind: 'history', key: v }
   if (kind === 'approvals') return { kind: 'approvals' }
   if (kind === 'charts') return { kind: 'charts' }
-  if (kind === 'learn') return v ? { kind: 'learn', key: v } : { kind: 'learn' }
+  if (kind === 'learn') { if (!v) return { kind: 'learn' }; const [key, sub] = v.split('/'); return sub === 'edit' ? { kind: 'learn', key, edit: true } : { kind: 'learn', key } }
   if (kind === 'quiz' && v) return { kind: 'quiz', key: v }
   if (kind === 'scores') return { kind: 'scores' }
   if (kind === 's' && v) {

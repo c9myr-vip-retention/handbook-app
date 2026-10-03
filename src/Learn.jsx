@@ -29,7 +29,7 @@ function StatusChip({ m }) {
 
 // ---- Learn home: the learning path --------------------------------------------
 
-export function LearnHome({ go, canEdit }) {
+export function LearnHome({ go, canEdit, pages: PAGES }) {
   const [mods, err] = useLoad(() => api.learn(), [])
   if (err) return <div className="view doc learn"><h1>Learn</h1><Err msg={err} /></div>
   if (!mods) return <div className="view doc learn"><h1>Learn</h1><Loading /></div>
@@ -53,8 +53,35 @@ export function LearnHome({ go, canEdit }) {
               </li>
             ))}
           </ol>}
-      {canEdit && <button className="btn small ghost" onClick={() => go({ kind: 'scores' })}>Team scores</button>}
+      {canEdit && <div className="learn-links"><button className="btn small ghost" onClick={() => go({ kind: 'scores' })}>Team scores</button></div>}
+      {canEdit && <AddModule pages={PAGES} have={mods.map(m => m.id)} go={go} />}
     </div>
+  )
+}
+
+// Admins: start a module for an SOP Book page that has none yet.
+function AddModule({ pages: PAGES, have, go }) {
+  const [pick, setPick] = useState('')
+  const [err, setErr] = useState('')
+  const [busy, setBusy] = useState(false)
+  const options = Object.entries(PAGES || {}).filter(([id, p]) => /^SOP Book/.test(p.crumb || '') && !have.includes(id)).sort((a, b) => a[1].title.localeCompare(b[1].title))
+  const create = async () => {
+    if (!pick) { setErr('Choose an SOP first.'); return }
+    setBusy(true); setErr('')
+    try { await api.learnCreate(pick); go({ kind: 'learn', key: pick, edit: true }) } catch (e) { setErr(e.message) } finally { setBusy(false) }
+  }
+  return (
+    <section className="learn-add" aria-labelledby="add-mod">
+      <h2 id="add-mod">Add a module</h2>
+      <p className="muted small">Starts an empty draft for an SOP. Staff see nothing until you fill it in and publish.</p>
+      <div className="led-add">
+        <label className="led-field"><span>SOP</span>
+          <select value={pick} onChange={e => { setPick(e.target.value); setErr('') }}><option value="">Choose an SOP</option>{options.map(([id, p]) => <option key={id} value={id}>{p.title}</option>)}</select>
+        </label>
+        <button className="btn small" disabled={busy} onClick={create}>Start the draft</button>
+      </div>
+      {err && <p className="err" role="alert">{err}</p>}
+    </section>
   )
 }
 
@@ -78,7 +105,7 @@ export function LearnModule({ id, go, canEdit }) {
       {m.state === 'review' && (
         <div className="callout warn" role="status"><div><b>The SOP was updated to {m.sop_now}.</b><p>This guide was written for {m.sop_version}. It is under review, and the quiz is paused until an admin approves the updated guide and questions. Use the SOP for now.</p></div></div>
       )}
-      {canEdit && <AdminPanel id={id} m={m} onDone={reload} />}
+      {canEdit && <AdminPanel id={id} m={m} onDone={reload} go={go} />}
       {c.words?.length > 0 && <Words words={c.words} />}
       {c.tour?.length > 0 && <TourCard id={id} tour={c.tour} go={go} />}
       <section className="learn-test" aria-labelledby="test-title">
@@ -100,7 +127,7 @@ export function LearnModule({ id, go, canEdit }) {
 }
 
 // Admins: what state the module is in, what blocks publishing, and Publish.
-function AdminPanel({ id, m, onDone }) {
+function AdminPanel({ id, m, onDone, go }) {
   const [d, err, reload] = useLoad(() => api.learnModule(id, true), [id, m.state])
   const [busy, setBusy] = useState(false)
   const [msg, setMsg] = useState('')
@@ -117,6 +144,7 @@ function AdminPanel({ id, m, onDone }) {
       {d.problems?.length > 0
         ? <><p className="muted small">Publishing is blocked until these are fixed in the draft:</p><ul className="bullets">{d.problems.map(p => <li key={p}>{p}</li>)}</ul></>
         : <button className="btn small" disabled={busy} onClick={publish}>{m.state === 'live' ? 'Publish the draft again' : `Publish for SOP ${m.sop_now}`}</button>}
+      <div className="learn-links"><button className="btn small ghost" onClick={() => go({ kind: 'learn', key: id, edit: true })}>Edit the draft</button></div>
       {msg && <p className="small" role="status">{msg}</p>}
     </div>
   )

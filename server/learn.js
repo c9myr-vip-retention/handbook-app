@@ -44,6 +44,17 @@ export async function handleLearn({ request, env, parts, email, isAdmin, json })
   }
   if (!a) return json({ error: 'not found' }, 404)
 
+  // Admin: start a module for an SOP that has none yet (an empty draft to fill in).
+  if (b === 'create' && method === 'POST') {
+    if (!isAdmin) return json({ error: 'admins only' }, 403)
+    const sopRow = await DB.prepare('select id from sops where id = ?').bind(a).first()
+    if (!sopRow) return json({ error: 'That SOP does not exist.' }, 400)
+    const r = await DB.prepare(`insert into learn_modules (id, draft, draft_by, draft_at, sort) values (?, ?, ?, datetime('now'), (select coalesce(max(sort), 0) + 1 from learn_modules))
+      on conflict(id) do nothing`).bind(a, JSON.stringify(skeleton()), email).run()
+    if (!r.meta?.changes) return json({ error: 'This SOP already has a module.' }, 409)
+    return json({ ok: true })
+  }
+
   const mod = await DB.prepare('select * from learn_modules where id = ?').bind(a).first()
   if (!mod) return json({ error: 'not found' }, 404)
   const sop = await DB.prepare('select title, version, meta, restricted from sops where id = ?').bind(a).first()
@@ -52,7 +63,8 @@ export async function handleLearn({ request, env, parts, email, isAdmin, json })
 
   if (method === 'GET' && !b) {
     if (new URL(request.url).searchParams.get('draft') && isAdmin) {
-      return json({ id: a, title: sop.title, ...st, content: parse(mod.draft), draft_by: mod.draft_by, draft_at: mod.draft_at, problems: problems(parse(mod.draft)) })
+      const d = parse(mod.draft)
+      return json({ id: a, title: sop.title, ...st, content: d, draft_by: mod.draft_by, draft_at: mod.draft_at, problems: [...shapeErrors(d), ...problems(d)] })
     }
     if (!mod.live && !isAdmin) return json({ error: 'not found' }, 404)
     const content = parse(mod.live) || (isAdmin ? parse(mod.draft) : null)
@@ -61,12 +73,15 @@ export async function handleLearn({ request, env, parts, email, isAdmin, json })
 
   if (b === 'draft' && method === 'PUT') {
     if (!isAdmin) return json({ error: 'admins only' }, 403)
+    // A draft may be unfinished: save it, and report what still blocks publishing.
     const body = await request.json().catch(() => null)
-    const bad = shapeErrors(body?.content)
-    if (bad.length) return json({ error: bad.join(' ') }, 400)
+    const c = body?.content
+    if (!c || typeof c !== 'object' || Array.isArray(c)) return json({ error: 'Nothing to save.' }, 400)
+    const text = JSON.stringify(c)
+    if (text.length > 200000) return json({ error: 'This module is too large to save.' }, 400)
     await DB.prepare(`update learn_modules set draft = ?, draft_by = ?, draft_at = datetime('now') where id = ?`)
-      .bind(JSON.stringify(body.content), email, a).run()
-    return json({ ok: true, problems: problems(body.content) })
+      .bind(text, email, a).run()
+    return json({ ok: true, problems: [...shapeErrors(c), ...problems(c)] })
   }
 
   if (b === 'publish' && method === 'POST') {
@@ -213,6 +228,21 @@ function forReader(content) {
 }
 function shown(q, order) { return { id: q.id, q: q.q, o: order.map(i => q.o[i]) } }
 
+// A new module's starting draft: the four standard cards, empty, and no questions.
+function skeleton() {
+  return {
+    minutes: 5,
+    words: [],
+    tour: [
+      { key: 'when', label: 'When', kind: 'check', title: '', sec: '', secLabel: '', items: [], done: '', notYet: '' },
+      { key: 'do', label: 'Do', kind: 'steps', title: '', sec: 'Procedure', secLabel: 'Procedure', items: [] },
+      { key: 'never', label: 'Never', kind: 'never', title: '', sec: 'Guards', secLabel: 'Guards', items: [] },
+      { key: 'approver', label: 'Approver', kind: 'gate', title: '', sec: '', secLabel: '', q: '', yes: '', no: '' },
+    ],
+    quiz: { count: 5, pass: 80, seconds: 60, pool: [] },
+  }
+}
+
 function shapeErrors(c) {
   const e = []
   if (!c || typeof c !== 'object') return ['Content is missing.']
@@ -235,7 +265,14 @@ function shapeErrors(c) {
 function problems(c) {
   if (!c) return []
   const p = []
-  for (const [t, d] of c.words || []) if (!d) p.push(`Write the meaning of "${t}".`)
+  for (const [t, d] of c.words || []) if (!t || !d) p.push(t ? `Write the meaning of "${t}".` : 'A glossary row has no term.')
+  for (const t of c.tour || []) {
+    const name = `The "${t.label || 'untitled'}" card`
+    if (!t.label) p.push(`A card has no tab label.`)
+    if (!t.title) p.push(`${name} needs a title.`)
+    if (['check', 'steps', 'never'].includes(t.kind) && !(t.items || []).length) p.push(`${name} has no items.`)
+    if (t.kind === 'gate' && !(t.q && t.yes && t.no)) p.push(`${name} needs the question and both answers.`)
+  }
   if (JSON.stringify(c).includes('[CONFIRM]')) p.push('Resolve every [CONFIRM] note.')
   return p
 }

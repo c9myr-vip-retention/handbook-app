@@ -1,0 +1,90 @@
+{
+  "id": "tg-engagement-tracker",
+  "sop_version": "V1.1",
+  "content": {
+    "minutes": 4,
+    "words": [
+      ["Kanban", "The Lark Base board with four columns: New, On Going Engagement, Follow Up, Successful. You move a player by dragging the card."],
+      ["Score Table", "Filled automatically each time you drag a card. Never edit it directly."],
+      ["Report Table", "The only official source for Telegram KPI. If a figure looks wrong, tell the ATL; never recalculate by hand."],
+      ["P&L Table", "Refreshed daily so new players enter the workflow and player levels stay current."],
+      ["Engagement quality", "HIGH: at least 10 meaningful replies. MEDIUM: about 3 to 5. LOW: one reply, an emoji, or nothing. [CONFIRM] Which level for exactly 2 replies, and for 6 to 9?"],
+      ["Player level", "Set automatically from days since last deposit: Level 0 (1 day), 1 (2 to 3 days), 2 (4 to 7 days), 3 (8 days and above). Harder levels weigh more in the score."]
+    ],
+    "tour": [
+      {
+        "key": "when", "label": "When", "kind": "check", "title": "Is the tracker up to date?",
+        "sec": "Golden Rules", "secLabel": "3. Golden Rules",
+        "items": ["Every player you contacted is out of New", "Each card sits in the column that matches where the player really is", "The PIC on each card is right"],
+        "done": "Your engagement and follow-ups will count correctly.",
+        "notYet": "Fix it now: a contacted player left in New is not recorded, and a wrong PIC credits someone else."
+      },
+      {
+        "key": "do", "label": "Do", "kind": "steps", "title": "The card's journey",
+        "sec": "Status Flow", "secLabel": "5. Status Flow (Kanban)",
+        "items": [
+          ["New", "RTN Leaders add target churn players to the Player List. Cards start here."],
+          ["On Going Engagement", "Drag here when you start contact."],
+          ["Follow Up", "Drag here when the player needs more nurturing."],
+          ["Successful", "Drag here when the player is reactivated and deposits."],
+          ["Record quality", "Mark the engagement quality: HIGH, MEDIUM or LOW."]
+        ]
+      },
+      {
+        "key": "never", "label": "Never", "kind": "never", "title": "Four hard stops",
+        "sec": "Common Mistakes", "secLabel": "10. Common Mistakes (Guards)",
+        "items": [
+          "Delete a player or record. Use an archival status; deleting loses the history.",
+          "Edit the Score Table directly. Only drag cards.",
+          "Recalculate the KPI by hand. The Report Table is the only official source.",
+          "Leave a contacted player in New."
+        ]
+      },
+      {
+        "key": "numbers", "label": "Reactivation", "kind": "steps", "title": "When does it count as reactivated?",
+        "sec": "Reactivation Measurement", "secLabel": "9. Reactivation Measurement",
+        "items": [
+          ["Official count", "Uses month-end P&L only."],
+          ["Real time", "Not available. A successful chat can happen before the official Reactivated flag appears."],
+          ["Final word", "The Report Table."]
+        ]
+      },
+      {
+        "key": "approver", "label": "Wrong figure", "kind": "gate", "title": "A KPI figure looks wrong",
+        "sec": "Golden Rules", "secLabel": "3. Golden Rules",
+        "q": "Does a number in the Report Table look wrong to you?",
+        "yes": "Escalate it to the ATL. Do not recalculate it yourself or edit any table.",
+        "no": "Keep working the board. Drag cards as players move."
+      }
+    ],
+    "quiz": {
+      "count": 5, "pass": 80, "seconds": 60,
+      "pool": [
+        { "id": "start-contact", "q": "You just sent your first message to a player in New. What do you do on the board?",
+          "o": ["Nothing yet", "Drag the card to On Going Engagement", "Drag it to Successful", "Edit the Score Table"], "a": 1,
+          "why": "Drag New to On Going Engagement when you start contact. A contacted player left in New is not recorded." },
+        { "id": "delete", "q": "A player on the board is no longer relevant. What do you do?",
+          "o": ["Delete the card", "Use an archival status", "Move it back to New", "Edit the Score Table"], "a": 1,
+          "why": "Never delete records; use an archival status. Deleting loses the history (critical mistake)." },
+        { "id": "score-edit", "q": "Your Follow Up count looks too low. Can you fix it in the Score Table?",
+          "o": ["Yes, edit the number", "No; only drag cards, and escalate odd figures to the ATL", "Yes, with a note", "Recalculate in a spreadsheet"], "a": 1,
+          "why": "No direct edits to the Score Table. The Report Table is the official source; escalate anomalies to the ATL." },
+        { "id": "successful", "q": "When do you drag a card to Successful?",
+          "o": ["When the player replies", "When the player is reactivated and deposits", "After two follow-ups", "At month end"], "a": 1,
+          "why": "Successful means reactivated and deposited." },
+        { "id": "quality-high", "q": "A chat had 12 meaningful replies. Which engagement quality?",
+          "o": ["LOW", "MEDIUM", "HIGH", "None"], "a": 2,
+          "why": "HIGH is at least 10 meaningful replies." },
+        { "id": "quality-low", "q": "The player answered with one thumbs-up emoji. Which quality?",
+          "o": ["HIGH", "MEDIUM", "LOW", "Not recorded"], "a": 2,
+          "why": "LOW: one reply, an emoji, or nothing." },
+        { "id": "official-react", "q": "A player you chatted with deposited today. Why might the Report Table not show them as reactivated yet?",
+          "o": ["The board is broken", "Official reactivation uses month-end P&L only", "You must edit the table", "It needs ATL approval"], "a": 1,
+          "why": "Real-time reactivation is not available. Official counts use month-end P&L." },
+        { "id": "wrong-pic", "q": "A card shows the wrong PIC. Why does it matter?",
+          "o": ["It does not", "The score is credited to the wrong person", "The player gets blocked", "The board deletes it"], "a": 1,
+          "why": "A wrong PIC credits the score to the wrong person (high severity)." }
+      ]
+    }
+  }
+}

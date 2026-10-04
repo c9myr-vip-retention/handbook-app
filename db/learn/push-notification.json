@@ -1,0 +1,89 @@
+{
+  "id": "push-notification",
+  "sop_version": "V1.1",
+  "content": {
+    "minutes": 4,
+    "words": [
+      ["Fire Drill", "The manual way to send a push. Day to day, pushes go out by automation; you run this only when the automation is down or being checked."],
+      ["RG / chase flag", "A responsible-gaming or loss-chasing flag on the player. It beats every push: no push at all, route to welfare."],
+      ["Segment", "The target group for the push (tier, days since last deposit, or a campaign list). Never a blanket send."],
+      [".txt and .csv", "The upload file types. TC takes .txt, Zyra takes .csv exported from the BO. The wrong type fails the upload."],
+      ["Approved copy", "The subject and content from the Template Tab or the campaign's signed-off set. Anything new or edited goes to the ATL first."]
+    ],
+    "tour": [
+      {
+        "key": "when", "label": "When", "kind": "check", "title": "Should you send this push by hand?",
+        "sec": "Scope", "secLabel": "2. Scope",
+        "items": ["The automation is down or being verified", "The copy is approved (Template Tab or the campaign set)", "RG / chase-flagged players are removed from the list"],
+        "done": "All three: build the list and send by hand.",
+        "notYet": "Automation running: let it send. Copy not approved: ask the ATL first."
+      },
+      {
+        "key": "do", "label": "Do", "kind": "steps", "title": "Six steps",
+        "sec": "Procedure", "secLabel": "Procedure",
+        "items": [
+          ["Approved copy", "Subject and content from the Template Tab or campaign set."],
+          ["Build the list", "Correct brand tab, target segment only. Remove RG / chase-flagged players."],
+          ["Export", "TC .txt, Zyra .csv. Check the format before you leave the file."],
+          ["Open the push tool", "TC: Interact Management, Mail, Push Notification, Send, Specific User, Firebase. Zyra: Notification, Push Notification, Add."],
+          ["Upload and send", "Upload the file, paste the approved copy in each language slot. TC: OK. Zyra: Create."],
+          ["Log it", "QA Record: brand, segment, push type, recipient count, time, plus a BO screenshot."]
+        ]
+      },
+      {
+        "key": "never", "label": "Never", "kind": "never", "title": "Five hard stops",
+        "sec": "Guards", "secLabel": "5. Guards",
+        "items": [
+          "Push a player with an RG / chase flag.",
+          "Send to everyone instead of the target segment.",
+          "Use copy that is not approved.",
+          "Over-promise an offer. Every offer states its validity.",
+          "Log a send that did not happen. An empty list is recorded and told to the ATL."
+        ]
+      },
+      {
+        "key": "numbers", "label": "TC vs Zyra", "kind": "steps", "title": "The two platforms",
+        "sec": "Platform Mechanics", "secLabel": "4. Platform Mechanics",
+        "items": [
+          ["TC path", "Interact Management, Mail, Push Notification, Send Notification, Specific User, Firebase App Messaging."],
+          ["TC file", ".txt user file. Button: OK."],
+          ["Zyra path", "Notification, Push Notification, Add Push Notification. Target Type: User."],
+          ["Zyra file", ".csv exported from the BO. Button: Create."]
+        ]
+      },
+      {
+        "key": "approver", "label": "Empty list", "kind": "gate", "title": "The list came out empty",
+        "sec": "Guards", "secLabel": "5. Guards",
+        "q": "Is the recipient list empty after filtering?",
+        "yes": "Record it in the QA Record and tell the ATL. Never log a send that did not happen.",
+        "no": "Export in the right format and send."
+      }
+    ],
+    "quiz": {
+      "count": 5, "pass": 80, "seconds": 60,
+      "pool": [
+        { "id": "fire-drill", "q": "The push automation is running normally. Do you send the daily pushes by hand?",
+          "o": ["Yes, always", "No; the manual procedure is only for when automation is down or being verified", "Yes, on Zyra only", "Only Tier V"], "a": 1,
+          "why": "Pushes run on automation day to day. This SOP is the Fire Drill fallback." },
+        { "id": "rg-push", "q": "A player on the push list has an RG / chase flag. What do you do?",
+          "o": ["Send a softer push", "Remove them and route to welfare; no push", "Send an SMS instead", "Ask the player"], "a": 1,
+          "why": "The RG / chase flag beats every push. No push at all; route to welfare." },
+        { "id": "format", "q": "You are uploading a TC push list. Which file type?",
+          "o": [".csv", ".txt", ".xlsx", "Any"], "a": 1,
+          "why": "TC takes .txt, Zyra takes .csv. The wrong format fails the upload." },
+        { "id": "new-copy", "q": "You want to try a new push headline. What first?",
+          "o": ["Send it and see", "Get approval from the ATL first", "Use it on Zyra only", "Ask a teammate"], "a": 1,
+          "why": "No ad-hoc copy without approval. New or edited copy goes to the ATL first." },
+        { "id": "blanket", "q": "Can you send a risk push to all users of a brand to save time?",
+          "o": ["Yes", "No; target the segment only", "Yes, on weekends", "Only TC"], "a": 1,
+          "why": "Segment only, no blanket send." },
+        { "id": "log", "q": "What goes in the QA Record after a push?",
+          "o": ["Nothing", "Brand, segment, push type, recipient count, time and a BO screenshot", "Only the time", "Only the screenshot"], "a": 1,
+          "why": "Log every send with those details and a BO screenshot. No screenshot, no proof of send." },
+        { "id": "empty", "q": "Your filtered push list is empty. What do you do?",
+          "o": ["Log it as sent", "Record it in the QA Record and tell the ATL", "Send to last week's list", "Skip silently"], "a": 1,
+          "why": "Record an empty list and inform the ATL. Never fabricate a send." }
+      ]
+    }
+  }
+}

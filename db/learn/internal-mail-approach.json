@@ -1,0 +1,88 @@
+{
+  "id": "internal-mail-approach",
+  "sop_version": "V1.1",
+  "content": {
+    "minutes": 4,
+    "words": [
+      ["Internal Mail (IM)", "A message sent to the player's inbox from the back office. Used by many tasks (Grace, LTV, Top PNL, Risk Push and more); this SOP is how you send one."],
+      ["Recipient scope", "Who gets the mail: All User (everyone) or a specific group (for example a player level). It cannot be undone after sending."],
+      ["EN-MY, ZH-MY, MS-MY", "The three Zyra language versions: English, Chinese and Malay. Zyra will not create the message until all three are filled."],
+      ["Approved template", "The subject and content you paste exactly. Changes need TL approval."],
+      ["Back office (BO)", "The backend system where you check and update player details."]
+    ],
+    "tour": [
+      {
+        "key": "when", "label": "Check", "kind": "check", "title": "Before you press Send",
+        "sec": "Procedure", "secLabel": "Procedure, step 3",
+        "items": ["The recipient matches the campaign (All User or the right group)", "Brand and links are correct", "Subject and content are pasted exactly from the approved template", "Zyra: all three languages are filled"],
+        "done": "All checked: send, then screenshot the confirmation at once.",
+        "notYet": "Fix it first. A mail to the wrong group cannot be undone."
+      },
+      {
+        "key": "do", "label": "Do", "kind": "steps", "title": "Six steps",
+        "sec": "Procedure", "secLabel": "Procedure",
+        "items": [
+          ["Open the send path", "TC: Interact Management, Mail, Send Mail. Zyra: Notification, System Messages, Add Message."],
+          ["Pick the recipient", "All User for a general broadcast, or the specific group or player level for a targeted send."],
+          ["Paste", "Subject and content exactly from the approved template. Zyra: EN-MY, ZH-MY and MS-MY."],
+          ["Double-check", "Brand, links, content, recipient (Zyra: every language)."],
+          ["Send and screenshot", "TC: Send. Zyra: Create. Screenshot the confirmation straight away."],
+          ["QA Record", "Attach the confirmation screenshot."]
+        ]
+      },
+      {
+        "key": "never", "label": "Never", "kind": "never", "title": "Four hard stops",
+        "sec": "Guards", "secLabel": "6. Guards",
+        "items": [
+          "Send before checking the recipient scope. It cannot be undone.",
+          "Change the template wording without TL approval.",
+          "Skip the confirmation screenshot. No screenshot, no proof of send.",
+          "Keep quiet about a mistake you spot after sending. Tell the ATL or TL at once."
+        ]
+      },
+      {
+        "key": "numbers", "label": "TC vs Zyra", "kind": "steps", "title": "The two back offices",
+        "sec": "Detailed steps: TC", "secLabel": "4. Detailed steps: TC",
+        "items": [
+          ["TC path", "Interact Management, Mail, Send Mail. Button: Send."],
+          ["TC recipients", "All User, or Specific Player Level for VIP-only sends."],
+          ["Zyra path", "Notification, System Messages, Add Message. Button: Create."],
+          ["Zyra languages", "EN-MY, ZH-MY and MS-MY, all three, or it will not create."]
+        ]
+      },
+      {
+        "key": "approver", "label": "After", "kind": "gate", "title": "Spotted a mistake after sending?",
+        "sec": "Guards", "secLabel": "6. Guards",
+        "q": "Did you find a wrong link or wrong content after the mail went out?",
+        "yes": "Report it to your ATL or TL immediately. Do not try to fix it quietly.",
+        "no": "Screenshot the confirmation and update the QA Record."
+      }
+    ],
+    "quiz": {
+      "count": 5, "pass": 80, "seconds": 60,
+      "pool": [
+        { "id": "zyra-langs", "q": "On Zyra, you filled EN-MY and MS-MY but not ZH-MY. What happens?",
+          "o": ["It sends in two languages", "Zyra will not create the message until all three are filled", "It auto-translates", "It sends in English only"], "a": 1,
+          "why": "Zyra needs EN-MY, ZH-MY and MS-MY before it creates the message." },
+        { "id": "undo", "q": "You sent an IM to All User instead of Tier V only. Can you undo it?",
+          "o": ["Yes, recall it in the BO", "No; that is why you check the recipient before sending", "Yes, within 5 minutes", "Only on TC"], "a": 1,
+          "why": "Sending to the wrong group cannot be undone. Verify the recipient scope first, and report the mistake to the ATL or TL." },
+        { "id": "template-edit", "q": "The template has a small typo. Can you fix it before sending?",
+          "o": ["Yes, small edits are fine", "Only with TL approval", "Yes, on Zyra only", "Ignore it"], "a": 1,
+          "why": "Paste exactly from the approved template. Do not modify it without TL approval." },
+        { "id": "screenshot", "q": "When do you screenshot the confirmation screen?",
+          "o": ["At the end of the shift", "Right after sending", "Only if asked", "Before sending"], "a": 1,
+          "why": "Screenshot immediately after sending. It is mandatory QA evidence." },
+        { "id": "tc-path", "q": "Where do you send Internal Mail on TC?",
+          "o": ["Notification, System Messages", "Interact Management, Mail, Send Mail", "Report Management, Player Analysis", "Betting Record"], "a": 1,
+          "why": "TC: Interact Management, Mail, Send Mail. Zyra: Notification, System Messages, Add Message." },
+        { "id": "vip-only", "q": "On TC, how do you send to VIP players only?",
+          "o": ["All User", "Specific Player Level", "Any group", "Send one by one"], "a": 1,
+          "why": "For VIP-only sends, select Specific Player Level. All User is a general broadcast." },
+        { "id": "after-error", "q": "After sending, you notice the link points to the wrong page. What do you do?",
+          "o": ["Send a correction quietly", "Report it to your ATL or TL immediately", "Wait and see", "Delete your screenshot"], "a": 1,
+          "why": "A link or content error found after sending is reported to the ATL or TL at once." }
+      ]
+    }
+  }
+}

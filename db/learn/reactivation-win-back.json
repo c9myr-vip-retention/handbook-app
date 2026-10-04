@@ -1,0 +1,83 @@
+{
+  "id": "reactivation-win-back",
+  "sop_version": "V1.0",
+  "content": {
+    "minutes": 4,
+    "words": [
+      ["DSLD", "Days since last deposit. It sets the win-back tier: 7+, 14+ or 30+."],
+      ["Reactivation", "An inactive player who deposits again after you contacted them. It only counts if your logged contact came before the deposit."],
+      ["RG / risk flag", "A responsible-gaming flag, or a risk tag meaning abuse or fraud (not the days-since-deposit \"at risk\" label). Either one: route to welfare, never marketing."],
+      ["contact_log", "Where every contact is logged with its time. It proves the contact came before the deposit."],
+      ["Idle-days weighting", "[CONFIRM] Is the weighting still 1-6 days 0.10, 7-13 days 0.50, 14-29 days 0.75, 30+ days 1.00, as in the current KPI rubric?"]
+    ],
+    "tour": [
+      {
+        "key": "when", "label": "When", "kind": "check", "title": "Does this reactivation count?",
+        "sec": "Golden Rules", "secLabel": "3. Golden Rules",
+        "items": ["No RG flag and no abuse or fraud tag", "Your contact was logged before the deposit", "The player has not already been counted this month"],
+        "done": "All three: record it. The most recent contact owns the count.",
+        "notYet": "Deposit before any contact: no credit. Flagged player: welfare, not marketing."
+      },
+      {
+        "key": "do", "label": "Do", "kind": "steps", "title": "Five steps",
+        "sec": "Procedure", "secLabel": "Procedure",
+        "items": [
+          ["Pull the list", "Daily, inactive VIPs by DSLD (7+, 14+, 30+). Remove RG and abuse or fraud flagged players."],
+          ["Match the message", "Early 7+: gentle check-in. 14+: stronger win-back. 30+: deep win-back. [CONFIRM] How does this fit with Risk Push, where 7D already gets a 10% reload?"],
+          ["Contact first", "Log the contact. It must come before any redeposit."],
+          ["Size any bonus", "Use the Bonus Issuance and Approval SOP. Never size it yourself."],
+          ["Record", "Credit only if your contact came first. One count per player per month."]
+        ]
+      },
+      {
+        "key": "never", "label": "Never", "kind": "never", "title": "Four hard stops",
+        "sec": "Guards", "secLabel": "5. Guards",
+        "items": [
+          "Claim a reactivation without a logged contact before the deposit.",
+          "Market to an RG or abuse/fraud flagged player.",
+          "Count the same player twice in a month.",
+          "Promise a bonus on Telegram."
+        ]
+      },
+      {
+        "key": "numbers", "label": "Tiers", "kind": "steps", "title": "Win-back tiers",
+        "sec": "Inactivity Tiers", "secLabel": "4. Inactivity Tiers",
+        "items": [
+          ["Early win-back, DSLD 7+", "Gentle check-in."],
+          ["Win-back, DSLD 14+", "Stronger win-back offer."],
+          ["Deep win-back, DSLD 30+", "Deep win-back offer."]
+        ]
+      },
+      {
+        "key": "approver", "label": "Who counts", "kind": "gate", "title": "Two of you contacted the same player",
+        "sec": "Golden Rules", "secLabel": "3. Golden Rules",
+        "q": "Did more than one CS contact the player before they deposited?",
+        "yes": "The most recent contact before the deposit owns the count. One count only.",
+        "no": "Your logged contact owns it, if it came before the deposit."
+      }
+    ],
+    "quiz": {
+      "count": 5, "pass": 80, "seconds": 60,
+      "pool": [
+        { "id": "deposit-first", "q": "A 20-day inactive player deposited at 1 PM. You contacted them at 3 PM. Do you get the reactivation?",
+          "o": ["Yes", "No; contact must come before the deposit", "Half credit", "Yes, if Tier V"], "a": 1,
+          "why": "Contact precedes deposit. A deposit before any logged contact earns no reactivation credit." },
+        { "id": "rg-winback", "q": "A 30+ day player has an RG flag. What do you do?",
+          "o": ["Send the deep win-back offer", "Route to welfare; no marketing", "Send a softer offer", "Wait a week"], "a": 1,
+          "why": "RG or risk flag beats everything: welfare, never marketing." },
+        { "id": "two-contacts", "q": "You contacted a player on Monday; a teammate contacted them on Wednesday; they deposited Thursday. Who owns the count?",
+          "o": ["You", "Your teammate, the most recent contact", "Both", "Nobody"], "a": 1,
+          "why": "One count per player per month; the most recent contact before the deposit owns it." },
+        { "id": "self-size", "q": "The player came back and deposited. How do you size their bonus?",
+          "o": ["Pick a fair amount", "Follow the Bonus Issuance and Approval SOP (SW cap, ladder)", "Always RM 88", "Ask the player"], "a": 1,
+          "why": "Size any bonus via the Bonus SOP. Do not free-size." },
+        { "id": "twice-month", "q": "A player you reactivated on the 5th lapsed and came back on the 25th after you contacted them again. How many counts this month?",
+          "o": ["Two", "One", "None", "Three"], "a": 1,
+          "why": "One reactivation count per player per month." },
+        { "id": "early-tier", "q": "Which approach fits an early win-back player (DSLD 7+)?",
+          "o": ["Deep win-back offer", "Gentle check-in", "No contact", "Hard sell"], "a": 1,
+          "why": "Early win-back (7+) is a gentle check-in; 14+ stronger; 30+ deep win-back." }
+      ]
+    }
+  }
+}

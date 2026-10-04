@@ -1,0 +1,91 @@
+{
+  "id": "telegram-approach",
+  "sop_version": "V1.1",
+  "content": {
+    "minutes": 5,
+    "words": [
+      ["Priority order", "Who you approach first: Churn 30D, 14D, 7D, 3D, 1D, then Grace Period, then High P&L, then LTV. Strictly top down."],
+      ["Churn", "An inactive player, by days since last activity (1, 3, 7, 14 or 30 days)."],
+      ["New Approach record", "The first-contact entry in the Customer Approaching File: date, username, brand, tier, reason. Follow-ups go underneath it as sub-records."],
+      ["Outcome", "What happened after your message: Response Received, No Response, Deposit Made, or Referred to Livechat."],
+      ["Supplementary channel", "Telegram adds to Internal Mail and Livechat. It never replaces them."]
+    ],
+    "tour": [
+      {
+        "key": "when", "label": "When", "kind": "check", "title": "Can you message this player now?",
+        "sec": "Golden Rules", "secLabel": "3. Golden Rules",
+        "items": ["Every higher-priority player is already contacted", "The player has a registered Telegram contact", "You have not already sent a message this session without a reply"],
+        "done": "All three: send one message, in the right tone for the segment.",
+        "notYet": "Work the higher priority first. No registered contact: skip. Already messaged: wait for a reply."
+      },
+      {
+        "key": "do", "label": "Do", "kind": "steps", "title": "Six steps",
+        "sec": "Procedure", "secLabel": "Procedure",
+        "items": [
+          ["Open the Telegram section", "Customer Approaching File, current month. Prior-month follow-ups: last month's file."],
+          ["Work top down", "Start at Priority 1 (Churn 30D) and move down to LTV."],
+          ["Record the approach", "First contact: New Approach record. Follow-up: a sub-record under it, never a duplicate."],
+          ["Send one message", "Check the registered contact. One message per session, right tone. No bonus talk."],
+          ["Record the outcome", "Right after sending. Replied on Livechat? Record the conversion and link it."],
+          ["QA Record", "End of shift: total approached and conversions."]
+        ]
+      },
+      {
+        "key": "never", "label": "Never", "kind": "never", "title": "Four hard stops",
+        "sec": "Guards", "secLabel": "8. Guards",
+        "items": [
+          "Promise, imply or hint at any bonus on Telegram.",
+          "Skip to a lower priority while higher ones are uncontacted.",
+          "Send repeated messages. Players block you; wait for a reply.",
+          "Message a high-loss player the same day, while emotions are high."
+        ]
+      },
+      {
+        "key": "numbers", "label": "Scenarios", "kind": "steps", "title": "Your goal by player type",
+        "sec": "Engagement Scenarios", "secLabel": "5. Engagement Scenarios",
+        "items": [
+          ["Risk player", "Get a reply, learn why they stopped, fix one issue. Same day the risk tier is detected."],
+          ["Newly upgraded VVIP", "Build the relationship, agree how they like to be contacted. Soon after the 2:00 PM list update."],
+          ["High-loss player", "Welfare check, take pressure off. Not to drive play. Next day at the earliest."],
+          ["High deposit / LTV", "White-glove care and trust, no push for bigger deposits. Weekly check-ins."]
+        ]
+      },
+      {
+        "key": "approver", "label": "Reply", "kind": "gate", "title": "The player replied",
+        "sec": "Soft-Skill Playbook", "secLabel": "7. Soft-Skill Playbook",
+        "q": "Did the player just lose?",
+        "yes": "Acknowledge it and reframe. Never say \"win it back\".",
+        "no": "Won: celebrate and guide gently. No reply: try a soft re-engagement later, no spam."
+      }
+    ],
+    "quiz": {
+      "count": 5, "pass": 80, "seconds": 60,
+      "pool": [
+        { "id": "priority-first", "q": "Who do you approach first on Telegram?",
+          "o": ["LTV players", "Churn 30D players", "Grace Period players", "High P&L players"], "a": 1,
+          "why": "Work strictly top down: Churn 30D is Priority 1, LTV is last." },
+        { "id": "skip-priority", "q": "Three Churn 7D players are uncontacted, but an LTV player looks promising. What now?",
+          "o": ["Message the LTV player first", "Contact the Churn 7D players first", "Message all at once", "Skip Churn today"], "a": 1,
+          "why": "Never approach a lower priority while higher-priority players are uncontacted." },
+        { "id": "bonus-hint", "q": "A player on Telegram asks, \"Any bonus for me?\" What do you say?",
+          "o": ["Yes, RM 38 tonight", "Maybe, check Livechat later", "No promise or hint; talk about how you can help", "Send the ladder"], "a": 2,
+          "why": "Never promise, imply or hint at any bonus on Telegram." },
+        { "id": "one-message", "q": "You messaged a player 20 minutes ago with no reply. What now?",
+          "o": ["Send two more messages", "Wait for a reply before following up", "Call them", "Mark them No Response and send again"], "a": 1,
+          "why": "One approach message per session. Repeated messages get you blocked." },
+        { "id": "high-loss-timing", "q": "A player lost heavily an hour ago. When do you message them?",
+          "o": ["Right now", "Next day at the earliest", "In a week", "Never"], "a": 1,
+          "why": "High-loss players: wait until at least the next day. Never message while emotions are high." },
+        { "id": "follow-up-record", "q": "You follow up a player you approached last week. How do you record it?",
+          "o": ["A new New Approach record", "A sub-record under the original entry", "No record needed", "In the QA Record only"], "a": 1,
+          "why": "Follow-ups are sub-records under the original entry. Do not duplicate the entry." },
+        { "id": "lost-reply", "q": "A player replies, \"I lost again today.\" Which reply fits?",
+          "o": ["Deposit again and win it back!", "Sorry to hear that, boss. Want to take a break and try a lighter game later?", "Here is a bonus", "Ignore it"], "a": 1,
+          "why": "Lost: acknowledge, reframe, never \"win it back\"." },
+        { "id": "replaces", "q": "Does Telegram replace Internal Mail and Livechat?",
+          "o": ["Yes, it replaces both", "No, it is a supplementary channel", "It replaces Internal Mail only", "Only for Tier V"], "a": 1,
+          "why": "Telegram is supplementary. It does not replace Internal Mail or Livechat." }
+      ]
+    }
+  }
+}

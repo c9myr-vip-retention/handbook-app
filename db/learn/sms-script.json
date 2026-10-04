@@ -1,0 +1,87 @@
+{
+  "id": "sms-script",
+  "sop_version": "V1.1",
+  "content": {
+    "minutes": 3,
+    "words": [
+      ["List preparation", "Your whole job in SMS: prepare the player list and content in the Team Engagement File. Retention Team Admin sends the SMS."],
+      ["Segment", "The player group the SMS is for. The wrong segment reaches the wrong player and breaks the reports."],
+      ["Cari tag", "The brand search line in the SMS, for example \"Cari :  LPK  777\". Copy it exactly, spacing included; never auto-correct it."],
+      ["Em dash", "The long dash. Never use it in an SMS: the vendor mis-encodes it."],
+      ["Expiry date", "When the promo ends. For a 3-day promo, line the expiry up with the latest update date and make sure it has not passed."]
+    ],
+    "tour": [
+      {
+        "key": "when", "label": "Ready?", "kind": "check", "title": "Before you hand the list to Admin",
+        "sec": "Golden Rules", "secLabel": "3. Golden Rules",
+        "items": ["Every player is under the right segment, category and today's date", "No duplicates and nothing missing", "The promo has not expired", "SMS text: under 160 characters, no em dash, Cari tag exact"],
+        "done": "All four: hand over to Retention Admin.",
+        "notYet": "Fix it first. Never hand over expired content or a wrong segment."
+      },
+      {
+        "key": "do", "label": "Do", "kind": "steps", "title": "Six steps",
+        "sec": "Procedure", "secLabel": "Procedure",
+        "items": [
+          ["Open the file", "Team Engagement File, latest version."],
+          ["Check segments", "Confirm the segments are current before you change anything."],
+          ["Update", "Record players under the correct segment, category and date (not a past or future date)."],
+          ["Deduplicate", "Remove duplicates and fill gaps before saving."],
+          ["Check expiry", "3-day promo: line the expiry up with the latest update date."],
+          ["Hand over", "Double-check every entry, then hand over. Admin sends."]
+        ]
+      },
+      {
+        "key": "never", "label": "Never", "kind": "never", "title": "Four hard stops",
+        "sec": "Guards", "secLabel": "4. Guards",
+        "items": [
+          "Send the SMS yourself. Your part ends at the list.",
+          "Hand over expired content.",
+          "Leave duplicates in. They double-count.",
+          "Use an em dash or change the Cari tag spacing."
+        ]
+      },
+      {
+        "key": "numbers", "label": "SMS rules", "kind": "steps", "title": "SMS house rules",
+        "sec": "Remarks", "secLabel": "5. Remarks",
+        "items": [
+          ["Length", "Under 160 characters."],
+          ["No em dash", "The SMS vendor mis-encodes it."],
+          ["Cari tag", "Exactly as given, spacing included."]
+        ]
+      },
+      {
+        "key": "approver", "label": "Who sends", "kind": "gate", "title": "Who presses Send?",
+        "sec": "Scope", "secLabel": "2. Scope",
+        "q": "Is the list ready and checked?",
+        "yes": "Hand it to Retention Team Admin. Admin sends the SMS from the SMS platform.",
+        "no": "Keep working the list. Nothing goes to Admin until it passes every check."
+      }
+    ],
+    "quiz": {
+      "count": 5, "pass": 80, "seconds": 60,
+      "pool": [
+        { "id": "who-sends", "q": "Who sends the SMS?",
+          "o": ["You, from the BO", "Retention Team Admin", "The ATL", "The player's PIC"], "a": 1,
+          "why": "VIP CS responsibility ends at list preparation. Retention Team Admin sends the SMS." },
+        { "id": "length", "q": "What is the length limit for the SMS?",
+          "o": ["Under 160 characters", "Under 300 characters", "No limit", "Exactly 100 characters"], "a": 0,
+          "why": "SMS house rule: under 160 characters." },
+        { "id": "em-dash", "q": "Why is the em dash banned in SMS?",
+          "o": ["It looks old-fashioned", "The SMS vendor mis-encodes it", "It costs more", "Players dislike it"], "a": 1,
+          "why": "The vendor mis-encodes the em dash, so it never goes in an SMS." },
+        { "id": "cari", "q": "The Cari tag looks like it has an extra space. What do you do?",
+          "o": ["Fix the spacing", "Keep it exactly as given", "Remove the tag", "Retype it in capitals"], "a": 1,
+          "why": "Copy the Cari tag exactly, spacing included. Never auto-correct it." },
+        { "id": "expired", "q": "The promo in the list expired yesterday. What do you do?",
+          "o": ["Hand it over anyway", "Do not hand over expired content; fix or remove it", "Change the date to tomorrow", "Ask Admin to decide"], "a": 1,
+          "why": "Never hand over expired content. Verify the expiry date first." },
+        { "id": "duplicates", "q": "A player appears twice in the list. Why does it matter?",
+          "o": ["It does not", "Duplicates cause double-counting", "The SMS fails", "Admin removes them"], "a": 1,
+          "why": "Remove duplicates before saving to prevent double-counting." },
+        { "id": "wrong-date", "q": "You are adding today's players. Which date do you file them under?",
+          "o": ["Yesterday's", "Today's", "Tomorrow's", "Any date"], "a": 1,
+          "why": "Record under the correct segment, category and date, not a previous or future date." }
+      ]
+    }
+  }
+}

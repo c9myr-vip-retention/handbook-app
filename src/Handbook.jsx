@@ -184,7 +184,7 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
     if (route.kind === 'domain') return route.key
     if (route.kind === 'page') return PAGES[route.key]?.title || route.key
     if (route.kind === 'stub') return route.title
-    if (route.kind === 'approvals') return 'People'
+    if (route.kind === 'approvals') return 'Access Management'
     if (route.kind === 'charts') return 'Chart review'
     if (route.kind === 'learn') return route.key ? (route.edit ? 'Edit guide: ' : 'Learn: ') + (PAGES[route.key]?.title || route.key) : 'Learn'
     if (route.kind === 'quiz') return 'Quiz: ' + (PAGES[route.key]?.title || route.key)
@@ -236,7 +236,7 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
           ))}
           {(profile?.role === 'admin' || preview) && (
             <div className="navsec admin-nav">
-              <button className="navitem" onClick={() => { setQuery(''); go({ kind: 'approvals' }) }}>People (admin)</button>
+              <button className="navitem" onClick={() => { setQuery(''); go({ kind: 'approvals' }) }}>Access Management</button>
               <button className="navitem" onClick={() => { setQuery(''); go({ kind: 'charts' }) }}>Chart review (admin)</button>
             </div>
           )}
@@ -266,7 +266,7 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
           )}
           {profile && <span className="whoami" title={profile.email}>{profile.full_name || profile.email} <span className="rolechip">{profile.role}</span></span>}
           {preview && <span className="chip pending preview-chip">preview</span>}
-          {(profile?.role === 'admin' || preview) && <button className="btn small ghost admin-btn" onClick={() => { setQuery(''); go({ kind: 'approvals' }) }}>People</button>}
+          {(profile?.role === 'admin' || preview) && <button className="btn small ghost admin-btn" onClick={() => { setQuery(''); go({ kind: 'approvals' }) }}>Access Management</button>}
           {route.kind === 'page' && !query.trim() && (
             <button className="icon railbtn" aria-label="Page tools" title="Page tools" aria-expanded={railOpen} aria-controls="pagerail" onClick={() => setRailOpen(o => !o)}>
               <svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true"><rect x="3" y="3.5" width="14" height="13" rx="2.5"/><path d="M12 3.5v13"/><path d="M14 7h1M14 10h1M14 13h1" strokeLinecap="round"/></svg>
@@ -530,6 +530,24 @@ function myt(s, withTime) {
   if (isNaN(d)) return '-'
   return d.toLocaleString('en-GB', { timeZone: 'Asia/Kuala_Lumpur', day: 'numeric', month: 'short', year: 'numeric', ...(withTime ? { hour: '2-digit', minute: '2-digit' } : {}) })
 }
+// Name with inline edit: click to edit, Enter saves, Escape cancels.
+function NameCell({ p, busy, onSave }) {
+  const [edit, setEdit] = useState(null)
+  if (edit === null) return (
+    <button className="crumblink namecell" disabled={busy} title="Edit name" onClick={() => setEdit(p.full_name || '')}>
+      {p.full_name || <span className="muted">Add name</span>}
+    </button>
+  )
+  const save = async () => { if (await onSave(edit.trim())) setEdit(null) }
+  return (
+    <span className="nameedit">
+      <input autoFocus aria-label={'Name for ' + p.email} value={edit} maxLength={80} disabled={busy}
+        onChange={e => setEdit(e.target.value)} onKeyDown={e => { if (e.key === 'Enter') save(); if (e.key === 'Escape') setEdit(null) }} />
+      <button className="btn small" disabled={busy} onClick={save}>Save</button>
+      <button className="btn small ghost" disabled={busy} onClick={() => setEdit(null)}>Cancel</button>
+    </span>
+  )
+}
 function Approvals({ preview, me }) {
   const [list, setList] = useState(preview ? SAMPLE : null)
   const [err, setErr] = useState(null)
@@ -555,6 +573,23 @@ function Approvals({ preview, me }) {
       setList(l => l.map(p => p.email === email ? { ...p, approved: reject ? -1 : 1 } : p))
     } catch (e) { setErr(e.message) } finally { setBusy(null) }
   }
+  const saveName = async (p, name) => {
+    setBusy(p.email); setErr(null)
+    try {
+      if (!preview) await api.setName(p.email, name)
+      setList(l => l.map(x => x.email === p.email ? { ...x, full_name: name || null } : x))
+      return true
+    } catch (e) { setErr(e.message); return false } finally { setBusy(null) }
+  }
+  const remove = async (p) => {
+    if (!confirm('Delete ' + p.email + '? They lose access now. If they sign in again they start over as a new request (company emails are let in automatically). Learning scores are kept.')) return
+    setBusy(p.email); setErr(null)
+    try {
+      if (!preview) await api.removePerson(p.email)
+      setList(l => l.filter(x => x.email !== p.email))
+    } catch (e) { setErr(e.message) } finally { setBusy(null) }
+  }
+  const name = (p) => <NameCell p={p} busy={busy === p.email} onSave={n => saveName(p, n)} />
   const waiting = (list || []).filter(p => p.approved === 0), rejected = (list || []).filter(p => p.approved === -1)
   const members = (list || []).filter(p => p.approved === 1).sort((a, b) => (a.role === b.role ? a.email.localeCompare(b.email) : a.role === 'admin' ? -1 : 1))
   const admins = members.filter(p => p.role === 'admin').length
@@ -563,9 +598,10 @@ function Approvals({ preview, me }) {
       <thead><tr><th>Email</th><th>Name</th><th><span className="sr-only">Action</span></th></tr></thead>
       <tbody>{rows.map(p => (
         <tr key={p.email}>
-          <td>{p.email}</td><td>{p.full_name || '-'}</td>
+          <td>{p.email}</td><td>{name(p)}</td>
           <td style={{ textAlign: 'right', whiteSpace: 'nowrap' }}>
-            {!isRejected && <button className="btn small ghost" disabled={busy === p.email} onClick={() => decide(p.email, true)}>Reject</button>}{' '}
+            {!isRejected && <button className="btn small ghost" disabled={busy === p.email} onClick={() => decide(p.email, true)}>Reject</button>}
+            {isRejected && <button className="btn small ghost danger" disabled={busy === p.email} onClick={() => remove(p)}>Delete</button>}{' '}
             <button className="btn small" disabled={busy === p.email} onClick={() => decide(p.email, false)}>{busy === p.email ? 'Saving…' : 'Approve'}</button>
           </td>
         </tr>))}
@@ -574,7 +610,7 @@ function Approvals({ preview, me }) {
   )
   return (
     <div className="view doc">
-      <h1>People</h1>
+      <h1>Access Management</h1>
       {preview && <div className="stubbox">Preview: sample entries only. Nothing is saved.</div>}
       {err && <p className="err" role="alert">{err}</p>}
       {list === null && !err && <p className="muted">Loading…</p>}
@@ -585,15 +621,16 @@ function Approvals({ preview, me }) {
         <h2>Registered</h2>
         <p className="muted small">{members.length} total · {admins} admin{admins === 1 ? '' : 's'} · {members.length - admins} reader{members.length - admins === 1 ? '' : 's'}</p>
         <div className="tbl-wrap"><table>
-          <thead><tr><th>Email</th><th>Name</th><th>Role</th><th>Registered</th><th>Last seen</th></tr></thead>
+          <thead><tr><th>Email</th><th>Name</th><th>Role</th><th>Registered</th><th>Last seen</th><th><span className="sr-only">Action</span></th></tr></thead>
           <tbody>{members.map(p => (
-            <tr key={p.email}><td>{p.email}</td><td>{p.full_name || '-'}</td>
+            <tr key={p.email}><td>{p.email}</td><td>{name(p)}</td>
               <td>{p.email === me
                 ? <span className="chip scorepass">{p.role === 'admin' ? 'Admin' : 'Reader'} (you)</span>
                 : <select aria-label={'Role for ' + p.email} value={p.role} disabled={busy === p.email} onChange={e => setRole(p, e.target.value)}>
                     <option value="reader">Reader</option><option value="admin">Admin</option>
                   </select>}</td>
-              <td>{myt(p.created_at, false)}</td><td>{myt(p.last_seen, true)}</td></tr>
+              <td>{myt(p.created_at, false)}</td><td>{myt(p.last_seen, true)}</td>
+              <td style={{ textAlign: 'right' }}>{p.email !== me && <button className="btn small ghost danger" disabled={busy === p.email} onClick={() => remove(p)}>Delete</button>}</td></tr>
           ))}</tbody>
         </table></div>
       </>}

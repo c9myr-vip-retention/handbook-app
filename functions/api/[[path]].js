@@ -129,10 +129,12 @@ export async function onRequest(context) {
     // Learn section (guides and quizzes). See server/learn.js.
     if (parts[0] === 'learn') return await handleLearn({ request, env, parts, email, isAdmin, json })
 
-    // People (admin): list everyone who has signed in (approved, pending, rejected); approve or reject one.
-    // POST /api/admin/approvals/<email>          approve
-    // POST /api/admin/approvals/<email>/reject   reject (can be approved later)
-    // POST /api/admin/approvals/<email>/role/<admin|reader>   change role
+    // Access Management (admin): list everyone who has signed in (approved, pending, rejected).
+    // POST   /api/admin/approvals/<email>          approve
+    // POST   /api/admin/approvals/<email>/reject   reject (can be approved later)
+    // POST   /api/admin/approvals/<email>/role/<admin|reader>   change role
+    // POST   /api/admin/approvals/<email>/name     set name, body { name }
+    // DELETE /api/admin/approvals/<email>          delete the profile (learning records are kept)
     if (parts[0] === 'admin' && parts[1] === 'approvals') {
       if (!isAdmin) return json({ error: 'admins only' }, 403)
       if (request.method === 'GET') {
@@ -141,8 +143,22 @@ export async function onRequest(context) {
         ).all()
         return json(results)
       }
+      // Name can be set for anyone, yourself included.
+      if (request.method === 'POST' && parts[2] && parts[3] === 'name') {
+        const b = await request.json().catch(() => ({}))
+        const name = String(b.name || '').trim().slice(0, 80) || null
+        const r = await env.DB.prepare('update profiles set full_name = ? where email = ?').bind(name, parts[2]).run()
+        if (!r.meta?.changes) return json({ error: 'not found' }, 404)
+        return json({ ok: true })
+      }
+      if (parts[2] && parts[2].toLowerCase() === email.toLowerCase()) return json({ error: 'cannot change your own access' }, 400)
+      // Delete: the person loses access now; signing in again starts a new request.
+      if (request.method === 'DELETE' && parts[2] && !parts[3]) {
+        const r = await env.DB.prepare('delete from profiles where email = ?').bind(parts[2]).run()
+        if (!r.meta?.changes) return json({ error: 'not found' }, 404)
+        return json({ ok: true })
+      }
       if (request.method === 'POST' && parts[2]) {
-        if (parts[2].toLowerCase() === email.toLowerCase()) return json({ error: 'cannot change your own access' }, 400)
         if (parts[3] === 'role') {
           if (!['admin', 'reader'].includes(parts[4])) return json({ error: 'role must be admin or reader' }, 400)
           const r = await env.DB.prepare('update profiles set role = ? where email = ? and approved = 1').bind(parts[4], parts[2]).run()

@@ -46,6 +46,8 @@ export const api = {
   restore: (id, vid) => req('/api/sops/' + encodeURIComponent(id) + '/restore/' + vid, { method: 'POST' }),
   approvals: () => req('/api/admin/approvals'),
   approve: (email) => req('/api/admin/approvals/' + encodeURIComponent(email), { method: 'POST' }),
+  setName: (email, name) => req('/api/admin/approvals/' + encodeURIComponent(email) + '/name', { method: 'POST', body: JSON.stringify({ name }) }),
+  removePerson: (email) => req('/api/admin/approvals/' + encodeURIComponent(email), { method: 'DELETE' }),
   setRole: (email, role) => req('/api/admin/approvals/' + encodeURIComponent(email) + '/role/' + role, { method: 'POST' }),
   reject: (email) => req('/api/admin/approvals/' + encodeURIComponent(email) + '/reject', { method: 'POST' }),
   // Learn (guides and quizzes). Quiz answers are marked on the server.

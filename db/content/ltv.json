@@ -118,7 +118,7 @@
   },
   {
    "t": "chart",
-   "x": "title: LTV List: flow\nstart: Today's 10 batch\nstep: Paste + dedup\nstep: Pre-check (SW 40%)\ncheck: Valid? | yes: next | no: done IM + Push only, no SMS\nstep: Engage first\nstep: Issue + ticket\nend: Tag + QA"
+   "x": "title: LTV List V1.2: flow\nstart: Today's 10\nstep: Paste + dedup\nstep: Pre-check (SW 40%)\ncheck: Valid? | yes: next | no: done IM + Push only, no SMS\ncheck: Engaged? | yes: next | no: done Delay, retry later today\nstep: Issue + ticket\nend: Tag + QA"
   },
   {
    "t": "h2",

@@ -102,7 +102,7 @@
   },
   {
    "t": "chart",
-   "x": "title: Risk Push: flow\nstart: Inactive player\ncheck: RG / chase? | yes: stop Welfare, no push | no: next\nstep: Pick tier (1D-30D)\nstep: Export .txt/.csv\nstep: Send push\nend: QA"
+   "x": "title: Risk Push V1.2: flow\nstart: Risk list (after 3 PM)\ncheck: RG / chase flag? | yes: stop Welfare, no push | no: next\ncheck: 1D? | yes: jump Push only, soft reminder | no: next\ncheck: 3D? | yes: jump SMS + IM, emotional pull, no bonus | no: next\nstep: SMS + IM + reload: 7D 10%, 14D 15%, 30D 20%, 1x TO\nend: Tag + QA"
   },
   {
    "t": "h2",

@@ -282,7 +282,7 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
         <main className="content" id="main" tabIndex={-1}>
           {nameOpen && profile && (
             <div className="nameprompt" role="region" aria-label="Your name">
-              {!profile.full_name && <p><b>Add your name</b> so admins and your team know who you are.</p>}
+              {!profile.full_name && <p><b>Add your working nickname</b> (the name the team calls you at work) so admins and your team know who you are.</p>}
               <NameForm initial={profile.full_name || ''} onSaved={n => { onName?.(n); setNameOpen(false) }} onCancel={() => setNameOpen(false)} />
             </div>
           )}
@@ -543,14 +543,14 @@ function myt(s, withTime) {
 function NameCell({ p, busy, onSave }) {
   const [edit, setEdit] = useState(null)
   if (edit === null) return (
-    <button className="crumblink namecell" disabled={busy} title="Edit name" onClick={() => setEdit(p.full_name || '')}>
-      {p.full_name || <span className="muted">Add name</span>}
+    <button className="crumblink namecell" disabled={busy} title="Edit nickname" onClick={() => setEdit(p.full_name || '')}>
+      {p.full_name || <span className="muted">Add nickname</span>}
     </button>
   )
   const save = async () => { if (await onSave(edit.trim())) setEdit(null) }
   return (
     <span className="nameedit">
-      <input autoFocus aria-label={'Name for ' + p.email} value={edit} maxLength={80} disabled={busy}
+      <input autoFocus aria-label={"Nickname for " + p.email} value={edit} maxLength={80} disabled={busy}
         onChange={e => setEdit(e.target.value)} onKeyDown={e => { if (e.key === 'Enter') save(); if (e.key === 'Escape') setEdit(null) }} />
       <button className="btn small" disabled={busy} onClick={save}>Save</button>
       <button className="btn small ghost" disabled={busy} onClick={() => setEdit(null)}>Cancel</button>
@@ -604,7 +604,7 @@ function Approvals({ preview, me }) {
   const admins = members.filter(p => p.role === 'admin').length
   const table = (rows, isRejected) => (
     <div className="tbl-wrap"><table>
-      <thead><tr><th>Email</th><th>Name</th><th><span className="sr-only">Action</span></th></tr></thead>
+      <thead><tr><th>Email</th><th>Nickname</th><th><span className="sr-only">Action</span></th></tr></thead>
       <tbody>{rows.map(p => (
         <tr key={p.email}>
           <td>{p.email}</td><td>{name(p)}</td>
@@ -630,7 +630,7 @@ function Approvals({ preview, me }) {
         <h2>Registered</h2>
         <p className="muted small">{members.length} total · {admins} admin{admins === 1 ? '' : 's'} · {members.length - admins} reader{members.length - admins === 1 ? '' : 's'}</p>
         <div className="tbl-wrap"><table>
-          <thead><tr><th>Email</th><th>Name</th><th>Role</th><th>Registered</th><th>Last seen</th><th><span className="sr-only">Action</span></th></tr></thead>
+          <thead><tr><th>Email</th><th>Nickname</th><th>Role</th><th>Registered</th><th>Last seen</th><th><span className="sr-only">Action</span></th></tr></thead>
           <tbody>{members.map(p => (
             <tr key={p.email}><td>{p.email}</td><td>{name(p)}</td>
               <td>{p.email === me

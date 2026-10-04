@@ -44,7 +44,7 @@ export async function onRequest(context) {
         if (p.approved === -1) return json({ error: 'access declined' }, 403)
         const b = await request.json().catch(() => ({}))
         const name = String(b.name || '').replace(/\s+/g, ' ').trim().slice(0, 80)
-        if (name.length < 2) return json({ error: 'Enter your full name.' }, 400)
+        if (name.length < 2) return json({ error: 'Enter your working nickname.' }, 400)
         await env.DB.prepare('update profiles set full_name = ? where email = ?').bind(name, email).run()
         return json({ ok: true, full_name: name })
       }

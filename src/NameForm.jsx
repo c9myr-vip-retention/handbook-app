@@ -1,23 +1,23 @@
-// "Your name" form: staff set their own display name (POST /api/me/name).
+// "Working nickname" form: staff set their own display name (POST /api/me/name).
 // Used on the waiting-for-approval screen and as a prompt inside the handbook.
 import { useState } from 'react'
 import { api } from './lib/api.js'
 
-export default function NameForm({ initial = '', onSaved, onCancel, label = 'Your full name', saveText = 'Save' }) {
+export default function NameForm({ initial = '', onSaved, onCancel, label = 'Your working nickname', saveText = 'Save' }) {
   const [name, setName] = useState(initial)
   const [busy, setBusy] = useState(false)
   const [err, setErr] = useState('')
   const save = async (e) => {
     e.preventDefault()
     const n = name.trim()
-    if (n.length < 2) { setErr('Enter your full name.'); return }
+    if (n.length < 2) { setErr('Enter your working nickname.'); return }
     setBusy(true); setErr('')
     try { await api.setMyName(n); onSaved?.(n) } catch (e) { setErr(e.message) } finally { setBusy(false) }
   }
   return (
     <form className="nameform" onSubmit={save}>
       <label><span>{label}</span>
-        <input value={name} maxLength={80} autoComplete="name" disabled={busy} onChange={e => { setName(e.target.value); setErr('') }} placeholder="e.g. Nur Aisyah binti Ahmad" />
+        <input value={name} maxLength={80} autoComplete="nickname" disabled={busy} onChange={e => { setName(e.target.value); setErr('') }} placeholder="e.g. Aldo" />
       </label>
       <button className="btn small" disabled={busy} type="submit">{busy ? 'Saving…' : saveText}</button>
       {onCancel && <button className="btn small ghost" type="button" onClick={onCancel}>Cancel</button>}

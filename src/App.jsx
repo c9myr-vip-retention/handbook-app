@@ -115,7 +115,7 @@ function Pending({ email, name, onName }) {
         <p className="muted">Your account ({email}) is waiting for an admin to approve it. Once approved, reload this page to open the handbook. Need it sooner? Ask your superior.</p>
         {saved
           ? <p className="small">Name on your request: <b>{name}</b> <button className="crumblink" type="button" onClick={() => setSaved(false)}>Change</button></p>
-          : <NameForm initial={name || ''} label="Your full name, so the admin knows who you are" onSaved={n => { onName(n); setSaved(true) }} />}
+          : <NameForm initial={name || ''} label="Your working nickname, so the admin knows who you are" onSaved={n => { onName(n); setSaved(true) }} />}
         <button className="btn" onClick={signOut} type="button">Sign out</button>
       </div>
     </div>

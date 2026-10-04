@@ -127,14 +127,14 @@ export async function onRequest(context) {
     // Learn section (guides and quizzes). See server/learn.js.
     if (parts[0] === 'learn') return await handleLearn({ request, env, parts, email, isAdmin, json })
 
-    // Approvals (admin): list pending and rejected; approve or reject one.
+    // People (admin): list everyone who has signed in (approved, pending, rejected); approve or reject one.
     // POST /api/admin/approvals/<email>          approve
     // POST /api/admin/approvals/<email>/reject   reject (can be approved later)
     if (parts[0] === 'admin' && parts[1] === 'approvals') {
       if (!isAdmin) return json({ error: 'admins only' }, 403)
       if (request.method === 'GET') {
         const { results } = await env.DB.prepare(
-          'select email, full_name, role, approved, created_at from profiles where approved in (0, -1) order by approved desc, created_at desc'
+          'select email, full_name, role, approved, created_at from profiles order by created_at desc'
         ).all()
         return json(results)
       }

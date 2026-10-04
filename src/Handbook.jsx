@@ -184,7 +184,7 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
     if (route.kind === 'domain') return route.key
     if (route.kind === 'page') return PAGES[route.key]?.title || route.key
     if (route.kind === 'stub') return route.title
-    if (route.kind === 'approvals') return 'Approvals'
+    if (route.kind === 'approvals') return 'People'
     if (route.kind === 'charts') return 'Chart review'
     if (route.kind === 'learn') return route.key ? (route.edit ? 'Edit guide: ' : 'Learn: ') + (PAGES[route.key]?.title || route.key) : 'Learn'
     if (route.kind === 'quiz') return 'Quiz: ' + (PAGES[route.key]?.title || route.key)
@@ -236,7 +236,7 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
           ))}
           {(profile?.role === 'admin' || preview) && (
             <div className="navsec admin-nav">
-              <button className="navitem" onClick={() => { setQuery(''); go({ kind: 'approvals' }) }}>Approvals (admin)</button>
+              <button className="navitem" onClick={() => { setQuery(''); go({ kind: 'approvals' }) }}>People (admin)</button>
               <button className="navitem" onClick={() => { setQuery(''); go({ kind: 'charts' }) }}>Chart review (admin)</button>
             </div>
           )}
@@ -266,7 +266,7 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
           )}
           {profile && <span className="whoami" title={profile.email}>{profile.full_name || profile.email} <span className="rolechip">{profile.role}</span></span>}
           {preview && <span className="chip pending preview-chip">preview</span>}
-          {(profile?.role === 'admin' || preview) && <button className="btn small ghost admin-btn" onClick={() => { setQuery(''); go({ kind: 'approvals' }) }}>Approvals</button>}
+          {(profile?.role === 'admin' || preview) && <button className="btn small ghost admin-btn" onClick={() => { setQuery(''); go({ kind: 'approvals' }) }}>People</button>}
           {route.kind === 'page' && !query.trim() && (
             <button className="icon railbtn" aria-label="Page tools" title="Page tools" aria-expanded={railOpen} aria-controls="pagerail" onClick={() => setRailOpen(o => !o)}>
               <svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true"><rect x="3" y="3.5" width="14" height="13" rx="2.5"/><path d="M12 3.5v13"/><path d="M14 7h1M14 10h1M14 13h1" strokeLinecap="round"/></svg>
@@ -522,7 +522,7 @@ function DomainList({ name, go, nav: NAV, pages: PAGES }) {
 // Company emails are approved on first sign-in; personal emails land here.
 // Waiting people can be approved or rejected; rejected people stay listed below
 // so a mistake can be undone. In preview (no API) it shows a labelled sample.
-const SAMPLE = [{ email: 'staff.one@example.com', approved: 0 }, { email: 'staff.two@example.com', approved: -1 }]
+const SAMPLE = [{ email: 'staff.one@example.com', approved: 0 }, { email: 'staff.two@example.com', approved: -1 }, { email: 'staff.three@example.com', full_name: 'Staff Three', role: 'reader', approved: 1, created_at: '2026-09-24 10:00:00' }]
 function Approvals({ preview }) {
   const [list, setList] = useState(preview ? SAMPLE : null)
   const [err, setErr] = useState(null)
@@ -536,10 +536,12 @@ function Approvals({ preview }) {
     setBusy(email); setErr(null)
     try {
       if (!preview) await (reject ? api.reject(email) : api.approve(email))
-      setList(l => reject ? l.map(p => p.email === email ? { ...p, approved: -1 } : p) : l.filter(p => p.email !== email))
+      setList(l => l.map(p => p.email === email ? { ...p, approved: reject ? -1 : 1 } : p))
     } catch (e) { setErr(e.message) } finally { setBusy(null) }
   }
-  const waiting = (list || []).filter(p => p.approved !== -1), rejected = (list || []).filter(p => p.approved === -1)
+  const waiting = (list || []).filter(p => p.approved === 0), rejected = (list || []).filter(p => p.approved === -1)
+  const members = (list || []).filter(p => p.approved === 1).sort((a, b) => (a.role === b.role ? a.email.localeCompare(b.email) : a.role === 'admin' ? -1 : 1))
+  const admins = members.filter(p => p.role === 'admin').length
   const table = (rows, isRejected) => (
     <div className="tbl-wrap"><table>
       <thead><tr><th>Email</th><th>Name</th><th><span className="sr-only">Action</span></th></tr></thead>
@@ -556,13 +558,26 @@ function Approvals({ preview }) {
   )
   return (
     <div className="view doc">
-      <h1>Approvals</h1>
-      <p className="muted">People who signed in with a personal email and are waiting for access. Approve only staff you recognise. Company emails are approved automatically.</p>
+      <h1>People</h1>
+      <p className="muted">Everyone who has signed in, and their access. Company emails are approved automatically; personal emails wait here until you approve them. Approve only staff you recognise.</p>
       {preview && <div className="stubbox">Preview: sample entries only. Nothing is saved.</div>}
       {err && <p className="err" role="alert">{err}</p>}
       {list === null && !err && <p className="muted">Loading…</p>}
+      <h2>Waiting for approval</h2>
       {list && waiting.length === 0 && <div className="stubbox">No one is waiting for approval.</div>}
       {waiting.length > 0 && table(waiting, false)}
+      {members.length > 0 && <>
+        <h2>Registered</h2>
+        <p className="muted small">{members.length} {members.length === 1 ? 'person has' : 'people have'} access: {admins} admin{admins === 1 ? '' : 's'}, {members.length - admins} reader{members.length - admins === 1 ? '' : 's'}.</p>
+        <div className="tbl-wrap"><table>
+          <thead><tr><th>Email</th><th>Name</th><th>Role</th><th>Registered</th></tr></thead>
+          <tbody>{members.map(p => (
+            <tr key={p.email}><td>{p.email}</td><td>{p.full_name || '-'}</td>
+              <td><span className={'chip ' + (p.role === 'admin' ? 'scorepass' : 'ver')}>{p.role === 'admin' ? 'Admin' : 'Reader'}</span></td>
+              <td>{(p.created_at || '').slice(0, 10) || '-'}</td></tr>
+          ))}</tbody>
+        </table></div>
+      </>}
       {rejected.length > 0 && <>
         <h2>Rejected</h2>
         <p className="muted small">They see "access declined". Approve to let them in after all.</p>

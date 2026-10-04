@@ -73,7 +73,7 @@
     [
      "3",
      "Run eligibility per player",
-     "Lost today, lost this month (this month's deposit is more than withdraw), today's reward not claimed, bonus <= SW x 40%.",
+     "Lost today and lost this month (deposit more than withdraw this month); today's reward not claimed; bonus <= SW x 40%.",
      "All must pass. Monthly profitable = cannot issue, even on a daily loss.",
      "Customer Approaching File",
      "Engage from 8:00 PM after data is stable."
@@ -110,7 +110,7 @@
   },
   {
    "t": "chart",
-   "x": "title: Top PNL: flow\nstart: 7PM export\nstep: Sort P&L A-Z\nstep: Top 10 by loss\ncheck: Eligible? | yes: next | no: stop IM + Push only, no bonus mention\nstep: Issue + ticket\nend: IM/Push + QA"
+   "x": "title: Top PNL V1.2: flow\nstart: 7PM export\nstep: Sort P&L A-Z\nstep: Top 10 by loss\ncheck: Eligible? | yes: next | no: stop IM + Push only, no bonus mention\nstep: Issue + ticket\nend: SMS (Admin) + IM/Push, tag + QA"
   },
   {
    "t": "h2",

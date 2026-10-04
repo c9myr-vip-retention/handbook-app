@@ -30,17 +30,21 @@ function StatusChip({ m }) {
 // ---- Learn home: the learning path --------------------------------------------
 
 // Group modules under their SOP Book category (from the page crumb
-// "SOP Book · <category>"), in the same order as the SOP Book sidebar.
+// "SOP Book · <category>"). Categories and the modules inside them follow the
+// SOP Book sidebar order.
 function groupByCategory(mods, PAGES, NAV) {
-  const order = (NAV || []).find(s => s.domains)?.domains.map(d => d.name) || []
+  const domains = (NAV || []).find(s => s.domains)?.domains || []
+  const order = domains.map(d => d.name)
+  const itemOrder = domains.flatMap(d => d.items.map(it => it.id).filter(Boolean))
+  const at = (list, x) => { const i = list.indexOf(x); return i < 0 ? list.length : i }
   const groups = new Map()
   for (const m of mods) {
     const cat = (PAGES?.[m.id]?.crumb || '').split(' · ')[1] || 'Other'
     if (!groups.has(cat)) groups.set(cat, [])
     groups.get(cat).push(m)
   }
-  const rank = (c) => { const i = order.indexOf(c); return i < 0 ? order.length : i }
-  return [...groups].sort((a, b) => rank(a[0]) - rank(b[0]))
+  for (const list of groups.values()) list.sort((a, b) => at(itemOrder, a.id) - at(itemOrder, b.id))
+  return [...groups].sort((a, b) => at(order, a[0]) - at(order, b[0]))
 }
 
 export function LearnHome({ go, canEdit, pages: PAGES, nav: NAV }) {
@@ -119,14 +123,14 @@ export function LearnModule({ id, go, canEdit }) {
     <div className="view doc learn">
       <div className="crumb"><button className="crumblink" onClick={() => go({ kind: 'learn' })}>Learn</button> / <b>{m.title}</b></div>
       <h1>{m.title}</h1>
-      <div className="docmeta"><span>{c.minutes} min guide</span>{m.sop_version && <span>Based on SOP {m.sop_version}</span>}<span>SOP now {m.sop_now}</span></div>
+      <div className="docmeta"><span>{c.minutes} min guide</span>{m.sop_version && <span>Based on SOP {m.sop_version}</span>}{m.sop_now !== m.sop_version && <span>SOP now {m.sop_now}</span>}</div>
       <div className="learn-links"><button className="btn small ghost" onClick={() => openSop(go, id)}>Open the official SOP</button></div>
       {m.state === 'review' && (
         <div className="callout warn" role="status"><div><b>The SOP was updated to {m.sop_now}.</b><p>This guide was written for {m.sop_version}. It is under review, and the quiz is paused until an admin approves the updated guide and questions. Use the SOP for now.</p></div></div>
       )}
       {canEdit && <AdminPanel id={id} m={m} onDone={reload} go={go} />}
-      {c.words?.length > 0 && <Words words={c.words} />}
       {c.tour?.length > 0 && <TourCard id={id} tour={c.tour} go={go} />}
+      {c.words?.length > 0 && <Words words={c.words} />}
       <section className="learn-test" aria-labelledby="test-title">
         <h2 id="test-title">Test yourself</h2>
         {m.state !== 'live'
@@ -169,12 +173,15 @@ function AdminPanel({ id, m, onDone, go }) {
   )
 }
 
+// Glossary, folded by default so the cards come first on a phone. Opens by
+// itself while a meaning is still missing (admins only see drafts).
 function Words({ words }) {
+  const gap = words.some(([, d]) => !d)
   return (
-    <section className="words" aria-labelledby="words-title">
-      <h2 id="words-title">Words you need</h2>
+    <details className="words" open={gap}>
+      <summary><h2>Words you need <span className="muted">({words.length})</span></h2></summary>
       <dl>{words.map(([t, d]) => <div key={t}><dt>{t}</dt><dd>{d || <span className="words-todo">[CONFIRM] Meaning to be written by the ATL.</span>}</dd></div>)}</dl>
-    </section>
+    </details>
   )
 }
 

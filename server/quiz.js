@@ -106,6 +106,7 @@ export async function handleQuiz({ request, env, parts, email, isAdmin, json }) 
     await DB.prepare('update quiz_sets set closed = ? where id = ?').bind(body.closed ? 1 : 0, a).run()
     return json({ ok: true })
   }
+  if (b === 'scores' && method === 'GET') await closeExpired(DB, null, a)
   if (b === 'scores' && method === 'GET' && c) return json(await attemptReport(DB, a, c))
   if (b === 'scores' && method === 'GET') return json(await scores(DB, set))
 
@@ -164,9 +165,12 @@ async function finish(DB, at, content) {
   return { submitted: true, auto, max: at.max_score, autoMax: content.questions.reduce((s, q) => s + (q.pts || 1), 0), written, trial: !!at.trial }
 }
 
-// Close any attempt of mine on this set whose clock ran out.
+// Close attempts on this set whose clock ran out (one person's, or everyone's
+// when email is null, so the scores never wait for someone to come back).
 async function closeExpired(DB, email, setId) {
-  const { results } = await DB.prepare('select * from quiz_attempts where email = ? and set_id = ? and submitted_at is null').bind(email, setId).all()
+  const { results } = email
+    ? await DB.prepare('select * from quiz_attempts where email = ? and set_id = ? and submitted_at is null').bind(email, setId).all()
+    : await DB.prepare('select * from quiz_attempts where set_id = ? and submitted_at is null').bind(setId).all()
   for (const at of results) {
     if (Date.now() <= Date.parse(at.deadline) + GRACE_S * 1000) continue
     const content = await contentFor(DB, at)
@@ -194,7 +198,10 @@ async function listSets(DB, email, isAdmin) {
   for (const s of results) {
     if (!s.live && !isAdmin) continue
     const c = parse(s.live) || parse(s.draft) || {}
-    out.push({ id: s.id, kind: s.kind, state: stateOf(s), title: c.title, minutes: c.minutes, count: c.questions?.length || 0, max: maxScore(c), mine: await mine(DB, email, s.id) })
+    await closeExpired(DB, email, s.id)
+    const open = await DB.prepare('select deadline from quiz_attempts where email = ? and set_id = ? and submitted_at is null order by started_at desc limit 1').bind(email, s.id).first()
+    out.push({ id: s.id, kind: s.kind, state: stateOf(s), title: c.title, minutes: c.minutes, count: c.questions?.length || 0, max: maxScore(c), mine: await mine(DB, email, s.id),
+      openLeft: open ? Math.max(0, Math.round((Date.parse(open.deadline) - Date.now()) / 1000)) : null })
   }
   return out
 }

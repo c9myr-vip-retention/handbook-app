@@ -4,7 +4,7 @@ import { parseBody, toMarkdown } from './lib/markdown.js'
 import { Chart, ChartSvg, ChartDrawer, parseChart, chartText } from './Chart.jsx'
 import NameForm from './NameForm.jsx'
 import { GlossaryPage } from './Glossary.jsx'
-import { QuizzesHome, QuizSet, QuizScores } from './Quizzes.jsx'
+import { QuizzesHome, QuizSet, QuizScores, quizLeaveOk, quizHash } from './Quizzes.jsx'
 import { LearnHome, LearnModule, QuizPage, ScoresPage, SopLearnLink } from './Learn.jsx'
 import { LearnEditor } from './LearnEditor.jsx'
 
@@ -82,7 +82,13 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
   const INDEX = useMemo(() => buildIndex(NAV, PAGES), [NAV, PAGES])
   const [route, setRoute] = useState(() => parseHash(location.hash, NAV))
   useEffect(() => {
-    const onHash = () => { setRoute(parseHash(location.hash, NAV)); setNavOpen(false); setRailOpen(false); setQuery(''); setSearchOpen(false) }
+    const onHash = () => {
+      // A running quiz asks before it is left; staying puts its address back.
+      const qh = quizHash()
+      if (qh && location.hash !== qh && !skipGuard.current && !quizLeaveOk()) { history.pushState(null, '', qh); return }
+      skipGuard.current = false
+      setRoute(parseHash(location.hash, NAV)); setNavOpen(false); setRailOpen(false); setQuery(''); setSearchOpen(false)
+    }
     addEventListener('hashchange', onHash)
     return () => removeEventListener('hashchange', onHash)
   }, [NAV])
@@ -95,7 +101,7 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
   const [openSecs, setOpenSecs] = useState(() => ({ start: true }))
   const [query, setQuery] = useState('')
 
-  const scrollPos = useRef({}), pushing = useRef(false), firstRoute = useRef(true)
+  const scrollPos = useRef({}), pushing = useRef(false), firstRoute = useRef(true), skipGuard = useRef(false)
   useEffect(() => {
     const onScroll = () => { scrollPos.current[location.hash || '#/'] = scrollY }
     addEventListener('scroll', onScroll, { passive: true })
@@ -117,6 +123,11 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
   }, [route])
 
   const go = (r) => {
+    const qh = quizHash()
+    if (qh && toHash(r) !== qh) {
+      if (!quizLeaveOk()) return
+      skipGuard.current = true
+    }
     setNavOpen(false)
     setQuery('')
     const h = toHash(r)
@@ -314,7 +325,7 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
                 {route.kind === 'quiz' && <QuizPage key={route.key} id={route.key} go={go} />}
                 {route.kind === 'scores' && <ScoresPage go={go} />}
                 {route.kind === 'glossary' && <GlossaryPage go={go} pages={PAGES} canEdit={isAdmin} />}
-                {route.kind === 'quizzes' && <QuizzesHome go={go} isAdmin={isAdmin} />}
+                {route.kind === 'quizzes' && <QuizzesHome go={go} isAdmin={isAdmin} showLearn={showLearn} />}
                 {route.kind === 'qset' && <QuizSet key={route.key} id={route.key} go={go} isAdmin={isAdmin} />}
                 {route.kind === 'qscores' && (isAdmin ? <QuizScores key={route.key} id={route.key} go={go} /> : <QuizzesHome go={go} />)}
               </>}

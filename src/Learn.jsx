@@ -512,7 +512,7 @@ function AttemptReport({ sel, onClose }) {
         {err && <Err msg={err} />}
         {!list && !err && <Loading />}
         {list?.length === 0 && <p className="muted">No attempts yet.</p>}
-        {list?.map(a => {
+        {list?.filter(a => a.items.length > 0).map(a => {
           const missing = a.finished_at ? 0 : Math.max(0, a.total - a.items.length)
           const open = a.items.find(x => pick === a.n + '-' + x.k)
           return (
@@ -520,15 +520,15 @@ function AttemptReport({ sel, onClose }) {
               <div className="attempt-line">
                 <b>Attempt {a.n}</b>
                 {a.finished_at
-                  ? <span className={'chip ' + (a.passed ? 'scorepass' : 'planned')}>{a.pct}% {a.passed ? 'Passed' : 'Not passed'}</span>
-                  : <span className="chip pending">Not finished</span>}
+                  ? <span className={'attempt-score' + (a.passed ? ' pass' : '')}>{a.pct}% {a.passed ? 'Passed' : 'Not passed'}</span>
+                  : <span className="muted">Not finished</span>}
                 <span className="muted small">{when(a.started_at)}</span>
               </div>
               <div className="qcodes" role="list">
                 {a.items.map(x => (
                   <button key={x.k} role="listitem" className={'qcode ' + (x.correct ? 'ok' : 'bad') + (pick === a.n + '-' + x.k ? ' on' : '')}
                     aria-label={'Question ' + x.k + (x.correct ? ' correct' : ' wrong')} onClick={() => setPick(pick === a.n + '-' + x.k ? null : a.n + '-' + x.k)}>
-                    Q{x.k} {x.correct ? '✓' : x.timedOut ? '⏱' : '✗'}
+                    Q{x.k} <span className="mk" aria-hidden="true">{x.correct ? '✓' : x.timedOut ? '⏱' : '✗'}</span>
                   </button>
                 ))}
                 {Array.from({ length: missing }, (_, i) => <span key={'m' + i} className="qcode none" role="listitem" title="Not answered">Q{a.items.length + i + 1} -</span>)}
@@ -537,13 +537,14 @@ function AttemptReport({ sel, onClose }) {
                 <div className="qdetail">
                   <p>{open.q || <span className="muted">Question no longer in the quiz ({open.qid})</span>}</p>
                   {open.correct
-                    ? <p className="ok">Answered: {open.chose ?? '-'}</p>
-                    : <p><span className="bad">{open.timedOut ? 'Time ran out' : 'Chose: ' + (open.chose ?? '-')}</span>{open.right && <> · Correct: {open.right}</>}</p>}
+                    ? <p>Answered: <span className="right">{open.chose ?? '-'}</span></p>
+                    : <p>{open.timedOut ? 'Time ran out' : 'Chose: ' + (open.chose ?? '-')}{open.right && <> · Correct: <span className="right">{open.right}</span></>}</p>}
                 </div>
               )}
             </div>
           )
         })}
+        {list?.some(a => a.items.length === 0) && <p className="muted small attempt-hidden">{list.filter(a => a.items.length === 0).length} opened and left without answering (not shown).</p>}
         <p className="muted small qlegend">✓ correct · ✗ wrong · ⏱ time ran out · - not answered</p>
       </div>
     </div>,

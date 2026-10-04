@@ -1,0 +1,92 @@
+{
+  "id": "risk",
+  "sop_version": "V1.1",
+  "content": {
+    "minutes": 5,
+    "words": [
+      ["Risk player", "An inactive player, grouped by days since their last deposit: 1D, 3D, 7D, 14D or 30D."],
+      ["RG / chase flag", "A responsible-gaming or loss-chasing flag on the player. It beats every push: no push at all, route to welfare."],
+      ["Reload bonus", "A bonus on the player's next deposit, with a validity period and 1x turnover."],
+      ["Turnover (TO)", "The total valid bet amount. 1x means the player must bet the bonus once before withdrawing."],
+      [".txt and .csv", "The upload file types. TC takes .txt, Zyra takes .csv exported from the BO. The wrong type fails the upload."],
+      ["Back office (BO)", "The backend system where you check and update player details."]
+    ],
+    "tour": [
+      {
+        "key": "when", "label": "When", "kind": "check", "title": "Can you push this player?",
+        "sec": "Golden Rules", "secLabel": "3. Golden Rules",
+        "items": ["No RG / chase flag on the player", "The player is inactive (on today's 1D to 30D list)", "No similar bonus claimed this cycle"],
+        "done": "All three: pick the tier and send.",
+        "notYet": "An RG / chase flag means no push at all: route to welfare."
+      },
+      {
+        "key": "do", "label": "Do", "kind": "steps", "title": "Five steps, in this order",
+        "sec": "Procedure", "secLabel": "Procedure",
+        "items": [
+          ["Check the flag", "RG / chase flag: stop, route to welfare."],
+          ["Pick the tier", "1D Push only. 3D and above: SMS + Internal Message."],
+          ["Export", "TC: save as .txt. Zyra: export .csv from the BO."],
+          ["Send approved copy", "Template Tab, Risk Player. Do not change the copy without TL approval. Say: next deposit, validity, 1x turnover."],
+          ["QA Record", "Attach a BO screenshot. Tag Risk 1D to 30D, then Reactivated on deposit."]
+        ]
+      },
+      {
+        "key": "never", "label": "Never", "kind": "never", "title": "Four hard stops",
+        "sec": "Guards", "secLabel": "8. Guards",
+        "items": [
+          "Push a player with an RG / chase flag.",
+          "Upload the wrong file type (TC .txt, Zyra .csv).",
+          "Change the approved copy without TL approval.",
+          "Send the SMS yourself. Retention Admin sends it; you prepare the list."
+        ]
+      },
+      {
+        "key": "numbers", "label": "Tiers", "kind": "steps", "title": "What each tier gets",
+        "sec": "Risk Segmentation", "secLabel": "4. Risk Segmentation",
+        "items": [
+          ["1D, soft reminder", "Push only. Light, no urgency, no SMS, no IM."],
+          ["3D, soft emotional pull", "SMS + Internal Message. Personal, emotional appeal. No bonus."],
+          ["7D, strong incentive", "SMS + Internal Message. Reload bonus, 1x turnover, limited time. [CONFIRM] Is it 10%?"],
+          ["14D, strong incentive", "As 7D, higher bonus. [CONFIRM] Is it 15%, or at TL discretion?"],
+          ["30D, strong incentive", "As 7D, the highest reactivation push. [CONFIRM] Is it 20%?"]
+        ]
+      },
+      {
+        "key": "approver", "label": "Claim", "kind": "gate", "title": "How does the player get the reload?",
+        "sec": "Bonus Logic", "secLabel": "5. Bonus Logic",
+        "q": "Is the player on a TC brand?",
+        "yes": "TC: the bonus is automatic. The player claims it directly in the app or website.",
+        "no": "Zyra: manual. The player contacts Live Chat, you state the offer for the next deposit. Already deposited? Credit it by Lark ticket."
+      }
+    ],
+    "quiz": {
+      "count": 5, "pass": 80, "seconds": 60,
+      "pool": [
+        { "id": "rg-flag", "q": "A 7D player has an RG / chase flag. What do you send?",
+          "o": ["SMS + IM with the reload", "Push only", "Nothing; route to welfare", "IM only"], "a": 2,
+          "why": "The RG / chase flag beats every push. No push at all; route the player to welfare." },
+        { "id": "1d-channel", "q": "Which channel does a 1D player get?",
+          "o": ["Push only", "SMS + IM", "SMS + IM + Push", "Telegram"], "a": 0,
+          "why": "1D is a soft reminder: Push only, no urgency, no SMS, no IM." },
+        { "id": "3d-channel", "q": "Which channels does a 3D player get?",
+          "o": ["Push only", "SMS + Internal Message", "Nothing", "Phone call"], "a": 1,
+          "why": "3D and above: SMS + Internal Message. 3D is the soft emotional pull." },
+        { "id": "file-type", "q": "You are uploading the Zyra risk list. Which file type?",
+          "o": [".txt", ".csv from the BO", ".xlsx", "Any type"], "a": 1,
+          "why": "TC takes .txt, Zyra takes .csv exported from the BO. The wrong type fails the upload." },
+        { "id": "copy-change", "q": "You think the push copy could be better. Can you change it?",
+          "o": ["Yes, small changes are fine", "Only with TL approval", "Yes, for Tier V", "Never mind, send your own"], "a": 1,
+          "why": "Use the approved copy from Template Tab, Risk Player. Do not change it without TL approval." },
+        { "id": "zyra-claim", "q": "A Zyra 7D player already deposited before contacting you. How do they get the reload?",
+          "o": ["It is automatic", "Credit it manually by Lark ticket", "They cannot get it", "Tell them to deposit again"], "a": 1,
+          "why": "Zyra is manual. If the player already deposited, credit it manually via a Lark ticket." },
+        { "id": "say-what", "q": "What must the 7D message say clearly?",
+          "o": ["Only the bonus amount", "Next deposit, validity period, 1x turnover", "That it never expires", "Nothing about turnover"], "a": 1,
+          "why": "Communication control: the bonus applies to the next deposit, has a validity period and needs 1x turnover." },
+        { "id": "who-sms", "q": "Who sends the SMS to 3D players?",
+          "o": ["You, from the BO", "Retention Team Admin", "The ATL", "Nobody"], "a": 1,
+          "why": "SMS is sent by Retention Team Admin. VIP CS prepares the list only." }
+      ]
+    }
+  }
+}

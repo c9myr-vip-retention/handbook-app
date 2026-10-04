@@ -272,6 +272,7 @@ function problems(c) {
     if (!t.title) p.push(`${name} needs a title.`)
     if (['check', 'steps', 'never'].includes(t.kind) && !(t.items || []).length) p.push(`${name} has no items.`)
     if (t.kind === 'gate' && !(t.q && t.yes && t.no)) p.push(`${name} needs the question and both answers.`)
+    if (t.kind === 'ladder' && !(t.ladder?.rows?.length && t.ladder.capPct > 0 && t.ladder.input)) p.push(`${name} needs ladder rows, the SW cap and the amount label.`)
   }
   if (JSON.stringify(c).includes('[CONFIRM]')) p.push('Resolve every [CONFIRM] note.')
   return p

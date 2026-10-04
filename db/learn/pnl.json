@@ -1,0 +1,91 @@
+{
+  "id": "pnl",
+  "sop_version": "V1.1",
+  "content": {
+    "minutes": 5,
+    "words": [
+      ["Daily P&L", "The player's profit or loss today. Negative means the player lost today."],
+      ["Monthly P&L", "The player's profit or loss this month. It must also be negative for a Top P&L bonus."],
+      ["Secret Wallet (SW)", "The player's bonus budget. Tier 3 gets 3% of their lifetime P&L, Tier V gets 5%. Bonuses are paid out of this balance."],
+      ["CS SORTING FILE", "The sheet where you paste the export and sort Total P&L from lowest to highest, so the biggest losses sit on top."],
+      ["VVIP (TC filter)", "[CONFIRM] Does the TC Member Label \"VVIP\" mean exactly Tier 3 and Tier V players?"],
+      ["Back office (BO)", "The backend system where you check and update player details."]
+    ],
+    "tour": [
+      {
+        "key": "when", "label": "When", "kind": "check", "title": "Does this player get a Top P&L bonus?",
+        "sec": "Eligibility Screening", "secLabel": "4. Eligibility Screening",
+        "items": ["Lost today (daily P&L negative)", "Lost this month too (monthly P&L negative)", "Today's reward not claimed yet", "SW refreshed today, and the bonus fits SW x 40%"],
+        "done": "All four: match the ladder and issue.",
+        "notYet": "Any \"no\": skip the player. A player who lost today but is up this month gets nothing."
+      },
+      {
+        "key": "do", "label": "Do", "kind": "steps", "title": "Six steps, night shift",
+        "sec": "Procedure", "secLabel": "Procedure",
+        "items": [
+          ["Export at 7 PM", "TC: Report Management, Player Analysis. Zyra: Betting Record Overview. Wait for the data to load fully."],
+          ["Sort and take 10", "CS SORTING FILE. TC: filter to VVIP. Zyra: Tier 3 and Tier V. Sort Total P&L lowest first, take the top 10."],
+          ["Check each player", "Daily and monthly P&L negative, not claimed today, bonus at or below SW x 40%."],
+          ["Issue from 8 PM", "Highest ladder row that fits. Lark ticket, query VVIP TOP P&L BONUS, with screenshot. Tick Claimed."],
+          ["IM + Push", "Send IM + Push. When the player claims, check the list and amount first."],
+          ["QA Record", "Attach BO screenshots."]
+        ]
+      },
+      {
+        "key": "never", "label": "Never", "kind": "never", "title": "Four hard stops",
+        "sec": "Guards", "secLabel": "8. Guards",
+        "items": [
+          "Export before the data has fully loaded.",
+          "Pay a player who is profitable this month, even after a loss today.",
+          "Go above SW x 40%, or size on a SW that was not refreshed today.",
+          "Pay twice in a day."
+        ]
+      },
+      {
+        "key": "numbers", "label": "Numbers", "kind": "ladder", "title": "Work out the Top P&L bonus",
+        "sec": "Daily P&L Bonus Ladder", "secLabel": "5. Daily P&L Bonus Ladder",
+        "ladder": {
+          "input": "Today's loss (RM)", "example": "8000", "rowLabel": "Daily loss", "capPct": 40,
+          "rows": [[1000, 18], [2000, 28], [3000, 38], [4000, 58], [5000, 68], [6000, 78], [7000, 88], [8000, 98], [9000, 108], [10000, 118], [11000, 128], [12000, 138], [13000, 158], [14000, 168], [15000, 178], [16000, 188], [17000, 198], [18000, 208], [19000, 218], [20000, 228], [21000, 288]],
+          "notes": ["Max SW x 40%", "Monthly P&L must be negative", "Ticket: VVIP TOP P&L BONUS"]
+        }
+      },
+      {
+        "key": "approver", "label": "Zyra check", "kind": "gate", "title": "On Zyra, how do you check the month?",
+        "sec": "Detailed steps: Zyra", "secLabel": "7. Detailed steps: Zyra",
+        "q": "[CONFIRM] On Zyra, is the last-7-day P&L (deposit minus withdraw) the check, instead of monthly P&L?",
+        "yes": "Use last 7 days: User Betting Record, search the UID, last 7 days, deposit minus withdraw. Go on only if negative.",
+        "no": "Use the monthly P&L, as on TC."
+      }
+    ],
+    "quiz": {
+      "count": 5, "pass": 80, "seconds": 60,
+      "pool": [
+        { "id": "monthly-up", "q": "The player lost RM 6,000 today but is up RM 3,000 this month. Bonus?",
+          "o": ["RM 78", "Half the ladder", "No, monthly P&L must be negative", "Ask the ATL"], "a": 2,
+          "why": "Monthly P&L must be negative. A player who is profitable this month gets nothing, even after a loss today." },
+        { "id": "export-early", "q": "It is 7:05 PM and the report is still loading. What do you do?",
+          "o": ["Export now", "Wait until the data has fully loaded", "Use yesterday's export", "Skip tonight"], "a": 1,
+          "why": "Do not export before the data has fully loaded. Engage from 8 PM when the data is stable." },
+        { "id": "sort-order", "q": "How do you sort Total P&L to find the top 10?",
+          "o": ["Highest first", "Lowest first, biggest losses on top", "By username", "By tier"], "a": 1,
+          "why": "Sort Total P&L A to Z, lowest first. The biggest losses sit at the top." },
+        { "id": "pnl-cap", "q": "Today's loss RM 10,000 (ladder RM 118). SW RM 250, so SW x 40% = RM 100. What do you issue?",
+          "o": ["RM 118", "RM 100", "RM 98", "Nothing"], "a": 2,
+          "why": "Never above SW x 40%. The highest ladder row at or below RM 100 is RM 98 (the RM 8,000 row)." },
+        { "id": "pnl-21k", "q": "Today's loss is RM 25,000 and SW x 40% is RM 400. What do you issue?",
+          "o": ["RM 228", "RM 288", "RM 400", "RM 250"], "a": 1,
+          "why": "RM 21,000 and above is RM 288, the cap of the ladder. It fits under RM 400." },
+        { "id": "claimed-today", "q": "The player already claimed today's reward. They are still in the top 10. What now?",
+          "o": ["Pay again", "Skip the player", "Pay half", "Move them to tomorrow"], "a": 1,
+          "why": "Today's reward already claimed: skip." },
+        { "id": "won-today", "q": "A player in the export won RM 2,000 today. Do they get a Top P&L bonus?",
+          "o": ["Yes, RM 28", "No, daily P&L must be negative", "Yes, if monthly is negative", "Only Tier V"], "a": 1,
+          "why": "Daily P&L must be negative. A player who won today is skipped." },
+        { "id": "pnl-shift", "q": "Which shift runs Top P&L?",
+          "o": ["Day shift, 12 PM", "Night shift: export from 7 PM, engage from 8 PM", "Any shift", "Day shift, 2 PM"], "a": 1,
+          "why": "Night shift only. Export and filter from 7 PM; engage from 8 PM once the data is stable." }
+      ]
+    }
+  }
+}

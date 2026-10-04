@@ -15,6 +15,7 @@ const KINDS = {
   never: 'Hard stops (for example "Never")',
   gate: 'Yes / no question (for example "Approver")',
   calc: 'Calculator (for example "Numbers")',
+  ladder: 'Ladder calculator (amount to bonus, SW cap)',
 }
 const blankCard = (kind) => ({
   key: kind + '-' + Math.random().toString(36).slice(2, 6), label: '', kind, title: '', sec: '', secLabel: '',
@@ -22,6 +23,7 @@ const blankCard = (kind) => ({
   ...(kind === 'steps' || kind === 'never' ? { items: [] } : {}),
   ...(kind === 'gate' ? { q: '', yes: '', no: '' } : {}),
   ...(kind === 'calc' ? { calc: { tiers: [['3', 'Tier 3'], ['V', 'Tier V']], baseLabel: '', bases: [] } } : {}),
+  ...(kind === 'ladder' ? { ladder: { input: '', example: '', rowLabel: '', capPct: 40, rows: [], notes: [] } } : {}),
 })
 
 export function LearnEditor({ id, go }) {
@@ -209,7 +211,28 @@ function CardBody({ card, onChange }) {
     </div>
   )
   if (card.kind === 'calc') return <CalcEditor calc={card.calc} onChange={fn => onChange(x => fn(x.calc))} />
+  if (card.kind === 'ladder') return <LadderEditor l={card.ladder} onChange={fn => onChange(x => fn(x.ladder))} />
   return null
+}
+
+// Ladder: rows as "amount: bonus" lines, plus the SW cap percent.
+function LadderEditor({ l, onChange }) {
+  const [draft, setDraft] = useState(() => (l.rows || []).map(([t, b]) => t + ': ' + b).join('\n'))
+  const parse = (txt) => txt.split('\n').map(s => s.replace(/rm|,/gi, '').split(':').map(x => Number(x.trim()))).filter(r => r.length === 2 && r.every(Number.isFinite))
+  return (
+    <div className="led-calc">
+      <div className="led-grid">
+        <Field label="Amount box label" hint='For example "Last week loss (RM)".'><input value={l.input || ''} onChange={e => onChange(x => { x.input = e.target.value })} /></Field>
+        <Field label="Example amount"><input value={l.example || ''} onChange={e => onChange(x => { x.example = e.target.value })} /></Field>
+        <Field label="Ladder column name" hint='For example "Daily loss".'><input value={l.rowLabel || ''} onChange={e => onChange(x => { x.rowLabel = e.target.value })} /></Field>
+        <Field label="SW cap (%)"><input type="number" value={l.capPct ?? ''} onChange={e => onChange(x => { x.capPct = e.target.value === '' ? '' : Number(e.target.value) })} /></Field>
+      </div>
+      <Field label="Ladder rows" hint='One per line, as "amount: bonus", lowest first. The last row counts for that amount and above.'>
+        <textarea rows={Math.max(4, (l.rows || []).length + 1)} value={draft} onChange={e => { setDraft(e.target.value); const rows = parse(e.target.value); onChange(x => { x.rows = rows }) }} />
+      </Field>
+      <Lines label="Notes shown with the result" value={l.notes} onChange={v => onChange(x => { x.notes = v })} />
+    </div>
+  )
 }
 
 // Calculator numbers: per base (for example "Has SW" / "No SW") and per tier,

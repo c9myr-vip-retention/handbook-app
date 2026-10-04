@@ -246,6 +246,7 @@ function TourPanel({ s }) {
   if (s.kind === 'steps') return <ol className="tour-steps">{s.items.map(([t, d]) => <li key={t}><b>{t}</b><span>{d}</span></li>)}</ol>
   if (s.kind === 'never') return <ul className="tour-never">{s.items.map(t => <li key={t}>{t}</li>)}</ul>
   if (s.kind === 'calc' && s.calc) return <Calc cfg={s.calc} />
+  if (s.kind === 'ladder' && s.ladder) return <Ladder cfg={s.ladder} />
   if (s.kind === 'gate') return (
     <>
       <p className="tour-q">{s.q}</p>
@@ -262,6 +263,52 @@ function TourPanel({ s }) {
 // percent, floor and max per tier, and the "ending in 8" rounding.
 const eight = (x) => (x < 8 ? null : Math.floor((x - 8) / 10) * 10 + 8)
 const rm = (n) => 'RM ' + Number(n).toLocaleString('en-US', { maximumFractionDigits: 2 })
+// Ladder calculator (LTV, Top P&L, Compensation): the amount picks the highest
+// ladder row reached; the bonus may not exceed SW x cap%. If the row's bonus is
+// above the cap, the highest row that fits is used; if none fits, no bonus.
+// Rows are [threshold, bonus] in RM, lowest first.
+function Ladder({ cfg }) {
+  const [amt, setAmt] = useState('')
+  const [sw, setSw] = useState('')
+  const rows = [...(cfg.rows || [])].sort((a, b) => a[0] - b[0])
+  const n = (x) => Number(String(x).replace(/[, ]/g, ''))
+  const a = n(amt), w = n(sw)
+  const bad = (amt !== '' && !(Number.isFinite(a) && a >= 0)) || (sw !== '' && !(Number.isFinite(w) && w >= 0))
+  let out = null
+  if (amt !== '' && sw !== '' && !bad) {
+    const hit = rows.filter(r => a >= r[0]).pop()
+    const cap = w * cfg.capPct / 100
+    if (!hit) out = { amount: null, why: `${rm(a)} is below the first ladder row (${rm(rows[0]?.[0] ?? 0)}). No bonus.` }
+    else if (hit[1] <= cap) out = { amount: hit[1], why: `${rm(a)} reaches the ${rm(hit[0])} row: ${rm(hit[1])}. SW x ${cfg.capPct}% = ${rm(cap)}, so it fits.` }
+    else {
+      const fit = rows.filter(r => r[1] <= cap && r[0] <= hit[0]).pop()
+      out = fit
+        ? { amount: fit[1], why: `The ${rm(hit[0])} row is ${rm(hit[1])}, above SW x ${cfg.capPct}% = ${rm(cap)}. Highest row that fits: ${rm(fit[1])}.` }
+        : { amount: null, why: `SW x ${cfg.capPct}% = ${rm(cap)} is below the smallest bonus (${rm(rows[0][1])}). SW not enough: no bonus.` }
+    }
+  }
+  return (
+    <div className="calc">
+      <label className="calc-row"><span className="calc-lbl">{cfg.input}</span>
+        <input inputMode="decimal" value={amt} onChange={e => setAmt(e.target.value)} placeholder={cfg.example || ''} /></label>
+      <label className="calc-row"><span className="calc-lbl">SW balance today (RM)</span>
+        <input inputMode="decimal" value={sw} onChange={e => setSw(e.target.value)} placeholder="500" /></label>
+      {bad && <p className="err" role="alert">Enter amounts in RM, numbers only.</p>}
+      <div className="calc-out" aria-live="polite">
+        {out
+          ? <><p className="calc-amt">{out.amount == null ? 'No bonus' : rm(out.amount)}</p>
+              <p className="calc-why">{out.why}</p>
+              {(cfg.notes || []).length > 0 && <p className="calc-tags">{cfg.notes.map(t => <span key={t} className="chip ver">{t}</span>)}</p>}</>
+          : <p className="muted">Type the amount and today's SW balance.</p>}
+      </div>
+      <details className="ladder-rows"><summary>See the full ladder</summary>
+        <div className="tbl-wrap"><table><thead><tr><th>{cfg.rowLabel || 'From'}</th><th>Bonus</th></tr></thead>
+          <tbody>{rows.map(([t, b]) => <tr key={t}><td>{rm(t)}{t === rows[rows.length - 1][0] ? ' and above' : ''}</td><td>{rm(b)}</td></tr>)}</tbody></table></div>
+      </details>
+    </div>
+  )
+}
+
 function Calc({ cfg }) {
   const [tier, setTier] = useState(cfg.tiers[0][0])
   const [baseKey, setBaseKey] = useState(cfg.bases[0].key)

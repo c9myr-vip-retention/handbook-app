@@ -379,6 +379,7 @@ mark { background:color-mix(in srgb, var(--accent) 18%, transparent); color:inhe
 .calc-row { display:grid; grid-template-columns:170px minmax(0,1fr); align-items:center; gap:12px; }
 .calc-lbl { font-size:var(--fs-sm); font-weight:600; color:var(--muted); }
 .calc-row input { max-width:220px; padding:8px 12px; font-size:var(--fs-md); border:1px solid var(--input-border); border-radius:var(--r-sm); background:var(--surface); color:var(--text); }
+.ladder-rows { font-size:var(--fs-sm); } .ladder-rows summary { cursor:pointer; color:var(--accent); min-height:28px; } .ladder-rows table { margin-top:6px; }
 .calc-out { margin-top:4px; padding:12px 14px; border-radius:var(--r-sm); background:var(--surface); border:1px solid var(--border); }
 .calc-amt { margin:0; font-size:var(--fs-2xl); font-weight:700; color:var(--accent); }
 .calc-why { margin:2px 0 8px; font-size:var(--fs-sm); color:var(--muted); }

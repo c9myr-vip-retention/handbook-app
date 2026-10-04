@@ -110,40 +110,108 @@
       {
         "key": "numbers",
         "label": "Numbers",
-        "kind": "steps",
-        "title": "Last week loss ladder (SW x 40%)",
-        "sec": "Golden Rules",
-        "secLabel": "3. Golden Rules",
-        "items": [
-          [
-            "RM 1,000 to 4,000",
-            "RM 18, 28, 38, 58"
+        "kind": "ladder",
+        "title": "Work out the compensation",
+        "sec": "Compensation Ladder",
+        "secLabel": "4. Compensation Ladder",
+        "ladder": {
+          "input": "Last week loss (RM)",
+          "example": "8000",
+          "rowLabel": "Last week loss",
+          "capPct": 40,
+          "rows": [
+            [
+              1000,
+              18
+            ],
+            [
+              2000,
+              28
+            ],
+            [
+              3000,
+              38
+            ],
+            [
+              4000,
+              58
+            ],
+            [
+              5000,
+              68
+            ],
+            [
+              6000,
+              78
+            ],
+            [
+              7000,
+              88
+            ],
+            [
+              8000,
+              98
+            ],
+            [
+              9000,
+              108
+            ],
+            [
+              10000,
+              118
+            ],
+            [
+              11000,
+              128
+            ],
+            [
+              12000,
+              138
+            ],
+            [
+              13000,
+              158
+            ],
+            [
+              14000,
+              168
+            ],
+            [
+              15000,
+              178
+            ],
+            [
+              16000,
+              188
+            ],
+            [
+              17000,
+              198
+            ],
+            [
+              18000,
+              208
+            ],
+            [
+              19000,
+              218
+            ],
+            [
+              20000,
+              228
+            ],
+            [
+              21000,
+              288
+            ]
           ],
-          [
-            "RM 5,000 to 10,000",
-            "RM 68, 78, 88, 98, 108, 118"
-          ],
-          [
-            "RM 11,000 to 15,000",
-            "RM 128, 138, 158, 168, 178"
-          ],
-          [
-            "RM 16,000 to 20,000",
-            "RM 188, 198, 208, 218, 228"
-          ],
-          [
-            "Above RM 20,000",
-            "RM 288 (the max)"
-          ],
-          [
-            "Cap",
-            "The bonus must be at or below SW x 40%. If the ladder amount is higher, take the highest row that fits. SW not enough for any row: no compensation."
-          ],
-          [
-            "Turnover",
-            "1x before withdrawal."
+          "notes": [
+            "Max SW x 40%",
+            "One per week",
+            "ATL approves first",
+            "1x turnover"
           ]
-        ]
+        }
       },
       {
         "key": "approver",

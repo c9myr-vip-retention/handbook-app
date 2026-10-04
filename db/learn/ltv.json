@@ -1,0 +1,93 @@
+{
+  "id": "ltv",
+  "sop_version": "V1.1",
+  "content": {
+    "minutes": 5,
+    "words": [
+      ["LTV", "[CONFIRM] What LTV means here and how it is measured (the ladder reads LTV 2,000 = RM 28, so it is an RM value)."],
+      ["Top 70 pool", "The 70 players picked every Monday by Retention Team Admin. Tier 3 and Tier V only. Worked 10 a day, Monday to Sunday."],
+      ["FTV and \"LTV 7 or more\"", "[CONFIRM] What FTV is, and what \"LTV of 7 or more\" means in the Monday selection."],
+      ["Secret Wallet (SW)", "The player's bonus budget. Tier 3 gets 3% of their lifetime P&L, Tier V gets 5%. Bonuses are paid out of this balance."],
+      ["Valid and invalid", "Valid: no LTV reward this week, no Daily P&L reward this week, and the SW covers the bonus (SW x 40%). Invalid: IM + Push only, no SMS, no bonus mention."],
+      ["Contact precedes deposit", "Engage the player first. No bonus before the player has engaged."],
+      ["Back office (BO)", "The backend system where you check and update player details."]
+    ],
+    "tour": [
+      {
+        "key": "when", "label": "When", "kind": "check", "title": "Is this player ready for an LTV bonus?",
+        "sec": "Eligibility", "secLabel": "5. Eligibility",
+        "items": ["The player is in today's batch of 10 (today's day, not another day's)", "No LTV reward and no Daily P&L reward this week", "SW refreshed today, and the ladder bonus fits SW x 40%"],
+        "done": "All three: engage the player first, then issue.",
+        "notYet": "Any \"no\": IM + Push only, no SMS and no bonus mention."
+      },
+      {
+        "key": "do", "label": "Do", "kind": "steps", "title": "Seven steps, in this order",
+        "sec": "Procedure", "secLabel": "Procedure",
+        "items": [
+          ["Find today's 10", "Team Engagement File, Handover Tab, today's exact day. Exactly 10."],
+          ["Paste and dedupe", "Paste values into Lark Base, LTV (Day). Remove anyone who got Daily P&L or this week's LTV. Under 10 left: fill down the ranking."],
+          ["Pre-check", "Not given this week, currently active, SW enough (bonus at or below SW x 40%)."],
+          ["Engage first", "Open with a greeting and watch the reply. Active: go on. Cold: you can delay."],
+          ["Send", "Valid: username list to Admin for SMS, you send IM + Push. Invalid: IM + Push only."],
+          ["Issue and ticket", "Lark ticket, query VVIP LTV 70 BONUS, with username, amount and screenshot. Tick Claimed."],
+          ["Tag and QA", "Tag Weekly LTV Rewarded (Week XX). QA Record with a BO screenshot."]
+        ]
+      },
+      {
+        "key": "never", "label": "Never", "kind": "never", "title": "Four hard stops",
+        "sec": "Guards", "secLabel": "7. Guards",
+        "items": [
+          "Go over 10 players in a day, or carry players over to tomorrow.",
+          "Borrow another day's batch, even when today's list is empty. Report it to the ATL.",
+          "Issue above SW x 40%, or size on a SW that was not refreshed today.",
+          "Issue before the player has engaged."
+        ]
+      },
+      {
+        "key": "numbers", "label": "Numbers", "kind": "ladder", "title": "Work out the LTV bonus",
+        "sec": "Bonus Tier Ladder", "secLabel": "6. Bonus Tier Ladder",
+        "ladder": {
+          "input": "Player's LTV (RM)", "example": "8000", "rowLabel": "LTV", "capPct": 40,
+          "rows": [[2000, 28], [3000, 38], [4000, 58], [5000, 68], [6000, 78], [7000, 88], [8000, 98], [9000, 108], [10000, 118], [11000, 128], [12000, 138], [13000, 158], [14000, 168], [15000, 178], [16000, 188], [17000, 198], [18000, 208], [19000, 218], [20000, 228], [21000, 288]],
+          "notes": ["Max SW x 40%", "Ticket: VVIP LTV 70 BONUS"]
+        }
+      },
+      {
+        "key": "approver", "label": "Which batch", "kind": "gate", "title": "Is today's list empty?",
+        "sec": "Day-of-Week Database", "secLabel": "4. Day-of-Week Database",
+        "q": "Is today's batch of 10 empty?",
+        "yes": "Report it to the ATL. Do not borrow another day's batch.",
+        "no": "Work today's 10 only: Monday 1 to 10, Tuesday 11 to 20, and so on to Sunday 61 to 70."
+      }
+    ],
+    "quiz": {
+      "count": 5, "pass": 80, "seconds": 60,
+      "pool": [
+        { "id": "tue-batch", "q": "It is Tuesday. Which players do you work?",
+          "o": ["Players 1 to 10", "Players 11 to 20", "Any 10 from the 70", "All 70"], "a": 1,
+          "why": "One batch per day: Monday 1 to 10, Tuesday 11 to 20, through to Sunday 61 to 70." },
+        { "id": "empty-borrow", "q": "Today's batch is empty. What do you do?",
+          "o": ["Take tomorrow's batch", "Take yesterday's leftovers", "Report it to the ATL", "Pick 10 players yourself"], "a": 2,
+          "why": "Never borrow another day's batch. An empty list is reported to the ATL." },
+        { "id": "quota-11", "q": "You finished 10 players and one more looks promising. Can you do an 11th?",
+          "o": ["Yes, if the SW allows", "Yes, carry it to tomorrow", "No, exactly 10 a day", "Only with Admin's OK"], "a": 2,
+          "why": "The daily quota is exactly 10. Never exceed it and never carry over." },
+        { "id": "got-pnl", "q": "A player in today's batch got a Daily P&L reward this week. What now?",
+          "o": ["Give the LTV bonus too", "Remove them and fill down the ranking", "Give half the LTV bonus", "Ask the player"], "a": 1,
+          "why": "Dedupe: remove anyone who got Daily P&L or this week's LTV, then fill down the ranking." },
+        { "id": "ltv-cap", "q": "LTV RM 10,000 (ladder RM 118). SW RM 250, so SW x 40% = RM 100. What do you issue?",
+          "o": ["RM 118", "RM 100", "RM 98", "Nothing"], "a": 2,
+          "why": "Never above SW x 40%. The highest ladder row at or below RM 100 is RM 98." },
+        { "id": "engage-first", "q": "The player is valid but has not replied to your greeting. Do you issue the bonus?",
+          "o": ["Yes, issue it now", "No, the player must engage first; you can delay", "Yes, but send SMS too", "No, remove them for good"], "a": 1,
+          "why": "Engage before issuance. Active: go on. Cold: you can delay." },
+        { "id": "invalid-sms", "q": "An invalid player is in today's batch. What do they get?",
+          "o": ["SMS + IM + Push with the offer", "IM + Push only, no bonus mention", "Nothing", "A smaller bonus"], "a": 1,
+          "why": "Invalid players get IM + Push only. No SMS, no bonus mention. SMS is sent by Admin for valid players only." },
+        { "id": "ltv-tag", "q": "You issued the LTV bonus. What do you tag?",
+          "o": ["LTV Done", "Weekly LTV Rewarded (Week XX)", "Daily P&L Rewarded", "Claimed only"], "a": 1,
+          "why": "Tag Weekly LTV Rewarded with the correct week number, then update the QA Record." }
+      ]
+    }
+  }
+}

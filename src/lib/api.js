@@ -64,6 +64,18 @@ export const api = {
   learnScores: () => req('/api/learn/scores'),
   learnAttempts: (id, email) => req('/api/learn/scores/' + encodeURIComponent(id) + '/' + encodeURIComponent(email)),
   learnSaveDraft: (id, content) => req('/api/learn/' + encodeURIComponent(id) + '/draft', { method: 'PUT', body: JSON.stringify({ content }) }),
+  // Quiz page. Keys stay on the server; answers are sent as the option sentence.
+  quizzes: () => req('/api/quizzes'),
+  quiz: (id) => req('/api/quizzes/' + encodeURIComponent(id)),
+  quizStart: (id) => req('/api/quizzes/' + encodeURIComponent(id) + '/attempts', { method: 'POST' }),
+  quizSave: (aid, qid, choice, explain) => req('/api/quizzes/attempts/' + encodeURIComponent(aid), { method: 'PUT', body: JSON.stringify({ qid, choice, explain }) }),
+  quizSubmit: (aid) => req('/api/quizzes/attempts/' + encodeURIComponent(aid) + '/submit', { method: 'POST' }),
+  quizDraft: (id) => req('/api/quizzes/' + encodeURIComponent(id) + '/draft'),
+  quizPublish: (id) => req('/api/quizzes/' + encodeURIComponent(id) + '/publish', { method: 'POST' }),
+  quizClose: (id, closed) => req('/api/quizzes/' + encodeURIComponent(id) + '/close', { method: 'POST', body: JSON.stringify({ closed }) }),
+  quizScores: (id) => req('/api/quizzes/' + encodeURIComponent(id) + '/scores'),
+  quizAttempts: (id, email) => req('/api/quizzes/' + encodeURIComponent(id) + '/scores/' + encodeURIComponent(email)),
+  quizMark: (aid, qid, pts) => req('/api/quizzes/attempts/' + encodeURIComponent(aid) + '/mark', { method: 'POST', body: JSON.stringify({ qid, pts }) }),
   learnCreate: (id) => req('/api/learn/' + encodeURIComponent(id) + '/create', { method: 'POST' }),
 }
 

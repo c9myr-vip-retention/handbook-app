@@ -1,0 +1,348 @@
+{
+  "id": "pillars-assessment",
+  "kind": "practice",
+  "content": {
+    "title": "5 Pillars: high level application assessment",
+    "intro": [
+      "Extreme-difficulty scenario assessment, designed to test judgment when more than one pillar looks right.",
+      "Choose the primary mindset, not merely a mindset that is also relevant.",
+      "Questions 1 to 15: choose one best answer. Questions 16 to 20: choose the primary answer and explain why the strongest alternative is not primary."
+    ],
+    "minutes": 40,
+    "maxAttempts": null,
+    "ref": {
+      "title": "The five pillars",
+      "items": [
+        [
+          "Ownership Mentality",
+          "Take responsibility for tasks, outcomes and follow-through."
+        ],
+        [
+          "Progress Over Perfection",
+          "Move work forward with accuracy and urgency, then improve iteratively."
+        ],
+        [
+          "Data-Driven Thinking",
+          "Verify facts and use data before assumptions or conclusions."
+        ],
+        [
+          "Continuous Growth",
+          "Learn from feedback and mistakes, improve processes and habits."
+        ],
+        [
+          "Team Before Ego",
+          "Prioritise collective success, constructive communication and team outcomes."
+        ]
+      ]
+    },
+    "sections": [
+      {
+        "id": "A",
+        "title": "Section A: Primary mindset identification",
+        "note": ""
+      },
+      {
+        "id": "B",
+        "title": "Section B: The trap questions",
+        "note": ""
+      },
+      {
+        "id": "C",
+        "title": "Section C: High-conflict scenarios",
+        "note": "Choose the PRIMARY pillar, not simply a pillar that is also relevant."
+      },
+      {
+        "id": "D",
+        "title": "Section D: Expert-level reasoning",
+        "note": "For each question, explain: 1) why your chosen answer is primary, and 2) why the strongest alternative is not primary."
+      }
+    ],
+    "questions": [
+      {
+        "id": "q1",
+        "sec": "A",
+        "q": "A VIP says his deposit has not been credited.\nYou check the Back Office and see no obvious problem. The VIP insists the money has already left his bank account.\nWhat is the best first response internally?",
+        "o": [
+          "Ask another department to check because payment matters should be handled by the payment team.",
+          "Tell the VIP the issue is probably caused by the bank and ask him to wait.",
+          "Verify the transaction details, amount, time, UID and available system records before deciding what happened.",
+          "Escalate immediately so the case will not be delayed."
+        ],
+        "a": "",
+        "pts": 1
+      },
+      {
+        "id": "q2",
+        "sec": "A",
+        "q": "You are preparing the daily performance report. The required data has already been checked and is accurate, but the formatting can still be improved.\nThe report is due in 10 minutes.\nWhat should you do?",
+        "o": [
+          "Delay submission until the presentation is as polished as possible.",
+          "Submit the accurate report on time, then improve the presentation after the required work is completed.",
+          "Ask another teammate to take over the formatting so everything can be perfect before submission.",
+          "Submit first without checking the remaining figures because meeting the deadline is more important."
+        ],
+        "a": "",
+        "pts": 1
+      },
+      {
+        "id": "q3",
+        "sec": "A",
+        "q": "A teammate makes a tagging mistake that causes another department to spend extra time correcting the case.\nYou notice the teammate has made the same type of mistake before.\nWhat is the most important action?",
+        "o": [
+          "Remind the teammate to be more careful next time.",
+          "Inform the Senior so the same problem will not happen again.",
+          "Identify why the mistake keeps happening and change the working/checking method that allowed it to repeat.",
+          "Help the other department correct the affected cases first."
+        ],
+        "a": "",
+        "pts": 1
+      },
+      {
+        "id": "q4",
+        "sec": "A",
+        "q": "A VIP case has been escalated to Senior because the situation is outside your authority.\nAfter escalation, you are busy handling other customers. Two hours later, you realise you have not checked whether the case was resolved.\nWhat should concern you most?",
+        "o": [
+          "Whether Senior has enough experience to handle the case.",
+          "Whether the customer has contacted again.",
+          "Whether your responsibility has actually ended simply because the case was escalated.",
+          "Whether the escalation process should be changed in the future."
+        ],
+        "a": "",
+        "pts": 1
+      },
+      {
+        "id": "q5",
+        "sec": "A",
+        "q": "Your team is deciding whether to change the way Telegram follow-ups are recorded.\nYou personally prefer the current method because you created it and it works well for you. Two teammates believe the new method will reduce duplicated work for the whole team.\nWhat is the strongest approach?",
+        "o": [
+          "Keep the current method because changing a working process creates unnecessary risk.",
+          "Let the Senior decide without discussing the disagreement further.",
+          "Compare the actual impact of both methods and discuss the option that benefits the team's overall workflow.",
+          "Let the majority decide, even if you still believe your method is better."
+        ],
+        "a": "",
+        "pts": 1
+      },
+      {
+        "id": "q6",
+        "sec": "B",
+        "q": "A promotion is showing as “claimed” in one system, but the player says he did not receive the benefit.\nYou find one screenshot that appears to support the player's story.\nWhat should you do next?",
+        "o": [
+          "Accept the screenshot because it is direct evidence from the player.",
+          "Explain to the player that the system is probably wrong and escalate it.",
+          "Check the relevant promotion conditions, claim record, timing and other available data before concluding what happened.",
+          "Give the player the benefit first because delaying may create a worse customer experience."
+        ],
+        "a": "",
+        "pts": 1
+      },
+      {
+        "id": "q7",
+        "sec": "B",
+        "q": "A newly trained staff member is still slower than the experienced agents.\nTheir reports are accurate, their tagging is correct and they follow the SOP.\nWhat is the most appropriate conclusion?",
+        "o": [
+          "The staff member needs to be pushed to work faster immediately.",
+          "Accuracy is enough, so their speed does not matter.",
+          "The staff member should first maintain correct execution while gradually improving efficiency through practice and feedback.",
+          "The staff member should copy the fastest agent's working style."
+        ],
+        "a": "",
+        "pts": 1
+      },
+      {
+        "id": "q8",
+        "sec": "B",
+        "q": "During a busy shift, another department asks your team to urgently confirm several player records.\nOne teammate says: “Just send them the information first. We can verify it later.”\nWhat is the strongest response?",
+        "o": [
+          "Send the information quickly because supporting other departments is part of teamwork.",
+          "Verify the required information first, even if it takes slightly longer, because incorrect information may create more work and confusion.",
+          "Ask the other department to handle the verification themselves.",
+          "Send only the records that look correct and leave the uncertain ones for later."
+        ],
+        "a": "",
+        "pts": 1
+      },
+      {
+        "id": "q9",
+        "sec": "B",
+        "q": "You discover that one of your teammates made an operational mistake.\nThe mistake has already been corrected and there is no active customer impact.\nWhat action best reflects the appropriate mindset?",
+        "o": [
+          "Leave it alone because the issue is already solved.",
+          "Tell other teammates so everyone knows what happened and can avoid the person's mistake.",
+          "Discuss the issue constructively with the relevant person and identify how the same mistake can be prevented in future.",
+          "Report the person immediately because repeated mistakes may affect team performance."
+        ],
+        "a": "",
+        "pts": 1
+      },
+      {
+        "id": "q10",
+        "sec": "B",
+        "q": "You are working on a new report format.\nYour first version is functional but not ideal. A Senior gives you feedback on several areas that can be improved.\nWhich response demonstrates the strongest mindset?",
+        "o": [
+          "Keep the current version because it already works and changing it may introduce errors.",
+          "Ask the Senior to explain exactly what format they want before making any changes.",
+          "Apply the useful feedback, identify what you can improve yourself, and use the experience to make future reports better.",
+          "Rebuild the entire report from scratch so the previous version will not be repeated."
+        ],
+        "a": "",
+        "pts": 1
+      },
+      {
+        "id": "q11",
+        "sec": "C",
+        "q": "A player reports a missing promotion reward.\nYou check the promotion record and discover that the player did not meet one of the required conditions.\nThe player argues that another staff member previously told him the promotion was eligible.\nWhat is the primary mindset needed now?",
+        "o": [
+          "Ownership Mentality",
+          "Progress Over Perfection",
+          "Data-Driven Thinking",
+          "Team Before Ego"
+        ],
+        "a": "",
+        "pts": 1
+      },
+      {
+        "id": "q12",
+        "sec": "C",
+        "q": "You notice that your team's existing process causes staff to repeat the same verification several times.\nEveryone is already following the current SOP correctly.\nNo one has made a mistake.\nWhat should the team member who discovers this do?",
+        "o": [
+          "Continue following the SOP because following instructions is the safest approach.",
+          "Raise the inefficiency and suggest a better approach based on the actual workflow impact.",
+          "Change the process immediately so the team can become more efficient.",
+          "Wait until someone else notices the problem before raising it."
+        ],
+        "a": "",
+        "pts": 1
+      },
+      {
+        "id": "q13",
+        "sec": "C",
+        "q": "A teammate asks you for help with a difficult case while you are already handling several urgent tasks.\nYou know the answer, but solving the case for them would allow you to finish your own work faster.\nWhat is the strongest response?",
+        "o": [
+          "Solve it yourself immediately because speed is more important during a busy shift.",
+          "Tell the teammate to find another person because your own workload comes first.",
+          "Help them understand the issue while maintaining your own responsibilities, so the team can solve the situation without creating unnecessary dependency.",
+          "Escalate the case to Senior so neither of you needs to spend time on it."
+        ],
+        "a": "",
+        "pts": 1
+      },
+      {
+        "id": "q14",
+        "sec": "C",
+        "q": "A monthly report shows a sudden drop in Telegram engagement.\nOne Senior says the team has “probably become less proactive.”\nAnother teammate says the player pool may have changed.\nYou have not yet checked the underlying data.\nWhat should happen first?",
+        "o": [
+          "Start coaching staff to increase Telegram activity.",
+          "Compare the relevant data and determine what actually changed before identifying the cause.",
+          "Accept the Senior's experience because they have handled the team longer.",
+          "Ask the team why they have become less proactive."
+        ],
+        "a": "",
+        "pts": 1
+      },
+      {
+        "id": "q15",
+        "sec": "C",
+        "q": "You are responsible for a VIP case that has already been escalated.\nThe other department has not replied yet.\nAt the same time:\n- the customer is waiting,\n- you have other urgent work,\n- the available data is incomplete, and\n- you suspect there may be a process issue behind the delay.\nWhat should be your primary approach?",
+        "o": [
+          "Chase the other department immediately, then solve the root cause after the customer is handled.",
+          "Wait for the other department because the case has already been escalated.",
+          "Continue owning the case, verify what can already be established from available data, communicate appropriately, and follow through until the case reaches a proper resolution.",
+          "Focus on completing your other urgent tasks first because the unresolved part is outside your authority."
+        ],
+        "a": "",
+        "pts": 1
+      },
+      {
+        "id": "q16",
+        "sec": "D",
+        "q": "You notice a teammate repeatedly asks another department to confirm information that can already be checked from your own system.\nWhich pillar is primary?",
+        "o": [
+          "Ownership Mentality",
+          "Data-Driven Thinking",
+          "Continuous Growth",
+          "Team Before Ego"
+        ],
+        "a": "",
+        "pts": 1,
+        "explain": {
+          "pts": 1,
+          "prompt": "Explain 1) why your answer is the primary one, and 2) why the strongest alternative is not primary.",
+          "rubric": ""
+        }
+      },
+      {
+        "id": "q17",
+        "sec": "D",
+        "q": "Your supervisor asks you to improve a report before tomorrow.\nYou can either spend the entire evening redesigning it perfectly, or submit a correct improvement tonight and continue refining it tomorrow based on feedback.\nWhich pillar is primary?",
+        "o": [
+          "Ownership Mentality",
+          "Progress Over Perfection",
+          "Continuous Growth",
+          "Team Before Ego"
+        ],
+        "a": "",
+        "pts": 1,
+        "explain": {
+          "pts": 1,
+          "prompt": "Explain 1) why your answer is the primary one, and 2) why the strongest alternative is not primary.",
+          "rubric": ""
+        }
+      },
+      {
+        "id": "q18",
+        "sec": "D",
+        "q": "Your teammate strongly disagrees with your suggestion during a team discussion.\nYour idea would make your own workload easier, while their suggestion would make the entire team's workflow more consistent.\nWhich pillar is primary?",
+        "o": [
+          "Ownership Mentality",
+          "Progress Over Perfection",
+          "Data-Driven Thinking",
+          "Team Before Ego"
+        ],
+        "a": "",
+        "pts": 1,
+        "explain": {
+          "pts": 1,
+          "prompt": "Explain 1) why your answer is the primary one, and 2) why the strongest alternative is not primary.",
+          "rubric": ""
+        }
+      },
+      {
+        "id": "q19",
+        "sec": "D",
+        "q": "You have completed a task correctly.\nLater, you discover that although the result was correct, your method required significantly more work than necessary.\nWhat is the strongest next step?",
+        "o": [
+          "Nothing needs to change because the final result was correct.",
+          "Ask another person to take over the task next time.",
+          "Review the process, identify what caused the unnecessary work, and improve your method.",
+          "Work faster next time without changing the process."
+        ],
+        "a": "",
+        "pts": 1,
+        "explain": {
+          "pts": 1,
+          "prompt": "Explain 1) why your answer is the primary one, and 2) why the strongest alternative is not primary.",
+          "rubric": ""
+        }
+      },
+      {
+        "id": "q20",
+        "sec": "D",
+        "q": "You make a mistake that affects a VIP case.\nYou immediately correct it.\nLater, you discover:\n- the mistake happened because you assumed something without checking,\n- you did not update the relevant person immediately, and\n- you realised your checking process has the same weakness as a previous incident.\nWhich statement best demonstrates the correct overall mindset?",
+        "o": [
+          "The mistake has already been corrected, so the important thing is to avoid worrying about it.",
+          "The main priority is to apologise and move on so the team does not lose confidence in you.",
+          "Correct the immediate issue, identify the factual cause, take responsibility for the case, improve the process that allowed the mistake to happen, and make sure the relevant team is informed.",
+          "Ask Senior to review the entire situation because several different departments may have contributed to the problem."
+        ],
+        "a": "",
+        "pts": 1,
+        "explain": {
+          "pts": 1,
+          "prompt": "Explain 1) why your answer is the primary one, and 2) why the strongest alternative is not primary.",
+          "rubric": ""
+        }
+      }
+    ]
+  }
+}

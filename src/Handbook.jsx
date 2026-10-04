@@ -4,6 +4,7 @@ import { parseBody, toMarkdown } from './lib/markdown.js'
 import { Chart, ChartSvg, ChartDrawer, parseChart, chartText } from './Chart.jsx'
 import NameForm from './NameForm.jsx'
 import { GlossaryPage } from './Glossary.jsx'
+import { QuizzesHome, QuizSet, QuizScores } from './Quizzes.jsx'
 import { LearnHome, LearnModule, QuizPage, ScoresPage, SopLearnLink } from './Learn.jsx'
 import { LearnEditor } from './LearnEditor.jsx'
 
@@ -194,6 +195,9 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
     if (route.kind === 'quiz') return 'Quiz: ' + (PAGES[route.key]?.title || route.key)
     if (route.kind === 'scores') return 'Learning scores'
     if (route.kind === 'glossary') return 'Glossary'
+    if (route.kind === 'quizzes') return 'Quiz'
+    if (route.kind === 'qset') return 'Quiz'
+    if (route.kind === 'qscores') return 'Quiz scores'
     if (route.kind === 'edit') return 'Edit: ' + (PAGES[route.key]?.title || route.key)
     if (route.kind === 'history') return 'History: ' + (PAGES[route.key]?.title || route.key)
     return ''
@@ -212,6 +216,8 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
           onClick={() => { setQuery(''); go({ kind: 'learn' }) }}><span>Learn</span></button>}
         {!preview && <button className={'navitem homeitem' + (route.kind === 'glossary' ? ' active' : '')} aria-current={route.kind === 'glossary' ? 'page' : undefined}
           onClick={() => { setQuery(''); go({ kind: 'glossary' }) }}><span>Glossary</span></button>}
+        {!preview && <button className={'navitem homeitem' + (['quizzes', 'qset', 'qscores'].includes(route.kind) ? ' active' : '')} aria-current={route.kind === 'quizzes' ? 'page' : undefined}
+          onClick={() => { setQuery(''); go({ kind: 'quizzes' }) }}><span>Quiz</span></button>}
         <nav aria-label="Handbook sections">
           {NAV.map(sec => (
             <div key={sec.id} className={'navsec' + (openSecs[sec.id] ? ' open' : '')}>
@@ -308,6 +314,9 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
                 {route.kind === 'quiz' && <QuizPage key={route.key} id={route.key} go={go} />}
                 {route.kind === 'scores' && <ScoresPage go={go} />}
                 {route.kind === 'glossary' && <GlossaryPage go={go} pages={PAGES} canEdit={isAdmin} />}
+                {route.kind === 'quizzes' && <QuizzesHome go={go} isAdmin={isAdmin} />}
+                {route.kind === 'qset' && <QuizSet key={route.key} id={route.key} go={go} isAdmin={isAdmin} />}
+                {route.kind === 'qscores' && (isAdmin ? <QuizScores key={route.key} id={route.key} go={go} /> : <QuizzesHome go={go} />)}
               </>}
         </main>
       </div>
@@ -1166,6 +1175,9 @@ function toHash(r) {
   if (r.kind === 'quiz') return '#/quiz/' + e(r.key)
   if (r.kind === 'scores') return '#/scores'
   if (r.kind === 'glossary') return '#/glossary'
+  if (r.kind === 'quizzes') return '#/quizzes'
+  if (r.kind === 'qset') return '#/quizzes/' + e(r.key)
+  if (r.kind === 'qscores') return '#/quizzes/' + e(r.key) + '/scores'
   return '#/'
 }
 function parseHash(hash, NAV) {
@@ -1181,6 +1193,7 @@ function parseHash(hash, NAV) {
   if (kind === 'quiz' && v) return { kind: 'quiz', key: v }
   if (kind === 'scores') return { kind: 'scores' }
   if (kind === 'glossary') return { kind: 'glossary' }
+  if (kind === 'quizzes') { if (!v) return { kind: 'quizzes' }; const [key, sub] = v.split('/'); return sub === 'scores' ? { kind: 'qscores', key } : { kind: 'qset', key } }
   if (kind === 's' && v) {
     for (const sec of NAV) for (const it of (sec.domains ? sec.domains.flatMap(d => d.items) : sec.items))
       if (it.title === v) return { kind: 'stub', title: v, status: it.status }

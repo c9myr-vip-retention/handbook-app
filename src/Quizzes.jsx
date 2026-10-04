@@ -1,0 +1,368 @@
+// Quiz page (#/quizzes): stand-alone assessments for every approved user.
+// Practice = multiple choice, marked on the server by the option sentence (no
+// A/B/C, options shuffled per person). Staff see their score only, never the key.
+// Essay (AI-reviewed written answers) is planned. See server/quiz.js.
+import { useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
+import { api } from './lib/api.js'
+
+function useLoad(fn, deps) {
+  const [s, set] = useState({ data: null, err: '' })
+  const reload = () => fn().then(data => set({ data, err: '' }), e => set({ data: null, err: e.message }))
+  useEffect(() => { set({ data: null, err: '' }); reload() }, deps) // eslint-disable-line react-hooks/exhaustive-deps
+  return [s.data, s.err, reload]
+}
+const Loading = () => <p className="muted">Loading…</p>
+const Err = ({ msg }) => <p className="err" role="alert">{msg}</p>
+const when = (s) => { if (!s) return '-'; const d = new Date(s.replace(' ', 'T') + (/Z|[+-]\d\d:\d\d$/.test(s) ? '' : 'Z')); return isNaN(d) ? s : d.toLocaleString('en-GB', { timeZone: 'Asia/Kuala_Lumpur', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) }
+const clock = (s) => Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0')
+const scoreText = (r) => r.pending ? `${r.score} of ${r.max}, written part waiting for review` : `${r.score} of ${r.max}`
+
+function StateChip({ state }) {
+  if (state === 'draft') return <span className="chip pending">Draft</span>
+  if (state === 'closed') return <span className="chip planned">Closed</span>
+  return null
+}
+
+// ---- list -----------------------------------------------------------------------
+
+export function QuizzesHome({ go, isAdmin }) {
+  const [sets, err] = useLoad(() => api.quizzes(), [])
+  const practice = (sets || []).filter(s => s.kind === 'practice')
+  return (
+    <div className="view doc learn">
+      <h1>Quiz</h1>
+      <p className="lead">Assessments for the whole department. Your answers are saved as you go and marked when you submit.</p>
+      {err && <Err msg={err} />}
+      {!sets && !err && <Loading />}
+      {sets && <>
+        <h2 className="learn-cat">Practice</h2>
+        <p className="muted small">Multiple choice, marked automatically.</p>
+        {practice.length === 0 && <div className="stubbox">No practice quiz is open yet.</div>}
+        <div className="qz-list">
+          {practice.map(s => {
+            const last = s.mine[s.mine.length - 1]
+            return (
+              <button key={s.id} className="qz-card" onClick={() => go({ kind: 'qset', key: s.id })}>
+                <span className="qz-card-title">{s.title} <StateChip state={s.state} /></span>
+                <span className="muted small">{s.count} questions · {s.minutes} minutes · {s.max} points</span>
+                <span className="small">{last ? `Your last result: ${scoreText(last)}` : 'Not taken yet'}</span>
+              </button>
+            )
+          })}
+        </div>
+        <h2 className="learn-cat">Essay</h2>
+        <div className="stubbox">Written answers reviewed with AI. Coming soon.</div>
+        {isAdmin && practice.length > 0 && <p className="muted small">Admins: open a quiz to publish it, try the draft, or see the scores.</p>}
+      </>}
+    </div>
+  )
+}
+
+// ---- one set: intro, run, result -----------------------------------------------------
+
+export function QuizSet({ id, go, isAdmin }) {
+  const [s, loadErr, reload] = useLoad(() => api.quiz(id), [id])
+  const [run, setRun] = useState(null)
+  const [result, setResult] = useState(null)
+  const [err, setErr] = useState('')
+  const [busy, setBusy] = useState(false)
+
+  useEffect(() => { if (s?.open && !run && !result) setRun(s.open) }, [s]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  const start = async () => {
+    setErr(''); setBusy(true)
+    try { setResult(null); setRun(await api.quizStart(id)) } catch (e) { setErr(e.message) } finally { setBusy(false) }
+  }
+  const back = <button className="btn small ghost" onClick={() => go({ kind: 'quizzes' })}>All quizzes</button>
+
+  if (loadErr) return <div className="view doc quiz"><Err msg={loadErr} />{back}</div>
+  if (!s) return <div className="view doc quiz"><Loading /></div>
+  const c = s.content || {}
+
+  if (run) return <Runner key={run.attempt} run={run} content={c} onDone={r => { setRun(null); setResult(r); reload() }} />
+
+  if (result?.late) return (
+    <div className="view doc quiz">
+      <div className="quiz-result"><p>Time ran out. The answers you saved were submitted.</p></div>
+      <div className="quiz-actions">{back}</div>
+    </div>
+  )
+  if (result) return (
+    <div className="view doc quiz">
+      <div className="quiz-result">
+        <p className="quiz-score">{result.auto} of {result.autoMax}</p>
+        <p>{result.trial ? 'Trial run submitted (not counted).' : 'Submitted. Thank you.'}</p>
+        {result.written > 0 && <p className="muted small">The {result.written} written answers are worth {result.max - result.autoMax} more points and are waiting for review. Your full score is out of {result.max}.</p>}
+        <p className="muted small">The answers are not shown, so the quiz stays fair for everyone.</p>
+      </div>
+      <div className="quiz-actions">{back}</div>
+    </div>
+  )
+
+  const used = s.mine.length
+  const left = c.maxAttempts ? c.maxAttempts - used : null
+  const canStart = s.state === 'live' && (left == null || left > 0)
+  return (
+    <div className="view doc quiz">
+      <h1>{c.title} <StateChip state={s.state} /></h1>
+      {(c.intro || []).map((p, i) => <p key={i} className={i === 0 ? 'lead' : ''}>{p}</p>)}
+      <div className="scorestats">
+        <div><span>Questions</span><b>{c.count}</b></div>
+        <div><span>Time</span><b>{c.minutes} minutes</b></div>
+        <div><span>Points</span><b>{c.max}</b></div>
+      </div>
+      <ul className="bullets">
+        <li>One clock for the whole quiz. It keeps running if you close the page; when it ends, what you saved is submitted.</li>
+        <li>You can move between questions and change answers until you submit.</li>
+        {c.written > 0 && <li>{c.written} questions also ask you to explain your answer. An admin marks those.</li>}
+        <li>{left == null ? 'Every attempt is recorded.' : `Every attempt is recorded. Attempts left: ${left}.`}</li>
+      </ul>
+      {c.ref && <PillarRef refData={c.ref} open />}
+      {used > 0 && <>
+        <h2>Your results</h2>
+        <ul className="bullets">{s.mine.map(r => <li key={r.n}>Attempt {r.n}, {when(r.at)}: {scoreText(r)}</li>)}</ul>
+      </>}
+      {err && <Err msg={err} />}
+      <div className="quiz-actions">
+        {canStart && <button className="btn small" disabled={busy} onClick={start}>{used ? 'Start again' : 'Start the quiz'}</button>}
+        {back}
+      </div>
+      {s.state !== 'live' && !isAdmin && <p className="muted">This quiz is {s.state === 'closed' ? 'closed' : 'not open yet'}.</p>}
+      {isAdmin && <AdminPanel id={id} state={s.state} go={go} onChange={reload} onTrial={start} busy={busy} />}
+    </div>
+  )
+}
+
+function PillarRef({ refData, open }) {
+  return (
+    <details className="qz-ref" open={open}>
+      <summary>{refData.title}</summary>
+      <dl>{refData.items.map(([t, d]) => <div key={t}><dt>{t}</dt><dd>{d}</dd></div>)}</dl>
+    </details>
+  )
+}
+
+// One question at a time with a question strip; every change is saved on the server.
+function Runner({ run, content, onDone }) {
+  const qs = run.questions
+  const [i, setI] = useState(0)
+  const [ans, setAns] = useState(run.answers || {})
+  const [left, setLeft] = useState(run.secondsLeft)
+  const [err, setErr] = useState('')
+  const [saving, setSaving] = useState(false)
+  const [busy, setBusy] = useState(false)
+  const chain = useRef(Promise.resolve())
+  const timers = useRef({})
+  const endAt = useRef(Date.now() + run.secondsLeft * 1000)
+  const latest = useRef(run.answers || {}) // current answers, read by saves that fire later
+
+  // Saves run one after another so an older one never lands last.
+  const save = (qid, a) => {
+    setSaving(true)
+    chain.current = chain.current.then(() => api.quizSave(run.attempt, qid, a.c, a.x))
+      .then(() => setErr(''), e => setErr(e.message)).finally(() => setSaving(false))
+    return chain.current
+  }
+  const setAnswer = (qid, patch, now) => {
+    const a = { c: null, x: '', ...latest.current[qid], ...patch }
+    latest.current = { ...latest.current, [qid]: a }
+    setAns(latest.current)
+    clearTimeout(timers.current[qid])
+    if (now) save(qid, a)
+    else timers.current[qid] = setTimeout(() => { delete timers.current[qid]; save(qid, latest.current[qid]) }, 800)
+  }
+  const flush = () => {
+    for (const [qid, t] of Object.entries(timers.current)) { clearTimeout(t); delete timers.current[qid]; save(qid, latest.current[qid]) }
+    return chain.current
+  }
+  const submit = async (auto) => {
+    if (!auto) {
+      const open = qs.filter(q => !ans[q.id]?.c).length
+      if (!confirm(open ? `${open} questions have no answer. Submit anyway? You can't change answers after this.` : "Submit your answers? You can't change them after this.")) return
+    }
+    setBusy(true)
+    try { await flush(); onDone(await api.quizSubmit(run.attempt)) }
+    catch (e) { if (/already submitted|Time is up/.test(e.message)) onDone({ late: true }); else setErr(e.message) }
+    finally { setBusy(false) }
+  }
+
+  // Clock from the server's deadline; at zero, submit what is saved.
+  useEffect(() => {
+    const t = setInterval(() => {
+      const s = Math.max(0, Math.round((endAt.current - Date.now()) / 1000))
+      setLeft(s)
+      if (s <= 0) { clearInterval(t); submit(true) }
+    }, 1000)
+    return () => clearInterval(t)
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
+  const q = qs[i]
+  const a = ans[q.id] || {}
+  const sec = content.sections?.find(x => x.id === q.sec)
+  const answered = qs.filter(x => ans[x.id]?.c).length
+  return (
+    <div className="view doc quiz">
+      <div className="quiz-top">
+        <span>{run.trial ? 'Trial run (not counted) · ' : ''}Question {i + 1} of {qs.length} · {answered} answered</span>
+        <span className={'quiz-timer' + (left <= 300 ? ' low' : '')} role="timer" aria-label={'Time left ' + clock(left)}>{clock(left)} left</span>
+      </div>
+      <div className="quiz-bar" aria-hidden="true"><div style={{ width: (answered / qs.length * 100) + '%' }} /></div>
+      <div className="qcodes qz-strip" role="list" aria-label="Questions">
+        {qs.map((x, k) => (
+          <button key={x.id} role="listitem" className={'qcode' + (k === i ? ' on' : '') + (ans[x.id]?.c ? ' done' : '')}
+            aria-label={'Question ' + (k + 1) + (ans[x.id]?.c ? ', answered' : ', not answered')} aria-current={k === i ? 'step' : undefined}
+            onClick={() => setI(k)}>Q{k + 1}</button>
+        ))}
+      </div>
+      {sec && <p className="qz-sec"><b>{sec.title}</b>{sec.note && <span className="muted"> {sec.note}</span>}</p>}
+      <h1 className="quiz-q qz-q">{q.q}</h1>
+      <div className="quiz-opts" role="radiogroup" aria-label="Answers">
+        {q.o.map(t => (
+          <button key={t} role="radio" aria-checked={a.c === t} className={'quiz-opt' + (a.c === t ? ' sel' : '')} disabled={busy}
+            onClick={() => setAnswer(q.id, { c: t }, true)}>{t}</button>
+        ))}
+      </div>
+      {q.explain && (
+        <label className="led-field qz-explain"><span>{q.explain.prompt}</span>
+          <textarea rows="5" maxLength={2000} value={a.x || ''} disabled={busy}
+            onChange={e => setAnswer(q.id, { x: e.target.value })} onBlur={() => timers.current[q.id] && flush()} />
+        </label>
+      )}
+      {content.ref && <PillarRef refData={content.ref} />}
+      {err && <Err msg={err} />}
+      <div className="quiz-actions">
+        <button className="btn small ghost" disabled={i === 0} onClick={() => setI(i - 1)}>Previous</button>
+        {i < qs.length - 1
+          ? <button className="btn small" onClick={() => setI(i + 1)}>Next question</button>
+          : <button className="btn small" disabled={busy} onClick={() => submit(false)}>{busy ? 'Submitting…' : 'Submit answers'}</button>}
+        <span className="muted small qz-saved" aria-live="polite">{saving ? 'Saving…' : 'Saved'}</span>
+      </div>
+      {i < qs.length - 1 && <p className="muted small">Done early? <button className="crumblink" disabled={busy} onClick={() => submit(false)}>Submit now</button></p>}
+    </div>
+  )
+}
+
+// ---- admin ----------------------------------------------------------------------
+
+function AdminPanel({ id, state, go, onChange, onTrial, busy }) {
+  const [d, err, reload] = useLoad(() => api.quizDraft(id), [id])
+  const [msg, setMsg] = useState('')
+  const act = async (fn, ok) => { setMsg(''); try { await fn(); setMsg(ok); reload(); onChange() } catch (e) { setMsg(e.message) } }
+  return (
+    <section className="qz-admin" aria-labelledby="qz-admin-h">
+      <h2 id="qz-admin-h">Admin</h2>
+      {err && <Err msg={err} />}
+      {d && (d.problems.length
+        ? <div className="callout warn"><div><b>Can't publish yet ({d.problems.length}).</b><ul className="bullets">{d.problems.slice(0, 12).map(p => <li key={p}>{p}</li>)}{d.problems.length > 12 && <li>and {d.problems.length - 12} more</li>}</ul></div></div>
+        : <p className="muted small">The draft is ready to publish.</p>)}
+      <div className="quiz-actions">
+        <button className="btn small" disabled={!d || d.problems.length > 0} onClick={() => act(() => api.quizPublish(id), 'Published. Staff can take it now.')}>{state === 'draft' ? 'Publish' : 'Publish the draft again'}</button>
+        {state !== 'live' && <button className="btn small ghost" disabled={busy} onClick={onTrial}>Try the draft (not counted)</button>}
+        {state === 'live' && <button className="btn small ghost" onClick={() => confirm('Close this quiz? Nobody can start a new attempt until you open it again.') && act(() => api.quizClose(id, true), 'Closed.')}>Close the quiz</button>}
+        {state === 'closed' && <button className="btn small ghost" onClick={() => act(() => api.quizClose(id, false), 'Open again.')}>Open again</button>}
+        <button className="btn small ghost" onClick={() => go({ kind: 'qscores', key: id })}>Scores</button>
+      </div>
+      {msg && <p className="small" role="status">{msg}</p>}
+    </section>
+  )
+}
+
+export function QuizScores({ id, go }) {
+  const [s, err, reload] = useLoad(() => api.quizScores(id), [id])
+  const [open, setOpen] = useState(null)
+  const title = s?.title || 'Quiz scores'
+  if (err) return <div className="view doc"><h1>Quiz scores</h1><Err msg={err} /></div>
+  if (!s) return <div className="view doc"><h1>Quiz scores</h1><Loading /></div>
+  const took = s.people.filter(p => p.attempts > 0)
+  const toMark = s.people.reduce((n, p) => n + p.toMark, 0)
+  return (
+    <div className="view doc">
+      <h1>Scores: {title} <StateChip state={s.state} /></h1>
+      <p className="lead">Every attempt is kept. First shows the first try; best and latest show the rest. Written answers count once marked.</p>
+      {open && <QuizAttemptReport sel={open} onClose={() => { setOpen(null); reload() }} />}
+      <div className="scorestats">
+        <div><span>Took the quiz</span><b>{took.length} of {s.people.length}</b></div>
+        <div><span>Waiting to be marked</span><b>{toMark}</b></div>
+        <div><span>Most missed</span><b>{s.missed[0] ? `Q${s.missed[0].n}, ${s.missed[0].wrong} of ${s.missed[0].asked} wrong` : '-'}</b></div>
+      </div>
+      <div className="tbl-wrap"><table>
+        <thead><tr><th>Staff</th><th>Attempts</th><th>First</th><th>Best</th><th>Latest</th><th>To mark</th></tr></thead>
+        <tbody>{s.people.map(p => (
+          <tr key={p.email}>
+            <td>{p.name || p.email}{p.open && <span className="muted small"> (in progress)</span>}</td>
+            <td>{p.attempts > 0 ? <button className="crumblink attempts-link" onClick={() => setOpen({ id, email: p.email, name: p.name || p.email, title })} aria-label={'See ' + p.attempts + ' attempts by ' + (p.name || p.email)}>{p.attempts}</button> : 0}</td>
+            <td>{p.first ?? '-'}</td><td>{p.best ?? '-'}</td><td>{p.latest ?? '-'}</td>
+            <td>{p.toMark || '-'}</td>
+          </tr>
+        ))}</tbody>
+      </table></div>
+      <p className="muted small">Scores are out of {s.max}.</p>
+      <button className="btn small ghost" onClick={() => go({ kind: 'qset', key: id })}>Back to the quiz</button>
+    </div>
+  )
+}
+
+function QuizAttemptReport({ sel, onClose }) {
+  const [list, err, reload] = useLoad(() => api.quizAttempts(sel.id, sel.email), [sel.id, sel.email])
+  const [pick, setPick] = useState(null)
+  const [msg, setMsg] = useState('')
+  useEffect(() => { const k = (e) => e.key === 'Escape' && onClose(); addEventListener('keydown', k); return () => removeEventListener('keydown', k) }, [onClose])
+  const give = async (aid, qid, pts) => { setMsg(''); try { await api.quizMark(aid, qid, pts); reload() } catch (e) { setMsg(e.message) } }
+  return createPortal(
+    <div className="attempt-overlay" role="dialog" aria-modal="true" aria-labelledby="qatt-title" onClick={e => e.target === e.currentTarget && onClose()}>
+      <div className="attempt-modal">
+        <div className="attempt-head">
+          <div><h2 id="qatt-title">{sel.name}</h2><p className="muted small">{sel.title}. Tap a question to see the answer and mark written parts.</p></div>
+          <button className="btn small ghost" onClick={onClose} autoFocus>Close</button>
+        </div>
+        {err && <Err msg={err} />}
+        {msg && <Err msg={msg} />}
+        {!list && !err && <Loading />}
+        {list?.map(a => {
+          const open = a.items.find(x => pick === a.n + '-' + x.k)
+          const unmarked = a.items.filter(x => x.explain && x.explain.mark == null).length
+          return (
+            <div key={a.n} className="attempt-row">
+              <div className="attempt-line">
+                <b>Attempt {a.n}</b>
+                {a.submitted_at
+                  ? <span className="attempt-score">{a.score} of {a.max}</span>
+                  : <span className="muted">In progress</span>}
+                {a.submitted_at && unmarked > 0 && <span className="muted small">{unmarked} written to mark</span>}
+                <span className="muted small">{when(a.started_at)}</span>
+              </div>
+              {a.submitted_at && <div className="qcodes" role="list">
+                {a.items.map(x => (
+                  <button key={x.k} role="listitem" className={'qcode ' + (x.correct ? 'ok' : 'bad') + (pick === a.n + '-' + x.k ? ' on' : '')}
+                    aria-label={'Question ' + x.k + (x.correct ? ' correct' : x.chose == null ? ' not answered' : ' wrong')} onClick={() => setPick(pick === a.n + '-' + x.k ? null : a.n + '-' + x.k)}>
+                    Q{x.k} <span className="mk" aria-hidden="true">{x.correct ? '✓' : x.chose == null ? '-' : '✗'}</span>{x.explain && <span className="mk" aria-hidden="true">{x.explain.mark == null ? '✎' : '+' + x.explain.mark}</span>}
+                  </button>
+                ))}
+              </div>}
+              {open && (
+                <div className="qdetail">
+                  <p className="qz-q">{open.q}</p>
+                  {open.correct
+                    ? <p>Answered: <span className="right">{open.chose}</span></p>
+                    : <p>{open.chose == null ? 'Not answered' : 'Chose: ' + open.chose}{open.right && <> · Correct: <span className="right">{open.right}</span></>}{!open.right && <> · <span className="muted">no answer key yet</span></>}</p>}
+                  {open.explain && <>
+                    <p><b>Written answer:</b> {open.explain.text || <span className="muted">left blank</span>}</p>
+                    {open.explain.rubric && <p className="muted small">Marking guide: {open.explain.rubric}</p>}
+                    <div className="quiz-actions">
+                      {Array.from({ length: open.explain.pts + 1 }, (_, p) => (
+                        <button key={p} className={'btn small' + (open.explain.mark === p ? '' : ' ghost')} aria-pressed={open.explain.mark === p} onClick={() => give(a.id, open.qid, p)}>{p} {p === 1 ? 'point' : 'points'}</button>
+                      ))}
+                    </div>
+                  </>}
+                </div>
+              )}
+            </div>
+          )
+        })}
+        <p className="muted small qlegend">✓ correct · ✗ wrong · - not answered · ✎ written part to mark · +n written points given</p>
+      </div>
+    </div>,
+    document.body
+  )
+}

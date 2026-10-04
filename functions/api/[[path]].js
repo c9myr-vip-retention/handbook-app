@@ -7,6 +7,7 @@
 
 import { handleLearn } from '../../server/learn.js'
 import { handleGlossary } from '../../server/glossary.js'
+import { handleQuiz } from '../../server/quiz.js'
 
 export async function onRequest(context) {
   const { request, env } = context
@@ -148,6 +149,9 @@ export async function onRequest(context) {
     // Learn section (guides and quizzes). See server/learn.js.
     // Work glossary (#/glossary). See server/glossary.js.
     if (parts[0] === 'glossary') return await handleGlossary({ request, env, parts, email, isAdmin, json })
+
+    // Quiz page (stand-alone assessments). See server/quiz.js.
+    if (parts[0] === 'quizzes') return await handleQuiz({ request, env, parts, email, isAdmin, json })
 
     if (parts[0] === 'learn') return await handleLearn({ request, env, parts, email, isAdmin, isMaster, json })
 

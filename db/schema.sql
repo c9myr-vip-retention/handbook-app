@@ -8,7 +8,7 @@
 create table if not exists profiles (
   email      text primary key,
   full_name  text,
-  role       text not null default 'reader',   -- reader | admin
+  role       text not null default 'reader',   -- reader | admin | master
   approved   integer not null default 0,        -- 0 pending, 1 approved
   created_at text not null default (datetime('now')),
   last_seen  text                                -- last app open (UTC), updated at most every 5 minutes

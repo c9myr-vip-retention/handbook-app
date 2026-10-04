@@ -22,7 +22,7 @@
 
 const GRACE_S = 5 // network slack on the per-question timer
 
-export async function handleLearn({ request, env, parts, email, isAdmin, json }) {
+export async function handleLearn({ request, env, parts, email, isAdmin, isMaster, json }) {
   const DB = env.DB
   const method = request.method
   const [, a, b, c] = parts // parts[0] === 'learn'
@@ -33,7 +33,7 @@ export async function handleLearn({ request, env, parts, email, isAdmin, json })
     return method === 'GET' && !a ? json([]) : json({ error: 'not found' }, 404)
   }
 
-  if (method === 'GET' && !a) return json(await listModules(DB, email, isAdmin))
+  if (method === 'GET' && !a) return json(await listModules(DB, email, isAdmin, isMaster))
   if (method === 'GET' && a === 'scores') {
     if (!isAdmin) return json({ error: 'admins only' }, 403)
     return json(await scores(DB))
@@ -58,7 +58,7 @@ export async function handleLearn({ request, env, parts, email, isAdmin, json })
   const mod = await DB.prepare('select * from learn_modules where id = ?').bind(a).first()
   if (!mod) return json({ error: 'not found' }, 404)
   const sop = await DB.prepare('select title, version, meta, restricted from sops where id = ?').bind(a).first()
-  if (!sop || (sop.restricted && !isAdmin)) return json({ error: 'not found' }, 404)
+  if (!sop || (sop.restricted && !isMaster)) return json({ error: 'not found' }, 404)
   const st = state(mod, sop)
 
   if (method === 'GET' && !b) {
@@ -158,12 +158,12 @@ async function answer(DB, email, aid, choice, qid, json) {
   return json(res)
 }
 
-async function listModules(DB, email, isAdmin) {
+async function listModules(DB, email, isAdmin, isMaster) {
   const { results } = await DB.prepare(`select m.id, m.live, m.draft, m.sop_version, m.sort, s.title, s.version, s.meta, s.restricted
     from learn_modules m join sops s on s.id = m.id order by m.sort, s.title`).all()
   const out = []
   for (const m of results) {
-    if (m.restricted && !isAdmin) continue
+    if (m.restricted && !isMaster) continue
     if (!m.live && !isAdmin) continue
     const st = state(m, m)
     const content = parse(m.live) || parse(m.draft) || {}

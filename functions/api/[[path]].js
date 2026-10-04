@@ -66,12 +66,15 @@ export async function onRequest(context) {
     if (!email) return json({ error: 'unauthenticated' }, 401)
     const me = await ensureProfile(env, email)
     if (me.approved !== 1) return json({ error: me.approved === -1 ? 'access declined' : 'pending approval' }, 403)
-    const isAdmin = me.role === 'admin'
+    // Roles: reader < admin < master. Admins run content and approvals; the
+    // master admin also changes roles, deletes people and sees restricted pages.
+    const isMaster = me.role === 'master'
+    const isAdmin = me.role === 'admin' || isMaster
 
     // SOP content
     if (parts[0] === 'sops') {
       if (request.method === 'GET' && !parts[1]) {
-        const stmt = isAdmin
+        const stmt = isMaster
           ? env.DB.prepare('select * from sops order by sort, title')
           : env.DB.prepare('select * from sops where restricted = 0 order by sort, title')
         const { results } = await stmt.all()
@@ -80,10 +83,15 @@ export async function onRequest(context) {
       if (request.method === 'GET' && parts[1] && !parts[2]) {
         const row = await env.DB.prepare('select * from sops where id = ?').bind(parts[1]).first()
         if (!row) return json({ error: 'not found' }, 404)
-        if (row.restricted && !isAdmin) return json({ error: 'restricted' }, 403)
+        if (row.restricted && !isMaster) return json({ error: 'restricted' }, 403)
         return json(deserialize(row))
       }
       if (!isAdmin) return json({ error: 'admins only' }, 403)
+      // Restricted pages: only the master admin may read, edit, restore or delete them.
+      if (parts[1] && !isMaster) {
+        const r = await env.DB.prepare('select restricted from sops where id = ?').bind(parts[1]).first()
+        if (r?.restricted) return json({ error: 'restricted' }, 403)
+      }
       // Version history: snapshots taken before each save (newest first).
       if (request.method === 'GET' && parts[1] && parts[2] === 'versions') {
         const { results } = await env.DB.prepare(
@@ -111,7 +119,7 @@ export async function onRequest(context) {
            values (?,?,?,?,?,?,?,?,?,?,?,?,?)`
         ).bind(id, b.section, b.domain || null, b.subbranch || null, b.title, b.category || null,
           JSON.stringify(b.body || []), b.version || 'V1.0', b.owner || 'ATL',
-          b.restricted ? 1 : 0, b.status || 'live', b.keywords || null, email).run()
+          b.restricted && isMaster ? 1 : 0, b.status || 'live', b.keywords || null, email).run()
         return json({ id })
       }
       if (request.method === 'PUT' && parts[1]) {
@@ -124,7 +132,7 @@ export async function onRequest(context) {
         await env.DB.prepare(
           `update sops set title=?, category=?, body=?, version=?, restricted=?, status=?, keywords=?, updated_by=?, updated_at=datetime('now') where id=?`
         ).bind(b.title, b.category || null, JSON.stringify(b.body || []), b.version || 'V1.0',
-          b.restricted ? 1 : 0, b.status || 'live', b.keywords || null, email, parts[1]).run()
+          b.restricted && isMaster ? 1 : 0, b.status || 'live', b.keywords || null, email, parts[1]).run()
         if (Array.isArray(b.meta)) {
           await env.DB.prepare('update sops set meta=? where id=?').bind(JSON.stringify(b.meta), parts[1]).run()
         }
@@ -137,14 +145,15 @@ export async function onRequest(context) {
     }
 
     // Learn section (guides and quizzes). See server/learn.js.
-    if (parts[0] === 'learn') return await handleLearn({ request, env, parts, email, isAdmin, json })
+    if (parts[0] === 'learn') return await handleLearn({ request, env, parts, email, isAdmin, isMaster, json })
 
     // Access Management (admin): list everyone who has signed in (approved, pending, rejected).
     // POST   /api/admin/approvals/<email>          approve
     // POST   /api/admin/approvals/<email>/reject   reject (can be approved later)
-    // POST   /api/admin/approvals/<email>/role/<admin|reader>   change role
+    // POST   /api/admin/approvals/<email>/role/<reader|admin|master>   change role (master only)
     // POST   /api/admin/approvals/<email>/name     set name, body { name }
-    // DELETE /api/admin/approvals/<email>          delete the profile (learning records are kept)
+    // DELETE /api/admin/approvals/<email>          delete the profile, learning records kept (master only)
+    // Admins approve, reject and edit nicknames, but never touch a master admin's account.
     if (parts[0] === 'admin' && parts[1] === 'approvals') {
       if (!isAdmin) return json({ error: 'admins only' }, 403)
       if (request.method === 'GET') {
@@ -153,6 +162,9 @@ export async function onRequest(context) {
         ).all()
         return json(results)
       }
+      const target = parts[2] ? await env.DB.prepare('select role, approved from profiles where email = ?').bind(parts[2]).first() : null
+      const self = !!parts[2] && parts[2].toLowerCase() === email.toLowerCase()
+      if (target?.role === 'master' && !isMaster) return json({ error: 'only a master admin can change a master admin' }, 403)
       // Name can be set for anyone, yourself included.
       if (request.method === 'POST' && parts[2] && parts[3] === 'name') {
         const b = await request.json().catch(() => ({}))
@@ -161,21 +173,25 @@ export async function onRequest(context) {
         if (!r.meta?.changes) return json({ error: 'not found' }, 404)
         return json({ ok: true })
       }
-      if (parts[2] && parts[2].toLowerCase() === email.toLowerCase()) return json({ error: 'cannot change your own access' }, 400)
+      if (self) return json({ error: 'cannot change your own access' }, 400)
       // Delete: the person loses access now; signing in again starts a new request.
       if (request.method === 'DELETE' && parts[2] && !parts[3]) {
+        if (!isMaster) return json({ error: 'only a master admin can delete people' }, 403)
         const r = await env.DB.prepare('delete from profiles where email = ?').bind(parts[2]).run()
         if (!r.meta?.changes) return json({ error: 'not found' }, 404)
         return json({ ok: true })
       }
       if (request.method === 'POST' && parts[2]) {
         if (parts[3] === 'role') {
-          if (!['admin', 'reader'].includes(parts[4])) return json({ error: 'role must be admin or reader' }, 400)
+          if (!isMaster) return json({ error: 'only a master admin can change roles' }, 403)
+          if (!['reader', 'admin', 'master'].includes(parts[4])) return json({ error: 'role must be reader, admin or master' }, 400)
           const r = await env.DB.prepare('update profiles set role = ? where email = ? and approved = 1').bind(parts[4], parts[2]).run()
           if (!r.meta?.changes) return json({ error: 'not found' }, 404)
           return json({ ok: true })
         }
         const value = parts[3] === 'reject' ? -1 : parts[3] ? null : 1
+        // Admins decide on sign-in requests only; changing an approved person's access is for the master admin.
+        if (target?.approved === 1 && !isMaster) return json({ error: 'only a master admin can change an approved account' }, 403)
         if (value === null) return json({ error: 'not found' }, 404)
         const r = await env.DB.prepare('update profiles set approved = ? where email = ?').bind(value, parts[2]).run()
         if (!r.meta?.changes) return json({ error: 'not found' }, 404)

@@ -152,8 +152,8 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
     go(item.real ? { kind: 'page', key: item.id } : { kind: 'stub', title: item.title, status: item.status })
   }
   const results = useMemo(() => search(INDEX, query.trim()), [INDEX, query])
-  const canEdit = profile?.role === 'admin' || !!preview
-  const isAdmin = profile?.role === 'admin'
+  const isAdmin = profile?.role === 'admin' || profile?.role === 'master'
+  const canEdit = isAdmin || !!preview
   const [learnMods, setLearnMods] = useState([])
   useEffect(() => {
     if (preview) return
@@ -237,7 +237,7 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
               </div>
             </div>
           ))}
-          {(profile?.role === 'admin' || preview) && (
+          {(isAdmin || preview) && (
             <div className="navsec admin-nav">
               <button className="navitem" onClick={() => { setQuery(''); go({ kind: 'approvals' }) }}>Access Management</button>
               <button className="navitem" onClick={() => { setQuery(''); go({ kind: 'charts' }) }}>Chart review (admin)</button>
@@ -267,9 +267,9 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
               <svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="m13 13 4 4"/></svg>
             </button>
           )}
-          {profile && <button className="whoami" title={profile.email + ' (click to change your name)'} onClick={() => setNameOpen(true)}>{profile.full_name || profile.email} <span className="rolechip">{profile.role}</span></button>}
+          {profile && <button className="whoami" title={profile.email + ' (click to change your name)'} onClick={() => setNameOpen(true)}>{profile.full_name || profile.email} <span className="rolechip">{ROLE_LABEL[profile.role] || profile.role}</span></button>}
           {preview && <span className="chip pending preview-chip">preview</span>}
-          {(profile?.role === 'admin' || preview) && <button className="btn small ghost admin-btn" onClick={() => { setQuery(''); go({ kind: 'approvals' }) }}>Access Management</button>}
+          {(isAdmin || preview) && <button className="btn small ghost admin-btn" onClick={() => { setQuery(''); go({ kind: 'approvals' }) }}>Access Management</button>}
           {route.kind === 'page' && !query.trim() && (
             <button className="icon railbtn" aria-label="Page tools" title="Page tools" aria-expanded={railOpen} aria-controls="pagerail" onClick={() => setRailOpen(o => !o)}>
               <svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true"><rect x="3" y="3.5" width="14" height="13" rx="2.5"/><path d="M12 3.5v13"/><path d="M14 7h1M14 10h1M14 13h1" strokeLinecap="round"/></svg>
@@ -296,7 +296,7 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
                 {route.kind === 'edit' && <Editor key={route.key + '/' + (route.sec ?? '')} id={route.key} sec={route.sec} pages={PAGES} preview={preview} go={go} onPageSaved={onPageSaved} />}
                 {route.kind === 'history' && <History id={route.key} pages={PAGES} preview={preview} go={go} onPageSaved={onPageSaved} />}
                 {route.kind === 'stub' && <Stub title={route.title} status={route.status} />}
-                {route.kind === 'approvals' && <Approvals preview={preview} me={profile?.email} />}
+                {route.kind === 'approvals' && <Approvals preview={preview} me={profile?.email} myRole={preview ? 'master' : profile?.role} />}
                 {route.kind === 'charts' && <ChartReview pages={PAGES} go={go} />}
                 {route.kind === 'learn' && (route.key
                   ? (route.edit && isAdmin ? <LearnEditor key={route.key} id={route.key} go={go} /> : <LearnModule key={route.key} id={route.key} go={go} canEdit={isAdmin} />)
@@ -532,6 +532,7 @@ function DomainList({ name, go, nav: NAV, pages: PAGES }) {
 // Waiting people can be approved or rejected; rejected people stay listed below
 // so a mistake can be undone. In preview (no API) it shows a labelled sample.
 const SAMPLE = [{ email: 'staff.one@example.com', approved: 0 }, { email: 'staff.two@example.com', approved: -1 }, { email: 'staff.three@example.com', full_name: 'Staff Three', role: 'reader', approved: 1, created_at: '2026-09-24 10:00:00' }]
+const ROLE_LABEL = { reader: 'Reader', admin: 'Admin', master: 'Master Admin' }
 // D1 stores UTC ("YYYY-MM-DD HH:MM:SS"); show Malaysia time.
 function myt(s, withTime) {
   if (!s) return '-'
@@ -557,7 +558,8 @@ function NameCell({ p, busy, onSave }) {
     </span>
   )
 }
-function Approvals({ preview, me }) {
+function Approvals({ preview, me, myRole }) {
+  const master = myRole === 'master'
   const [list, setList] = useState(preview ? SAMPLE : null)
   const [err, setErr] = useState(null)
   const [busy, setBusy] = useState(null)
@@ -567,7 +569,8 @@ function Approvals({ preview, me }) {
   }, [preview])
   const setRole = async (p, role) => {
     if (role === p.role) return
-    if (!confirm(role === 'admin' ? 'Make ' + p.email + ' an admin? Admins can edit SOPs and manage people.' : 'Change ' + p.email + ' to reader?')) return
+    const ask = { master: 'Make ' + p.email + ' a Master Admin? They can change roles, delete people and see restricted pages.', admin: 'Make ' + p.email + ' an Admin? Admins can edit SOPs and Learn, and approve sign-ins.', reader: 'Change ' + p.email + ' to Reader?' }
+    if (!confirm(ask[role])) return
     setBusy(p.email); setErr(null)
     try {
       if (!preview) await api.setRole(p.email, role)
@@ -598,10 +601,13 @@ function Approvals({ preview, me }) {
       setList(l => l.filter(x => x.email !== p.email))
     } catch (e) { setErr(e.message) } finally { setBusy(null) }
   }
-  const name = (p) => <NameCell p={p} busy={busy === p.email} onSave={n => saveName(p, n)} />
+  const name = (p) => (p.role === 'master' && !master && p.email !== me)
+    ? (p.full_name || '-')
+    : <NameCell p={p} busy={busy === p.email} onSave={n => saveName(p, n)} />
   const waiting = (list || []).filter(p => p.approved === 0), rejected = (list || []).filter(p => p.approved === -1)
-  const members = (list || []).filter(p => p.approved === 1).sort((a, b) => (a.role === b.role ? a.email.localeCompare(b.email) : a.role === 'admin' ? -1 : 1))
-  const admins = members.filter(p => p.role === 'admin').length
+  const RANK = { master: 0, admin: 1, reader: 2 }
+  const members = (list || []).filter(p => p.approved === 1).sort((a, b) => (RANK[a.role] - RANK[b.role]) || a.email.localeCompare(b.email))
+  const count = (r) => members.filter(p => p.role === r).length
   const table = (rows, isRejected) => (
     <div className="tbl-wrap"><table>
       <thead><tr><th>Email</th><th>Nickname</th><th><span className="sr-only">Action</span></th></tr></thead>
@@ -610,7 +616,7 @@ function Approvals({ preview, me }) {
           <td>{p.email}</td><td>{name(p)}</td>
           <td style={{ textAlign: 'right', whiteSpace: 'nowrap' }}>
             {!isRejected && <button className="btn small ghost" disabled={busy === p.email} onClick={() => decide(p.email, true)}>Reject</button>}
-            {isRejected && <button className="btn small ghost danger" disabled={busy === p.email} onClick={() => remove(p)}>Delete</button>}{' '}
+            {isRejected && master && <button className="btn small ghost danger" disabled={busy === p.email} onClick={() => remove(p)}>Delete</button>}{' '}
             <button className="btn small" disabled={busy === p.email} onClick={() => decide(p.email, false)}>{busy === p.email ? 'Saving…' : 'Approve'}</button>
           </td>
         </tr>))}
@@ -628,18 +634,18 @@ function Approvals({ preview, me }) {
       {waiting.length > 0 && table(waiting, false)}
       {members.length > 0 && <>
         <h2>Registered</h2>
-        <p className="muted small">{members.length} total · {admins} admin{admins === 1 ? '' : 's'} · {members.length - admins} reader{members.length - admins === 1 ? '' : 's'}</p>
+        <p className="muted small">{members.length} total · {count('master')} master admin{count('master') === 1 ? '' : 's'} · {count('admin')} admin{count('admin') === 1 ? '' : 's'} · {count('reader')} reader{count('reader') === 1 ? '' : 's'}</p>
         <div className="tbl-wrap"><table>
           <thead><tr><th>Email</th><th>Nickname</th><th>Role</th><th>Registered</th><th>Last seen</th><th><span className="sr-only">Action</span></th></tr></thead>
           <tbody>{members.map(p => (
             <tr key={p.email}><td>{p.email}</td><td>{name(p)}</td>
-              <td>{p.email === me
-                ? <span className="chip scorepass">{p.role === 'admin' ? 'Admin' : 'Reader'} (you)</span>
+              <td>{p.email === me || !master
+                ? <span className={'chip ' + (p.role === 'reader' ? 'ver' : 'scorepass')}>{ROLE_LABEL[p.role] || p.role}{p.email === me ? ' (you)' : ''}</span>
                 : <select aria-label={'Role for ' + p.email} value={p.role} disabled={busy === p.email} onChange={e => setRole(p, e.target.value)}>
-                    <option value="reader">Reader</option><option value="admin">Admin</option>
+                    <option value="reader">Reader</option><option value="admin">Admin</option><option value="master">Master Admin</option>
                   </select>}</td>
               <td>{myt(p.created_at, false)}</td><td>{myt(p.last_seen, true)}</td>
-              <td style={{ textAlign: 'right' }}>{p.email !== me && <button className="btn small ghost danger" disabled={busy === p.email} onClick={() => remove(p)}>Delete</button>}</td></tr>
+              <td style={{ textAlign: 'right' }}>{master && p.email !== me && <button className="btn small ghost danger" disabled={busy === p.email} onClick={() => remove(p)}>Delete</button>}</td></tr>
           ))}</tbody>
         </table></div>
       </>}

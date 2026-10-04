@@ -94,7 +94,7 @@
   },
   {
    "t": "chart",
-   "x": "title: Complaint Handling (Livechat): flow\nstart: Complaint opens\nstep: Acknowledge emotion\nstep: Read profile\ncheck: Strong complaint, still upset? | yes: next | no: jump Validate + redirect, no credit\nstep: Compensation SOP (ATL approves)\nend: Log outcome (QA)"
+   "x": "title: Complaint Handling V1.2: flow\nstart: Complaint opens\nstep: Acknowledge emotion\nstep: Read profile\ncheck: Strong complaint, still upset? | yes: next | no: jump Validate + redirect, no credit\nstep: Compensation SOP (ATL approves)\nend: Log outcome (QA)"
   },
   {
    "t": "h2",

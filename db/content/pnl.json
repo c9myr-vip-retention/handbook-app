@@ -1,13 +1,13 @@
 {
  "id": "pnl",
  "source": "07_Top_PNL.md",
- "version": "V1.1",
+ "version": "V1.2",
  "meta": [
   "C9MYR-RTN-SOP-N01",
-  "V1.1",
+  "V1.2",
   "Night Shift / Reporting + Compensation",
   "Owner: VIP RTN",
-  "Updated 7 Sep 2026"
+  "Updated 4 Oct 2026"
  ],
  "body": [
   {
@@ -65,7 +65,7 @@
     [
      "2",
      "Sort + filter to top 10",
-     "Paste into CS SORTING FILE; TC filter to VVIP, Zyra filter Tier 3 + V; sort Total P&L A to Z; take top 10.",
+     "Paste into CS SORTING FILE; filter to Tier 3 + Tier V (TC: Member Label VVIP); sort Total P&L A to Z; take the full top 10.",
      "Biggest losses at top.",
      "CS SORTING FILE",
      ""
@@ -73,7 +73,7 @@
     [
      "3",
      "Run eligibility per player",
-     "Daily P&L negative, today's reward not claimed, bonus <= SW x 40%, monthly P&L negative.",
+     "Lost today, lost this month (this month's deposit is more than withdraw), today's reward not claimed, bonus <= SW x 40%.",
      "All must pass. Monthly profitable = cannot issue, even on a daily loss.",
      "Customer Approaching File",
      "Engage from 8:00 PM after data is stable."
@@ -88,17 +88,17 @@
     ],
     [
      "5",
-     "IM + Push, verify on claim",
-     "Send IM + Push; on player claim verify on list and amount before processing.",
-     "Double-check content.",
+     "Send by eligibility, verify on claim",
+     "Eligible: pass the username list to Admin for SMS, send IM + Push. Not eligible: IM + Push only, no SMS, no bonus mention. On claim: verify on the list and the amount before processing.",
+     "Always separate bonus and non-bonus messages.",
      "BO",
      ""
     ],
     [
      "6",
-     "Update the QA Record",
-     "After recording and issuance: attach BO screenshots.",
-     "",
+     "Tag + QA",
+     "Tag Daily P&L Rewarded and record the amount and time; update the QA Record with BO screenshots.",
+     "Fully recorded",
      "Lark Base",
      ""
     ]
@@ -110,7 +110,7 @@
   },
   {
    "t": "chart",
-   "x": "title: Top PNL: flow\nstart: 7PM export\nstep: Sort P&L A-Z\nstep: Top 10 by loss\ncheck: Eligible? | yes: next | no: stop Skip player\nstep: Issue + ticket\nend: IM/Push + QA"
+   "x": "title: Top PNL: flow\nstart: 7PM export\nstep: Sort P&L A-Z\nstep: Top 10 by loss\ncheck: Eligible? | yes: next | no: stop IM + Push only, no bonus mention\nstep: Issue + ticket\nend: IM/Push + QA"
   },
   {
    "t": "h2",
@@ -126,7 +126,7 @@
   },
   {
    "t": "p",
-   "x": "Night shift only, daily at 8:00 PM. Export and filter the namelist from 7:00 PM; start engagement at 8:00 PM after the data is relatively stable. Target the top 10 by daily P&L."
+   "x": "Night shift only, daily at 8:00 PM. Export and filter the namelist from 7:00 PM; start engagement at 8:00 PM after the data is relatively stable. Target the full top 10 Tier 3 and Tier V players by daily P&L."
   },
   {
    "t": "h2",
@@ -139,7 +139,9 @@
     "SW x 40% is the absolute hard cap. Same-day SW update is mandatory before issuance.",
     "Monthly P&L must be negative. If the player is monthly profitable, the bonus cannot be issued (over-issuance exception).",
     "Daily P&L must be negative (player lost today).",
-    "Sort Total P&L A to Z; highest-loss players sit at the top."
+    "Sort Total P&L A to Z; highest-loss players sit at the top.",
+    "P&L is counted as deposit minus withdraw. If the player deposited more than they withdrew, they are losing; if they withdrew more, they are profitable.",
+    "SMS only for eligible players (sent by Retention Team Admin). Not eligible: IM + Push only, no bonus mention."
    ]
   },
   {
@@ -171,7 +173,7 @@
     ],
     [
      "Monthly P&L direction",
-     "Monthly P&L negative",
+     "Player lost this month (this month's deposit minus withdraw is above zero)",
      "Monthly profitable, cannot issue"
     ]
    ]
@@ -380,7 +382,7 @@
     ],
     [
      "14",
-     "Send Internal Message and Push to the player",
+     "Eligible: Admin sends SMS, you send IM + Push. Not eligible: IM + Push only, no bonus mention",
      "After claim",
      "Double-check content",
      "BO"
@@ -473,9 +475,9 @@
     ],
     [
      "9",
-     "Check SW x 40%; find last-7-day P&L: User Betting Record > Search UID > Last 7 days > (Deposit minus Withdraw); proceed only if negative",
+     "Check SW x 40%; check this month's P&L: User Betting Record > Search UID > this month > Deposit minus Withdraw",
      "Before issuance",
-     "Proceed only if negative",
+     "Proceed only if the player lost this month (deposit minus withdraw above zero)",
      "Zyra BO"
     ],
     [
@@ -501,7 +503,7 @@
     ],
     [
      "13",
-     "Send Internal Message and Push",
+     "Eligible: Admin sends SMS, you send IM + Push. Not eligible: IM + Push only, no bonus mention",
      "After claim",
      "Double-check content",
      "Zyra BO"
@@ -542,7 +544,7 @@
    "t": "list",
    "x": [
     "Night shift only.",
-    "TC: filter to VVIP before sorting. Zyra: filter to Tier 3 and Tier V.",
+    "TC: filter to VVIP (= Tier 3 and Tier V) before sorting. Zyra: filter to Tier 3 and Tier V.",
     "Always check monthly P&L direction before issuing."
    ]
   }

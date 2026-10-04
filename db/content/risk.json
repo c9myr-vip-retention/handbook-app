@@ -1,13 +1,13 @@
 {
  "id": "risk",
  "source": "05_Risk_Push.md",
- "version": "V1.1",
+ "version": "V1.2",
  "meta": [
   "C9MYR-RTN-SOP-D04",
-  "V1.1",
+  "V1.2",
   "Day Shift / Communication",
   "Owner: VIP RTN",
-  "Updated 7 Sep 2026"
+  "Updated 4 Oct 2026"
  ],
  "body": [
   {
@@ -65,10 +65,10 @@
     [
      "2",
      "Pick the risk tier",
-     "Segment inactive players by days since last deposit: 1D, 3D, 7D, 14D, 30D.",
-     "1D is Push only (soft reminder). 3D and above add SMS + Internal Message.",
+     "Take the list Retention Team assigns after 3:00 PM (Tier 3 and Tier V, by days since last deposit: 1D, 3D, 7D, 14D, 30D).",
+     "1D is Push only (soft reminder). 3D and above: SMS + Internal Message. Reload: 7D 10%, 14D 15%, 30D 20%, 1x TO.",
      "Team Engagement File",
-     ""
+     "Internal Message is sent as usual (Internal Mail Approach SOP)."
     ],
     [
      "3",
@@ -118,7 +118,7 @@
   },
   {
    "t": "p",
-   "x": "Applies to inactive players by days-since-last-deposit tier (1D, 3D, 7D, 14D, 30D), on both TC and Zyra platforms. This SOP owns the risk-tier segmentation and messaging. The send mechanics are the shared ones in the Push Notification SOP (34)."
+   "x": "Applies daily after 3:00 PM to inactive Tier 3 and Tier V players by days-since-last-deposit tier (1D, 3D, 7D, 14D, 30D), on both TC and Zyra platforms. Retention Team extracts the list and assigns it to VIP CS. This SOP owns the risk-tier segmentation and messaging. The send mechanics are the shared ones in the Push Notification SOP (34)."
   },
   {
    "t": "h2",
@@ -155,22 +155,22 @@
     [
      "3D, Soft Emotional Pull",
      "SMS + Internal Message",
-     "Emotional, personal appeal"
+     "Emotional, personal appeal; no bonus"
     ],
     [
      "7D, Strong Incentive",
      "SMS + Internal Message",
-     "Reload bonus %, 1x turnover, limited time"
+     "10% reload bonus, 1x turnover, limited time"
     ],
     [
      "14D, Strong Incentive",
      "SMS + Internal Message",
-     "As 7D, higher bonus at TL discretion"
+     "15% reload bonus, 1x turnover, limited time"
     ],
     [
      "30D, Strong Incentive",
      "SMS + Internal Message",
-     "As 7D, highest-tier reactivation push"
+     "20% reload bonus, 1x turnover, limited time"
     ]
    ]
   },
@@ -182,6 +182,7 @@
    "t": "list",
    "x": [
     "Eligibility: player must be inactive AND not already claimed a similar bonus this cycle.",
+    "Reload: 7D 10%, 14D 15%, 30D 20%, 1x turnover, same on TC and Zyra. No cap on the amount.",
     "**TC BO:** bonus is auto / system-triggered; player claims directly in the app or website.",
     "**Zyra BO:** bonus is manual; player contacts Live Chat, VIP CS states the offer, applies to next deposit. If already deposited, credit manually via Lark ticket.",
     "Communication control: state clearly the bonus applies to the next deposit, has a validity period, and needs 1x turnover.",
@@ -332,7 +333,8 @@
    "t": "list",
    "x": [
     "For 3D, 7D, 14D, 30D tiers, SMS is also sent. SMS is handled by Retention Team Admin; VIP CS prepares the list only.",
-    "Send mechanics match the Push Notification SOP (34); this SOP owns the risk-tier logic."
+    "Send mechanics match the Push Notification SOP (34); this SOP owns the risk-tier logic.",
+    "The Internal Message for 3D and above is sent as usual, per the Internal Mail Approach SOP (09)."
    ]
   }
  ]

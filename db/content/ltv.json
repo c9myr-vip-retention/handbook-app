@@ -1,13 +1,13 @@
 {
  "id": "ltv",
  "source": "03_LTV_List.md",
- "version": "V1.1",
+ "version": "V1.2",
  "meta": [
   "C9MYR-RTN-SOP-D02",
-  "V1.1",
+  "V1.2",
   "Day Shift / VIP",
   "Owner: VIP RTN",
-  "Updated 7 Sep 2026"
+  "Updated 4 Oct 2026"
  ],
  "body": [
   {
@@ -73,16 +73,16 @@
     [
      "3",
      "Pre-check per player",
-     "Not yet given this week, currently active, SW sufficient (bonus <= SW x 40%).",
-     "All three must pass. Same-day SW update mandatory before issuance.",
+     "Not yet given this week and SW sufficient (bonus <= SW x 40%); currently active is recommended.",
+     "Both must pass. Same-day SW update mandatory before issuance.",
      "Lark Base",
      ""
     ],
     [
      "4",
      "Engage before issuance",
-     "Open with a greeting and observe; active: proceed; cold: can delay.",
-     "Contact precedes deposit. Player must engage before issuance.",
+     "Open with a greeting and observe; active: proceed; cold: delay and try again later the same day.",
+     "Contact precedes deposit. Player must engage before issuance. A delayed player never moves to tomorrow's batch.",
      "Livechat / Telegram",
      ""
     ],
@@ -126,7 +126,7 @@
   },
   {
    "t": "p",
-   "x": "Approach selected LTV players for targeted retention via Internal Mail. The Top 70 LTV pool is divided into 10 players per day, Monday to Sunday."
+   "x": "Approach selected LTV (Life Time Value) players for targeted retention via Internal Mail. The Top 70 LTV pool is divided into 10 players per day, Monday to Sunday."
   },
   {
    "t": "h2",
@@ -134,7 +134,7 @@
   },
   {
    "t": "p",
-   "x": "Applies daily. Selection is pulled every Monday by Retention Team Admin from the FTV Top 1 to 70 pool, LTV of 7 or more, Tier 3 and Tier V only."
+   "x": "Applies daily, day shift, from 2:00 PM. Selection is pulled every Monday by Retention Team Admin: the top 70 players by last week's LTV (LTV7, the 7-day Life Time Value in RM), Tier 3 and Tier V only. If deduplication leaves fewer than 70, fill down the ranking."
   },
   {
    "t": "h2",
@@ -143,7 +143,7 @@
   {
    "t": "list",
    "x": [
-    "Daily quota is exactly 10. Never exceed, never carry over.",
+    "Daily quota is exactly 10. Never exceed, never carry over. A cold player is delayed within the same day only.",
     "Match today's database to today's day. Never borrow another day's batch, even if today's list is empty.",
     "SW x 40% is the hard cap. A bonus above it cannot be issued; SW must be updated the same day before issuance.",
     "Player must engage before issuance. Contact precedes deposit.",
@@ -333,6 +333,7 @@
    "t": "list",
    "x": [
     "VIP CS prepares the list; Retention Team Admin sends the SMS.",
+    "LTV here is last week's Life Time Value in RM (LTV7). The ladder reads that figure.",
     "SW x 40% is the hard cap. A bonus above it cannot be issued."
    ]
   }

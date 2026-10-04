@@ -119,33 +119,38 @@ export function QuizSet({ id, go, isAdmin }) {
   const used = s.mine.length
   const left = c.maxAttempts ? c.maxAttempts - used : null
   const canStart = s.state === 'live' && (left == null || left > 0)
+  const trialFirst = isAdmin && s.state !== 'live'
   return (
-    <div className="view doc quiz">
-      <h1>{c.title} <StateChip state={s.state} /></h1>
-      {(c.intro || []).map((p, i) => <p key={i} className={i === 0 ? 'lead' : ''}>{p}</p>)}
-      <div className="scorestats">
-        <div><span>Questions</span><b>{c.count}</b></div>
-        <div><span>Time</span><b>{c.minutes} minutes</b></div>
-        <div><span>Points</span><b>{c.max}</b></div>
-      </div>
+    <div className="view doc quiz qz-intro">
+      <button className="crumblink qz-back" onClick={() => go({ kind: 'quizzes' })}>‹ All quizzes</button>
+      <h1 className="qz-title">{c.title} <StateChip state={s.state} /></h1>
+      {(c.intro || []).map((p, i) => <p key={i} className={i === 0 ? 'lead' : 'qz-intro-p'}>{p}</p>)}
+      <dl className="qz-facts">
+        <div><dt>Questions</dt><dd>{c.count}</dd></div>
+        <div><dt>Time</dt><dd>{c.minutes} min</dd></div>
+        <div><dt>Points</dt><dd>{c.max}</dd></div>
+        <div><dt>Attempts</dt><dd>{left == null ? 'Unlimited' : left + ' left'}</dd></div>
+      </dl>
       {err && <Err msg={err} />}
-      <div className="quiz-actions">
+      <div className="qz-cta">
         {canStart && <button className="btn" disabled={busy} onClick={start}>{used ? 'Start again' : 'Start the quiz'}</button>}
-        {back}
+        {trialFirst && <button className="btn" disabled={busy} onClick={start}>Try the draft</button>}
+        {trialFirst && <span className="muted small">Trial runs are not counted. Staff can start once you publish.</span>}
+        {s.state !== 'live' && !isAdmin && <span className="muted">This quiz is {s.state === 'closed' ? 'closed' : 'not open yet'}.</span>}
       </div>
-      {s.state !== 'live' && !isAdmin && <p className="muted">This quiz is {s.state === 'closed' ? 'closed' : 'not open yet'}.</p>}
+      <h2 className="qz-h">How it works</h2>
       <ul className="bullets">
         <li>One clock for the whole quiz. It keeps running if you close the page; when it ends, what you saved is submitted.</li>
         <li>Questions open in order: finish one to open the next.{c.feedback ? ' Check each answer to see if it is right; it locks once checked.' : ' You can go back and change answers until you submit.'}</li>
         {c.written > 0 && <li>An admin marks the written answers.</li>}
-        <li>{left == null ? 'Every attempt is recorded.' : `Every attempt is recorded. Attempts left: ${left}.`}</li>
+        <li>Every attempt is recorded.</li>
       </ul>
       {c.ref && <PillarRef refData={c.ref} />}
       {used > 0 && <>
-        <h2>Your results</h2>
-        <ul className="bullets">{s.mine.map(r => <li key={r.n}>Attempt {r.n}, {when(r.at)}: {scoreText(r)}</li>)}</ul>
+        <h2 className="qz-h">Your results</h2>
+        <ul className="qz-results">{s.mine.map(r => <li key={r.n}><span>Attempt {r.n}</span><span className="muted">{when(r.at)}</span><b>{scoreText(r)}</b></li>)}</ul>
       </>}
-      {isAdmin && <AdminPanel id={id} state={s.state} go={go} onChange={reload} onTrial={start} busy={busy} />}
+      {isAdmin && <AdminPanel id={id} state={s.state} go={go} onChange={reload} />}
     </div>
   )
 }
@@ -360,25 +365,28 @@ const wide = () => typeof matchMedia === 'function' && matchMedia('(min-width:11
 
 // ---- admin ----------------------------------------------------------------------
 
-function AdminPanel({ id, state, go, onChange, onTrial, busy }) {
+function AdminPanel({ id, state, go, onChange }) {
   const [d, err, reload] = useLoad(() => api.quizDraft(id), [id])
   const [msg, setMsg] = useState('')
   const act = async (fn, ok) => { setMsg(''); try { await fn(); setMsg(ok); reload(); onChange() } catch (e) { setMsg(e.message) } }
   return (
     <section className="qz-admin" aria-labelledby="qz-admin-h">
-      <h2 id="qz-admin-h">Admin</h2>
+      <div className="qz-admin-head">
+        <h2 id="qz-admin-h" className="qz-h">Admin tools</h2>
+        {d && !d.problems.length && <span className="qz-ready">{state === 'draft' ? 'Ready to publish' : state === 'closed' ? 'Closed to staff' : 'Live for staff'}</span>}
+      </div>
       {err && <Err msg={err} />}
-      {d && (d.problems.length
-        ? <div className="callout warn"><div><b>Can't publish yet ({d.problems.length}).</b><ul className="bullets">{d.problems.slice(0, 12).map(p => <li key={p}>{p}</li>)}{d.problems.length > 12 && <li>and {d.problems.length - 12} more</li>}</ul></div></div>
-        : <p className="muted small">The draft is ready to publish.</p>)}
+      {d && d.problems.length > 0 && <div className="callout warn"><div><b>Can't publish yet ({d.problems.length}).</b><ul className="bullets">{d.problems.slice(0, 12).map(p => <li key={p}>{p}</li>)}{d.problems.length > 12 && <li>and {d.problems.length - 12} more</li>}</ul></div></div>}
       <div className="quiz-actions">
         <button className="btn small" disabled={!d || d.problems.length > 0} onClick={() => act(() => api.quizPublish(id), 'Published. Staff can take it now.')}>{state === 'draft' ? 'Publish' : 'Publish the draft again'}</button>
-        {state !== 'live' && <button className="btn small ghost" disabled={busy} onClick={onTrial}>Try the draft (not counted)</button>}
         {state === 'live' && <button className="btn small ghost" onClick={() => confirm('Close this quiz? Nobody can start a new attempt until you open it again.') && act(() => api.quizClose(id, true), 'Closed.')}>Close the quiz</button>}
         {state === 'closed' && <button className="btn small ghost" onClick={() => act(() => api.quizClose(id, false), 'Open again.')}>Open again</button>}
         <button className="btn small ghost" onClick={() => go({ kind: 'qscores', key: id })}>Scores</button>
       </div>
-      {d && <label className="qz-switch"><input type="checkbox" checked={!!d.feedback} onChange={e => act(() => api.quizSettings(id, { feedback: e.target.checked }), e.target.checked ? 'Feedback on: staff see right or wrong after each question.' : 'Feedback off: staff see their score only.')} /> Show right or wrong after each question (green and red). Off for assessments: it shows the answer key.</label>}
+      {d && <label className="qz-switch">
+        <input type="checkbox" role="switch" checked={!!d.feedback} onChange={e => act(() => api.quizSettings(id, { feedback: e.target.checked }), e.target.checked ? 'Feedback on: staff see right or wrong after each question.' : 'Feedback off: staff see their score only.')} />
+        <span><b>Show right or wrong after each question</b><span className="muted small">Green and red after each answer. Keep it off for assessments: it shows the answer key.</span></span>
+      </label>}
       {msg && <p className="small" role="status">{msg}</p>}
     </section>
   )

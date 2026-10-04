@@ -287,17 +287,19 @@ export function QuizScores({ id, go }) {
         <div><span>Most missed</span><b>{s.missed[0] ? `Q${s.missed[0].n}, ${s.missed[0].wrong} of ${s.missed[0].asked} wrong` : '-'}</b></div>
       </div>
       <div className="tbl-wrap"><table>
-        <thead><tr><th>Staff</th><th>Attempts</th><th>First</th><th>Best</th><th>Latest</th><th>To mark</th></tr></thead>
+        <thead><tr><th>Staff</th><th>Attempts</th><th>First</th><th>Best</th><th>Latest</th><th>Band</th><th>To mark</th></tr></thead>
         <tbody>{s.people.map(p => (
           <tr key={p.email}>
             <td>{p.name || p.email}{p.open && <span className="muted small"> (in progress)</span>}</td>
             <td>{p.attempts > 0 ? <button className="crumblink attempts-link" onClick={() => setOpen({ id, email: p.email, name: p.name || p.email, title })} aria-label={'See ' + p.attempts + ' attempts by ' + (p.name || p.email)}>{p.attempts}</button> : 0}</td>
             <td>{p.first ?? '-'}</td><td>{p.best ?? '-'}</td><td>{p.latest ?? '-'}</td>
+            <td>{p.latest == null ? '-' : !p.latestFinal ? <span className="muted small">after marking</span> : (s.bands.find(b => p.latest >= b[0] && p.latest <= b[1])?.[2] || '-')}</td>
             <td>{p.toMark || '-'}</td>
           </tr>
         ))}</tbody>
       </table></div>
-      <p className="muted small">Scores are out of {s.max}.</p>
+      <p className="muted small">Scores are out of {s.max}. Band is for the latest attempt, once its written answers are marked.</p>
+      {s.bands.length > 0 && <details className="qz-ref"><summary>Score bands (trainers only)</summary><dl>{s.bands.map(b => <div key={b[2]}><dt>{b[0]} to {b[1]}: {b[2]}</dt><dd>{b[3]}</dd></div>)}</dl></details>}
       <button className="btn small ghost" onClick={() => go({ kind: 'qset', key: id })}>Back to the quiz</button>
     </div>
   )
@@ -346,6 +348,7 @@ function QuizAttemptReport({ sel, onClose }) {
                   {open.correct
                     ? <p>Answered: <span className="right">{open.chose}</span></p>
                     : <p>{open.chose == null ? 'Not answered' : 'Chose: ' + open.chose}{open.right && <> · Correct: <span className="right">{open.right}</span></>}{!open.right && <> · <span className="muted">no answer key yet</span></>}</p>}
+                  {open.focus && <p className="muted small">Primary pillar: {open.focus}</p>}
                   {open.explain && <>
                     <p><b>Written answer:</b> {open.explain.text || <span className="muted">left blank</span>}</p>
                     {open.explain.rubric && <p className="muted small">Marking guide: {open.explain.rubric}</p>}

@@ -68,8 +68,9 @@
           "Verify the transaction details, amount, time, UID and available system records before deciding what happened.",
           "Escalate immediately so the case will not be delayed."
         ],
-        "a": "",
-        "pts": 1
+        "a": "Verify the transaction details, amount, time, UID and available system records before deciding what happened.",
+        "pts": 1,
+        "focus": "Data-Driven Thinking"
       },
       {
         "id": "q2",
@@ -81,8 +82,9 @@
           "Ask another teammate to take over the formatting so everything can be perfect before submission.",
           "Submit first without checking the remaining figures because meeting the deadline is more important."
         ],
-        "a": "",
-        "pts": 1
+        "a": "Submit the accurate report on time, then improve the presentation after the required work is completed.",
+        "pts": 1,
+        "focus": "Progress Over Perfection"
       },
       {
         "id": "q3",
@@ -94,8 +96,9 @@
           "Identify why the mistake keeps happening and change the working/checking method that allowed it to repeat.",
           "Help the other department correct the affected cases first."
         ],
-        "a": "",
-        "pts": 1
+        "a": "Identify why the mistake keeps happening and change the working/checking method that allowed it to repeat.",
+        "pts": 1,
+        "focus": "Continuous Growth"
       },
       {
         "id": "q4",
@@ -107,8 +110,9 @@
           "Whether your responsibility has actually ended simply because the case was escalated.",
           "Whether the escalation process should be changed in the future."
         ],
-        "a": "",
-        "pts": 1
+        "a": "Whether your responsibility has actually ended simply because the case was escalated.",
+        "pts": 1,
+        "focus": "Ownership Mentality"
       },
       {
         "id": "q5",
@@ -120,8 +124,9 @@
           "Compare the actual impact of both methods and discuss the option that benefits the team's overall workflow.",
           "Let the majority decide, even if you still believe your method is better."
         ],
-        "a": "",
-        "pts": 1
+        "a": "Compare the actual impact of both methods and discuss the option that benefits the team's overall workflow.",
+        "pts": 1,
+        "focus": "Team Before Ego"
       },
       {
         "id": "q6",
@@ -133,8 +138,9 @@
           "Check the relevant promotion conditions, claim record, timing and other available data before concluding what happened.",
           "Give the player the benefit first because delaying may create a worse customer experience."
         ],
-        "a": "",
-        "pts": 1
+        "a": "Check the relevant promotion conditions, claim record, timing and other available data before concluding what happened.",
+        "pts": 1,
+        "focus": "Data-Driven Thinking"
       },
       {
         "id": "q7",
@@ -146,8 +152,9 @@
           "The staff member should first maintain correct execution while gradually improving efficiency through practice and feedback.",
           "The staff member should copy the fastest agent's working style."
         ],
-        "a": "",
-        "pts": 1
+        "a": "The staff member should first maintain correct execution while gradually improving efficiency through practice and feedback.",
+        "pts": 1,
+        "focus": "Continuous Growth"
       },
       {
         "id": "q8",
@@ -159,8 +166,9 @@
           "Ask the other department to handle the verification themselves.",
           "Send only the records that look correct and leave the uncertain ones for later."
         ],
-        "a": "",
-        "pts": 1
+        "a": "Verify the required information first, even if it takes slightly longer, because incorrect information may create more work and confusion.",
+        "pts": 1,
+        "focus": "Data-Driven Thinking"
       },
       {
         "id": "q9",
@@ -172,8 +180,9 @@
           "Discuss the issue constructively with the relevant person and identify how the same mistake can be prevented in future.",
           "Report the person immediately because repeated mistakes may affect team performance."
         ],
-        "a": "",
-        "pts": 1
+        "a": "Discuss the issue constructively with the relevant person and identify how the same mistake can be prevented in future.",
+        "pts": 1,
+        "focus": "Continuous Growth"
       },
       {
         "id": "q10",
@@ -185,8 +194,9 @@
           "Apply the useful feedback, identify what you can improve yourself, and use the experience to make future reports better.",
           "Rebuild the entire report from scratch so the previous version will not be repeated."
         ],
-        "a": "",
-        "pts": 1
+        "a": "Apply the useful feedback, identify what you can improve yourself, and use the experience to make future reports better.",
+        "pts": 1,
+        "focus": "Continuous Growth"
       },
       {
         "id": "q11",
@@ -198,8 +208,9 @@
           "Data-Driven Thinking",
           "Team Before Ego"
         ],
-        "a": "",
-        "pts": 1
+        "a": "Data-Driven Thinking",
+        "pts": 1,
+        "focus": "Data-Driven Thinking"
       },
       {
         "id": "q12",
@@ -211,8 +222,9 @@
           "Change the process immediately so the team can become more efficient.",
           "Wait until someone else notices the problem before raising it."
         ],
-        "a": "",
-        "pts": 1
+        "a": "Raise the inefficiency and suggest a better approach based on the actual workflow impact.",
+        "pts": 1,
+        "focus": "Progress Over Perfection"
       },
       {
         "id": "q13",
@@ -224,8 +236,9 @@
           "Help them understand the issue while maintaining your own responsibilities, so the team can solve the situation without creating unnecessary dependency.",
           "Escalate the case to Senior so neither of you needs to spend time on it."
         ],
-        "a": "",
-        "pts": 1
+        "a": "Help them understand the issue while maintaining your own responsibilities, so the team can solve the situation without creating unnecessary dependency.",
+        "pts": 1,
+        "focus": "Team Before Ego"
       },
       {
         "id": "q14",
@@ -237,8 +250,9 @@
           "Accept the Senior's experience because they have handled the team longer.",
           "Ask the team why they have become less proactive."
         ],
-        "a": "",
-        "pts": 1
+        "a": "Compare the relevant data and determine what actually changed before identifying the cause.",
+        "pts": 1,
+        "focus": "Data-Driven Thinking"
       },
       {
         "id": "q15",
@@ -250,8 +264,9 @@
           "Continue owning the case, verify what can already be established from available data, communicate appropriately, and follow through until the case reaches a proper resolution.",
           "Focus on completing your other urgent tasks first because the unresolved part is outside your authority."
         ],
-        "a": "",
-        "pts": 1
+        "a": "Continue owning the case, verify what can already be established from available data, communicate appropriately, and follow through until the case reaches a proper resolution.",
+        "pts": 1,
+        "focus": "Ownership Mentality"
       },
       {
         "id": "q16",
@@ -263,13 +278,14 @@
           "Continuous Growth",
           "Team Before Ego"
         ],
-        "a": "",
+        "a": "Ownership Mentality",
         "pts": 1,
         "explain": {
           "pts": 1,
           "prompt": "Explain 1) why your answer is the primary one, and 2) why the strongest alternative is not primary.",
-          "rubric": ""
-        }
+          "rubric": "1 point for a sound explanation that distinguishes the strongest alternative from the primary pillar (Ownership Mentality). Judge whether the trainee identifies the central principle, not whether they match keywords."
+        },
+        "focus": "Ownership Mentality"
       },
       {
         "id": "q17",
@@ -281,13 +297,14 @@
           "Continuous Growth",
           "Team Before Ego"
         ],
-        "a": "",
+        "a": "Progress Over Perfection",
         "pts": 1,
         "explain": {
           "pts": 1,
           "prompt": "Explain 1) why your answer is the primary one, and 2) why the strongest alternative is not primary.",
-          "rubric": ""
-        }
+          "rubric": "1 point for a sound explanation that distinguishes the strongest alternative from the primary pillar (Progress Over Perfection). Judge whether the trainee identifies the central principle, not whether they match keywords."
+        },
+        "focus": "Progress Over Perfection"
       },
       {
         "id": "q18",
@@ -299,13 +316,14 @@
           "Data-Driven Thinking",
           "Team Before Ego"
         ],
-        "a": "",
+        "a": "Team Before Ego",
         "pts": 1,
         "explain": {
           "pts": 1,
           "prompt": "Explain 1) why your answer is the primary one, and 2) why the strongest alternative is not primary.",
-          "rubric": ""
-        }
+          "rubric": "1 point for a sound explanation that distinguishes the strongest alternative from the primary pillar (Team Before Ego). Judge whether the trainee identifies the central principle, not whether they match keywords."
+        },
+        "focus": "Team Before Ego"
       },
       {
         "id": "q19",
@@ -317,13 +335,14 @@
           "Review the process, identify what caused the unnecessary work, and improve your method.",
           "Work faster next time without changing the process."
         ],
-        "a": "",
+        "a": "Review the process, identify what caused the unnecessary work, and improve your method.",
         "pts": 1,
         "explain": {
           "pts": 1,
           "prompt": "Explain 1) why your answer is the primary one, and 2) why the strongest alternative is not primary.",
-          "rubric": ""
-        }
+          "rubric": "1 point for a sound explanation that distinguishes the strongest alternative from the primary pillar (Continuous Growth). Judge whether the trainee identifies the central principle, not whether they match keywords."
+        },
+        "focus": "Continuous Growth"
       },
       {
         "id": "q20",
@@ -335,14 +354,41 @@
           "Correct the immediate issue, identify the factual cause, take responsibility for the case, improve the process that allowed the mistake to happen, and make sure the relevant team is informed.",
           "Ask Senior to review the entire situation because several different departments may have contributed to the problem."
         ],
-        "a": "",
+        "a": "Correct the immediate issue, identify the factual cause, take responsibility for the case, improve the process that allowed the mistake to happen, and make sure the relevant team is informed.",
         "pts": 1,
         "explain": {
           "pts": 1,
           "prompt": "Explain 1) why your answer is the primary one, and 2) why the strongest alternative is not primary.",
-          "rubric": ""
-        }
+          "rubric": "1 point for a sound explanation that distinguishes the strongest alternative from the primary pillar (Integrated response; primary focus is Ownership, with Data, Growth and Team communication also required.). Judge whether the trainee identifies the central principle, not whether they match keywords."
+        },
+        "focus": "Integrated response; primary focus is Ownership, with Data, Growth and Team communication also required."
       }
+    ],
+    "bands": [
+      [
+        23,
+        25,
+        "Strong application",
+        "Can distinguish primary mindset from secondary considerations in complex situations."
+      ],
+      [
+        20,
+        22,
+        "Good application",
+        "Understands the pillars but may still be influenced by surface-level cues when several pillars overlap."
+      ],
+      [
+        16,
+        19,
+        "Developing",
+        "Understands individual pillars but struggles when scenarios require prioritisation."
+      ],
+      [
+        0,
+        15,
+        "Needs reinforcement",
+        "Can recognise definitions but needs more practice applying them to operational situations."
+      ]
     ]
   }
 }

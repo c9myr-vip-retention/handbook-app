@@ -215,7 +215,7 @@ async function scores(DB, set) {
   }
   const qs = c.questions || []
   return {
-    id: set.id, title: c.title, state: stateOf(set), max: maxScore(c),
+    id: set.id, title: c.title, state: stateOf(set), max: maxScore(c), bands: c.bands || [],
     missed: [...miss].filter(([, v]) => v.wrong).sort((x, y) => y[1].wrong / y[1].asked - x[1].wrong / x[1].asked).slice(0, 3)
       .map(([qid, v]) => ({ qid, n: qs.findIndex(q => q.id === qid) + 1, wrong: v.wrong, asked: v.asked })),
     people: people.map(p => {
@@ -224,7 +224,7 @@ async function scores(DB, set) {
       return {
         email: p.email, name: p.full_name, attempts: list.length, open: (by.get(p.email) || []).some(r => !r.submitted_at),
         first: t.length ? t[0] : null, best: t.length ? Math.max(...t) : null, latest: t.length ? t[t.length - 1] : null,
-        toMark: list.filter(r => r.mark_score == null).length,
+        toMark: list.filter(r => r.mark_score == null).length, latestFinal: list.length ? list[list.length - 1].mark_score != null : false,
       }
     }),
   }
@@ -244,7 +244,7 @@ async function attemptReport(DB, setId, who) {
       items: qs.map((q, k) => {
         const x = answers[q.id] || {}
         return {
-          k: k + 1, qid: q.id, q: q.q, chose: x.c ?? null, right: q.a || null, correct: !!x.ok,
+          k: k + 1, qid: q.id, q: q.q, chose: x.c ?? null, right: q.a || null, correct: !!x.ok, focus: q.focus || null,
           explain: q.explain ? { text: x.x || '', pts: q.explain.pts, rubric: q.explain.rubric || '', mark: marks[q.id] ?? null } : null,
         }
       }),

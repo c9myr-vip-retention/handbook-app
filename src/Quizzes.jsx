@@ -243,6 +243,9 @@ function Runner({ run, content, onDone }) {
     return () => clearInterval(t)
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
+  // Keep the current question visible in the navigator.
+  useEffect(() => { document.querySelector('.qz-navcol .qz-step.on')?.scrollIntoView({ block: 'nearest' }) }, [i])
+
   const q = qs[i]
   const a = ans[q.id] || {}
   const sec = content.sections?.find(x => x.id === q.sec)
@@ -267,13 +270,43 @@ function Runner({ run, content, onDone }) {
     return a.c === t ? ' sel' : ''
   }
   const need = !a.c ? 'Choose an answer to continue.' : q.explain && words < minWords ? `Write at least ${minWords} words to continue.` : fb && !locked ? 'Check your answer to continue.' : ''
-  const cellClass = (x, k) => 'qz-cell' + (k === i ? ' on' : '') + (fb && ans[x.id]?.locked ? (ans[x.id].correct ? ' ok' : ' bad') : complete[k] ? ' done' : '')
+  // Vertical navigator: questions grouped by section; each row shows its state
+  // (current, done, right/wrong with feedback on, not open yet) and its opening words.
+  const stateOf = (x, k) => fb && ans[x.id]?.locked ? (ans[x.id].correct ? 'ok' : 'bad') : complete[k] ? 'done' : k > reach ? 'shut' : 'open'
+  const groups = []
+  qs.forEach((x, k) => { const g = groups[groups.length - 1]; if (g && g.sec === x.sec) g.items.push(k); else groups.push({ sec: x.sec, items: [k] }) })
+  const secLabel = (id) => (content.sections?.find(s => s.id === id)?.title || '').replace(/^Section\s+/, '')
+  const nav = (
+    <div className="qz-nav">
+      <div className="qz-nav-head"><b>Progress</b><span>{nDone} of {qs.length}</span></div>
+      <div className="qz-nav-bar" aria-hidden="true"><span style={{ width: (nDone / qs.length * 100) + '%' }} /></div>
+      {groups.map(g => (
+        <div key={g.sec + g.items[0]} className="qz-nav-group">
+          {g.sec && <p className="qz-nav-sec">{secLabel(g.sec)}</p>}
+          <ol>
+            {g.items.map(k => {
+              const x = qs[k], st = stateOf(x, k)
+              return (
+                <li key={x.id}>
+                  <button className={'qz-step ' + st + (k === i ? ' on' : '')} disabled={st === 'shut'} onClick={() => goTo(k)} aria-current={k === i ? 'step' : undefined}
+                    aria-label={'Question ' + (k + 1) + ({ ok: ', correct', bad: ', wrong', done: ', done', shut: ', not open yet', open: '' })[st]}>
+                    <span className="qz-step-dot" aria-hidden="true">{st === 'ok' || st === 'done' ? '✓' : st === 'bad' ? '✗' : k + 1}</span>
+                    <span className="qz-step-text"><span className="qz-step-n">Q{k + 1}</span> {x.q.split('\n')[0]}</span>
+                  </button>
+                </li>
+              )
+            })}
+          </ol>
+        </div>
+      ))}
+      {fb && <p className="muted small qz-legend"><span className="qz-dot ok" /> correct <span className="qz-dot bad" /> wrong</p>}
+    </div>
+  )
 
   return (
     <div className="view doc qz-run">
       <div className={'qz-sticky' + (left <= 300 ? ' low' : '')}>
-        <span>{run.trial ? 'Trial · ' : ''}Question {i + 1} of {qs.length}</span>
-        <span className="qz-sticky-bar" aria-hidden="true"><span style={{ width: (nDone / qs.length * 100) + '%' }} /></span>
+        <span>{run.trial ? 'Trial · ' : ''}Question {i + 1} of {qs.length} · {nDone} done</span>
         <span className="quiz-timer" role="timer" aria-label={'Time left ' + clock(left)}>{clock(left)} left</span>
         <button className="btn small ghost" disabled={busy} onClick={() => submit(false)}>{busy ? 'Submitting…' : 'Submit'}</button>
       </div>
@@ -281,7 +314,9 @@ function Runner({ run, content, onDone }) {
       <p className="sr-only" aria-live="assertive">{alert}</p>
 
       <div className="qz-cols">
+        <nav className="qz-navcol" aria-label="Questions">{nav}</nav>
         <div className="qz-main">
+          <details className="qz-navfold"><summary>All questions <span className="muted">({nDone} of {qs.length} done)</span></summary>{nav}</details>
           {sec && <p className="qz-sec"><b>{sec.title}</b>{sec.note && !q.explain && <span className="muted"> {sec.note}</span>}</p>}
           <h1 className="quiz-q qz-q"><span className="qz-qn">Q{i + 1}.</span> {q.q}</h1>
           <div className="quiz-opts" role="radiogroup" aria-label="Answers">
@@ -316,20 +351,7 @@ function Runner({ run, content, onDone }) {
           {need && <p className="muted small">{need}</p>}
         </div>
 
-        <aside className="qz-side" aria-label="Quiz progress">
-          <div className="qz-panel">
-            <div className="qz-panel-head"><b>Progress</b><span className="muted small">{nDone} of {qs.length} done</span></div>
-            <div className="qz-grid" role="list">
-              {qs.map((x, k) => (
-                <button key={x.id} role="listitem" className={cellClass(x, k)} disabled={k > reach} onClick={() => goTo(k)}
-                  aria-current={k === i ? 'step' : undefined}
-                  aria-label={'Question ' + (k + 1) + (fb && ans[x.id]?.locked ? (ans[x.id].correct ? ', correct' : ', wrong') : complete[k] ? ', done' : k > reach ? ', not open yet' : '')}>{k + 1}</button>
-              ))}
-            </div>
-            {fb && <p className="muted small qz-legend"><span className="qz-dot ok" /> correct <span className="qz-dot bad" /> wrong</p>}
-          </div>
-          {content.ref && <PillarRef refData={content.ref} open={wide()} />}
-        </aside>
+        {content.ref && <aside className="qz-side" aria-label="Reference"><PillarRef refData={content.ref} open={wide()} /></aside>}
       </div>
     </div>
   )

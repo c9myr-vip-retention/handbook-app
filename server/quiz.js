@@ -4,8 +4,10 @@
 // Integrity rules enforced here, not in the browser:
 // - The answer key is the option sentence, never a letter. Options are shuffled
 //   per attempt and shown without A/B/C; the browser sends back the sentence.
-// - Staff never receive the key, before or after submitting. Only admins see
-//   right and wrong, in the score report.
+// - Staff never receive the key unless the quiz has feedback switched on
+//   (content.feedback). Then each answer is locked when checked, and only that
+//   question's result comes back. Otherwise only admins see right and wrong.
+// - A written reason needs at least 3 words (MIN_WORDS) to count as complete.
 // - One clock per attempt (content.minutes). Answers after the deadline are
 //   refused; an attempt left open past the deadline is closed with what was saved.
 // - Publishing is refused while a question has no key, a key that matches no
@@ -20,12 +22,15 @@
 //   GET  /api/quizzes/:id/draft                admin: full draft and what blocks publishing
 //   POST /api/quizzes/:id/publish              admin: draft -> live
 //   POST /api/quizzes/:id/close                admin: { closed: true|false } stop or allow new attempts
+//   POST /api/quizzes/:id/settings             admin: { feedback: true|false } on the draft and the live set
 //   GET  /api/quizzes/:id/scores               admin: people x attempts
 //   GET  /api/quizzes/:id/scores/:email        admin: one person's attempts, question by question
 //   POST /api/quizzes/attempts/:aid/mark       admin: { qid, pts } mark a written reason
 
 const GRACE_S = 15 // network slack on the clock
 const MAX_TEXT = 2000
+const MIN_WORDS = 3
+const words = (t) => String(t || '').trim().split(/\s+/).filter(Boolean).length
 
 export async function handleQuiz({ request, env, parts, email, isAdmin, json }) {
   const DB = env.DB
@@ -92,7 +97,7 @@ export async function handleQuiz({ request, env, parts, email, isAdmin, json }) 
 
   if (b === 'draft' && method === 'GET') {
     const d = parse(set.draft)
-    return json({ id: a, state: stateOf(set), content: d, problems: problems(d), draft_at: set.draft_at, published_at: set.published_at })
+    return json({ id: a, state: stateOf(set), content: d, problems: problems(d), draft_at: set.draft_at, published_at: set.published_at, feedback: !!(parse(set.live) || d)?.feedback })
   }
   if (b === 'publish' && method === 'POST') {
     const bad = problems(parse(set.draft))
@@ -105,6 +110,12 @@ export async function handleQuiz({ request, env, parts, email, isAdmin, json }) 
     const body = await request.json().catch(() => ({}))
     await DB.prepare('update quiz_sets set closed = ? where id = ?').bind(body.closed ? 1 : 0, a).run()
     return json({ ok: true })
+  }
+  if (b === 'settings' && method === 'POST') {
+    const body = await request.json().catch(() => ({}))
+    const set1 = (j) => { const c = parse(j); if (!c) return j; c.feedback = !!body.feedback; return JSON.stringify(c) }
+    await DB.prepare('update quiz_sets set draft = ?, live = ? where id = ?').bind(set1(set.draft), set.live ? set1(set.live) : null, a).run()
+    return json({ ok: true, feedback: !!body.feedback })
   }
   if (b === 'scores' && method === 'GET') await closeExpired(DB, null, a)
   if (b === 'scores' && method === 'GET' && c) return json(await attemptReport(DB, a, c))
@@ -121,13 +132,14 @@ function running(at, content) {
   const plan = parse(at.plan) || [], answers = parse(at.answers) || {}
   const byId = new Map((content?.questions || []).map(q => [q.id, q]))
   return {
-    attempt: at.id, trial: !!at.trial, deadline: at.deadline,
+    attempt: at.id, trial: !!at.trial, deadline: at.deadline, feedback: !!content?.feedback, minWords: MIN_WORDS,
     secondsLeft: Math.max(0, Math.round((Date.parse(at.deadline) - Date.now()) / 1000)),
     questions: plan.map(p => byId.get(p.qid)).filter(Boolean).map((q, i) => ({
       id: q.id, sec: q.sec, q: q.q, o: plan[i].order.map(k => q.o[k]),
       explain: q.explain ? { prompt: q.explain.prompt } : null,
     })),
-    answers: Object.fromEntries(Object.entries(answers).map(([k, v]) => [k, { c: v.c ?? null, x: v.x || '' }])),
+    answers: Object.fromEntries(Object.entries(answers).map(([k, v]) => [k, { c: v.c ?? null, x: v.x || '',
+      ...(content?.feedback && v.locked ? { locked: true, correct: v.c === byId.get(k)?.a, right: byId.get(k)?.a } : {}) }])),
   }
 }
 
@@ -142,10 +154,15 @@ async function saveAnswer(DB, at, content, body, json) {
   const choice = body.choice == null ? null : String(body.choice)
   if (choice !== null && !q.o.includes(choice)) return json({ error: 'That answer is not one of the options.' }, 400)
   const answers = parse(at.answers) || {}
-  answers[q.id] = { c: choice, x: q.explain ? String(body.explain || '').slice(0, MAX_TEXT) : '' }
-  const r = await DB.prepare('update quiz_attempts set answers = ? where id = ? and submitted_at is null').bind(JSON.stringify(answers), at.id).run()
-  if (!r.meta?.changes) return json({ error: 'This attempt is already submitted.' }, 409)
-  return json({ ok: true })
+  if (answers[q.id]?.locked) return json({ error: 'This answer is already checked and locked.' }, 409)
+  const explain = q.explain ? String(body.explain || '').slice(0, MAX_TEXT) : ''
+  const check = !!content.feedback && !!body.check
+  if (check && (choice === null || (q.explain && words(explain) < MIN_WORDS))) return json({ error: q.explain ? `Choose an answer and write at least ${MIN_WORDS} words.` : 'Choose an answer first.' }, 400)
+  answers[q.id] = { c: choice, x: explain, ...(check ? { locked: true } : {}) }
+  // Compare-and-set on the old value, so two quick saves never undo a lock.
+  const r = await DB.prepare('update quiz_attempts set answers = ? where id = ? and submitted_at is null and answers = ?').bind(JSON.stringify(answers), at.id, at.answers).run()
+  if (!r.meta?.changes) return json({ error: 'Your answer was not saved. Try again.' }, 409)
+  return json(check ? { ok: true, correct: choice === q.a, right: q.a } : { ok: true })
 }
 
 // Mark the choices (sentence against the key) and close the attempt.
@@ -162,7 +179,7 @@ async function finish(DB, at, content) {
   // No written part: nothing to mark, so the written score is 0, not pending.
   await DB.prepare(`update quiz_attempts set answers = ?, auto_score = ?, mark_score = ?, submitted_at = ? where id = ? and submitted_at is null`)
     .bind(JSON.stringify(answers), auto, written ? null : 0, new Date().toISOString(), at.id).run()
-  return { submitted: true, auto, max: at.max_score, autoMax: content.questions.reduce((s, q) => s + (q.pts || 1), 0), written, trial: !!at.trial }
+  return { submitted: true, feedback: !!content.feedback, auto, max: at.max_score, autoMax: content.questions.reduce((s, q) => s + (q.pts || 1), 0), written, trial: !!at.trial }
 }
 
 // Close attempts on this set whose clock ran out (one person's, or everyone's
@@ -286,7 +303,7 @@ function total(r) { return (r.auto_score || 0) + (r.mark_score || 0) }
 function forTaker(c) {
   if (!c) return null
   return {
-    title: c.title, intro: c.intro, minutes: c.minutes, maxAttempts: c.maxAttempts || null, ref: c.ref, sections: c.sections,
+    title: c.title, intro: c.intro, minutes: c.minutes, maxAttempts: c.maxAttempts || null, ref: c.ref, sections: c.sections, feedback: !!c.feedback,
     count: c.questions?.length || 0, max: maxScore(c), written: (c.questions || []).filter(q => q.explain).length,
   }
 }

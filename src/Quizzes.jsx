@@ -110,7 +110,7 @@ export function QuizSet({ id, go, isAdmin }) {
         {result.written > 0
           ? <p>This counts your answer choices. Your {result.written} written answers can add up to {result.max - result.autoMax} more points after review.</p>
           : <p>Thank you.</p>}
-        <p className="muted small">The answers are not shown, so the quiz stays fair for everyone.</p>
+        {!result.feedback && <p className="muted small">The answers are not shown, so the quiz stays fair for everyone.</p>}
       </div>
       <div className="quiz-actions">{back}</div>
     </div>
@@ -136,7 +136,7 @@ export function QuizSet({ id, go, isAdmin }) {
       {s.state !== 'live' && !isAdmin && <p className="muted">This quiz is {s.state === 'closed' ? 'closed' : 'not open yet'}.</p>}
       <ul className="bullets">
         <li>One clock for the whole quiz. It keeps running if you close the page; when it ends, what you saved is submitted.</li>
-        <li>You can move between questions and change answers until you submit.</li>
+        <li>Questions open in order: finish one to open the next.{c.feedback ? ' Check each answer to see if it is right; it locks once checked.' : ' You can go back and change answers until you submit.'}</li>
         {c.written > 0 && <li>An admin marks the written answers.</li>}
         <li>{left == null ? 'Every attempt is recorded.' : `Every attempt is recorded. Attempts left: ${left}.`}</li>
       </ul>
@@ -159,10 +159,18 @@ function PillarRef({ refData, open }) {
   )
 }
 
-// One question at a time with a question strip; every change is saved on the server.
+// One question at a time, in order: Next opens once the current question is
+// complete. Every change is saved on the server. With feedback on, Check locks
+// the answer and shows it green (right) or red (wrong) with the right one in green.
+const LETTERS = 'ABCDEFGH'
 function Runner({ run, content, onDone }) {
   const qs = run.questions
-  const [i, setI] = useState(0)
+  const fb = !!run.feedback
+  const minWords = run.minWords || 3
+  const wordCount = (t) => String(t || '').trim().split(/\s+/).filter(Boolean).length
+  const done = (q, a) => !!a?.c && (!q.explain || wordCount(a.x) >= minWords) && (!fb || !!a.locked)
+  const firstOpen = () => { const k = qs.findIndex(q => !done(q, (run.answers || {})[q.id])); return k < 0 ? qs.length - 1 : k }
+  const [i, setI] = useState(firstOpen)
   const [ans, setAns] = useState(run.answers || {})
   const [left, setLeft] = useState(run.secondsLeft)
   const [err, setErr] = useState('')
@@ -176,13 +184,17 @@ function Runner({ run, content, onDone }) {
   const optRefs = useRef([])
 
   // Saves run one after another so an older one never lands last.
-  const save = (qid, a) => {
+  const save = (qid, a, check) => {
     setSaved('saving')
-    chain.current = chain.current.then(() => api.quizSave(run.attempt, qid, a.c, a.x))
-      .then(() => { setErr(''); setSaved('saved') }, e => { setErr(e.message); setSaved('') })
+    chain.current = chain.current.then(() => api.quizSave(run.attempt, qid, a.c, a.x, check))
+      .then(r => {
+        setErr(''); setSaved('saved')
+        if (check) { latest.current = { ...latest.current, [qid]: { ...latest.current[qid], locked: true, correct: r.correct, right: r.right } }; setAns(latest.current) }
+      }, e => { setErr(e.message); setSaved('') })
     return chain.current
   }
   const setAnswer = (qid, patch, now) => {
+    if (latest.current[qid]?.locked) return
     const a = { c: null, x: '', ...latest.current[qid], ...patch }
     latest.current = { ...latest.current, [qid]: a }
     setAns(latest.current)
@@ -194,12 +206,13 @@ function Runner({ run, content, onDone }) {
     for (const [qid, t] of Object.entries(timers.current)) { clearTimeout(t); delete timers.current[qid]; save(qid, latest.current[qid]) }
     return chain.current
   }
+  const check = async () => { clearTimeout(timers.current[q.id]); delete timers.current[q.id]; setBusy(true); await save(q.id, latest.current[q.id], true); setBusy(false) }
   const unanswered = qs.map((x, k) => (ans[x.id]?.c ? null : 'Q' + (k + 1))).filter(Boolean)
   const submit = async (auto) => {
     if (!auto) {
       const open = qs.map((x, k) => (latest.current[x.id]?.c ? null : 'Q' + (k + 1))).filter(Boolean)
       const msg = open.length
-        ? `Not answered: ${open.join(', ')}. Submit anyway? You can't change answers after this.`
+        ? `${open.length} questions are not answered yet (${open[0]}${open.length > 1 ? ' to ' + open[open.length - 1] : ''}). They count as wrong. Submit anyway? You can't change answers after this.`
         : "Submit your answers? You can't change them after this."
       if (!confirm(msg)) return
     }
@@ -233,62 +246,95 @@ function Runner({ run, content, onDone }) {
   const q = qs[i]
   const a = ans[q.id] || {}
   const sec = content.sections?.find(x => x.id === q.sec)
-  const answered = qs.length - unanswered.length
-  const goTo = (k) => { setI(k); scrollTo(0, 0) }
+  const complete = qs.map(x => done(x, ans[x.id]))
+  const reach = complete.indexOf(false) < 0 ? qs.length - 1 : complete.indexOf(false) // furthest question you may open
+  const nDone = complete.filter(Boolean).length
+  const goTo = (k) => { if (k <= reach) { setI(k); scrollTo(0, 0) } }
+  const locked = !!a.locked
+  const words = wordCount(a.x)
   // Radio group keys: arrows move and choose, as in a native radio group.
   const onOptKey = (e, k) => {
     const d = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 }[e.key]
-    if (!d) return
+    if (!d || locked) return
     e.preventDefault()
     const n = (k + d + q.o.length) % q.o.length
     setAnswer(q.id, { c: q.o[n] }, true)
     optRefs.current[n]?.focus()
   }
   const selIdx = q.o.indexOf(a.c)
+  const optClass = (t) => {
+    if (fb && locked) return t === a.right ? ' ok' : t === a.c ? ' bad' : ''
+    return a.c === t ? ' sel' : ''
+  }
+  const need = !a.c ? 'Choose an answer to continue.' : q.explain && words < minWords ? `Write at least ${minWords} words to continue.` : fb && !locked ? 'Check your answer to continue.' : ''
+  const cellClass = (x, k) => 'qz-cell' + (k === i ? ' on' : '') + (fb && ans[x.id]?.locked ? (ans[x.id].correct ? ' ok' : ' bad') : complete[k] ? ' done' : '')
+
   return (
-    <div className="view doc quiz">
+    <div className="view doc qz-run">
       <div className={'qz-sticky' + (left <= 300 ? ' low' : '')}>
-        <span>{run.trial ? 'Trial · ' : ''}Q{i + 1} of {qs.length} · {answered} answered</span>
+        <span>{run.trial ? 'Trial · ' : ''}Question {i + 1} of {qs.length}</span>
+        <span className="qz-sticky-bar" aria-hidden="true"><span style={{ width: (nDone / qs.length * 100) + '%' }} /></span>
         <span className="quiz-timer" role="timer" aria-label={'Time left ' + clock(left)}>{clock(left)} left</span>
-        <button className="btn small" disabled={busy} onClick={() => submit(false)}>{busy ? 'Submitting…' : 'Submit'}</button>
+        <button className="btn small ghost" disabled={busy} onClick={() => submit(false)}>{busy ? 'Submitting…' : 'Submit'}</button>
       </div>
       {left <= 300 && <p className="qz-warn">Less than 5 minutes left. What you saved is submitted when the time runs out.</p>}
       <p className="sr-only" aria-live="assertive">{alert}</p>
-      <div className="qcodes qz-strip" role="list" aria-label="Questions">
-        {qs.map((x, k) => (
-          <button key={x.id} role="listitem" className={'qcode' + (k === i ? ' on' : '') + (ans[x.id]?.c ? ' done' : '')}
-            aria-label={'Question ' + (k + 1) + (ans[x.id]?.c ? ', answered' : ', not answered')} aria-current={k === i ? 'step' : undefined}
-            onClick={() => goTo(k)}>Q{k + 1}{ans[x.id]?.c && <span className="mk" aria-hidden="true">✓</span>}</button>
-        ))}
+
+      <div className="qz-cols">
+        <div className="qz-main">
+          {sec && <p className="qz-sec"><b>{sec.title}</b>{sec.note && !q.explain && <span className="muted"> {sec.note}</span>}</p>}
+          <h1 className="quiz-q qz-q"><span className="qz-qn">Q{i + 1}.</span> {q.q}</h1>
+          <div className="quiz-opts" role="radiogroup" aria-label="Answers">
+            {q.o.map((t, k) => (
+              <button key={t} ref={el => (optRefs.current[k] = el)} role="radio" aria-checked={a.c === t} tabIndex={k === (selIdx < 0 ? 0 : selIdx) ? 0 : -1}
+                className={'quiz-opt qz-opt' + optClass(t)} disabled={busy || locked}
+                onKeyDown={e => onOptKey(e, k)} onClick={() => setAnswer(q.id, { c: t }, true)}>
+                <span className="qz-letter" aria-hidden="true">{LETTERS[k]}</span><span>{t}</span>
+              </button>
+            ))}
+          </div>
+          {q.explain && (
+            <label className="led-field qz-explain"><span>{q.explain.prompt}</span>
+              <textarea rows="5" maxLength={2000} value={a.x || ''} disabled={busy || locked}
+                onChange={e => setAnswer(q.id, { x: e.target.value })} onBlur={() => Object.keys(timers.current).length && flush()} />
+              <small className={'qz-words' + (words >= minWords ? ' ok' : '')}>{words} {words === 1 ? 'word' : 'words'}{words < minWords ? `, at least ${minWords} needed` : ''}</small>
+            </label>
+          )}
+          {fb && locked && (
+            <div className={'callout ' + (a.correct ? '' : 'warn')} role="status"><div><b>{a.correct ? 'Correct.' : 'Not quite.'}</b>{!a.correct && <p>The right answer is in green.</p>}</div></div>
+          )}
+          {err && <Err msg={err} />}
+          <div className="quiz-actions">
+            <button className="btn small ghost" disabled={i === 0} onClick={() => goTo(i - 1)}>Previous</button>
+            {fb && !locked
+              ? <button className="btn small" disabled={busy || !a.c || (q.explain && words < minWords)} onClick={check}>Check answer</button>
+              : i < qs.length - 1
+                ? <button className="btn small" disabled={!complete[i]} onClick={() => goTo(i + 1)}>Next question</button>
+                : <button className="btn small" disabled={busy} onClick={() => submit(false)}>{busy ? 'Submitting…' : 'Submit answers'}</button>}
+            <span className="muted small qz-saved" aria-live="polite">{saved === 'saving' ? 'Saving…' : saved === 'saved' ? 'Saved' : ''}</span>
+          </div>
+          {need && <p className="muted small">{need}</p>}
+        </div>
+
+        <aside className="qz-side" aria-label="Quiz progress">
+          <div className="qz-panel">
+            <div className="qz-panel-head"><b>Progress</b><span className="muted small">{nDone} of {qs.length} done</span></div>
+            <div className="qz-grid" role="list">
+              {qs.map((x, k) => (
+                <button key={x.id} role="listitem" className={cellClass(x, k)} disabled={k > reach} onClick={() => goTo(k)}
+                  aria-current={k === i ? 'step' : undefined}
+                  aria-label={'Question ' + (k + 1) + (fb && ans[x.id]?.locked ? (ans[x.id].correct ? ', correct' : ', wrong') : complete[k] ? ', done' : k > reach ? ', not open yet' : '')}>{k + 1}</button>
+              ))}
+            </div>
+            {fb && <p className="muted small qz-legend"><span className="qz-dot ok" /> correct <span className="qz-dot bad" /> wrong</p>}
+          </div>
+          {content.ref && <PillarRef refData={content.ref} open={wide()} />}
+        </aside>
       </div>
-      {sec && <p className="qz-sec"><b>{sec.title}</b>{sec.note && !q.explain && <span className="muted"> {sec.note}</span>}</p>}
-      <h1 className="quiz-q qz-q">{q.q}</h1>
-      <div className="quiz-opts" role="radiogroup" aria-label="Answers">
-        {q.o.map((t, k) => (
-          <button key={t} ref={el => (optRefs.current[k] = el)} role="radio" aria-checked={a.c === t} tabIndex={k === (selIdx < 0 ? 0 : selIdx) ? 0 : -1}
-            className={'quiz-opt' + (a.c === t ? ' sel' : '')} disabled={busy}
-            onKeyDown={e => onOptKey(e, k)} onClick={() => setAnswer(q.id, { c: t }, true)}>{t}</button>
-        ))}
-      </div>
-      {q.explain && (
-        <label className="led-field qz-explain"><span>{q.explain.prompt}</span>
-          <textarea rows="5" maxLength={2000} value={a.x || ''} disabled={busy}
-            onChange={e => setAnswer(q.id, { x: e.target.value })} onBlur={() => Object.keys(timers.current).length && flush()} />
-        </label>
-      )}
-      {content.ref && <PillarRef refData={content.ref} />}
-      {err && <Err msg={err} />}
-      <div className="quiz-actions">
-        <button className="btn small ghost" disabled={i === 0} onClick={() => goTo(i - 1)}>Previous</button>
-        {i < qs.length - 1
-          ? <button className="btn small" onClick={() => goTo(i + 1)}>Next question</button>
-          : <button className="btn small" disabled={busy} onClick={() => submit(false)}>{busy ? 'Submitting…' : 'Submit answers'}</button>}
-        <span className="muted small qz-saved" aria-live="polite">{saved === 'saving' ? 'Saving…' : saved === 'saved' ? 'Saved' : ''}</span>
-      </div>
-      {i === qs.length - 1 && unanswered.length > 0 && <p className="muted small">Not answered yet: {unanswered.join(', ')}.</p>}
     </div>
   )
 }
+const wide = () => typeof matchMedia === 'function' && matchMedia('(min-width:1100px)').matches
 
 // ---- admin ----------------------------------------------------------------------
 
@@ -310,6 +356,7 @@ function AdminPanel({ id, state, go, onChange, onTrial, busy }) {
         {state === 'closed' && <button className="btn small ghost" onClick={() => act(() => api.quizClose(id, false), 'Open again.')}>Open again</button>}
         <button className="btn small ghost" onClick={() => go({ kind: 'qscores', key: id })}>Scores</button>
       </div>
+      {d && <label className="qz-switch"><input type="checkbox" checked={!!d.feedback} onChange={e => act(() => api.quizSettings(id, { feedback: e.target.checked }), e.target.checked ? 'Feedback on: staff see right or wrong after each question.' : 'Feedback off: staff see their score only.')} /> Show right or wrong after each question (green and red). Off for assessments: it shows the answer key.</label>}
       {msg && <p className="small" role="status">{msg}</p>}
     </section>
   )

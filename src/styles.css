@@ -620,3 +620,17 @@ mark { background:color-mix(in srgb, var(--accent) 18%, transparent); color:inhe
 .attempt-hidden { margin:10px 0 0; }
 .qlegend { margin:10px 0 0; padding-top:8px; border-top:1px solid var(--border); }
 @media (max-width:640px){ .attempt-overlay { align-items:flex-end; padding:0; } .attempt-modal { width:100%; max-height:88vh; border-radius:var(--r) var(--r) 0 0; } }
+/* Glossary (#/glossary) */
+.gloss-search { width:100%; max-width:520px; margin:4px 0 8px; padding:10px 12px; border:1px solid var(--input-border); border-radius:var(--r-sm); background:var(--surface); color:var(--text); font:inherit; }
+.gloss-list { margin:0; display:grid; gap:8px; }
+.gloss-item { padding:12px 14px; border:1px solid var(--border); border-radius:var(--r); background:var(--surface); }
+.gloss-item dt { font-weight:700; font-size:var(--fs-md); }
+.gloss-aka { font-weight:400; font-size:var(--fs-xs); color:var(--muted); }
+.gloss-item dd { margin:4px 0 0; font-size:var(--fs-sm); }
+.gloss-item dd > p { margin:0 0 4px; }
+.gloss-ctx { margin:4px 0; padding-left:18px; color:var(--muted); }
+.gloss-used { color:var(--muted); font-size:var(--fs-xs); }
+.gloss-used .crumblink { font-size:var(--fs-xs); }
+.gloss-admin { display:flex; gap:14px; margin-top:6px; font-size:var(--fs-xs); }
+.danger-link { color:var(--err); }
+.gloss-form { display:grid; gap:10px; padding:12px 0; }

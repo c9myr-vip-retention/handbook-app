@@ -6,6 +6,7 @@
 // row-level security, so this Worker is the wall).
 
 import { handleLearn } from '../../server/learn.js'
+import { handleGlossary } from '../../server/glossary.js'
 
 export async function onRequest(context) {
   const { request, env } = context
@@ -145,6 +146,9 @@ export async function onRequest(context) {
     }
 
     // Learn section (guides and quizzes). See server/learn.js.
+    // Work glossary (#/glossary). See server/glossary.js.
+    if (parts[0] === 'glossary') return await handleGlossary({ request, env, parts, email, isAdmin, json })
+
     if (parts[0] === 'learn') return await handleLearn({ request, env, parts, email, isAdmin, isMaster, json })
 
     // Access Management (admin): list everyone who has signed in (approved, pending, rejected).

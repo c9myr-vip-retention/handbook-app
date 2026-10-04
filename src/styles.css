@@ -599,3 +599,17 @@ mark { background:color-mix(in srgb, var(--accent) 18%, transparent); color:inhe
 .reviewgrid { display:grid; grid-template-columns:1fr 1fr; gap:12px; align-items:start; }
 .reviewgrid .figure { margin:0; }
 @media (max-width:1024px) { .reviewgrid { grid-template-columns:1fr; } }
+/* Learning scores: per-attempt report */
+.attempts-link { font-weight:700; text-decoration:underline; }
+.attempt-overlay { position:fixed; inset:0; z-index:60; display:flex; justify-content:flex-end; background:rgba(15,20,30,.45); }
+.attempt-panel { width:min(560px,100%); height:100%; overflow:auto; padding:18px 20px 40px; background:var(--bg); border-left:1px solid var(--border); box-shadow:var(--shadow-sm); }
+.attempt-head { display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:6px; }
+.attempt-head h2 { margin:0; font-size:var(--fs-lg); } .attempt-head p { margin:2px 0 0; }
+.attempt { margin-top:16px; padding:12px 14px; border:1px solid var(--border); border-radius:var(--r); background:var(--surface); }
+.attempt h3 { display:flex; align-items:center; gap:8px; margin:0; font-size:var(--fs-md); }
+.attempt > p { margin:4px 0 8px; }
+.attempt-qs { list-style:none; margin:0; padding:0; display:grid; gap:6px; }
+.attempt-qs li { display:grid; gap:2px; padding:8px 10px; border-radius:var(--r-sm); border-left:3px solid var(--border); background:var(--surface-2); font-size:var(--fs-sm); }
+.attempt-qs li.ok { border-left-color:var(--good); } .attempt-qs li.bad { border-left-color:var(--err); }
+.attempt-mark { font-weight:700; } .attempt-qs li.ok .attempt-mark { color:var(--good); } .attempt-qs li.bad .attempt-mark { color:var(--err); }
+.attempt-ans { color:var(--muted); }

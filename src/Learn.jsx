@@ -3,6 +3,7 @@
 // bundled into the public app shell. Quiz questions arrive one at a time and are
 // marked on the server; the browser never holds the answers. See server/learn.js.
 import { useEffect, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { api } from './lib/api.js'
 
 // ---- shared ---------------------------------------------------------------
@@ -458,12 +459,14 @@ export function QuizPage({ id, go }) {
 
 export function ScoresPage({ go }) {
   const [mods, err] = useLoad(() => api.learnScores(), [])
+  const [open, setOpen] = useState(null) // { id, title, email, name }
   if (err) return <div className="view doc"><h1>Learning scores</h1><Err msg={err} /></div>
   if (!mods) return <div className="view doc"><h1>Learning scores</h1><Loading /></div>
   return (
     <div className="view doc">
       <h1>Learning scores</h1>
       <p className="lead">Who has read the guide and passed each quiz. Best score counts; retakes are allowed.</p>
+      {open && <AttemptReport sel={open} onClose={() => setOpen(null)} />}
       {mods.map(m => {
         const passed = m.people.filter(p => p.best != null && p.best >= m.pass).length
         const read = m.people.filter(p => p.read).length
@@ -479,7 +482,8 @@ export function ScoresPage({ go }) {
             <div className="tbl-wrap"><table>
               <thead><tr><th>Staff</th><th>Read</th><th>Best</th><th>Attempts</th><th>Status</th></tr></thead>
               <tbody>{m.people.map(p => (
-                <tr key={p.email}><td>{p.name || p.email}</td><td>{p.read ? 'Yes' : 'No'}</td><td>{p.best == null ? '-' : p.best + '%'}</td><td>{p.attempts}</td>
+                <tr key={p.email}><td>{p.name || p.email}</td><td>{p.read ? 'Yes' : 'No'}</td><td>{p.best == null ? '-' : p.best + '%'}</td>
+                  <td>{p.attempts > 0 ? <button className="crumblink attempts-link" onClick={() => setOpen({ id: m.id, title: m.title, email: p.email, name: p.name || p.email })} aria-label={'See ' + p.attempts + ' attempts by ' + (p.name || p.email)}>{p.attempts}</button> : 0}</td>
                   <td>{p.best == null ? <span className="chip pending">Not started</span> : p.best >= m.pass ? <span className="chip scorepass">Passed</span> : <span className="chip planned">Retake</span>}</td></tr>
               ))}</tbody>
             </table></div>
@@ -488,6 +492,48 @@ export function ScoresPage({ go }) {
         )
       })}
     </div>
+  )
+}
+
+// Admin: one person's attempts on one module, question by question.
+const when = (s) => { if (!s) return '-'; const d = new Date(s.replace(' ', 'T') + (s.includes('Z') ? '' : 'Z')); return isNaN(d) ? s : d.toLocaleString('en-GB', { timeZone: 'Asia/Kuala_Lumpur', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) }
+function AttemptReport({ sel, onClose }) {
+  const [list, err] = useLoad(() => api.learnAttempts(sel.id, sel.email), [sel.id, sel.email])
+  useEffect(() => { const k = (e) => e.key === 'Escape' && onClose(); addEventListener('keydown', k); return () => removeEventListener('keydown', k) }, [onClose])
+  // Portal to <body>: the page's fade-in transform would otherwise trap a fixed panel.
+  return createPortal(
+    <div className="attempt-overlay" role="dialog" aria-modal="true" aria-labelledby="att-title" onClick={e => e.target === e.currentTarget && onClose()}>
+      <div className="attempt-panel">
+        <div className="attempt-head">
+          <div><h2 id="att-title">{sel.name}</h2><p className="muted small">{sel.title} quiz attempts</p></div>
+          <button className="btn small ghost" onClick={onClose} autoFocus>Close</button>
+        </div>
+        {err && <Err msg={err} />}
+        {!list && !err && <Loading />}
+        {list?.length === 0 && <p className="muted">No attempts yet.</p>}
+        {list?.map(a => (
+          <section key={a.n} className="attempt">
+            <h3>Attempt {a.n}
+              {a.finished_at
+                ? <span className={'chip ' + (a.passed ? 'scorepass' : 'planned')}>{a.pct}% {a.passed ? 'Passed' : 'Not passed'}</span>
+                : <span className="chip pending">Not finished</span>}
+            </h3>
+            <p className="muted small">{when(a.started_at)} · {a.score} of {a.total} correct · SOP {a.sop_version}</p>
+            <ol className="attempt-qs">
+              {a.items.map(x => (
+                <li key={x.k} className={x.correct ? 'ok' : 'bad'}>
+                  <span className="attempt-mark">Q{x.k} {x.correct ? 'Pass' : 'Failed'}</span>
+                  <span className="attempt-q">{x.q || <span className="muted">Question no longer in the quiz ({x.qid})</span>}</span>
+                  {!x.correct && <span className="attempt-ans">{x.timedOut ? 'Time ran out, no answer' : <>Chose: {x.chose ?? '-'}</>}{x.right && <> · Correct: {x.right}</>}</span>}
+                </li>
+              ))}
+              {!a.finished_at && a.items.length < a.total && <li className="skip"><span className="attempt-mark">Q{a.items.length + 1} to Q{a.total}</span><span className="attempt-q muted">Not answered (left the quiz)</span></li>}
+            </ol>
+          </section>
+        ))}
+      </div>
+    </div>,
+    document.body
   )
 }
 

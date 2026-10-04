@@ -34,6 +34,10 @@ export async function handleLearn({ request, env, parts, email, isAdmin, isMaste
   }
 
   if (method === 'GET' && !a) return json(await listModules(DB, email, isAdmin, isMaster))
+  if (method === 'GET' && a === 'scores' && b && c) {
+    if (!isAdmin) return json({ error: 'admins only' }, 403)
+    return json(await attemptReport(DB, b, decodeURIComponent(c)))
+  }
   if (method === 'GET' && a === 'scores') {
     if (!isAdmin) return json({ error: 'admins only' }, 403)
     return json(await scores(DB))
@@ -177,6 +181,24 @@ async function myProgress(DB, email, id, version) {
     .bind(email, id).first()
   const read = version ? await DB.prepare('select 1 from learn_reads where email = ? and module_id = ? and sop_version = ?').bind(email, id, version).first() : null
   return { best: best?.best ?? null, attempts: best?.n || 0, passed: !!best?.passed, read: !!read }
+}
+
+// One person's attempts on one module, question by question (admins only).
+// Question and option text come from the module's current content; a question
+// removed since the attempt shows its id instead.
+async function attemptReport(DB, moduleId, who) {
+  const m = await DB.prepare('select live, draft from learn_modules where id = ?').bind(moduleId).first()
+  const pool = (parse(m?.live) || parse(m?.draft) || {}).quiz?.pool || []
+  const { results } = await DB.prepare(`select id, sop_version, answers, score, total, pct, passed, started_at, finished_at
+    from learn_attempts where module_id = ? and email = ? order by started_at`).bind(moduleId, who).all()
+  return results.map((r, i) => ({
+    n: i + 1, sop_version: r.sop_version, started_at: r.started_at, finished_at: r.finished_at,
+    score: r.score, total: r.total, pct: r.pct, passed: r.passed === 1,
+    items: (parse(r.answers) || []).map((x, k) => {
+      const q = pool.find(p => p.id === x.qid)
+      return { k: k + 1, qid: x.qid, q: q?.q || null, chose: x.choice == null ? null : (q?.o?.[x.choice] ?? null), right: q ? q.o[q.a] : null, correct: !!x.correct, timedOut: x.choice == null }
+    }),
+  }))
 }
 
 async function scores(DB) {

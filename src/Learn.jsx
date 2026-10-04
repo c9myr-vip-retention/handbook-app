@@ -499,38 +499,52 @@ export function ScoresPage({ go }) {
 const when = (s) => { if (!s) return '-'; const d = new Date(s.replace(' ', 'T') + (s.includes('Z') ? '' : 'Z')); return isNaN(d) ? s : d.toLocaleString('en-GB', { timeZone: 'Asia/Kuala_Lumpur', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) }
 function AttemptReport({ sel, onClose }) {
   const [list, err] = useLoad(() => api.learnAttempts(sel.id, sel.email), [sel.id, sel.email])
+  const [pick, setPick] = useState(null) // "attempt-question", e.g. "1-3"
   useEffect(() => { const k = (e) => e.key === 'Escape' && onClose(); addEventListener('keydown', k); return () => removeEventListener('keydown', k) }, [onClose])
-  // Portal to <body>: the page's fade-in transform would otherwise trap a fixed panel.
+  // Portal to <body>: the page's fade-in transform would otherwise trap a fixed pop-up.
   return createPortal(
     <div className="attempt-overlay" role="dialog" aria-modal="true" aria-labelledby="att-title" onClick={e => e.target === e.currentTarget && onClose()}>
-      <div className="attempt-panel">
+      <div className="attempt-modal">
         <div className="attempt-head">
-          <div><h2 id="att-title">{sel.name}</h2><p className="muted small">{sel.title} quiz attempts</p></div>
+          <div><h2 id="att-title">{sel.name}</h2><p className="muted small">{sel.title} quiz attempts. Tap a question to see the answer.</p></div>
           <button className="btn small ghost" onClick={onClose} autoFocus>Close</button>
         </div>
         {err && <Err msg={err} />}
         {!list && !err && <Loading />}
         {list?.length === 0 && <p className="muted">No attempts yet.</p>}
-        {list?.map(a => (
-          <section key={a.n} className="attempt">
-            <h3>Attempt {a.n}
-              {a.finished_at
-                ? <span className={'chip ' + (a.passed ? 'scorepass' : 'planned')}>{a.pct}% {a.passed ? 'Passed' : 'Not passed'}</span>
-                : <span className="chip pending">Not finished</span>}
-            </h3>
-            <p className="muted small">{when(a.started_at)} · {a.score} of {a.total} correct · SOP {a.sop_version}</p>
-            <ol className="attempt-qs">
-              {a.items.map(x => (
-                <li key={x.k} className={x.correct ? 'ok' : 'bad'}>
-                  <span className="attempt-mark">Q{x.k} {x.correct ? 'Pass' : 'Failed'}</span>
-                  <span className="attempt-q">{x.q || <span className="muted">Question no longer in the quiz ({x.qid})</span>}</span>
-                  {!x.correct && <span className="attempt-ans">{x.timedOut ? 'Time ran out, no answer' : <>Chose: {x.chose ?? '-'}</>}{x.right && <> · Correct: {x.right}</>}</span>}
-                </li>
-              ))}
-              {!a.finished_at && a.items.length < a.total && <li className="skip"><span className="attempt-mark">Q{a.items.length + 1} to Q{a.total}</span><span className="attempt-q muted">Not answered (left the quiz)</span></li>}
-            </ol>
-          </section>
-        ))}
+        {list?.map(a => {
+          const missing = a.finished_at ? 0 : Math.max(0, a.total - a.items.length)
+          const open = a.items.find(x => pick === a.n + '-' + x.k)
+          return (
+            <div key={a.n} className="attempt-row">
+              <div className="attempt-line">
+                <b>Attempt {a.n}</b>
+                {a.finished_at
+                  ? <span className={'chip ' + (a.passed ? 'scorepass' : 'planned')}>{a.pct}% {a.passed ? 'Passed' : 'Not passed'}</span>
+                  : <span className="chip pending">Not finished</span>}
+                <span className="muted small">{when(a.started_at)}</span>
+              </div>
+              <div className="qcodes" role="list">
+                {a.items.map(x => (
+                  <button key={x.k} role="listitem" className={'qcode ' + (x.correct ? 'ok' : 'bad') + (pick === a.n + '-' + x.k ? ' on' : '')}
+                    aria-label={'Question ' + x.k + (x.correct ? ' correct' : ' wrong')} onClick={() => setPick(pick === a.n + '-' + x.k ? null : a.n + '-' + x.k)}>
+                    Q{x.k} {x.correct ? '✓' : x.timedOut ? '⏱' : '✗'}
+                  </button>
+                ))}
+                {Array.from({ length: missing }, (_, i) => <span key={'m' + i} className="qcode none" role="listitem" title="Not answered">Q{a.items.length + i + 1} -</span>)}
+              </div>
+              {open && (
+                <div className="qdetail">
+                  <p>{open.q || <span className="muted">Question no longer in the quiz ({open.qid})</span>}</p>
+                  {open.correct
+                    ? <p className="ok">Answered: {open.chose ?? '-'}</p>
+                    : <p><span className="bad">{open.timedOut ? 'Time ran out' : 'Chose: ' + (open.chose ?? '-')}</span>{open.right && <> · Correct: {open.right}</>}</p>}
+                </div>
+              )}
+            </div>
+          )
+        })}
+        <p className="muted small qlegend">✓ correct · ✗ wrong · ⏱ time ran out · - not answered</p>
       </div>
     </div>,
     document.body

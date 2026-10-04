@@ -290,8 +290,8 @@ function Runner({ run, content, onDone }) {
                 <li key={x.id}>
                   <button className={'qz-step ' + st + (k === i ? ' on' : '')} disabled={st === 'shut'} onClick={() => goTo(k)} aria-current={k === i ? 'step' : undefined}
                     aria-label={'Question ' + (k + 1) + ({ ok: ', correct', bad: ', wrong', done: ', done', shut: ', not open yet', open: '' })[st]}>
-                    <span className="qz-step-dot" aria-hidden="true">{st === 'ok' || st === 'done' ? '✓' : st === 'bad' ? '✗' : k + 1}</span>
-                    <span className="qz-step-text"><span className="qz-step-n">Q{k + 1}</span> {x.q.split('\n')[0]}</span>
+                    <span className="qz-step-dot" aria-hidden="true">{k + 1}</span>
+                    <span className="qz-step-text">{x.q.split('\n')[0]}</span>
                   </button>
                 </li>
               )

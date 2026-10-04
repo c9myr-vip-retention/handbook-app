@@ -10,7 +10,8 @@ create table if not exists profiles (
   full_name  text,
   role       text not null default 'reader',   -- reader | admin
   approved   integer not null default 0,        -- 0 pending, 1 approved
-  created_at text not null default (datetime('now'))
+  created_at text not null default (datetime('now')),
+  last_seen  text                                -- last app open (UTC), updated at most every 5 minutes
 );
 
 create table if not exists sops (
@@ -46,6 +47,9 @@ create table if not exists sop_versions (
 
 -- After you sign in once through Access, make yourself admin:
 --   update profiles set role = 'admin', approved = 1 where email = 'aldok.ma@orionesofttech.com';
+
+-- Migration for databases created before last_seen existed (run once):
+--   alter table profiles add column last_seen text;
 
 -- Migration for databases created before meta/sort existed (run once):
 --   alter table sops add column meta text;

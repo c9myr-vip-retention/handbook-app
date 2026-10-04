@@ -38,6 +38,8 @@ export async function onRequest(context) {
     if (parts[0] === 'me') {
       if (!email) return json({ email: null })
       const p = await ensureProfile(env, email)
+      // Last seen = last app open, written at most every 5 minutes.
+      await env.DB.prepare("update profiles set last_seen = datetime('now') where email = ? and (last_seen is null or last_seen < datetime('now', '-5 minutes'))").bind(email).run()
       // approved: 1 approved, 0 pending, -1 rejected. Only exactly 1 gets in.
       return json({ email, full_name: p.full_name, role: p.role, approved: p.approved === 1, rejected: p.approved === -1 })
     }
@@ -130,16 +132,23 @@ export async function onRequest(context) {
     // People (admin): list everyone who has signed in (approved, pending, rejected); approve or reject one.
     // POST /api/admin/approvals/<email>          approve
     // POST /api/admin/approvals/<email>/reject   reject (can be approved later)
+    // POST /api/admin/approvals/<email>/role/<admin|reader>   change role
     if (parts[0] === 'admin' && parts[1] === 'approvals') {
       if (!isAdmin) return json({ error: 'admins only' }, 403)
       if (request.method === 'GET') {
         const { results } = await env.DB.prepare(
-          'select email, full_name, role, approved, created_at from profiles order by created_at desc'
+          'select email, full_name, role, approved, created_at, last_seen from profiles order by created_at desc'
         ).all()
         return json(results)
       }
       if (request.method === 'POST' && parts[2]) {
         if (parts[2].toLowerCase() === email.toLowerCase()) return json({ error: 'cannot change your own access' }, 400)
+        if (parts[3] === 'role') {
+          if (!['admin', 'reader'].includes(parts[4])) return json({ error: 'role must be admin or reader' }, 400)
+          const r = await env.DB.prepare('update profiles set role = ? where email = ? and approved = 1').bind(parts[4], parts[2]).run()
+          if (!r.meta?.changes) return json({ error: 'not found' }, 404)
+          return json({ ok: true })
+        }
         const value = parts[3] === 'reject' ? -1 : parts[3] ? null : 1
         if (value === null) return json({ error: 'not found' }, 404)
         const r = await env.DB.prepare('update profiles set approved = ? where email = ?').bind(value, parts[2]).run()

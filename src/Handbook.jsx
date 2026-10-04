@@ -287,7 +287,7 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
                 {route.kind === 'edit' && <Editor key={route.key + '/' + (route.sec ?? '')} id={route.key} sec={route.sec} pages={PAGES} preview={preview} go={go} onPageSaved={onPageSaved} />}
                 {route.kind === 'history' && <History id={route.key} pages={PAGES} preview={preview} go={go} onPageSaved={onPageSaved} />}
                 {route.kind === 'stub' && <Stub title={route.title} status={route.status} />}
-                {route.kind === 'approvals' && <Approvals preview={preview} />}
+                {route.kind === 'approvals' && <Approvals preview={preview} me={profile?.email} />}
                 {route.kind === 'charts' && <ChartReview pages={PAGES} go={go} />}
                 {route.kind === 'learn' && (route.key
                   ? (route.edit && isAdmin ? <LearnEditor key={route.key} id={route.key} go={go} /> : <LearnModule key={route.key} id={route.key} go={go} canEdit={isAdmin} />)
@@ -523,7 +523,14 @@ function DomainList({ name, go, nav: NAV, pages: PAGES }) {
 // Waiting people can be approved or rejected; rejected people stay listed below
 // so a mistake can be undone. In preview (no API) it shows a labelled sample.
 const SAMPLE = [{ email: 'staff.one@example.com', approved: 0 }, { email: 'staff.two@example.com', approved: -1 }, { email: 'staff.three@example.com', full_name: 'Staff Three', role: 'reader', approved: 1, created_at: '2026-09-24 10:00:00' }]
-function Approvals({ preview }) {
+// D1 stores UTC ("YYYY-MM-DD HH:MM:SS"); show Malaysia time.
+function myt(s, withTime) {
+  if (!s) return '-'
+  const d = new Date(s.replace(' ', 'T') + 'Z')
+  if (isNaN(d)) return '-'
+  return d.toLocaleString('en-GB', { timeZone: 'Asia/Kuala_Lumpur', day: 'numeric', month: 'short', year: 'numeric', ...(withTime ? { hour: '2-digit', minute: '2-digit' } : {}) })
+}
+function Approvals({ preview, me }) {
   const [list, setList] = useState(preview ? SAMPLE : null)
   const [err, setErr] = useState(null)
   const [busy, setBusy] = useState(null)
@@ -531,6 +538,15 @@ function Approvals({ preview }) {
     if (preview) return
     api.approvals().then(setList).catch(e => setErr(e.message))
   }, [preview])
+  const setRole = async (p, role) => {
+    if (role === p.role) return
+    if (!confirm(role === 'admin' ? 'Make ' + p.email + ' an admin? Admins can edit SOPs and manage people.' : 'Change ' + p.email + ' to reader?')) return
+    setBusy(p.email); setErr(null)
+    try {
+      if (!preview) await api.setRole(p.email, role)
+      setList(l => l.map(x => x.email === p.email ? { ...x, role } : x))
+    } catch (e) { setErr(e.message) } finally { setBusy(null) }
+  }
   const decide = async (email, reject) => {
     if (reject && !confirm('Reject ' + email + '? They will see "access declined". You can approve them later from this page.')) return
     setBusy(email); setErr(null)
@@ -559,7 +575,6 @@ function Approvals({ preview }) {
   return (
     <div className="view doc">
       <h1>People</h1>
-      <p className="muted">Everyone who has signed in, and their access. Company emails are approved automatically; personal emails wait here until you approve them. Approve only staff you recognise.</p>
       {preview && <div className="stubbox">Preview: sample entries only. Nothing is saved.</div>}
       {err && <p className="err" role="alert">{err}</p>}
       {list === null && !err && <p className="muted">Loading…</p>}
@@ -568,19 +583,22 @@ function Approvals({ preview }) {
       {waiting.length > 0 && table(waiting, false)}
       {members.length > 0 && <>
         <h2>Registered</h2>
-        <p className="muted small">{members.length} {members.length === 1 ? 'person has' : 'people have'} access: {admins} admin{admins === 1 ? '' : 's'}, {members.length - admins} reader{members.length - admins === 1 ? '' : 's'}.</p>
+        <p className="muted small">{members.length} total · {admins} admin{admins === 1 ? '' : 's'} · {members.length - admins} reader{members.length - admins === 1 ? '' : 's'}</p>
         <div className="tbl-wrap"><table>
-          <thead><tr><th>Email</th><th>Name</th><th>Role</th><th>Registered</th></tr></thead>
+          <thead><tr><th>Email</th><th>Name</th><th>Role</th><th>Registered</th><th>Last seen</th></tr></thead>
           <tbody>{members.map(p => (
             <tr key={p.email}><td>{p.email}</td><td>{p.full_name || '-'}</td>
-              <td><span className={'chip ' + (p.role === 'admin' ? 'scorepass' : 'ver')}>{p.role === 'admin' ? 'Admin' : 'Reader'}</span></td>
-              <td>{(p.created_at || '').slice(0, 10) || '-'}</td></tr>
+              <td>{p.email === me
+                ? <span className="chip scorepass">{p.role === 'admin' ? 'Admin' : 'Reader'} (you)</span>
+                : <select aria-label={'Role for ' + p.email} value={p.role} disabled={busy === p.email} onChange={e => setRole(p, e.target.value)}>
+                    <option value="reader">Reader</option><option value="admin">Admin</option>
+                  </select>}</td>
+              <td>{myt(p.created_at, false)}</td><td>{myt(p.last_seen, true)}</td></tr>
           ))}</tbody>
         </table></div>
       </>}
       {rejected.length > 0 && <>
         <h2>Rejected</h2>
-        <p className="muted small">They see "access declined". Approve to let them in after all.</p>
         {table(rejected, true)}
       </>}
     </div>

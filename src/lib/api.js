@@ -46,6 +46,7 @@ export const api = {
   restore: (id, vid) => req('/api/sops/' + encodeURIComponent(id) + '/restore/' + vid, { method: 'POST' }),
   approvals: () => req('/api/admin/approvals'),
   approve: (email) => req('/api/admin/approvals/' + encodeURIComponent(email), { method: 'POST' }),
+  setMyName: (name) => req('/api/me/name', { method: 'POST', body: JSON.stringify({ name }) }),
   setName: (email, name) => req('/api/admin/approvals/' + encodeURIComponent(email) + '/name', { method: 'POST', body: JSON.stringify({ name }) }),
   removePerson: (email) => req('/api/admin/approvals/' + encodeURIComponent(email), { method: 'DELETE' }),
   setRole: (email, role) => req('/api/admin/approvals/' + encodeURIComponent(email) + '/role/' + role, { method: 'POST' }),

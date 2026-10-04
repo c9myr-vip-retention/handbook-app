@@ -73,6 +73,9 @@ input { width:100%; padding:9px 12px; border:1px solid var(--input-border); bord
 .btn.ghost.danger { color:var(--err); } .btn.ghost.danger:hover { border-color:var(--err); }
 .crumblink.namecell { color:var(--text); text-align:left; } .crumblink.namecell:hover { color:var(--accent); text-decoration:underline; }
 .nameedit { display:inline-flex; gap:6px; align-items:center; } .nameedit input { width:160px; padding:4px 8px; border:1px solid var(--border-strong); border-radius:6px; background:var(--surface); color:var(--text); font:inherit; }
+.nameform { display:flex; flex-wrap:wrap; align-items:flex-end; gap:8px; margin:12px 0 0; } .nameform label { display:grid; gap:4px; flex:1 1 220px; font-size:var(--fs-sm); } .nameform input { padding:7px 10px; border:1px solid var(--border-strong); border-radius:8px; background:var(--surface); color:var(--text); font:inherit; } .nameform .err { flex-basis:100%; margin:0; }
+.nameprompt { max-width:960px; margin:16px auto 0; padding:12px 16px; border:1px solid var(--border); border-radius:var(--r); background:var(--surface); } .nameprompt p { margin:0; font-size:var(--fs-sm); } .nameprompt .nameform { margin-top:8px; }
+button.whoami { border:0; background:transparent; cursor:pointer; padding:0; font:inherit; font-size:var(--fs-xs); } button.whoami:hover { color:var(--text); text-decoration:underline; }
 .btn:disabled { opacity:.55; cursor:default; }
 
 /* shell */

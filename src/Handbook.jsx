@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { api } from './lib/api.js'
 import { parseBody, toMarkdown } from './lib/markdown.js'
 import { Chart, ChartSvg, ChartDrawer, parseChart, chartText } from './Chart.jsx'
+import NameForm from './NameForm.jsx'
 import { LearnHome, LearnModule, QuizPage, ScoresPage, SopLearnLink } from './Learn.jsx'
 import { LearnEditor } from './LearnEditor.jsx'
 
@@ -72,7 +73,9 @@ function search(index, q) {
     .map(r => r.item)
 }
 
-export default function Handbook({ content, profile, onSignOut, preview, notice, onPageSaved }) {
+export default function Handbook({ content, profile, onSignOut, preview, notice, onPageSaved, onName }) {
+  // Name prompt: shown until the person sets their name; Later hides it for this visit.
+  const [nameOpen, setNameOpen] = useState(() => !!profile && !profile.full_name)
   const { nav: NAV, pages: PAGES } = content
   const INDEX = useMemo(() => buildIndex(NAV, PAGES), [NAV, PAGES])
   const [route, setRoute] = useState(() => parseHash(location.hash, NAV))
@@ -264,7 +267,7 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
               <svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="m13 13 4 4"/></svg>
             </button>
           )}
-          {profile && <span className="whoami" title={profile.email}>{profile.full_name || profile.email} <span className="rolechip">{profile.role}</span></span>}
+          {profile && <button className="whoami" title={profile.email + ' (click to change your name)'} onClick={() => setNameOpen(true)}>{profile.full_name || profile.email} <span className="rolechip">{profile.role}</span></button>}
           {preview && <span className="chip pending preview-chip">preview</span>}
           {(profile?.role === 'admin' || preview) && <button className="btn small ghost admin-btn" onClick={() => { setQuery(''); go({ kind: 'approvals' }) }}>Access Management</button>}
           {route.kind === 'page' && !query.trim() && (
@@ -277,6 +280,12 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
         </header>
 
         <main className="content" id="main" tabIndex={-1}>
+          {nameOpen && profile && (
+            <div className="nameprompt" role="region" aria-label="Your name">
+              {!profile.full_name && <p><b>Add your name</b> so admins and your team know who you are.</p>}
+              <NameForm initial={profile.full_name || ''} onSaved={n => { onName?.(n); setNameOpen(false) }} onCancel={() => setNameOpen(false)} />
+            </div>
+          )}
           {route.kind === 'home'
             ? <Home go={go} nav={NAV} pages={PAGES} notice={notice} query={query} setQuery={setQuery} results={results} open={openLeaf} showLearn={showLearn} />
             : query.trim()

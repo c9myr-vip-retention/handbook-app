@@ -38,6 +38,16 @@ export async function onRequest(context) {
     if (parts[0] === 'me') {
       if (!email) return json({ email: null })
       const p = await ensureProfile(env, email)
+      // POST /api/me/name {name}: anyone signed in (also while waiting for
+      // approval, so admins can recognise them) sets their own name.
+      if (parts[1] === 'name' && request.method === 'POST') {
+        if (p.approved === -1) return json({ error: 'access declined' }, 403)
+        const b = await request.json().catch(() => ({}))
+        const name = String(b.name || '').replace(/\s+/g, ' ').trim().slice(0, 80)
+        if (name.length < 2) return json({ error: 'Enter your full name.' }, 400)
+        await env.DB.prepare('update profiles set full_name = ? where email = ?').bind(name, email).run()
+        return json({ ok: true, full_name: name })
+      }
       // Last seen = last app open, written at most every 5 minutes.
       await env.DB.prepare("update profiles set last_seen = datetime('now') where email = ? and (last_seen is null or last_seen < datetime('now', '-5 minutes'))").bind(email).run()
       // approved: 1 approved, 0 pending, -1 rejected. Only exactly 1 gets in.

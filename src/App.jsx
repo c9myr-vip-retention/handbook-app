@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { api, signOut } from './lib/api.js'
 import { fromRows } from './lib/rows.js'
 import Handbook from './Handbook.jsx'
+import NameForm from './NameForm.jsx'
 
 // Auth is handled by Cloudflare Access. In production only /api (and the flow
 // chart images) sit behind Access; the app shell itself is public and holds no
@@ -69,11 +70,12 @@ export default function App() {
   if (failed) return <Failed message={failed} />
   if (me === undefined) return <Centered>Loading…</Centered>
   if (me.email && me.rejected) return <Declined email={me.email} />
-  if (me.email && !me.approved) return <Pending email={me.email} />
+  if (me.email && !me.approved) return <Pending email={me.email} name={me.full_name} onName={n => setMe(m => ({ ...m, full_name: n }))} />
   if (content === undefined) return <Centered>Loading handbook…</Centered>
   if (!me.email) return <Handbook content={content} notice={notice} preview onPageSaved={onPageSaved} />
   return <Handbook content={content} notice={notice}
-    profile={{ email: me.email, full_name: me.full_name, role: me.role }} onSignOut={signOut} onPageSaved={onPageSaved} />
+    profile={{ email: me.email, full_name: me.full_name, role: me.role }} onSignOut={signOut} onPageSaved={onPageSaved}
+    onName={n => setMe(m => ({ ...m, full_name: n }))} />
 }
 
 function Centered({ children }) {
@@ -104,12 +106,16 @@ function Declined({ email }) {
   )
 }
 
-function Pending({ email }) {
+function Pending({ email, name, onName }) {
+  const [saved, setSaved] = useState(!!name)
   return (
     <div className="center">
       <div className="card">
         <h1>Almost there</h1>
         <p className="muted">Your account ({email}) is waiting for an admin to approve it. Once approved, reload this page to open the handbook. Need it sooner? Ask your superior.</p>
+        {saved
+          ? <p className="small">Name on your request: <b>{name}</b> <button className="crumblink" type="button" onClick={() => setSaved(false)}>Change</button></p>
+          : <NameForm initial={name || ''} label="Your full name, so the admin knows who you are" onSaved={n => { onName(n); setSaved(true) }} />}
         <button className="btn" onClick={signOut} type="button">Sign out</button>
       </div>
     </div>

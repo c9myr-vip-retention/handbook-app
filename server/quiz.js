@@ -305,6 +305,10 @@ function forTaker(c) {
   return {
     title: c.title, intro: c.intro, minutes: c.minutes, maxAttempts: c.maxAttempts || null, ref: c.ref, sections: c.sections, feedback: !!c.feedback,
     count: c.questions?.length || 0, max: maxScore(c), written: (c.questions || []).filter(q => q.explain).length,
+    outline: (c.sections || []).map(s => {
+      const idx = (c.questions || []).map((q, i) => (q.sec === s.id ? i + 1 : 0)).filter(Boolean)
+      return { id: s.id, title: s.title, from: idx[0] || null, to: idx[idx.length - 1] || null, written: (c.questions || []).some(q => q.sec === s.id && q.explain) }
+    }).filter(s => s.from),
   }
 }
 

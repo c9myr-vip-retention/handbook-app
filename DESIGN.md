@@ -91,6 +91,7 @@ Rules:
 - **Tiles (Daily essentials):** title plus section name, no numbers.
 - **Side panel (Page tools):** On this page, small flow chart (hidden while the full chart is on screen), Related SOPs, What changed. No inner scrollbar.
 - **Empty and error states:** say what happened and what to do next, in plain words. No apologies.
+- **Quiz pages:** the intro is a briefing on the left (title, what is in the quiz, the reference) with one start panel on the right (time limit, facts, the main button, rules); the start panel is the only boxed element. While a quiz runs: question navigator on the left, question in the middle, reference on the right, none boxed. Below 1024 px the start panel follows the title.
 
 ## 8. Flow charts
 

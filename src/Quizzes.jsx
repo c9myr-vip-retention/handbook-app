@@ -120,37 +120,62 @@ export function QuizSet({ id, go, isAdmin }) {
   const left = c.maxAttempts ? c.maxAttempts - used : null
   const canStart = s.state === 'live' && (left == null || left > 0)
   const trialFirst = isAdmin && s.state !== 'live'
+  const secName = (t) => t.replace(/^Section\s+[A-Z]:\s*/, '')
   return (
-    <div className="view doc quiz qz-intro">
+    <div className="view doc qz-intro">
       <button className="crumblink qz-back" onClick={() => go({ kind: 'quizzes' })}>‹ All quizzes</button>
-      <h1 className="qz-title">{c.title} <StateChip state={s.state} /></h1>
-      {(c.intro || []).map((p, i) => <p key={i} className={i === 0 ? 'lead' : 'qz-intro-p'}>{p}</p>)}
-      <dl className="qz-facts">
-        <div><dt>Questions</dt><dd>{c.count}</dd></div>
-        <div><dt>Time</dt><dd>{c.minutes} min</dd></div>
-        <div><dt>Points</dt><dd>{c.max}</dd></div>
-        <div><dt>Attempts</dt><dd>{left == null ? 'Unlimited' : left + ' left'}</dd></div>
-      </dl>
-      {err && <Err msg={err} />}
-      <div className="qz-cta">
-        {canStart && <button className="btn" disabled={busy} onClick={start}>{used ? 'Start again' : 'Start the quiz'}</button>}
-        {trialFirst && <button className="btn" disabled={busy} onClick={start}>Try the draft</button>}
-        {trialFirst && <span className="muted small">Trial runs are not counted. Staff can start once you publish.</span>}
-        {s.state !== 'live' && !isAdmin && <span className="muted">This quiz is {s.state === 'closed' ? 'closed' : 'not open yet'}.</span>}
+      <div className="qz-intro-grid">
+        <header className="qz-intro-head">
+          {s.state !== 'live' && <StateChip state={s.state} />}
+          <h1 className="qz-title">{c.title}</h1>
+          {(c.intro || []).map((p, i) => <p key={i} className={i === 0 ? 'qz-lead' : 'qz-intro-p'}>{p}</p>)}
+        </header>
+
+        <aside className="qz-start" aria-label="Start">
+          <div className="qz-clock"><span className="qz-clock-n">{c.minutes}:00</span><span className="qz-clock-l">time limit, one clock for the whole quiz</span></div>
+          <div className="qz-start-facts">
+            <div><b>{c.count}</b><span>questions</span></div>
+            <div><b>{c.max}</b><span>points</span></div>
+            <div><b>{left == null ? 'No limit' : left}</b><span>{left == null ? 'attempts' : 'attempts left'}</span></div>
+          </div>
+          {err && <Err msg={err} />}
+          {canStart && <button className="btn qz-start-btn" disabled={busy} onClick={start}>{used ? 'Start again' : 'Start the quiz'}</button>}
+          {trialFirst && <button className="btn qz-start-btn" disabled={busy} onClick={start}>Try the draft</button>}
+          {trialFirst && <p className="qz-start-note">Trial runs are not counted. Staff can start once you publish.</p>}
+          {s.state !== 'live' && !isAdmin && <p className="qz-start-note">This quiz is {s.state === 'closed' ? 'closed' : 'not open yet'}.</p>}
+          <h2 className="qz-start-h">Before you start</h2>
+          <ul className="qz-rules">
+            <li>The clock keeps running if you close the page. When it ends, what you saved is submitted.</li>
+            <li>Questions open in order. {c.feedback ? 'Check each answer to see if it is right; it locks once checked.' : 'You can go back and change answers until you submit.'}</li>
+            {c.written > 0 && <li>Written answers are marked by an admin.</li>}
+            <li>Every attempt is recorded.</li>
+          </ul>
+          {used > 0 && <>
+            <h2 className="qz-start-h">Your results</h2>
+            <ul className="qz-results">{s.mine.map(r => <li key={r.n}><span>Attempt {r.n}</span><span className="muted">{when(r.at)}</span><b>{scoreText(r)}</b></li>)}</ul>
+          </>}
+        </aside>
+
+        <div className="qz-intro-body">
+          {c.outline?.length > 0 && <>
+            <h2 className="qz-h">What's in the quiz</h2>
+            <ol className="qz-outline">
+              {c.outline.map(o => (
+                <li key={o.id}>
+                  <span className="qz-outline-id" aria-hidden="true">{o.id}</span>
+                  <span className="qz-outline-t">{secName(o.title)}{o.written && <span className="qz-outline-w">with a written reason</span>}</span>
+                  <span className="qz-outline-r">Q{o.from} to Q{o.to}</span>
+                </li>
+              ))}
+            </ol>
+          </>}
+          {c.ref && <>
+            <h2 className="qz-h">{c.ref.title}</h2>
+            <dl className="qz-pillars">{c.ref.items.map(([t, d]) => <div key={t}><dt>{t}</dt><dd>{d}</dd></div>)}</dl>
+          </>}
+          {isAdmin && <AdminPanel id={id} state={s.state} go={go} onChange={reload} />}
+        </div>
       </div>
-      <h2 className="qz-h">How it works</h2>
-      <ul className="bullets">
-        <li>One clock for the whole quiz. It keeps running if you close the page; when it ends, what you saved is submitted.</li>
-        <li>Questions open in order: finish one to open the next.{c.feedback ? ' Check each answer to see if it is right; it locks once checked.' : ' You can go back and change answers until you submit.'}</li>
-        {c.written > 0 && <li>An admin marks the written answers.</li>}
-        <li>Every attempt is recorded.</li>
-      </ul>
-      {c.ref && <PillarRef refData={c.ref} />}
-      {used > 0 && <>
-        <h2 className="qz-h">Your results</h2>
-        <ul className="qz-results">{s.mine.map(r => <li key={r.n}><span>Attempt {r.n}</span><span className="muted">{when(r.at)}</span><b>{scoreText(r)}</b></li>)}</ul>
-      </>}
-      {isAdmin && <AdminPanel id={id} state={s.state} go={go} onChange={reload} />}
     </div>
   )
 }

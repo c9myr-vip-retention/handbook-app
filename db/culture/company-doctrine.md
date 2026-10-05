@@ -1,4 +1,4 @@
-The Doctrine is how we operate. The five pillars are how we think; these ten principles turn them into daily standards. Their aim: a strong base of discipline, accountability and performance, with everyone aligned to the company's vision, standards and direction.
+Ten principles that turn the five pillars into daily standards: discipline, accountability and performance, with everyone aligned to the company's direction.
 
 1. Company comes first
 2. Ownership over excuses
@@ -19,15 +19,9 @@ The Doctrine is how we operate. The five pillars are how we think; these ten pri
 |---|---|
 | "My numbers matter more than the team's plan." | "What does the company need from me right now?" |
 
-**Example:** you are asked to cover another brand during a busy shift, which may lower your own figures.
+**Ask yourself:** I'm asked to cover another brand on a busy shift, and it may lower my own figures. What do I do?
 
-- **Wrong:** refuse because it hurts your personal numbers.
-- **Right:** cover it, and tell your Senior so the change is noted.
-
-**Key behaviours**
-
-- Put company goals ahead of personal preference.
-- Raise concerns through your leader, then follow the decision.
+**Good answer:** cover it, and tell my Senior so the change is noted.
 
 ## 2. Ownership over excuses
 
@@ -37,15 +31,9 @@ The Doctrine is how we operate. The five pillars are how we think; these ten pri
 |---|---|
 | "The system was slow, so it's not my fault." | "What happened, what did I miss, and how do I fix it?" |
 
-**Example:** a report you send goes out late.
+**Ask yourself:** my report went out late. What do I say?
 
-- **Wrong:** blame the tool or a colleague.
-- **Right:** say it was late, fix it, and change what caused it.
-
-**Key behaviours**
-
-- Explain what happened, not who to blame.
-- Bring a fix with the problem.
+**Good answer:** that it was late, how I fixed it, and what I changed so it doesn't happen again.
 
 ## 3. System over individuals
 
@@ -53,17 +41,11 @@ The Doctrine is how we operate. The five pillars are how we think; these ten pri
 
 | It is not | It is |
 |---|---|
-| "My own way is faster, so I'll skip the SOP." | "I follow the SOP. If I see a better way, I propose a change to it." |
+| "My way is faster, so I'll skip the SOP." | "I follow the SOP, and propose changes to it." |
 
-**Example:** you find a quicker way to do a daily task.
+**Ask yourself:** I found a quicker way to do a daily task. Do I just use it?
 
-- **Wrong:** start using it on your own and tell no one.
-- **Right:** suggest it to your ATL so the SOP is updated for everyone.
-
-**Key behaviours**
-
-- Work from the current SOP version.
-- Improve the system, not a private workaround.
+**Good answer:** no. I suggest it to my ATL so the SOP improves for everyone.
 
 ## 4. Loyalty and trust are earned, not given
 
@@ -73,15 +55,9 @@ The Doctrine is how we operate. The five pillars are how we think; these ten pri
 |---|---|
 | "I've been here long enough to be trusted." | "Trust is built by what I do every day." |
 
-**Example:** no one would notice if you marked a task done before it was finished.
+**Ask yourself:** no one would notice if I marked a task done before it was finished. Do I?
 
-- **Wrong:** mark it done anyway.
-- **Right:** record the real status, every time.
-
-**Key behaviours**
-
-- Be honest in records, reports and updates.
-- Keep promises, or say early when you can't.
+**Good answer:** no. I record the real status, every time.
 
 ## 5. Discipline creates freedom
 
@@ -91,15 +67,9 @@ The Doctrine is how we operate. The five pillars are how we think; these ten pri
 |---|---|
 | "I'll do the routine when I have time." | "I do the routine every shift, so nothing piles up." |
 
-**Example:** the pre-shift setup feels repetitive.
+**Ask yourself:** it's a quiet day. Can I skip the pre-shift setup?
 
-- **Wrong:** skip it on quiet days.
-- **Right:** do it every shift; quiet days are when gaps go unnoticed.
-
-**Key behaviours**
-
-- Be on time and ready at shift start.
-- Finish daily tasks the same way every day.
+**Good answer:** no. Quiet days are when gaps go unnoticed.
 
 ## 6. Data over assumption
 
@@ -109,15 +79,9 @@ The Doctrine is how we operate. The five pillars are how we think; these ten pri
 |---|---|
 | "Retention looks better this week, I'm sure." | "Here is the closed-day figure and how it compares." |
 
-**Example:** you want to report a strong day before the day has closed.
+**Ask yourself:** the day looks strong but hasn't closed. Do I report it as final?
 
-- **Wrong:** report the same-day figure as final.
-- **Right:** report closed-day data, or mark same-day figures as provisional.
-
-**Key behaviours**
-
-- Check the number before you share it.
-- Say where a figure came from and when.
+**Good answer:** no. I report closed-day data, or mark same-day figures as provisional.
 
 ## 7. Leaders lead by example
 
@@ -127,15 +91,9 @@ The Doctrine is how we operate. The five pillars are how we think; these ten pri
 |---|---|
 | "Rules are for the team, not for me." | "I follow every rule I ask others to follow." |
 
-**Example:** a Senior asks the team to log every contact, but skips logging their own.
+**Ask yourself:** as a Senior, I ask the team to log every contact. What do I do first?
 
-- **Wrong:** set rules you don't follow.
-- **Right:** do it first, so the team sees the standard.
-
-**Key behaviours**
-
-- Show the standard before asking for it.
-- Own your mistakes in front of the team.
+**Good answer:** log every contact myself, so the team sees the standard.
 
 ## 8. Improve every month
 
@@ -145,15 +103,9 @@ The Doctrine is how we operate. The five pillars are how we think; these ten pri
 |---|---|
 | "Last month was fine, so nothing needs to change." | "What is one thing I can do better this month?" |
 
-**Example:** your QA score is the same as last month.
+**Ask yourself:** my QA score is the same as last month. Is that good enough?
 
-- **Wrong:** accept it as good enough.
-- **Right:** pick one area from the QA notes and improve it this month.
-
-**Key behaviours**
-
-- Set one clear improvement each month.
-- Check at month end whether it happened.
+**Good answer:** no. I pick one area from the QA notes and improve it this month.
 
 ## 9. Toxic behavior is not tolerated
 
@@ -163,15 +115,9 @@ The Doctrine is how we operate. The five pillars are how we think; these ten pri
 |---|---|
 | "It's just a joke about a teammate." | "I speak about people the way I would to their face." |
 
-**Example:** a group chat starts mocking a colleague who made a mistake.
+**Ask yourself:** a group chat starts mocking a colleague's mistake. What do I do?
 
-- **Wrong:** join in, or stay silent and add to it.
-- **Right:** don't take part, and raise it with your leader.
-
-**Key behaviours**
-
-- No gossip, insults or mockery.
-- Raise issues directly and respectfully.
+**Good answer:** don't take part, and raise it with my leader.
 
 ## 10. We build something bigger than individuals
 
@@ -181,12 +127,6 @@ The Doctrine is how we operate. The five pillars are how we think; these ten pri
 |---|---|
 | "I only care about my own results." | "My work adds to something the whole team builds." |
 
-**Example:** you learn a faster way to handle a common case.
+**Ask yourself:** I learned a faster way to handle a common case. Do I keep it to myself?
 
-- **Wrong:** keep it to yourself to stay ahead.
-- **Right:** share it with the team or add it to the Case Study log.
-
-**Key behaviours**
-
-- Share knowledge.
-- Celebrate team wins, not only your own.
+**Good answer:** no. I share it with the team or add it to the Case Study log.

@@ -1,4 +1,4 @@
-The five pillars are how we think. You can know every SOP and still make a poor decision if your mindset is wrong. These pillars are the standard for how we work, how we solve problems, how we handle mistakes and how we work with each other. They are not something to memorise for a quiz.
+Five pillars shape how we think and decide. You can know every SOP and still decide badly with the wrong mindset.
 
 1. Ownership Mentality
 2. Progress Over Perfection
@@ -14,22 +14,11 @@ The five pillars are how we think. You can know every SOP and still make a poor 
 |---|---|
 | "I did my part, so the rest is not my problem." | "I am responsible for making sure this is properly finished." |
 
-**Example:** you promised a VIP a reply about a bonus question. Your shift ends before you have the answer.
+**Ask yourself:** I promised a VIP a reply, and my shift ends before I have the answer. When does my responsibility end?
 
-- **Wrong:** log off and let the next shift find out.
-- **Right:** put the case and its status in the shift handover, name who follows up, and make sure the VIP gets the reply.
+**Good answer:** when the case is handed over with its status and a named follow-up, not when my shift ends.
 
-**Ask yourself:** "I started a case and cannot finish it today. When does my responsibility end?"
-
-**Good answer:** when the case is properly handed over or closed, not when my shift ends.
-
-**Key behaviours**
-
-- Act without waiting to be told when the task is yours.
-- Follow up and close the loop.
-- Check your own work.
-- Report mistakes; never hide them.
-- No blaming the system, a colleague or the situation.
+**Key behaviours:** follow up and close the loop; report mistakes, never hide them; no blaming.
 
 ## Pillar 2: Progress Over Perfection
 
@@ -39,23 +28,11 @@ The five pillars are how we think. You can know every SOP and still make a poor 
 |---|---|
 | "Do things carelessly." | "Don't use perfection as a reason for delay." |
 
-Fast is not careless. Accurate, on time, then improved: that is progress.
+**Ask yourself:** I keep rewriting my first Telegram approach message. What should I do?
 
-**Example:** you are writing your first Telegram approach message and keep rewriting the greeting.
+**Good answer:** get the content right, send it to my Senior for review, and improve it from the feedback.
 
-- **Wrong:** keep polishing it while the approach window passes.
-- **Right:** get the content right, send it to your Senior for review, improve it from the feedback.
-
-**Ask yourself:** "I don't know the perfect answer yet. Do I stop?"
-
-**Good answer:** no. I make reasonable progress, ask for guidance when I need it, and improve from feedback.
-
-**Key behaviours**
-
-- Take action.
-- Deliver, then improve the next version.
-- Learn from feedback.
-- Don't wait for perfect conditions.
+**Key behaviours:** fast is not careless; deliver, then improve; don't wait for perfect conditions.
 
 ## Pillar 3: Data-Driven Thinking
 
@@ -63,25 +40,13 @@ Fast is not careless. Accurate, on time, then improved: that is progress.
 
 | It is not | It is |
 |---|---|
-| "I think this VIP always deposits on weekends." | "Let me check the deposit history first." |
+| "I think this VIP never answers on weekdays." | "Let me check the contact history first." |
 
-**Example:** a teammate says a VIP never answers on weekdays, so you should skip today's contact.
+**Ask yourself:** a teammate says to skip today's contact because the VIP never answers on weekdays. Do I skip it?
 
-- **Wrong:** skip the contact because it sounds right.
-- **Right:** check the VIP's contact and deposit history in the console, then decide.
+**Good answer:** not yet. I check the VIP's contact and deposit history in the console, then decide.
 
-Don't start with "I think...". Start with "Let me check...".
-
-**Ask yourself:** "My opinion and the data disagree. Which do I look into?"
-
-**Good answer:** I base the decision on the data, and I look into why it differs from what I expected.
-
-**Key behaviours**
-
-- Check facts and numbers before answering.
-- Compare results and track outcomes.
-- Ask "why?"
-- Never decide on feelings alone.
+**Key behaviours:** check before answering; ask "why?"; never decide on feelings alone.
 
 ## Pillar 4: Continuous Growth
 
@@ -91,22 +56,11 @@ Don't start with "I think...". Start with "Let me check...".
 |---|---|
 | "I learned the job in my first month; I'm done." | "Every week I want to be better than last week." |
 
-**Example:** a new version of an SOP you use every day is released.
+**Ask yourself:** a new version of an SOP I use every day is out. What do I do?
 
-- **Wrong:** keep working the old way until someone corrects you.
-- **Right:** read "What changed" on the SOP page, take its Learn quiz, and use the new way this week.
+**Good answer:** read "What changed", take its Learn quiz, and use the new way this week.
 
-**Ask yourself:** "What do I do after I get QA feedback?"
-
-**Good answer:** understand the mistake and why it happened, fix it, change how I work, and apply it next time.
-
-**Key behaviours**
-
-- Learn something every week.
-- Learn from mistakes.
-- Accept coaching.
-- Build better habits.
-- Don't stay at the same level.
+**Key behaviours:** learn something every week; accept coaching; turn QA feedback into a new habit.
 
 ## Pillar 5: Team Before Ego
 
@@ -116,35 +70,22 @@ Don't start with "I think...". Start with "Let me check...".
 |---|---|
 | "Always agree with everyone." | "Solve the problem and reach the team goal, not protect my ego." |
 
-**Example:** a teammate gets the credit for something you helped with.
+**Ask yourself:** a teammate got the credit for something I helped with. What now?
 
-- **Wrong:** argue for your share in the team chat.
-- **Right:** focus on the team's result. If credit matters for a review, raise it calmly with your Senior.
+**Good answer:** focus on the team's result. If credit matters for a review, raise it calmly with my Senior.
 
-**Ask yourself:** "My idea was not chosen in a team discussion. What now?"
-
-**Good answer:** support the decision, share facts if I still see a risk, and help it succeed.
-
-**Key behaviours**
-
-- No gossip.
-- No politics.
-- No blaming.
-- Help teammates and share knowledge.
-- Accept feedback.
-- Celebrate team success.
-- Solve problems directly with the right person.
+**Key behaviours:** no gossip; no politics; no blaming; share knowledge.
 
 ## Practice: all five in one case
 
-A VIP says a birthday bonus did not arrive. You check quickly and can't see why yet. A colleague says: "Just give him a compensation to keep him happy." Your Senior is busy, and you have another task due.
+A VIP says a birthday bonus didn't arrive. A colleague says: "Just give him a compensation to keep him happy." Your Senior is busy.
 
 | Question | Pillar |
 |---|---|
-| Which pillar tells you to check the bonus record and eligibility before answering? | Data-Driven Thinking |
-| Which pillar tells you to keep the case until the VIP gets a proper answer? | Ownership Mentality |
-| Which pillar tells you to send the VIP a short holding reply now, instead of staying silent until you have the full answer? | Progress Over Perfection |
-| Which pillar tells you to ask your Senior properly instead of working around them? | Team Before Ego |
-| After the case, which pillar tells you to log what you learned so the next person handles it faster? | Continuous Growth |
+| Which pillar says check the bonus record and eligibility first? | Data-Driven Thinking |
+| Which pillar says keep the case until the VIP gets a proper answer? | Ownership Mentality |
+| Which pillar says send a short holding reply now, not stay silent? | Progress Over Perfection |
+| Which pillar says ask your Senior properly, not work around them? | Team Before Ego |
+| Which pillar says log what you learned for the next person? | Continuous Growth |
 
 > [!warn|Compensation is never a shortcut] Every compensation case needs ATL approval. See the Compensation SOP.

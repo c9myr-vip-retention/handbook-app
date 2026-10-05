@@ -72,7 +72,20 @@ Each type has one shape. Outside content is reshaped to fit.
 - **Primary pillar calls must agree** across scripts, guides and quiz keys. If a script says a situation is mainly one pillar, the quiz key cannot say another.
 - **Expected answers in trainer scripts** state the behaviour ("check the record before replying"), not just the pillar name.
 
-## 7. Before it goes live
+## 7. Slides (Present mode)
+
+Every page can be presented with the Present button: slide 1 is the title and intro, then one slide per section. Write each section so it works as a slide.
+
+- **One idea per section.** The section heading is the slide title.
+- **Short intro.** One or two sentences, then the list of what follows. No intro paragraph to read out.
+- **Lead with a hook:** the core line, then one contrast (It is not / It is) or one question (Ask yourself, with its Good answer).
+- **About 80 words per section at most,** labels included. Fold examples into the question instead of adding Example / Wrong / Right blocks.
+- **Key behaviours on one line,** separated by semicolons, three or four at most.
+- **Answers show straight away.** No click-to-reveal; the presenter moves on with one key press.
+- **Tables of three columns or fewer** in any section meant for presenting.
+- **Page titles say what the page is,** not just a label (for example "The 5 Pillars: how we think").
+
+## 8. Before it goes live
 
 - All `[CONFIRM ...]` notes answered; no CONFLICT left.
 - House style check passed (section 3).
@@ -87,3 +100,5 @@ Each type has one shape. Outside content is reshaped to fit.
 | 5 Oct 2026 | Quiz answer keys are stored as the option sentence; letters are labels only. | ATL |
 | 5 Oct 2026 | Green/red feedback is a per-quiz setting; off for assessments. | ATL |
 | 5 Oct 2026 | Teaching examples and quiz questions never share a scenario. | Proposed in the 5 Pillar Script review; waiting for ATL |
+| 5 Oct 2026 | Slide rules (section 7): one idea per section, short intro, hook first, about 80 words, behaviours on one line, answers shown straight away (no reveal), descriptive page titles. | ATL |
+| 5 Oct 2026 | Culture & Conduct split into sub pages: The 5 Pillars, Company Doctrine, Redlines, each in the slide shape. | ATL |

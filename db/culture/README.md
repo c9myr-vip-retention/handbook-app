@@ -1,3 +1,3 @@
-# Culture sub pages: first-load sources
+# Culture sub pages: sources
 
-Markdown used to create the 5 Pillars, Company Doctrine and Redlines pages (5 Oct 2026), shown under Culture & Conduct (sops.subbranch = culture). The app is the master copy: edit these pages in the app, not here. These files are kept only as the record of the first version.
+Markdown for The 5 Pillars, Company Doctrine and Redlines pages, shown under Culture & Conduct (sops.subbranch = culture). Updated 5 Oct 2026 to the slide shape (CONTENT.md section 7). The app is the master copy: edit these pages in the app; these files are the record of the version loaded by Claude. Earlier versions are in each page's History.

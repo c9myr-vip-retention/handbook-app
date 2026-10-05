@@ -532,6 +532,39 @@ function Crumb({ crumb, go, nav: NAV }) {
   )
 }
 
+// A parent page's sub pages as large cards. They rise in one by one, left to
+// right, the first time the list scrolls into view.
+function SubPages({ kids, pages: PAGES, go }) {
+  const ref = useRef(null)
+  const [seen, setSeen] = useState(false)
+  useEffect(() => {
+    const el = ref.current
+    if (!el || typeof IntersectionObserver !== 'function') { setSeen(true); return }
+    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setSeen(true); io.disconnect() } }, { threshold: 0.35 })
+    io.observe(el)
+    return () => io.disconnect()
+  }, [])
+  return (
+    <nav ref={ref} className={'subpages' + (seen ? ' in' : '')} aria-labelledby="subpages-h">
+      <h2 id="subpages-h" className="subpages-h">Read each part</h2>
+      <p className="subpages-lead">Each part has its own page with examples.</p>
+      <ol className="subpages-list">{kids.map((k, n) => {
+        const intro = PAGES[k.id].blocks.find(b => b.t === 'p')
+        return (
+          <li key={k.id} style={{ '--i': n }}>
+            <button className="subpage" onClick={() => go({ kind: 'page', key: k.id })}>
+              <span className="subpage-n" aria-hidden="true">{n + 1}</span>
+              <span className="subpage-t">{k.title}</span>
+              {intro && <span className="subpage-d">{firstSentence(intro.x)}</span>}
+              <span className="subpage-go" aria-hidden="true">Open page ›</span>
+            </button>
+          </li>
+        )
+      })}</ol>
+    </nav>
+  )
+}
+
 const firstSentence = (x) => { const s = String(x).replace(/\*\*/g, ''); const m = s.match(/^.*?[.!?](\s|$)/); return (m ? m[0] : s).trim() }
 
 function DomainList({ name, go, nav: NAV, pages: PAGES }) {
@@ -1016,6 +1049,9 @@ function Page({ id, sec, mod, pages: PAGES, nav: NAV, canEdit, go, railOpen, onR
   const [presenting, setPresenting] = useState(false)
   const presentBtn = useRef(null)
   const kids = (NAV.find(s => !s.domains && s.items.some(it => it.id === id))?.items || []).filter(it => it.parent === id && PAGES[it.id])
+  // Sub pages are listed at the end of the parent page.
+  const kidsAt = kids.length ? -1 : -2
+  const subpages = kids.length > 0 && <SubPages kids={kids} pages={PAGES} go={go} />
   const words = bodyText(p).split(/\s+/).filter(Boolean).length
   const readMin = Math.max(1, Math.round(words / 200))
   return (
@@ -1036,20 +1072,14 @@ function Page({ id, sec, mod, pages: PAGES, nav: NAV, canEdit, go, railOpen, onR
       <div className="docmeta">{meta.map((m, i) => <span key={i}>{m}</span>)}<span>About {readMin} min read</span></div>
       <PrintNote version={versionOf(p)} />
       <SopLearnLink mod={mod} go={go} />
-      {p.blocks.map((b, i) => b.t === 'h2' && canEdit
-        ? <div key={i} className="edh2"><h2 id={'sec-' + i}>{b.x}</h2><button className="secedit" onClick={() => go({ kind: 'edit', key: id, sec: i })} aria-label={'Edit section ' + b.x}>Edit</button></div>
-        : <Block key={i} b={b} id={b.t === 'h2' ? 'sec-' + i : undefined} version={versionOf(p)} />)}
+      {p.blocks.map((b, i) => <div key={i} style={{ display: 'contents' }}>
+        {b.t === 'h2' && canEdit
+          ? <div className="edh2"><h2 id={'sec-' + i}>{b.x}</h2><button className="secedit" onClick={() => go({ kind: 'edit', key: id, sec: i })} aria-label={'Edit section ' + b.x}>Edit</button></div>
+          : <Block b={b} id={b.t === 'h2' ? 'sec-' + i : undefined} version={versionOf(p)} />}
+        {i === kidsAt && subpages}
+      </div>)}
+      {kidsAt < 0 && subpages}
       <SopLearnLink mod={mod} go={go} place="end" />
-      {kids.length > 0 && (
-        <nav className="subpages" aria-labelledby="subpages-h">
-          <h2 id="subpages-h">Pages in this section</h2>
-          <div className="subpages-list">{kids.map(k => (
-            <button key={k.id} className="subpage" onClick={() => go({ kind: 'page', key: k.id })}>
-              <b>{k.title}</b>{PAGES[k.id].blocks.find(b => b.t === 'p') && <span>{firstSentence(PAGES[k.id].blocks.find(b => b.t === 'p').x)}</span>}
-            </button>
-          ))}</div>
-        </nav>
-      )}
       {(prev || next) && (
         <nav className="pager" aria-label="More in this section">
           {prev ? <button className="pagerbtn" onClick={() => go({ kind: 'page', key: prev.id })}><small>Previous</small><b>{prev.title}</b></button> : <span />}

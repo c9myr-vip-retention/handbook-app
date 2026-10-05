@@ -16,6 +16,8 @@ const Loading = () => <p className="muted">Loading…</p>
 const Err = ({ msg }) => <p className="err" role="alert">{msg}</p>
 const when = (s) => { if (!s) return '-'; const d = new Date(s.replace(' ', 'T') + (/Z|[+-]\d\d:\d\d$/.test(s) ? '' : 'Z')); return isNaN(d) ? s : d.toLocaleString('en-GB', { timeZone: 'Asia/Kuala_Lumpur', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) }
 const clock = (s) => Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0')
+// "Section A: Primary mindset identification" shows as "Section A".
+const secShort = (t) => (String(t).match(/^Section\s+[A-Z]+/) || [t])[0]
 const scoreText = (r) => r.pending ? `${r.score} of ${r.max}, written part waiting for review` : `${r.score} of ${r.max}`
 
 function StateChip({ state }) {
@@ -120,7 +122,7 @@ export function QuizSet({ id, go, isAdmin }) {
   const left = c.maxAttempts ? c.maxAttempts - used : null
   const canStart = s.state === 'live' && (left == null || left > 0)
   const trialFirst = isAdmin && s.state !== 'live'
-  const secName = (t) => t.replace(/^Section\s+[A-Z]:\s*/, '')
+  const secName = (t) => secShort(t)
   return (
     <div className="view doc qz-intro">
       <button className="crumblink qz-back" onClick={() => go({ kind: 'quizzes' })}>‹ All quizzes</button>
@@ -162,8 +164,7 @@ export function QuizSet({ id, go, isAdmin }) {
             <ol className="qz-outline">
               {c.outline.map(o => (
                 <li key={o.id}>
-                  <span className="qz-outline-id" aria-hidden="true">{o.id}</span>
-                  <span className="qz-outline-t">{secName(o.title)}{o.written && <span className="qz-outline-w">with a written reason</span>}</span>
+                  <span className="qz-outline-t">{secName(o.title)}</span>
                   <span className="qz-outline-r">Q{o.from} to Q{o.to}</span>
                 </li>
               ))}
@@ -305,7 +306,7 @@ function Runner({ run, content, onDone }) {
   const stateOf = (x, k) => fb && ans[x.id]?.locked ? (ans[x.id].correct ? 'ok' : 'bad') : complete[k] ? 'done' : k > reach ? 'shut' : 'open'
   const groups = []
   qs.forEach((x, k) => { const g = groups[groups.length - 1]; if (g && g.sec === x.sec) g.items.push(k); else groups.push({ sec: x.sec, items: [k] }) })
-  const secLabel = (id) => (content.sections?.find(s => s.id === id)?.title || '').replace(/^Section\s+/, '')
+  const secLabel = (id) => secShort(content.sections?.find(s => s.id === id)?.title || '')
   const nav = (
     <div className="qz-nav">
       <div className="qz-nav-head"><b>Progress</b><span>{nDone} of {qs.length}</span></div>
@@ -347,7 +348,7 @@ function Runner({ run, content, onDone }) {
         <nav className="qz-navcol" aria-label="Questions">{nav}</nav>
         <div className="qz-main">
           <details className="qz-navfold"><summary>All questions <span className="muted">({nDone} of {qs.length} done)</span></summary>{nav}</details>
-          {sec && <p className="qz-sec"><b>{sec.title}</b>{sec.note && !q.explain && <span className="muted"> {sec.note}</span>}</p>}
+          {sec && <p className="qz-sec"><b>{secShort(sec.title)}</b></p>}
           <h1 className="quiz-q qz-q"><span className="qz-qn">Q{i + 1}.</span> {q.q}</h1>
           <div className="quiz-opts" role="radiogroup" aria-label="Answers">
             {q.o.map((t, k) => (

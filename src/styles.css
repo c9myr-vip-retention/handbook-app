@@ -790,3 +790,7 @@ mark { background:color-mix(in srgb, var(--accent) 18%, transparent); color:inhe
 @media (max-width:640px){ .present-body { padding:24px 16px; } .present-slide h2 { font-size:var(--fs-xl); } .present-title { display:none; } .present-controls { padding:10px 12px; } }
 @media print { .doctools-present { display:none; } }
 @media (prefers-reduced-motion:reduce){ .present-bar > span { transition:none; } }
+/* Own SVG illustrations drawn inline (theme-aware) */
+.figure.figure-svg { background:var(--surface); padding:16px; }
+.svgwrap svg { display:block; width:100%; height:auto; cursor:zoom-in; }
+.svgwrap.zoomed svg { width:min(1600px, 94vw); cursor:default; }

@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 300" width="1000" height="300" role="img" aria-labelledby="sv-t sv-d" font-family="Inter, Segoe UI, Arial, sans-serif">
+  <title id="sv-t">SUCCESS: how we serve</title>
+  <desc id="sv-d">Seven values spell SUCCESS: Service, Unity, Commitment, Change, Ethical, Selflessness, Strive. Core message: People. Solve. Problems. Together.</desc>
+  <style>
+    .sv-tile { fill: var(--accent-soft, #EDF1FD); stroke: var(--accent, #2F4FD1); stroke-width: 1.5; }
+    .sv-l { fill: var(--accent, #2F4FD1); font-size: 64px; font-weight: 700; }
+    .sv-n { fill: var(--text, #111827); font-size: 17px; font-weight: 700; }
+    .sv-d { fill: var(--muted, #4B5563); font-size: 13px; }
+    .sv-rule { stroke: var(--border, #E3E6EB); stroke-width: 1; }
+    .sv-m { fill: var(--text, #111827); font-size: 19px; font-weight: 700; }
+  </style>
+  <g text-anchor="middle">
+    <rect class="sv-tile" x="32" y="16" width="120" height="120" rx="14"/>
+    <rect class="sv-tile" x="168" y="16" width="120" height="120" rx="14"/>
+    <rect class="sv-tile" x="304" y="16" width="120" height="120" rx="14"/>
+    <rect class="sv-tile" x="440" y="16" width="120" height="120" rx="14"/>
+    <rect class="sv-tile" x="576" y="16" width="120" height="120" rx="14"/>
+    <rect class="sv-tile" x="712" y="16" width="120" height="120" rx="14"/>
+    <rect class="sv-tile" x="848" y="16" width="120" height="120" rx="14"/>
+    <text class="sv-l" x="92" y="99">S</text>
+    <text class="sv-l" x="228" y="99">U</text>
+    <text class="sv-l" x="364" y="99">C</text>
+    <text class="sv-l" x="500" y="99">C</text>
+    <text class="sv-l" x="636" y="99">E</text>
+    <text class="sv-l" x="772" y="99">S</text>
+    <text class="sv-l" x="908" y="99">S</text>
+    <text class="sv-n" x="92" y="166">Service</text>
+    <text class="sv-n" x="228" y="166">Unity</text>
+    <text class="sv-n" x="364" y="166">Commitment</text>
+    <text class="sv-n" x="500" y="166">Change</text>
+    <text class="sv-n" x="636" y="166">Ethical</text>
+    <text class="sv-n" x="772" y="166">Selflessness</text>
+    <text class="sv-n" x="908" y="166">Strive</text>
+    <text class="sv-d" x="92" y="188">Serve the VIP</text><text class="sv-d" x="92" y="206">properly</text>
+    <text class="sv-d" x="228" y="188">Work as</text><text class="sv-d" x="228" y="206">one team</text>
+    <text class="sv-d" x="364" y="188">Take it on,</text><text class="sv-d" x="364" y="206">follow through</text>
+    <text class="sv-d" x="500" y="188">Adapt and</text><text class="sv-d" x="500" y="206">improve</text>
+    <text class="sv-d" x="636" y="188">The right thing,</text><text class="sv-d" x="636" y="206">the right way</text>
+    <text class="sv-d" x="772" y="188">Think beyond</text><text class="sv-d" x="772" y="206">yourself</text>
+    <text class="sv-d" x="908" y="188">Keep getting</text><text class="sv-d" x="908" y="206">better</text>
+    <line class="sv-rule" x1="32" y1="236" x2="968" y2="236"/>
+    <text class="sv-m" x="500" y="272">People. Solve. Problems. Together.</text>
+  </g>
+</svg>

@@ -1103,8 +1103,36 @@ function ChartFigure({ code }) {
 
 // Chart image from the enrolled Lark template. Shown at page width; Enlarge
 // opens it at full size.
+// Our own SVG illustrations (/flowcharts/<name>.svg) are drawn inline, so they
+// use the app's colour tokens and follow light and dark mode.
+const OWN_SVG = /^\/flowcharts\/[\w-]+\.svg$/
+const svgCache = {}
+function InlineSvg({ src, alt }) {
+  const [svg, setSvg] = useState(svgCache[src] || null)
+  const [zoom, setZoom] = useState(false)
+  useEffect(() => {
+    if (svgCache[src]) return
+    fetch(src).then(r => (r.ok ? r.text() : Promise.reject())).then(t => {
+      // Own files only; still drop anything script-like before inlining.
+      if (!/^\s*<svg[\s>]/.test(t) || /<script|on\w+\s*=|javascript:/i.test(t)) return
+      svgCache[src] = t; setSvg(t)
+    }).catch(() => {})
+  }, [src])
+  if (!svg) return <figure className="figure figure-svg"><img src={src} alt={alt || ''} /></figure>
+  return (
+    <figure className="figure figure-svg">
+      <div className="svgwrap" role="img" aria-label={alt || ''} onClick={() => setZoom(true)} dangerouslySetInnerHTML={{ __html: svg }} />
+      <figcaption className="figcap"><button className="crumblink" onClick={() => setZoom(true)}>Enlarge picture</button></figcaption>
+      <Zoom open={zoom} onClose={() => setZoom(false)} label={alt || 'Picture'}>
+        <div className="svgwrap zoomed" dangerouslySetInnerHTML={{ __html: svg }} />
+      </Zoom>
+    </figure>
+  )
+}
+
 function ImageFigure({ src, alt }) {
   const [zoom, setZoom] = useState(false)
+  if (OWN_SVG.test(src)) return <InlineSvg src={src} alt={alt} />
   return (
     <figure className="figure">
       <img src={src} alt={alt || ''} loading="lazy" onClick={() => setZoom(true)} style={{ cursor: 'zoom-in' }} />

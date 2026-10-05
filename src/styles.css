@@ -771,3 +771,22 @@ mark { background:color-mix(in srgb, var(--accent) 18%, transparent); color:inhe
 .subpage:hover { border-color:var(--border-strong); box-shadow:var(--shadow-sm); }
 .subpage b { color:var(--accent); }
 .subpage span { font-size:var(--fs-sm); color:var(--muted); }
+/* Present mode: the page as full-screen slides */
+.doctools-present { margin-right:auto; }
+.present { position:fixed; inset:0; z-index:90; display:flex; flex-direction:column; background:var(--bg); color:var(--text); outline:none; }
+.present-bar { height:4px; background:var(--surface-2); flex:none; }
+.present-bar > span { display:block; height:100%; background:var(--accent); transition:width .2s; }
+.present-body { flex:1; overflow-y:auto; display:flex; justify-content:center; padding:48px 40px; }
+.present-slide { width:100%; max-width:1000px; margin:auto 0; font-size:var(--fs-lg); line-height:1.6; }
+.present-slide h1 { font-size:var(--fs-3xl); margin:0 0 20px; }
+.present-slide h2 { font-size:var(--fs-2xl); font-weight:700; margin:0 0 20px; }
+.present-slide p, .present-slide li, .present-slide td, .present-slide th { font-size:var(--fs-lg); }
+.present-slide.intro { text-align:left; }
+.present-slide .callout { margin:0 0 20px; }
+.present-hint { margin-top:28px; color:var(--muted); font-size:var(--fs-sm) !important; }
+.present-controls { flex:none; display:flex; align-items:center; gap:10px; padding:12px 24px; border-top:1px solid var(--border); background:var(--surface); }
+.present-title { flex:1; min-width:0; margin-right:auto; font-size:var(--fs-sm); color:var(--muted); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.present-count { min-width:64px; text-align:center; font-size:var(--fs-sm); font-variant-numeric:tabular-nums; color:var(--muted); }
+@media (max-width:640px){ .present-body { padding:24px 16px; } .present-slide h2 { font-size:var(--fs-xl); } .present-title { display:none; } .present-controls { padding:10px 12px; } }
+@media print { .doctools-present { display:none; } }
+@media (prefers-reduced-motion:reduce){ .present-bar > span { transition:none; } }

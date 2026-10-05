@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { api } from './lib/api.js'
 import { parseBody, toMarkdown } from './lib/markdown.js'
 import { Chart, ChartSvg, ChartDrawer, parseChart, chartText } from './Chart.jsx'
@@ -1012,6 +1013,8 @@ function Page({ id, sec, mod, pages: PAGES, nav: NAV, canEdit, go, railOpen, onR
     h.tabIndex = -1; h.focus({ preventScroll: true })
   }
   const meta = (p.meta || []).filter(m => !/^Change: /.test(m))
+  const [presenting, setPresenting] = useState(false)
+  const presentBtn = useRef(null)
   const kids = (NAV.find(s => !s.domains && s.items.some(it => it.id === id))?.items || []).filter(it => it.parent === id && PAGES[it.id])
   const words = bodyText(p).split(/\s+/).filter(Boolean).length
   const readMin = Math.max(1, Math.round(words / 200))
@@ -1022,10 +1025,12 @@ function Page({ id, sec, mod, pages: PAGES, nav: NAV, canEdit, go, railOpen, onR
     <ReadBar />
     <div className="view doc">
       <div className="doctools">
+        <button ref={presentBtn} className="btn small ghost doctools-present" onClick={() => setPresenting(true)}>Present</button>
         <button className="btn small ghost" onClick={() => print()}>Print / PDF</button>
         {canEdit && <button className="btn small ghost" onClick={() => go({ kind: 'history', key: id })}>History</button>}
         {canEdit && <button className="btn small" onClick={() => go({ kind: 'edit', key: id })}>Edit</button>}
       </div>
+      {presenting && <Present p={p} onClose={() => { setPresenting(false); presentBtn.current?.focus() }} />}
       {p.crumb && <Crumb crumb={p.crumb} go={go} nav={NAV} />}
       <h1>{p.title}</h1>
       <div className="docmeta">{meta.map((m, i) => <span key={i}>{m}</span>)}<span>About {readMin} min read</span></div>
@@ -1126,6 +1131,64 @@ function Zoom({ open, onClose, label, children }) {
       <div className="zoombar"><span>{label}</span><button className="btn small ghost" onClick={onClose}>Close</button></div>
       <div className="zoombody">{open && children}</div>
     </dialog>
+  )
+}
+
+// Present mode: the page as slides. Slide 1 = title and intro, then one slide
+// per section (h2). Arrow keys, Space, Page Up/Down, Home/End; Esc closes.
+function slidesOf(p) {
+  const blocks = p.blocks.filter(b => b.t !== 'sopheader')
+  const slides = [{ title: p.title, intro: true, blocks: [] }]
+  for (const b of blocks) {
+    if (b.t === 'h2') slides.push({ title: b.x, blocks: [] })
+    else slides[slides.length - 1].blocks.push(b)
+  }
+  return slides
+}
+function Present({ p, onClose }) {
+  const slides = useMemo(() => slidesOf(p), [p])
+  const [n, setN] = useState(0)
+  const box = useRef(null), body = useRef(null)
+  const go = (k) => setN(x => Math.max(0, Math.min(slides.length - 1, typeof k === 'function' ? k(x) : k)))
+  useEffect(() => {
+    box.current?.focus()
+    const el = document.documentElement
+    if (el.requestFullscreen && !document.fullscreenElement) el.requestFullscreen().catch(() => {})
+    const onFs = () => { if (!document.fullscreenElement) onClose() }
+    document.addEventListener('fullscreenchange', onFs)
+    return () => {
+      document.removeEventListener('fullscreenchange', onFs)
+      if (document.fullscreenElement) document.exitFullscreen().catch(() => {})
+    }
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => { body.current?.scrollTo(0, 0) }, [n])
+  const onKey = (e) => {
+    if (e.key === 'Escape') { e.preventDefault(); onClose() }
+    else if (['ArrowRight', 'ArrowDown', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); go(x => x + 1) }
+    else if (['ArrowLeft', 'ArrowUp', 'PageUp'].includes(e.key)) { e.preventDefault(); go(x => x - 1) }
+    else if (e.key === 'Home') { e.preventDefault(); go(0) }
+    else if (e.key === 'End') { e.preventDefault(); go(slides.length - 1) }
+  }
+  const s = slides[n]
+  return createPortal(
+    <div className="present" role="dialog" aria-modal="true" aria-label={'Presenting ' + p.title} tabIndex={-1} ref={box} onKeyDown={onKey}>
+      <div className="present-bar" aria-hidden="true"><span style={{ width: ((n + 1) / slides.length * 100) + '%' }} /></div>
+      <div className="present-body" ref={body}>
+        <div className={'present-slide doc' + (s.intro ? ' intro' : '')} aria-live="polite">
+          {s.intro ? <h1>{s.title}</h1> : <h2>{s.title}</h2>}
+          {s.blocks.map((b, i) => <Block key={n + '-' + i} b={b} />)}
+          {s.intro && slides.length > 1 && <p className="present-hint">{slides.length - 1} sections. Use the arrow keys or the buttons below.</p>}
+        </div>
+      </div>
+      <div className="present-controls">
+        <span className="present-title">{p.title}</span>
+        <button className="btn small ghost" onClick={() => go(x => x - 1)} disabled={n === 0} aria-label="Previous slide">‹ Previous</button>
+        <span className="present-count">{n + 1} / {slides.length}</span>
+        <button className="btn small" onClick={() => go(x => x + 1)} disabled={n === slides.length - 1} aria-label="Next slide">Next ›</button>
+        <button className="btn small ghost" onClick={onClose}>Exit</button>
+      </div>
+    </div>,
+    document.body
   )
 }
 

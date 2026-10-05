@@ -100,6 +100,7 @@ Rules:
 - The main line sits in the middle of the frame; side branches converge back with right angles.
 - Fit order: left to right, then top down centred, then top down tight, then shrunk to 70%, then scroll starting on the main line.
 - Printed charts stay whole, up to 120 mm tall.
+- **Illustrations** (for example the SUCCESS picture) are SVG files in `public/flowcharts/`, drawn inline so they follow light and dark mode. Colour them only with app tokens through CSS classes (`fill: var(--accent, #2F4FD1)`), never fixed colours or a white background.
 
 ## 9. Words
 

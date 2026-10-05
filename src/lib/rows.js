@@ -31,6 +31,8 @@ export function fromRows(rows) {
       title: r.title,
       status: real ? undefined : (r.restricted ? 'restricted' : r.status),
       keywords: r.keywords || '',
+      // Sub page: subbranch names the parent page's id (Start Here and the other flat sections).
+      parent: !sec.domains && r.subbranch ? r.subbranch : undefined,
     }
     if (real) {
       pages[r.id] = {
@@ -48,6 +50,16 @@ export function fromRows(rows) {
     } else {
       sec.items.push(item)
     }
+  }
+  // Sub pages sit right after their parent, in their own sort order.
+  for (const s of nav) if (s.items) {
+    const kids = s.items.filter(it => it.parent && s.items.some(p => p.id === it.parent))
+    const top = s.items.filter(it => !kids.includes(it))
+    s.items = top.flatMap(it => [it, ...kids.filter(k => k.parent === it.id)])
+  }
+  for (const s of nav) if (s.items) for (const it of s.items) if (it.parent && pages[it.id]) {
+    const p = s.items.find(x => x.id === it.parent)
+    if (p) pages[it.id].crumb = s.name + ' · ' + p.title
   }
   // Drop empty sections (e.g. a reader who cannot see any row in one).
   return { nav: nav.filter(s => (s.domains ? s.domains.length : s.items.length) > 0), pages }

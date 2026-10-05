@@ -763,3 +763,11 @@ mark { background:color-mix(in srgb, var(--accent) 18%, transparent); color:inhe
   .qz-start { position:static; margin:16px 0 0; }
 }
 @media (max-width:640px){ .qz-start { padding:18px; } .qz-clock-n { font-size:var(--fs-2xl); } .qz-pillars { grid-template-columns:1fr; } }
+/* Sub pages (a page's children in a flat section, e.g. Culture & Conduct) */
+.navitem.navchild { padding-left:28px; font-size:var(--fs-sm); }
+.subpages { margin:32px 0 0; }
+.subpages-list { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:10px; }
+.subpage { display:flex; flex-direction:column; gap:4px; padding:12px 14px; text-align:left; border:1px solid var(--border); border-radius:var(--r); background:var(--surface); color:var(--text); font:inherit; cursor:pointer; }
+.subpage:hover { border-color:var(--border-strong); box-shadow:var(--shadow-sm); }
+.subpage b { color:var(--accent); }
+.subpage span { font-size:var(--fs-sm); color:var(--muted); }

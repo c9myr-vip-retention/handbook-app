@@ -253,7 +253,7 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
                       </div>
                     ))
                   : sec.items.map(it => (
-                      <NavLeaf key={it.id || it.title} it={it} route={route} go={go} pages={PAGES} />
+                      <NavLeaf key={it.id || it.title} it={it} route={route} go={go} pages={PAGES} child={!!it.parent} />
                     ))}
               </div>
             </div>
@@ -335,12 +335,12 @@ export default function Handbook({ content, profile, onSignOut, preview, notice,
   )
 }
 
-function NavLeaf({ it, route, go, pages: PAGES }) {
+function NavLeaf({ it, route, go, pages: PAGES, child }) {
   const real = !!it.id && !!PAGES[it.id]
   const onClick = () => real ? go({ kind: 'page', key: it.id }) : go({ kind: 'stub', title: it.title, status: it.status })
   const active = real && route.kind === 'page' && route.key === it.id
   return (
-    <button className={'navitem' + (active ? ' active' : '')} aria-current={active ? 'page' : undefined} onClick={onClick}>
+    <button className={'navitem' + (child ? ' navchild' : '') + (active ? ' active' : '')} aria-current={active ? 'page' : undefined} onClick={onClick}>
       <span>{it.title}</span>
       {!real && it.status && <span className={'dot ' + it.status} title={STATUS_LABEL[it.status]} />}
       {!real && it.status && <span className="sr-only">({STATUS_LABEL[it.status]})</span>}
@@ -518,16 +518,20 @@ function Crumb({ crumb, go, nav: NAV }) {
       {parts.map((part, i) => {
         const isDomain = sop?.domains.some(d => d.name === part)
         const sec = NAV.find(s => s.name === part && !s.domains)
+        const parentPage = !isDomain && !sec && i > 0 ? NAV.find(s => s.name === parts[i - 1] && !s.domains)?.items.find(it => it.title === part) : null
         return (
           <span key={i}> / {isDomain
             ? <button className="crumblink" onClick={() => go({ kind: 'domain', key: part })}>{part}</button>
             : sec ? <button className="crumblink" onClick={() => go(sec.items[0]?.id ? { kind: 'page', key: sec.items[0].id } : { kind: 'home' })}>{part}</button>
+            : parentPage ? <button className="crumblink" onClick={() => go({ kind: 'page', key: parentPage.id })}>{part}</button>
             : part}</span>
         )
       })}
     </div>
   )
 }
+
+const firstSentence = (x) => { const s = String(x).replace(/\*\*/g, ''); const m = s.match(/^.*?[.!?](\s|$)/); return (m ? m[0] : s).trim() }
 
 function DomainList({ name, go, nav: NAV, pages: PAGES }) {
   const domain = NAV.find(s => s.domains)?.domains.find(d => d.name === name)
@@ -1008,6 +1012,7 @@ function Page({ id, sec, mod, pages: PAGES, nav: NAV, canEdit, go, railOpen, onR
     h.tabIndex = -1; h.focus({ preventScroll: true })
   }
   const meta = (p.meta || []).filter(m => !/^Change: /.test(m))
+  const kids = (NAV.find(s => !s.domains && s.items.some(it => it.id === id))?.items || []).filter(it => it.parent === id && PAGES[it.id])
   const words = bodyText(p).split(/\s+/).filter(Boolean).length
   const readMin = Math.max(1, Math.round(words / 200))
   return (
@@ -1030,6 +1035,16 @@ function Page({ id, sec, mod, pages: PAGES, nav: NAV, canEdit, go, railOpen, onR
         ? <div key={i} className="edh2"><h2 id={'sec-' + i}>{b.x}</h2><button className="secedit" onClick={() => go({ kind: 'edit', key: id, sec: i })} aria-label={'Edit section ' + b.x}>Edit</button></div>
         : <Block key={i} b={b} id={b.t === 'h2' ? 'sec-' + i : undefined} version={versionOf(p)} />)}
       <SopLearnLink mod={mod} go={go} place="end" />
+      {kids.length > 0 && (
+        <nav className="subpages" aria-labelledby="subpages-h">
+          <h2 id="subpages-h">Pages in this section</h2>
+          <div className="subpages-list">{kids.map(k => (
+            <button key={k.id} className="subpage" onClick={() => go({ kind: 'page', key: k.id })}>
+              <b>{k.title}</b>{PAGES[k.id].blocks.find(b => b.t === 'p') && <span>{firstSentence(PAGES[k.id].blocks.find(b => b.t === 'p').x)}</span>}
+            </button>
+          ))}</div>
+        </nav>
+      )}
       {(prev || next) && (
         <nav className="pager" aria-label="More in this section">
           {prev ? <button className="pagerbtn" onClick={() => go({ kind: 'page', key: prev.id })}><small>Previous</small><b>{prev.title}</b></button> : <span />}

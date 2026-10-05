@@ -66,7 +66,10 @@ Each type has one shape. Outside content is reshaped to fit.
 
 ## 6. Training and assessment
 
-- **Teaching examples and quiz questions never share a scenario.** If staff hear a scenario in training, it cannot appear in the quiz they take afterwards. Otherwise the quiz tests memory, not judgment.
+- **Two kinds of quiz, two rules:**
+  - **Knowledge check** (Learn quizzes, practice): may reuse the scenarios taught in the guide. Repetition helps it stick. Questions are picked at random from the pool.
+  - **Assessment** (scored, banded or used for review, for example the 5 Pillars High Level Application Assessment): never shares a scenario with any teaching page or script, because it tests judgment, not memory. Question order is shuffled inside each section on every attempt (`shuffle: "section"`), and options are shuffled too.
+- **For a new assessment,** write more questions than are asked when possible, so attempts differ in content as well as order.
 - **Answer keys, marking guides and score bands are trainer-only.** They never appear on a page staff can open.
 - **Answer keys are stored as the option sentence,** never as a letter. Letters are labels only and are reshuffled each attempt.
 - **Primary pillar calls must agree** across scripts, guides and quiz keys. If a script says a situation is mainly one pillar, the quiz key cannot say another.
@@ -99,6 +102,8 @@ Every page can be presented with the Present button: slide 1 is the title and in
 | 5 Oct 2026 | This file created: authority order, intake steps, house style, content types, culture and training rules. | ATL |
 | 5 Oct 2026 | Quiz answer keys are stored as the option sentence; letters are labels only. | ATL |
 | 5 Oct 2026 | Green/red feedback is a per-quiz setting; off for assessments. | ATL |
-| 5 Oct 2026 | Teaching examples and quiz questions never share a scenario. | Proposed in the 5 Pillar Script review; waiting for ATL |
+| 5 Oct 2026 | Teaching examples and quiz questions never share a scenario. Replaced the same day by the two-tier rule below. | Proposed in the 5 Pillar Script review |
+| 5 Oct 2026 | Two-tier rule: knowledge checks may reuse teaching scenarios; assessments never do, and shuffle question order inside each section on every attempt. 5 Pillars assessment set to shuffle by section. | ATL |
+| 5 Oct 2026 | Redlines rewritten to the slide shape: Redline line, Ask yourself, Good answer. | ATL |
 | 5 Oct 2026 | Slide rules (section 7): one idea per section, short intro, hook first, about 80 words, behaviours on one line, answers shown straight away (no reveal), descriptive page titles. | ATL |
 | 5 Oct 2026 | Culture & Conduct split into sub pages: The 5 Pillars, Company Doctrine, Redlines, each in the slide shape. | ATL |

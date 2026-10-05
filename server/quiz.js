@@ -81,7 +81,12 @@ export async function handleQuiz({ request, env, parts, email, isAdmin, json }) 
       const n = await DB.prepare('select count(*) n from quiz_attempts where email = ? and set_id = ? and trial = 0').bind(email, a).first()
       if (n.n >= content.maxAttempts) return json({ error: `You have used all ${content.maxAttempts} attempts.` }, 409)
     }
-    const plan = content.questions.map(q => ({ qid: q.id, order: shuffle(q.o.map((_, i) => i)) }))
+    // Assessments (content.shuffle = 'section'): question order is shuffled inside
+    // each section, so no two attempts run in the same order. Sections keep their order.
+    const ordered = content.shuffle === 'section'
+      ? [...new Set(content.questions.map(q => q.sec))].flatMap(s => shuffle(content.questions.filter(q => q.sec === s)))
+      : content.questions
+    const plan = ordered.map(q => ({ qid: q.id, order: shuffle(q.o.map((_, i) => i)) }))
     const now = new Date()
     const at = {
       id: crypto.randomUUID(), email, set_id: a, version: trial ? 'draft' : set.published_at, trial: trial ? 1 : 0,

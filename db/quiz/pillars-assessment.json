@@ -389,6 +389,7 @@
         "Needs reinforcement",
         "Can recognise definitions but needs more practice applying them to operational situations."
       ]
-    ]
+    ],
+    "shuffle": "section"
   }
 }

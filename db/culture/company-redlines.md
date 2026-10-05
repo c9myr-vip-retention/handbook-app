@@ -1,6 +1,6 @@
-The Redlines are what ends employment. Each one is zero tolerance: crossing it means immediate termination. This applies to everyone, leaders included.
+Ten lines nobody crosses. Each one is zero tolerance: immediate termination, leaders included.
 
-> [!warn|Zero tolerance] Any of the ten Redlines results in immediate termination. If you are not sure whether something crosses a Redline, stop and ask your ATL before you act.
+> [!warn|Zero tolerance] If you are not sure whether something crosses a Redline, stop and ask your ATL before you act.
 
 1. Data betrayal
 2. Player or financial misconduct
@@ -15,98 +15,80 @@ The Redlines are what ends employment. Each one is zero tolerance: crossing it m
 
 ## 1. Data betrayal
 
-> [!warn|Redline] Data betrayal.
+> [!warn|Redline] Taking, sharing or misusing company or player data outside its approved use.
 
-**What it covers:** taking, sharing or misusing company or player data outside its approved use.
+**Ask yourself:** can I copy a VIP list to my personal phone so I can work from home?
 
-**Example:** copying a VIP list into a personal phone, a personal chat or a file outside work tools.
-
-**Stay clear:** keep player and company data inside work systems only. Never send it to anyone outside the approved team.
+**Good answer:** no. Player and company data stay inside work systems only.
 
 ## 2. Player or financial misconduct
 
-> [!warn|Redline] Player or financial misconduct.
+> [!warn|Redline] Misusing your role with players, bonuses or money.
 
-**What it covers:** misusing your role with players, bonuses or money.
+**Ask yourself:** a VIP I know well asks for a bonus the SOP doesn't allow. Can I give it once?
 
-**Example:** issuing a bonus or compensation that the SOP and approvals do not allow, for a player or for yourself.
-
-**Stay clear:** issue only what the SOP allows, with the approval it requires.
+**Good answer:** no. I issue only what the SOP allows, with the approval it requires.
 
 ## 3. Theft or fraud
 
-> [!warn|Redline] Theft or fraud.
+> [!warn|Redline] Taking company or player money, credits or assets, or falsifying anything to gain from it.
 
-**What it covers:** taking company or player money, credits or assets, or falsifying anything to gain from it.
+**Ask yourself:** could I change a record so a reward lands in an account I control?
 
-**Example:** changing a record so a reward goes to an account you control.
-
-**Stay clear:** never benefit from any transaction you handle.
+**Good answer:** never. I never benefit from any transaction I handle.
 
 ## 4. Unauthorized player handling
 
-> [!warn|Redline] Unauthorized player handling.
+> [!warn|Redline] Dealing with players outside your assigned role, channel or approval.
 
-**What it covers:** dealing with players outside your assigned role, channel or approval.
+**Ask yourself:** a VIP asks to chat on my personal account because it's faster. Can I?
 
-**Example:** contacting a VIP from a personal account, or handling a player who is not assigned to you without approval.
-
-**Stay clear:** use only approved channels and the players assigned to you.
+**Good answer:** no. I use only approved channels, and only for players assigned to me.
 
 ## 5. Security violations
 
-> [!warn|Redline] Security violations.
+> [!warn|Redline] Breaking access and security rules for systems, logins and devices.
 
-**What it covers:** breaking access and security rules for systems, logins and devices.
+**Ask yourself:** a teammate's login expired. Can I lend them mine for the shift?
 
-**Example:** sharing your back-office login, or working outside the required secure setup.
-
-**Stay clear:** keep your logins to yourself and follow the security SOPs every shift.
+**Good answer:** no. My login is mine only. They ask their team leader for access.
 
 ## 6. Dishonesty with leadership
 
-> [!warn|Redline] Dishonesty with leadership.
+> [!warn|Redline] Lying to, or hiding facts from, your leaders.
 
-**What it covers:** lying to or hiding facts from your leaders.
+**Ask yourself:** I made a mistake nobody has noticed yet. Do I keep quiet?
 
-**Example:** reporting a task as done when it is not, or hiding a mistake you know about.
-
-**Stay clear:** tell your leader the real status, even when it is bad news.
+**Good answer:** no. I tell my leader the real status, even when it's bad news.
 
 ## 7. External business conflicts
 
-> [!warn|Redline] External business conflicts.
+> [!warn|Redline] Outside work or business that competes or conflicts with the company.
 
-**What it covers:** outside work or business that competes with or conflicts with the company.
+**Ask yourself:** a competing platform offers me part-time work. Can I take it?
 
-**Example:** working for a competing platform while employed here.
-
-**Stay clear:** declare any outside work to your leader before you start it.
+**Good answer:** no. I declare any outside work to my leader before I start it.
 
 ## 8. Substance abuse during work
 
-> [!warn|Redline] Substance abuse during work.
+> [!warn|Redline] Alcohol during duties, and drugs before or after work.
 
-**What it covers:** alcohol during duties, and drugs before or after work.
+**Ask yourself:** can I have a drink during a quiet night shift?
 
-**Stay clear:** come to every shift fit to work.
+**Good answer:** no. I come to every shift fit to work, and stay that way.
 
 ## 9. Public defamation or reputation damage
 
-> [!warn|Redline] Public defamation or reputation damage.
+> [!warn|Redline] Publicly attacking or damaging the company, its brands or its people.
 
-**What it covers:** publicly attacking or damaging the company, its brands or its people.
+**Ask yourself:** I'm upset about a decision. Can I post about it on social media?
 
-**Example:** posting complaints about the company or colleagues on social media.
-
-**Stay clear:** raise complaints internally through your leader.
+**Good answer:** no. I raise it internally through my leader.
 
 ## 10. Unauthorized contact with removed or ex-staff
 
-> [!warn|Redline] Unauthorized contact with removed or ex-staff or employees.
+> [!warn|Redline] Any contact with staff or employees who were removed or have left, without approval.
 
-**What it covers:** any contact with staff or employees who were removed or have left, without approval.
+**Ask yourself:** a former colleague messages me asking how the team is doing. Can I reply?
 
-**Example:** messaging a former colleague and passing on work updates or player information.
-
-**Stay clear:** don't contact removed or former staff unless your ATL approves it. If they contact you, tell your ATL.
+**Good answer:** not without ATL approval. I tell my ATL they contacted me.

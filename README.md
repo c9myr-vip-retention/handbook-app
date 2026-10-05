@@ -2,6 +2,10 @@
 
 Staff handbook app for the C9MYR VIP Retention department. Readers browse SOPs, policies and culture; admins edit and add content in the app. Same platform as the VVIP Tracker: React + Vite front end, Cloudflare Pages + D1 + Access back end.
 
+## House rules (read before any change)
+- `DESIGN.md`: how the app looks and behaves.
+- `CONTENT.md`: what goes into the app and how outside content is brought in and aligned. New content rules are added to its Rule log.
+
 ## Stack
 - React 18 + Vite 5 (front end)
 - Cloudflare Pages (hosting) + Pages Functions (`functions/api`, the API)

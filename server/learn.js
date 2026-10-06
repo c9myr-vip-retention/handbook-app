@@ -232,7 +232,7 @@ async function scores(DB) {
 }
 
 // The SOP version is the header chip (as the app shows it), else the version column.
-function sopVersion(row) {
+export function sopVersion(row) {
   const meta = parse(row.meta)
   return (Array.isArray(meta) && meta.find(x => /^V\d/.test(x))) || row.version || 'V1.0'
 }
@@ -265,7 +265,7 @@ function skeleton() {
   }
 }
 
-function shapeErrors(c) {
+export function shapeErrors(c) {
   const e = []
   if (!c || typeof c !== 'object') return ['Content is missing.']
   if (!Array.isArray(c.words)) e.push('Words must be a list.')
@@ -284,7 +284,7 @@ function shapeErrors(c) {
   return e
 }
 // Things that block publishing: unconfirmed content.
-function problems(c) {
+export function problems(c) {
   if (!c) return []
   const p = []
   for (const [t, d] of c.words || []) if (!t || !d) p.push(t ? `Write the meaning of "${t}".` : 'A glossary row has no term.')

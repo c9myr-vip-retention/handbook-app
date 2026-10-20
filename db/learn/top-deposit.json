@@ -4,36 +4,88 @@
   "content": {
     "minutes": 4,
     "words": [
-      ["Top 20 depositors", "Tonight's 20 Tier 3 and Tier V players with the highest deposits who are winning today. Fewer than 20 winners: fill down the ranking to 20."],
-      ["Total Win/Loss (BO column)", "The player's result in the export. Above 0 means the player is winning today: keep them. Below 0 means losing: skip, Top PNL and LTV cover them."],
-      ["VIP care", "Greeting, real interaction and looking after the player. Relationship, not sales."],
-      ["IM + Push", "An Internal Message and a Push notification, sent at the same time from the BO."],
-      ["Deposit Engaged", "The tag for a top depositor you engaged."],
-      ["Back office (BO)", "The backend system where you check and update player details."]
+      [
+        "Top 20 depositors",
+        "Tonight's 20 Tier 3 and Tier V players with the highest deposits who are winning today. Fewer than 20 winners: fill down the ranking to 20."
+      ],
+      [
+        "Total Win/Loss (BO column)",
+        "The player's result in the export. Above 0 means the player is winning today: keep them. Below 0 means losing: skip, Top PNL and LTV cover them."
+      ],
+      [
+        "VIP care",
+        "Greeting, real interaction and looking after the player. Relationship, not sales."
+      ],
+      [
+        "IM + Push",
+        "An Internal Message and a Push notification, sent at the same time from the BO."
+      ],
+      [
+        "Deposit Engaged",
+        "The tag for a top depositor you engaged."
+      ],
+      [
+        "Back office (BO)",
+        "The backend system where you check and update player details."
+      ]
     ],
     "tour": [
       {
-        "key": "when", "label": "When", "kind": "check", "title": "Is this player in tonight's Top 20?",
-        "sec": "Golden Rules", "secLabel": "3. Golden Rules",
-        "items": ["Tier 3 or Tier V", "Among the highest deposits today (export from 8:30 PM)", "Winning today (Total Win/Loss above 0)"],
+        "key": "when",
+        "label": "When",
+        "kind": "check",
+        "title": "Is this player in tonight's Top 20?",
+        "sec": "Golden Rules",
+        "secLabel": "3. Golden Rules",
+        "items": [
+          "Tier 3 or Tier V",
+          "Among the highest deposits today (export from 8:30 PM)",
+          "Winning today (Total Win/Loss above 0)"
+        ],
         "done": "All three: send VIP care, no bonus.",
         "notYet": "A losing player is skipped here. Top PNL and LTV look after them."
       },
       {
-        "key": "do", "label": "Do", "kind": "steps", "title": "Six steps, night shift 8:30 PM",
-        "sec": "Procedure", "secLabel": "Procedure",
+        "key": "do",
+        "label": "Do",
+        "kind": "steps",
+        "title": "Six steps, night shift 8:30 PM",
+        "sec": "Procedure",
+        "secLabel": "Procedure",
         "items": [
-          ["Export", "Reuse the Top P&L export if you have it. Wait for the full load."],
-          ["Sort and filter", "CS SORTING FILE: deposit highest first, Total Win/Loss above 0, Tier 3 and Tier V."],
-          ["Take 20", "Top 20 into Customer Approaching File, TOP 20 Depositor (Night). Fewer than 20: fill down."],
-          ["IM + Push", "Send both at the same time: greeting, interaction, VIP care. No bonus, no SMS."],
-          ["Engage and tag", "If they reply, talk on Livechat or Telegram. Tag Deposit Engaged."],
-          ["QA Record", "Attach a screenshot."]
+          [
+            "Export",
+            "Reuse the Top P&L export if you have it. Wait for the full load."
+          ],
+          [
+            "Sort and filter",
+            "CS SORTING FILE: deposit highest first, Total Win/Loss above 0, Tier 3 and Tier V."
+          ],
+          [
+            "Take 20",
+            "Top 20 into Customer Approaching File, TOP 20 Depositor (Night). Fewer than 20: fill down."
+          ],
+          [
+            "IM + Push",
+            "Send both at the same time: greeting, interaction, VIP care. No bonus, no SMS."
+          ],
+          [
+            "Engage and tag",
+            "If they reply, talk on Livechat or Telegram. Tag Deposit Engaged."
+          ],
+          [
+            "QA Record",
+            "Attach a screenshot."
+          ]
         ]
       },
       {
-        "key": "never", "label": "Never", "kind": "never", "title": "Four hard stops",
-        "sec": "Guards", "secLabel": "6. Guards",
+        "key": "never",
+        "label": "Never",
+        "kind": "never",
+        "title": "Four hard stops",
+        "sec": "Guards",
+        "secLabel": "6. Guards",
         "items": [
           "Mention a bonus or send an SMS to a top depositor.",
           "Add a losing player to the Top 20. They belong to Top PNL and LTV.",
@@ -42,47 +94,133 @@
         ]
       },
       {
-        "key": "numbers", "label": "Read the player", "kind": "check", "title": "Before you message, look at the player",
-        "sec": "Golden Rules", "secLabel": "3. Golden Rules",
-        "items": ["Highly active right now?", "A long-term contributor?", "Any recent signs of churn?"],
+        "key": "numbers",
+        "label": "Read the player",
+        "kind": "check",
+        "title": "Before you message, look at the player",
+        "sec": "Golden Rules",
+        "secLabel": "3. Golden Rules",
+        "items": [
+          "Highly active right now?",
+          "A long-term contributor?",
+          "Any recent signs of churn?"
+        ],
         "done": "Use what you saw to make the greeting personal.",
         "notYet": "Check all three. They shape how you talk to the player, not whether you send."
       },
       {
-        "key": "approver", "label": "Bonus?", "kind": "gate", "title": "Can a top depositor ever get a bonus?",
-        "sec": "Detailed steps: Zyra", "secLabel": "5. Detailed steps: Zyra",
-        "q": "Is this one of the rare bonus exceptions?",
-        "yes": "[CONFIRM] Who approves a bonus exception for a top depositor, and when does it apply? Record the bonus if one is issued.",
+        "key": "approver",
+        "label": "Bonus?",
+        "kind": "gate",
+        "title": "Can a top depositor ever get a bonus?",
+        "sec": "Detailed steps: Zyra",
+        "secLabel": "5. Detailed steps: Zyra",
+        "q": "Is the player asking for a bonus?",
+        "yes": "Still no bonus. Top depositors are winning players in profit, so a bonus makes no sense. Explain kindly and keep the talk on VIP care.",
         "no": "Engagement only: greeting, interaction, VIP care. No bonus."
       }
     ],
     "quiz": {
-      "count": 5, "pass": 80, "seconds": 60,
+      "count": 5,
+      "pass": 80,
+      "seconds": 60,
       "pool": [
-        { "id": "losing-depositor", "q": "A player has the 3rd highest deposit tonight but is losing today. What do you do?",
-          "o": ["Add them to the Top 20", "Skip them; Top PNL and LTV cover losing players", "Send an SMS instead", "Give a small bonus"], "a": 1,
-          "why": "Top Deposit targets winning players only. Losing players are handled under Top PNL and LTV." },
-        { "id": "channels", "q": "Which channels do you use for the Top 20?",
-          "o": ["SMS only", "IM + Push, at the same time", "Telegram only", "SMS + IM + Push"], "a": 1,
-          "why": "Internal Message and Push, sent simultaneously. No SMS." },
-        { "id": "no-bonus", "q": "A top depositor asks what bonus they get tonight. What do you say?",
-          "o": ["Promise RM 88", "Talk care and interaction; this task gives no bonus", "Send the LTV ladder", "Tell them to deposit more"], "a": 1,
-          "why": "Top Deposit is engagement only: greeting, interaction, VIP care. No bonus messaging." },
-        { "id": "fill-down", "q": "Only 14 Tier 3 and Tier V players are winning tonight. How many do you message?",
-          "o": ["14", "20, fill down the ranking", "10", "None"], "a": 1,
-          "why": "If fewer than 20 winners, fill down the ranking to 20." },
-        { "id": "win-loss-sign", "q": "In the export, a player's Total Win/Loss is RM -2,500. Keep or skip?",
-          "o": ["Keep: big deposit", "Skip: below 0 means losing today", "Keep: Tier V", "Ask the ATL"], "a": 1,
-          "why": "Keep only Total Win/Loss above 0 (winning). Below 0 is losing: skip." },
-        { "id": "complaint", "q": "During a Top Deposit chat, the player starts complaining. What now?",
-          "o": ["Offer a bonus to calm them", "Switch to the Complaint Handling SOP", "End the chat", "Ignore it"], "a": 1,
-          "why": "A complaint during engagement goes to the Complaint Handling SOP, not Top Deposit logic." },
-        { "id": "td-time", "q": "When does Top Deposit run?",
-          "o": ["Day shift, 2 PM", "Night shift, 8:30 PM", "After 3 PM", "Mondays"], "a": 1,
-          "why": "Night shift, daily at 8:30 PM. Reuse the Top P&L export if available." },
-        { "id": "td-tag", "q": "You engaged a top depositor on Livechat. What do you tag?",
-          "o": ["Daily P&L Rewarded", "Deposit Engaged", "Reactivated", "Grace Active"], "a": 1,
-          "why": "Tag Deposit Engaged, then update the QA Record with a screenshot." }
+        {
+          "id": "losing-depositor",
+          "q": "A player has the 3rd highest deposit tonight but is losing today. What do you do?",
+          "o": [
+            "Add them to the Top 20",
+            "Skip them; Top PNL and LTV cover losing players",
+            "Send an SMS instead",
+            "Give a small bonus"
+          ],
+          "a": 1,
+          "why": "Top Deposit targets winning players only. Losing players are handled under Top PNL and LTV."
+        },
+        {
+          "id": "channels",
+          "q": "Which channels do you use for the Top 20?",
+          "o": [
+            "SMS only",
+            "IM + Push, at the same time",
+            "Telegram only",
+            "SMS + IM + Push"
+          ],
+          "a": 1,
+          "why": "Internal Message and Push, sent simultaneously. No SMS."
+        },
+        {
+          "id": "no-bonus",
+          "q": "A top depositor asks what bonus they get tonight. What do you say?",
+          "o": [
+            "Promise RM 88",
+            "Talk care and interaction; this task gives no bonus",
+            "Send the LTV ladder",
+            "Tell them to deposit more"
+          ],
+          "a": 1,
+          "why": "Top Deposit is engagement only: greeting, interaction, VIP care. No bonus messaging."
+        },
+        {
+          "id": "fill-down",
+          "q": "Only 14 Tier 3 and Tier V players are winning tonight. How many do you message?",
+          "o": [
+            "14",
+            "20, fill down the ranking",
+            "10",
+            "None"
+          ],
+          "a": 1,
+          "why": "If fewer than 20 winners, fill down the ranking to 20."
+        },
+        {
+          "id": "win-loss-sign",
+          "q": "In the export, a player's Total Win/Loss is RM -2,500. Keep or skip?",
+          "o": [
+            "Keep: big deposit",
+            "Skip: below 0 means losing today",
+            "Keep: Tier V",
+            "Ask the ATL"
+          ],
+          "a": 1,
+          "why": "Keep only Total Win/Loss above 0 (winning). Below 0 is losing: skip."
+        },
+        {
+          "id": "complaint",
+          "q": "During a Top Deposit chat, the player starts complaining. What now?",
+          "o": [
+            "Offer a bonus to calm them",
+            "Switch to the Complaint Handling SOP",
+            "End the chat",
+            "Ignore it"
+          ],
+          "a": 1,
+          "why": "A complaint during engagement goes to the Complaint Handling SOP, not Top Deposit logic."
+        },
+        {
+          "id": "td-time",
+          "q": "When does Top Deposit run?",
+          "o": [
+            "Day shift, 2 PM",
+            "Night shift, 8:30 PM",
+            "After 3 PM",
+            "Mondays"
+          ],
+          "a": 1,
+          "why": "Night shift, daily at 8:30 PM. Reuse the Top P&L export if available."
+        },
+        {
+          "id": "td-tag",
+          "q": "You engaged a top depositor on Livechat. What do you tag?",
+          "o": [
+            "Daily P&L Rewarded",
+            "Deposit Engaged",
+            "Reactivated",
+            "Grace Active"
+          ],
+          "a": 1,
+          "why": "Tag Deposit Engaged, then update the QA Record with a screenshot."
+        }
       ]
     }
   }

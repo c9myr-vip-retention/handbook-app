@@ -24,8 +24,11 @@ ATL decisions that every change must respect. Add new ones at the end of the rig
 - Every SOP change in the app also gets a new version tab in the Lark SOP sheet, with a matching flow chart picture. The ATL swaps pictures in Lark. (3 Oct 2026)
 - Lark chart pictures are horizontal by default, top-down only when wider than about 5:1, cropped tight, version in the title. Render from `src/Chart.jsx`, never a screenshot. (4 Oct 2026)
 
+## Answered (ATL, 20 Oct 2026)
+- Top Deposit: never a bonus. Top depositors are winning players in profit; greeting and engagement only.
+- Risk Push runs as its own campaign system. Reactivation covers every reactivated player, from a campaign or an agent approach (contact must still come first). The idle-days weighting stays in KPI Scoring (1-6 days 0.10, 7-13 0.50, 14-29 0.75, 30+ 1.00).
+- TG Engagement Tracker (Lark Base) is a Fire Drill: tracking moved to the VVIP Console. Between-level reply counts: ask the Senior.
+- Many SOPs and Learn guides describe the manual way on purpose. Keep them, so staff can still run the process when automation fails.
+
 ## Open (not settled, never treat as fact)
-- Top Deposit bonus exception: who approves it.
-- Reactivation and Win-back vs Risk Push at 7+ idle days: which rule wins; idle-days weighting.
-- TG Engagement Tracker: quality level for exactly 2 replies and for 6 to 9.
 - Compensation V1.1 may need renumbering to V2.0.

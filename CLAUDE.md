@@ -5,7 +5,7 @@ Staff handbook for the C9MYR VIP Retention department: SOP Book, Culture & Condu
 ## Owner and permissions
 - Owner (1st PIC): the Team B ATL. There is no 2nd PIC at the moment.
 - Only the ATL approves app code deploys and changes roles, Access or Google sign-in settings.
-- The Consultant agent (`handbook-consultant`) may publish Learn modules that pass review and apply SOP fixes the ATL already answered, on the live database. Its limits are in its agent file and docs/DECISIONS.md.
+- The Consultant agent (`handbook-consultant`) prepares Learn publishes and answered SOP fixes, and runs them on the live database only after the ATL says "deploy". Its limits are in its agent file and docs/DECISIONS.md.
 - The Executor (`handbook-dev`) and any unattended scheduled run work on a branch, test locally, and report. They never deploy, never run `--remote` writes, never publish, never merge to `master`.
 
 ## Read before any change

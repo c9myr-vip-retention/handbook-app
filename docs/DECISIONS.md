@@ -30,5 +30,9 @@ ATL decisions that every change must respect. Add new ones at the end of the rig
 - TG Engagement Tracker (Lark Base) is a Fire Drill: tracking moved to the VVIP Console. Between-level reply counts: ask the Senior.
 - Many SOPs and Learn guides describe the manual way on purpose. Keep them, so staff can still run the process when automation fails.
 
+- Zyra password reset: the random temporary password generated in the BO is correct. The Chat SOP rows that say "Name+TodayDate" are wrong for Zyra and need fixing. (ATL, 20 Oct 2026)
+
 ## Open (not settled, never treat as fact)
+- Chat SOP WD Double row: "Inform member they were randomly selected for a surprise bonus". Still the approved line? Kept out of the quiz until answered.
+- App-First Link Recovery: are the locked Lark link reference, screenshots and saved replies built? The Learn guide is blocked until confirmed.
 - Compensation V1.1 may need renumbering to V2.0.

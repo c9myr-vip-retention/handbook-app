@@ -336,7 +336,8 @@ function problems(c) {
     else if (!q.o.includes(q.a)) p.push(`${n}: the answer key does not match any option word for word.`)
     if (q.explain && !q.explain.rubric) p.push(`${n} needs a marking guide for the written part.`)
   })
-  if (JSON.stringify(c).includes('[CONFIRM]')) p.push('Resolve every [CONFIRM] note.')
+  // Any [CONFIRM] or [CONFIRM ...] note blocks publishing.
+  if (/\[CONFIRM\b/.test(JSON.stringify(c))) p.push('Resolve every [CONFIRM] note.')
   return p
 }
 

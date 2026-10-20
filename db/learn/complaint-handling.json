@@ -1,0 +1,99 @@
+{
+  "id": "complaint-handling",
+  "sop_version": "V1.2",
+  "content": {
+    "minutes": 5,
+    "words": [
+      ["First-level handling", "What you do in a complaint before any credit: explain luck, guide to the Jackpot, guide to the current activities."],
+      ["Secret Wallet (SW)", "The player's bonus budget. A complaint credit is sized at SW x 40% under the Compensation SOP."],
+      ["Compensation SOP", "The only way a complaint credit is given: first-level handling first, last-week P&L ladder at SW x 40%, one per week, ATL approval."],
+      ["Risk tag (abuse or fraud)", "An abuse or fraud flag on the player. You check it in the profile before you commit anything."],
+      ["\"Let me check\"", "The line you use when you cannot confirm something yet. It replaces a false commitment."],
+      ["VVIP Complain player", "The Lark ticket query you use when compensation was issued."]
+    ],
+    "tour": [
+      {
+        "key": "when", "label": "When", "kind": "check", "title": "Is this a complaint for this SOP?",
+        "sec": "Scope", "secLabel": "2. Scope",
+        "items": ["The player is complaining on Livechat", "It is about losing (a lot or a little) or asking for free credit", "You have not replied with a solution yet"],
+        "done": "All three: acknowledge the emotion first, then read the profile.",
+        "notYet": "This SOP covers losing-player and free-credit complaints on Livechat. Already replied? Still acknowledge the emotion before anything else."
+      },
+      {
+        "key": "do", "label": "Do", "kind": "steps", "title": "Four steps, in this order",
+        "sec": "Procedure", "secLabel": "Procedure",
+        "items": [
+          ["Acknowledge the emotion", "Validate the feeling before any solution or redirect."],
+          ["Read the profile", "In the BO: losses, SW balance, recent credits, risk or abuse tag. Assess before committing anything."],
+          ["Match the scenario", "Respond per the scenario table. Any credit goes through the Compensation SOP."],
+          ["Log the outcome", "QA Record. Compensation issued: also a Lark ticket, query VVIP Complain player."]
+        ]
+      },
+      {
+        "key": "scenarios", "label": "Scenarios", "kind": "steps", "title": "Three complaints, three responses",
+        "sec": "Complaint Scenarios and Responses", "secLabel": "4. Complaint Scenarios and Responses",
+        "items": [
+          ["Losing a lot", "\"Saya nampak boss memang rugi sikit hari ni. Saya faham perasaan boss. Bagi saya check dulu ye.\" Do first-level handling. Keeps asking and stays upset: follow the Compensation SOP."],
+          ["Losing little", "Acknowledge: \"Boss faham tu, memang kadang rasa macam tak kena.\" Then a game suggestion, then reframe toward hope. No credit committed."],
+          ["Always asks for free credit", "Decline gently: \"Boss hari ni belum ada free credit lagi ye.\" Redirect to a game. Promise future notification by SMS."]
+        ]
+      },
+      {
+        "key": "never", "label": "Never", "kind": "never", "title": "Five hard stops",
+        "sec": "Guards", "secLabel": "6. Guards",
+        "items": [
+          "Jump to a solution before you acknowledge the emotion.",
+          "Promise a bonus you cannot deliver. Not sure? Say \"let me check\".",
+          "Give a credit outside the Compensation SOP.",
+          "Promise the credit before the ATL approves.",
+          "Give an SW credit the scenario or the remaining allowance does not permit."
+        ]
+      },
+      {
+        "key": "approver", "label": "Approver", "kind": "gate", "title": "Does this complaint get a credit?",
+        "sec": "Golden Rules", "secLabel": "3. Golden Rules",
+        "q": "After first-level handling, does the player keep asking and stay upset?",
+        "yes": "Follow the Compensation SOP: last-week P&L ladder at SW x 40%, one per week, ATL approval. Promise nothing until the ATL approves.",
+        "no": "Validate the feeling and redirect. No credit."
+      }
+    ],
+    "quiz": {
+      "count": 5, "pass": 80, "seconds": 60,
+      "pool": [
+        { "id": "first-reply", "q": "A VIP opens Livechat upset about a bad losing week. What does your first reply do?",
+          "o": ["Explains the Compensation ladder", "Acknowledges how he feels", "Asks for his UID and SW balance", "Suggests a new game"], "a": 1,
+          "why": "Emotion first, solution second. Skipping the acknowledgement loses the relationship." },
+        { "id": "profile-check", "q": "Before you respond with anything, what do you check in the BO?",
+          "o": ["Only his last deposit", "Losses, SW balance, recent credits and the risk or abuse tag", "His birthday", "Nothing, go by how he sounds"], "a": 1,
+          "why": "Step 2: read the profile and assess before committing anything." },
+        { "id": "losing-little", "q": "A player lost a small amount, not enough for an SW credit, and feels it is unfair. Best handling?",
+          "o": ["Promise a small credit to calm him", "Acknowledge, suggest a fresh game, reframe toward hope", "Pass him to the ATL", "Tell him losses are normal and close"], "a": 1,
+          "why": "Losing little: validate the feeling without committing a credit, offer a fresh game, reframe losses as timing." },
+        { "id": "free-credit-habit", "q": "A player asks for free credit again. He has no qualifying condition. What do you do?",
+          "o": ["Give a small credit so he stays", "Decline gently, redirect to a game, promise future notification by SMS", "Tell him he asks too often", "Ignore the request"], "a": 1,
+          "why": "Redirect without rejection. He should leave feeling looked after even without the credit." },
+        { "id": "still-upset", "q": "Big losses this week. You did first-level handling, but he keeps asking and is still upset. Next?",
+          "o": ["Promise RM 88 now and tell the ATL later", "Follow the Compensation SOP; the ATL approves before any promise", "Give an SW credit yourself", "End the chat"], "a": 1,
+          "why": "Losing a lot: follow the Compensation SOP. Never promise the credit before the ATL approves." },
+        { "id": "not-sure", "q": "The player asks you to confirm he will get a credit today. You do not know yet. What do you say?",
+          "o": ["Yes, you will get it", "\"Let me check\"", "No credit today", "Probably tomorrow"], "a": 1,
+          "why": "No false commitment. If unsure, say \"let me check\" first." },
+        { "id": "first-level", "q": "What is first-level handling in a complaint?",
+          "o": ["Explain luck, guide to the Jackpot and the current activities", "Give a small goodwill credit", "Escalate to the ATL", "Send an Internal Mail"], "a": 0,
+          "why": "First-level handling comes before any credit: luck, Jackpot, activities." },
+        { "id": "log-comp", "q": "Compensation was issued after ATL approval. What do you log?",
+          "o": ["Nothing more", "QA Record only", "QA Record and a Lark ticket, query VVIP Complain player", "A note in Telegram"], "a": 2,
+          "why": "Step 4: QA Record; if compensation was issued, also the Lark ticket." },
+        { "id": "sw-share", "q": "Under the Compensation SOP, what share of the SW is a complaint credit sized on?",
+          "o": ["20%", "25%", "30%", "40%"], "a": 3,
+          "why": "Golden Rules: last-week P&L ladder at SW x 40%." },
+        { "id": "how-often", "q": "How often can a complaint credit be given to the same player?",
+          "o": ["Once a day", "Once a week", "Once a month", "No limit"], "a": 1,
+          "why": "Golden Rules: a credit through the Compensation SOP is one per week." },
+        { "id": "listen-learn", "q": "Mid-complaint, the player mentions his favourite hawker stall. How does the SOP treat this?",
+          "o": ["Off topic, steer him back", "Listen and learn: it tells you about his preferences", "Use it to end the chat faster", "Ignore it"], "a": 1,
+          "why": "Section 5: complaint moments are for listening; every complaint is data about the player's preferences and pain points." }
+      ]
+    }
+  }
+}

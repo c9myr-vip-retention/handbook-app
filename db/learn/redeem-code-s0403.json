@@ -1,0 +1,93 @@
+{
+  "id": "redeem-code-s0403",
+  "sop_version": "V1.1",
+  "content": {
+    "minutes": 4,
+    "words": [
+      ["S0403", "The \"Expired\" or \"Invalid\" error a player gets when a redeem code will not go through."],
+      ["Redeem Code", "A code for Zyra brands in the reload campaign. One claim per player per code."],
+      ["Redeem Code File", "The list in the Customer Approaching File that shows who is eligible, the assigned code and its status."],
+      ["Redeem Code Payout", "The BO screen (Event, Redeem Code, Redeem Code Payout). Status \"approved\" means the member already claimed it."],
+      ["Escalation template", "The fixed message to the ATL: UID, brand, code entered, error, code assigned in system, issue."]
+    ],
+    "tour": [
+      {
+        "key": "when", "label": "When", "kind": "check", "title": "Is this an S0403 case?",
+        "sec": "Scope", "secLabel": "2. Scope",
+        "items": ["The player is on the eligible list", "He cannot redeem his assigned code", "He gets \"Expired\" or \"Invalid\" (S0403)"],
+        "done": "All three: run the checks before anything else.",
+        "notYet": "This SOP covers eligible players with an S0403 error only."
+      },
+      {
+        "key": "do", "label": "Do", "kind": "steps", "title": "Five checks, then decide",
+        "sec": "Procedure", "secLabel": "Procedure",
+        "items": [
+          ["Find the record", "Redeem Code File in the Customer Approaching File. Search Username or UID."],
+          ["Verify the customer", "UID correct, correct account, correct brand. All three must match."],
+          ["Verify the code", "The code entered matches the code assigned in the system."],
+          ["Read the status", "Claimed: already claimed. Expired: check whether it has actually expired."],
+          ["Check the BO", "Event, Redeem Code, Redeem Code Payout. Enter the code. \"Approved\" means already claimed."],
+          ["Escalate only if all 4", "Eligible, correct code, not claimed, still S0403: ATL, with the template."]
+        ]
+      },
+      {
+        "key": "never", "label": "Never", "kind": "never", "title": "Three hard stops",
+        "sec": "Guards", "secLabel": "7. Guards",
+        "items": [
+          "Conclude a code is expired from the error alone.",
+          "Escalate before all five verification steps are done.",
+          "Escalate unless all four criteria are confirmed."
+        ]
+      },
+      {
+        "key": "criteria", "label": "Criteria", "kind": "check", "title": "Escalate only when all four are true",
+        "sec": "Escalation Criteria", "secLabel": "4. Escalation Criteria",
+        "items": ["Customer is eligible", "Correct redeem code", "Code is not claimed", "System still shows S0403 (Invalid or Expired)"],
+        "done": "All four: send the escalation template to the ATL.",
+        "notYet": "Any one missing: resolve it at the CS step (wrong code, not eligible, or already claimed)."
+      },
+      {
+        "key": "approver", "label": "Approver", "kind": "gate", "title": "Does this go to the ATL?",
+        "sec": "Escalation Template", "secLabel": "5. Escalation Template",
+        "q": "Are all four criteria confirmed after the five checks?",
+        "yes": "Escalate to the ATL in Lark with the template: UID, brand, code entered, error, code assigned in system, issue.",
+        "no": "Resolve at CS. The ATL step is for confirmed faults only."
+      }
+    ],
+    "quiz": {
+      "count": 5, "pass": 80, "seconds": 60,
+      "pool": [
+        { "id": "approved-in-bo", "q": "In Redeem Code Payout, the player's code shows status \"approved\". What does it mean?",
+          "o": ["A system fault, escalate", "He already claimed it; resolve at CS", "The code is new", "Ask the ATL"], "a": 1,
+          "why": "Step 5: status \"approved\" means the member already claimed it." },
+        { "id": "wrong-code", "q": "The code the player typed is not the code assigned to him. What now?",
+          "o": ["Escalate to the ATL", "Resolve at CS: wrong code", "Issue a new code", "Tell him it expired"], "a": 1,
+          "why": "Step 3: the entered code must match the assigned code. A wrong code resolves at the CS step." },
+        { "id": "error-alone", "q": "A player sends a screenshot of the S0403 error. You have not checked anything yet. What do you do?",
+          "o": ["Tell him the code expired", "Run the checks first; the error alone proves nothing", "Escalate the screenshot to the ATL", "Give a goodwill credit"], "a": 1,
+          "why": "Golden Rules: do not conclude a code is expired from the error alone." },
+        { "id": "first-check", "q": "What is the first check?",
+          "o": ["The BO payout screen", "The Redeem Code File in the Customer Approaching File, by Username or UID", "Ask the ATL", "The player's deposit history"], "a": 1,
+          "why": "Step 1: locate the record in the Redeem Code File before anything else." },
+        { "id": "all-four", "q": "Eligible, correct code, not claimed, and the system still shows S0403. What now?",
+          "o": ["Tell him to try tomorrow", "Escalate to the ATL with the escalation template", "Credit him yourself", "Close the case"], "a": 1,
+          "why": "All four criteria confirmed: escalate to the ATL using the template." },
+        { "id": "status-expired", "q": "The Status field in the Redeem Code File says Expired. What do you do?",
+          "o": ["Tell him it expired and close", "Check whether it has actually expired", "Escalate straight away", "Reissue the code"], "a": 1,
+          "why": "Step 4: Expired means check whether it has actually expired. Read the status, do not assume." },
+        { "id": "brand-mismatch", "q": "The record you found is for the right UID but on a different brand. Escalate?",
+          "o": ["Yes, the UID matches", "No: UID, account and brand must all match", "Yes, if he is Tier V", "Ask him which brand he prefers"], "a": 1,
+          "why": "Step 2: UID correct, correct account, correct brand. All three must match." },
+        { "id": "template", "q": "What goes into the escalation to the ATL?",
+          "o": ["Just the screenshot", "UID, brand, code entered, error, code assigned in system, and the issue", "The player's phone number", "Only the brand"], "a": 1,
+          "why": "Section 5: provide all fields of the escalation template." },
+        { "id": "bo-path", "q": "Where in the BO do you check the code?",
+          "o": ["Player Management, SMS Sent Record", "Event, Redeem Code, Redeem Code Payout", "Notification, Push Notification", "User, User TAC"], "a": 1,
+          "why": "Step 5: Event, Redeem Code, Redeem Code Payout, then enter the code." },
+        { "id": "most-cases", "q": "Where do most S0403 reports get resolved?",
+          "o": ["At the ATL", "At the CS verification step", "By the Department Head", "By the player"], "a": 1,
+          "why": "Expected outcome: most cases resolve at CS (wrong code, not eligible, or already claimed)." }
+      ]
+    }
+  }
+}

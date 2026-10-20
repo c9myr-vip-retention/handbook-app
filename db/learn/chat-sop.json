@@ -1,0 +1,111 @@
+{
+  "id": "chat-sop",
+  "sop_version": "V1.1",
+  "content": {
+    "minutes": 6,
+    "words": [
+      ["CS-PYM", "The Lark ticket you submit for bank, withdraw and deposit cases. Each scenario names the query to pick, for example Missing WD or WD Delay."],
+      ["Claimed checkbox", "The tick in the relevant tracker after you submit any ticket."],
+      ["Fresh verification", "Checking the member's identity again in this chat. A check from a previous chat never counts."],
+      ["Manual OTP", "When the code does not arrive, you read it from the BO (TC: SMS Sent Record; 96 BO: User TAC), check it has not expired, and give it to the member."],
+      ["KYC", "The identity verification the member must pass, for example before a PIN reset or a Zyra bank change."],
+      ["TNG and DuitNow ID", "For a TNG bank change, the proof is the TNG profile showing the name and DuitNow ID."],
+      ["Turnover (TO)", "The total valid bet amount. A withdrawal is blocked until the required TO is met in the correct game."]
+    ],
+    "tour": [
+      {
+        "key": "when", "label": "When", "kind": "check", "title": "Before you work any Livechat case",
+        "sec": "Scope", "secLabel": "2. Scope",
+        "items": ["Find the scenario by category: Registration, Account, Bank, Withdraw, Deposit, Fund, Others", "Run a fresh identity verification this chat before any reset", "Tag the chat correctly (Tags & Categories)"],
+        "done": "Work the four stages of the scenario, left to right.",
+        "notYet": "Do all three. A verification from a previous chat never counts."
+      },
+      {
+        "key": "do", "label": "Do", "kind": "steps", "title": "Four stages, then tick Claimed",
+        "sec": "Objective", "secLabel": "1. Objective",
+        "items": [
+          ["Get details", "Ask for what the scenario lists, usually Username/UID plus the amount, receipt or screenshot."],
+          ["Verify / check", "Check the BO or the tool the scenario names before acting."],
+          ["Action / submit", "Act, submit the CS-PYM ticket, or escalate to WL, Support or IT, as the row says."],
+          ["Notify / close", "Tell the member the result. Close with an offer of further assistance and a good-luck wish."],
+          ["Tick Claimed", "After any ticket, tick the Claimed checkbox in the relevant tracker."]
+        ]
+      },
+      {
+        "key": "cases", "label": "Common cases", "kind": "steps", "title": "Six rows you will use often",
+        "sec": "Account", "secLabel": "5. Account, and the other scenario tables",
+        "items": [
+          ["Delete game account", "Not permitted. Find the true intent, persuade and console, offer high-pay games."],
+          ["Remove bank details", "Not a duplicate and no valid reason: advise we cannot remove bank details."],
+          ["OTP keeps failing", "Advise retry after 12am. Report to the Senior."],
+          ["Delayed WD", "Over 10 min: submit CS-PYM, query WD Delay, and keep following."],
+          ["Deposit below RM 10", "Member tops up the difference. Submit CS-PYM, comment combine deposit."],
+          ["3rd-party deposit", "Cannot process. Get the sender details; refund to the sender's account only."]
+        ]
+      },
+      {
+        "key": "never", "label": "Never", "kind": "never", "title": "Five hard stops",
+        "sec": "Guards", "secLabel": "11. Guards",
+        "items": [
+          "Delete a game account or remove bank details without a valid, verified reason.",
+          "Process a 3rd-party deposit. Refund only to the sender's account.",
+          "Escalate without Username/UID, amount and screenshots. It bounces back.",
+          "Reset a password or PIN on a previous chat's verification.",
+          "Close a chat without the further-assistance offer and a good-luck wish."
+        ]
+      },
+      {
+        "key": "approver", "label": "Escalate", "kind": "steps", "title": "Who takes it from you",
+        "sec": "Golden Rules", "secLabel": "3. Golden Rules",
+        "items": [
+          ["PYM", "Bank, withdraw and deposit cases: Lark ticket CS-PYM with the query the row names."],
+          ["WL / Support / IT", "Technical registration faults, game access problems, missing funds with no maintenance notice."],
+          ["Senior", "OTP that keeps failing."],
+          ["Designated admin", "Member insists on unsubscribing from SMS promo or Push: post in the VIP group and tag the designated admin."],
+          ["Chinese-speaking CS", "Complex case with a Chinese-speaking member. Otherwise use ChatGPT."]
+        ]
+      }
+    ],
+    "quiz": {
+      "count": 5, "pass": 80, "seconds": 60,
+      "pool": [
+        { "id": "delete-account", "q": "A member asks you to delete his game account. What do you do?",
+          "o": ["Delete it once he confirms", "Deletion is not permitted: find his true intent, console him, offer high-pay games", "Pass it to PYM", "Tell him to stop playing"], "a": 1,
+          "why": "Account: deletion is not permitted. Find the true intent, persuade and console." },
+        { "id": "wd-delay", "q": "A member's withdrawal is still not through after 15 minutes. Next step?",
+          "o": ["Tell him to wait another day", "Submit CS-PYM, query WD Delay, and keep following", "Escalate to WL", "Ask him to withdraw again"], "a": 1,
+          "why": "Delayed WD: over 10 min, submit CS-PYM with query WD Delay and follow up." },
+        { "id": "below-min", "q": "A member transferred RM 6. The minimum is RM 10. How do you handle it?",
+          "o": ["Reject it and close", "Advise a top-up to reach RM 10, then submit CS-PYM, comment combine deposit", "Credit it manually", "Refund it"], "a": 1,
+          "why": "Deposit below minimum: member deposits the difference, then CS-PYM with comment combine deposit." },
+        { "id": "third-party", "q": "The BO shows a deposit came from someone else's bank account. What now?",
+          "o": ["Process it, the money arrived", "Cannot process: get the sender details and refund to the sender only", "Credit half", "Refund to the member's own account"], "a": 1,
+          "why": "Never process a 3rd-party deposit. Refund only to the sender's account." },
+        { "id": "escalation-pack", "q": "What must every escalation to WL, Support, IT or PYM carry?",
+          "o": ["Just the UID", "Username/UID, amount and screenshots", "The member's phone number", "A summary in your own words"], "a": 1,
+          "why": "Golden Rules: Username/UID, amount and screenshots, or the escalation bounces back." },
+        { "id": "claimed", "q": "You just submitted a CS-PYM ticket. What is the next thing you do?",
+          "o": ["Close the chat", "Tick the Claimed checkbox in the relevant tracker", "Message PYM on Telegram", "Nothing"], "a": 1,
+          "why": "After submitting any ticket, tick the Claimed checkbox in the relevant tracker." },
+        { "id": "fresh-verify", "q": "You verified a member yesterday. Today he asks for a PIN reset. What do you do?",
+          "o": ["Reset it, he is already verified", "Verify him again in this chat first", "Ask the Senior to reset it", "Refuse the reset"], "a": 1,
+          "why": "Run a fresh identity verification every chat; never rely on a previous one." },
+        { "id": "otp-fail", "q": "On TC, the member still cannot get in after Get Code and a manual OTP. What do you advise?",
+          "o": ["Give him a new account", "Retry after 12am, and report it to the Senior", "Reset his password without OTP", "Escalate to PYM"], "a": 1,
+          "why": "OTP Failed: if it keeps failing, advise retry after 12am and report to the Senior." },
+        { "id": "turnover", "q": "A member cannot withdraw. BO Turnover Checking shows the required TO is not met. What do you tell him?",
+          "o": ["We will release it anyway", "Complete the required TO in the correct game", "Submit CS-PYM, query WD Delay", "Deposit again"], "a": 1,
+          "why": "Unable to Withdraw, turnover not met: advise completing the required TO in the correct game." },
+        { "id": "close-line", "q": "How does every chat close?",
+          "o": ["\"Thank you\" only", "An offer of further assistance plus a good-luck wish", "A promo link", "No closing line needed"], "a": 1,
+          "why": "Golden Rules: always close with an offer of further assistance plus a good-luck wish." },
+        { "id": "unsubscribe", "q": "After you explain the benefits, a member still insists on stopping SMS promos. What do you do?",
+          "o": ["Remove him yourself in the BO", "Post in the VIP group and tag the designated admin to remove", "Tell him it is not possible", "Ignore it"], "a": 1,
+          "why": "Unsubscribe SMS Promo: if the member insists, post in the VIP group and tag the designated admin." },
+        { "id": "no-maintenance", "q": "A member's funds went missing in a game. The TG maintenance group shows no notice. Next?",
+          "o": ["Tell him it auto-refunds", "Escalate to WL / Support", "Credit him back yourself", "Close the chat"], "a": 1,
+          "why": "Fund Missing: if there is no notice, escalate to WL / Support." }
+      ]
+    }
+  }
+}

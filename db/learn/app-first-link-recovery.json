@@ -1,0 +1,125 @@
+{
+  "id": "app-first-link-recovery",
+  "sop_version": "V1.0",
+  "content": {
+    "minutes": 6,
+    "words": [
+      ["Locked reference", "The Lark sheet with the official app and site links for each brand. Only the ATL edits it. Every link you send is copied from here."],
+      ["Stored brand asset", "The download-button screenshot for each brand, kept in storage (R2). You send it; you never take your own."],
+      ["Trusted-source warning", "Canned line [6]. Sent word for word on every chat under this SOP."],
+      ["Access Recovery", "The tag for this case in contact_log."],
+      ["contact_log", "Where every contact is logged with its time. No UID means no attribution."],
+      ["Upline", "The next level up. For a PIC, the ATL."]
+    ],
+    "tour": [
+      {
+        "key": "when", "label": "When", "kind": "steps", "title": "Use this SOP when the player",
+        "sec": "Scope", "secLabel": "2. Scope",
+        "items": [
+          ["Cannot find us", "The brand is missing on Google or any search engine, or he sends a screenshot of search results without it."],
+          ["Cannot load", "The site will not open or load."],
+          ["Asks for the link", "\"the usual link\", \"link lama\", \"link apps\" or similar."],
+          ["Saw a look-alike", "He reports a site that looked like ours but behaved wrongly."]
+        ]
+      },
+      {
+        "key": "do", "label": "Do", "kind": "steps", "title": "App first, site second, then UID",
+        "sec": "Procedure", "secLabel": "Procedure",
+        "items": [
+          ["Point to the app", "Confirm the problem. The app is the fastest way in. No guessing about the cause."],
+          ["App link", "One link, copied from the locked reference. Check the brand row first."],
+          ["Screenshot", "Straight after, as its own message: the stored brand asset."],
+          ["Confirm download", "Ask and wait. No reply after 3 minutes: prompt once, keep the chat open."],
+          ["Site link as backup", "One link from the locked reference. Tell him to save it; invite him to the official Telegram channel."],
+          ["Trusted-source warning", "Every chat, word for word."],
+          ["UID and log", "Ask for UID now, not earlier. Log in contact_log, tag Access Recovery."]
+        ]
+      },
+      {
+        "key": "scripts", "label": "Scripts", "kind": "steps", "title": "Canned lines, Bahasa Malaysia",
+        "sec": "Canned Responses, Bahasa Malaysia", "secLabel": "5. Canned Responses, Bahasa Malaysia",
+        "items": [
+          ["Line 1", "Baik bos. Cara paling cepat masuk adalah melalui app kami, dan app ini tak bergantung pada Google. Saya hantar link download sekarang."],
+          ["Line 2 (swap in the brand)", "Link download app SK69: [LOCKED APP URL]"],
+          ["Line 3", "Lepas buka link tu, tekan butang download macam dalam gambar ni ya bos. [ATTACH LOCKED SCREENSHOT]"],
+          ["Line 4", "Sudah berjaya download bos?"],
+          ["Line 5", "Untuk backup, ini link website rasmi kami: [LOCKED SITE URL]. Simpan link ni dan join channel Telegram rasmi kami supaya bos sentiasa ada link terkini."],
+          ["Line 6", "Satu peringatan penting bos: guna link yang kami hantar di sini atau dari channel rasmi kami sahaja. Jangan guna link dari carian Google. Ada pihak buat website tiruan."],
+          ["Line 7", "Boleh bagi UID bos, saya nak record dalam account bos."]
+        ]
+      },
+      {
+        "key": "never", "label": "Never", "kind": "never", "title": "Eight hard stops",
+        "sec": "Guards", "secLabel": "6. Guards (never do this)",
+        "items": [
+          "Say or imply the site cannot be listed, is blocked, or is being hidden.",
+          "Say \"faham-faham lah\" or anything that invites the player to read between the lines.",
+          "Name or send the fake domain to a player, even as a warning.",
+          "Put two URLs in one message.",
+          "Send any domain not on the locked reference sheet.",
+          "Ask for UID before the access problem is solved.",
+          "Close the chat without confirming the player got in.",
+          "Open a suspected fake site on a work device."
+        ]
+      },
+      {
+        "key": "ladder", "label": "Ladder", "kind": "steps", "title": "Stuck? Five minutes, then go up",
+        "sec": "Escalation Ladder", "secLabel": "7. Escalation Ladder",
+        "items": [
+          ["Verify", "Understand the player's actual problem. PIC, first."],
+          ["Check yourself", "Handbook, SOP, locked reference, pinned posts. PIC, 5 minutes, firm. Tell the player you are checking."],
+          ["Go to the upline", "Screenshot plus what you already checked. PIC to ATL, immediately."],
+          ["Management", "ATL to Supervisor to Department Head, same shift. Automatic for money at risk, a site impersonating the brand, player data or credentials exposed, or the same issue hitting more than one player."]
+        ]
+      },
+      {
+        "key": "approver", "label": "Approver", "kind": "gate", "title": "A player reports a look-alike site",
+        "sec": "Procedure", "secLabel": "Procedure, step 8",
+        "q": "Has the player reported a site that looked like ours but behaved wrongly?",
+        "yes": "Ask for a screenshot only. Do not ask for the URL and do not open it. Escalate to the ATL the same shift with the screenshot.",
+        "no": "Carry on: app link, screenshot, site backup, warning, then UID."
+      }
+    ],
+    "quiz": {
+      "count": 5, "pass": 80, "seconds": 60,
+      "pool": [
+        { "id": "first-move", "q": "A player says he cannot find the brand on Google any more. What do you send first?",
+          "o": ["The site link", "The app download link, as the fastest way in", "The site and app links together", "A request for his UID"], "a": 1,
+          "why": "App first, site second. The app removes the search dependency; the site link only solves today." },
+        { "id": "why-missing", "q": "The player asks why the site disappeared from Google. What do you say?",
+          "o": ["\"It is blocked, faham-faham lah\"", "Do not explain or guess the cause; the app is the fastest way in", "\"It is being hidden for now\"", "\"Google removed it\""], "a": 1,
+          "why": "Step 1 and Guards: never explain why it is missing, never imply it is blocked or hidden, never \"faham-faham lah\"." },
+        { "id": "two-links", "q": "To save time, can you send the app link and the site link in one message?",
+          "o": ["Yes", "No: one link per message", "Yes, for Tier V", "Only on Telegram"], "a": 1,
+          "why": "Golden Rules: one link per message. Guards: never two URLs in one message." },
+        { "id": "from-memory", "q": "The locked reference is slow to open and you remember the app link. What do you do?",
+          "o": ["Type it from memory", "Wait and copy it from the locked reference", "Ask a teammate to type it", "Send the site link instead"], "a": 1,
+          "why": "Never type a link from memory. Always copy it from the locked reference in Lark." },
+        { "id": "no-reply", "q": "You asked \"Sudah berjaya download bos?\" and 3 minutes pass with no reply. What now?",
+          "o": ["Close the chat", "Prompt once and keep the chat open", "Send the site link", "Ask for his UID"], "a": 1,
+          "why": "Step 4: no reply after 3 minutes, prompt once, do not close the chat." },
+        { "id": "uid-timing", "q": "When do you ask for the player's UID?",
+          "o": ["In the first message", "Once he is back in", "Before sending the app link", "Never"], "a": 1,
+          "why": "Fix the access, then capture the identity. Asking earlier is a guard breach." },
+        { "id": "warning", "q": "The player got in fast and is happy. Can you skip the trusted-source warning?",
+          "o": ["Yes, he is fine", "No: it goes on every chat, word for word", "Only if he is new", "Send it next time"], "a": 1,
+          "why": "Step 6: the trusted-source warning is mandatory on every chat under this SOP." },
+        { "id": "look-alike", "q": "A player says he used a site that looked like ours but his balance was wrong. What do you ask for?",
+          "o": ["The URL so you can check it", "A screenshot only, then escalate to the ATL the same shift", "His password", "Nothing, tell him to ignore it"], "a": 1,
+          "why": "Step 8: screenshot only. Do not ask for the URL, do not open it. Escalate to the ATL the same shift." },
+        { "id": "five-min", "q": "You have searched the Handbook and pinned posts for 5 minutes and found nothing. Next?",
+          "o": ["Keep searching", "Go to the ATL now with a screenshot and what you checked; keep the player warm", "Close the chat", "Guess the answer"], "a": 1,
+          "why": "Escalation Ladder: the five-minute cap is firm. Still searching at five minutes is a step 3." },
+        { "id": "many-players", "q": "Three players report the same access problem in one shift. What does the ladder say?",
+          "o": ["Handle each one alone", "Step 4 triggers automatically: it goes to management the same shift", "Wait until tomorrow", "Only log it"], "a": 1,
+          "why": "Step 4 triggers automatically when the same issue hits more than one player." },
+        { "id": "log-tag", "q": "Access is fixed and you have the UID. Where do you log it?",
+          "o": ["QA Record, tag Reactivated", "contact_log, tag Access Recovery", "Telegram, no tag", "Nowhere"], "a": 1,
+          "why": "Step 7: log in contact_log with the tag Access Recovery. No UID means no attribution." },
+        { "id": "own-screenshot", "q": "You cannot find the download-button picture quickly. Can you screenshot the page yourself?",
+          "o": ["Yes", "No: send the stored brand asset", "Yes, if it is clear", "Skip the screenshot"], "a": 1,
+          "why": "Step 3: use the stored brand asset. Do not screenshot it yourself." }
+      ]
+    }
+  }
+}

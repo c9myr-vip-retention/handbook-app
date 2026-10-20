@@ -15,3 +15,4 @@ Status: Ready (agent may start) · Waiting (needs an ATL answer first) · Review
 | 7 | Learn drafts Top Deposit, Reactivation, TG Engagement Tracker | Review | ATL answered 20 Oct; drafts updated, 0 publish blockers. Team to review and publish. |
 | 8 | Admin role check: the Senior who moved to Team A still has Admin (publishes, edits SOPs) | Done | ATL, 20 Oct: keep Admin for now. |
 | 9 | More Learn modules and content (next SOP Book categories) | Waiting | ATL wants Learn to keep growing; pick the next category. |
+| 10 | Learn drafts Service & Exceptions: Complaint Handling, Chat SOP, Checking Conversation History, ZYRA Forgot Password, Redeem Code S0403, App-First Link Recovery | Review | 6 drafts on agent/learn-service-exceptions, 0 publish blockers, tested on local D1 only. Team to review and publish. |

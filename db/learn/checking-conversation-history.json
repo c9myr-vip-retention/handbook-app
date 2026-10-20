@@ -1,0 +1,92 @@
+{
+  "id": "checking-conversation-history",
+  "sop_version": "V1.1",
+  "content": {
+    "minutes": 3,
+    "words": [
+      ["VVIP", "Tier 3 and Tier V players. This SOP covers every VVIP contact."],
+      ["Channel crossover", "A player rarely stays on one channel. What he said on Telegram matters on LiveChat, and the other way round."],
+      ["Last Telegram Chat Link", "The link to the player's last Telegram chat. Open it when he arrives on LiveChat."],
+      ["Last LiveChat Link", "The link to the player's last LiveChat chat. Open it when he arrives on Telegram."],
+      ["Customer Approaching System", "Where you see the arrival channel and update the player record after each interaction."]
+    ],
+    "tour": [
+      {
+        "key": "when", "label": "When", "kind": "check", "title": "Ready to reply to a VVIP?",
+        "sec": "Golden Rules", "secLabel": "3. Golden Rules",
+        "items": ["You know which channel the player came from", "You opened the other channel's last-chat link", "You noted unresolved issues and pending requests"],
+        "done": "Now reply. Inbound or outbound, every brand.",
+        "notYet": "No reply yet. Read both histories first, whenever both are available."
+      },
+      {
+        "key": "do", "label": "Do", "kind": "steps", "title": "Four steps, every VVIP contact",
+        "sec": "Procedure", "secLabel": "Procedure",
+        "items": [
+          ["Find the arrival channel", "LiveChat or Telegram, in the Customer Approaching System."],
+          ["Open the other channel", "LiveChat arrival: Last Telegram Chat Link. Telegram arrival: Last LiveChat Link."],
+          ["Review the full history", "Note unresolved issues and pending requests before you reply."],
+          ["Update the record", "After handling: the outcome and any follow-ups."]
+        ]
+      },
+      {
+        "key": "crossover", "label": "Crossover", "kind": "steps", "title": "Which link to open",
+        "sec": "Channel Crossover", "secLabel": "4. Channel Crossover",
+        "items": [
+          ["Arrived on LiveChat", "Open the Last Telegram Chat Link."],
+          ["Arrived on Telegram", "Open the Last LiveChat Link."],
+          ["Both available", "Review both."],
+          ["Click path", "Follow the on-screen guide."]
+        ]
+      },
+      {
+        "key": "never", "label": "Never", "kind": "never", "title": "Four hard stops",
+        "sec": "CS Responsibilities", "secLabel": "5. CS Responsibilities",
+        "items": [
+          "Reply to or contact a VVIP before checking the history.",
+          "Ask the player to repeat information he already gave.",
+          "Read only the arrival channel when both histories are available.",
+          "Leave the player record without an update after the interaction."
+        ]
+      },
+      {
+        "key": "approver", "label": "Ask or not", "kind": "gate", "title": "Before you ask the player anything",
+        "sec": "CS Responsibilities", "secLabel": "5. CS Responsibilities",
+        "q": "Is the answer already in his LiveChat or Telegram history?",
+        "yes": "Use it. Never ask him to repeat it, and follow up on anything still open.",
+        "no": "Ask, then update the player record after the chat."
+      }
+    ],
+    "quiz": {
+      "count": 5, "pass": 80, "seconds": 60,
+      "pool": [
+        { "id": "lc-arrival", "q": "A VVIP messages you on LiveChat. Before your first reply, which link do you open?",
+          "o": ["Nothing, just reply", "The Last Telegram Chat Link", "The Last LiveChat Link only", "His deposit history"], "a": 1,
+          "why": "Scenario 1: LiveChat arrival, open the Last Telegram Chat Link so nothing raised on Telegram is missed." },
+        { "id": "tg-arrival", "q": "A VVIP messages you on Telegram. Which history do you also review?",
+          "o": ["None", "His LiveChat history, through the Last LiveChat Link", "Only Telegram", "His SMS history"], "a": 1,
+          "why": "Scenario 2: Telegram arrival, open the Last LiveChat Link." },
+        { "id": "outbound", "q": "You are about to send a VVIP an outbound message. Do you check his history first?",
+          "o": ["No, only for inbound chats", "Yes, every VVIP interaction, inbound or outbound", "Only on TC brands", "Only if he complained before"], "a": 1,
+          "why": "Scope and Remarks: the check applies to all inbound and outbound VVIP contact." },
+        { "id": "no-repeat", "q": "His Telegram history shows he already explained his issue yesterday. Now he is on LiveChat. What do you do?",
+          "o": ["Ask him to explain again from the start", "Pick up from what he said; never make him repeat it", "Tell him to go back to Telegram", "Close the old issue"], "a": 1,
+          "why": "Golden Rules: never ask a player to repeat information he already provided." },
+        { "id": "pending", "q": "The LiveChat history shows a request from last week that nobody answered. What now?",
+          "o": ["Leave it, it is old", "Follow up on it in this chat", "Ask him whether he still cares", "Report it and move on"], "a": 1,
+          "why": "CS Responsibilities: follow up on unresolved issues and pending requests." },
+        { "id": "update-record", "q": "You finished handling a VVIP. What is the last step?",
+          "o": ["Nothing", "Update the player record with the outcome and follow-ups", "Delete the chat", "Send a promo"], "a": 1,
+          "why": "Step 4: update the player record in the Customer Approaching System after every interaction." },
+        { "id": "timing", "q": "When do you review the conversation history?",
+          "o": ["After you reply", "Before your first reply", "Only at the end of the shift", "Only when he complains"], "a": 1,
+          "why": "Golden Rules: review the history before replying to any VVIP player." },
+        { "id": "both", "q": "Both histories are available but the queue is busy. What does the SOP say?",
+          "o": ["Read the arrival channel only", "Review both", "Skip both when busy", "Ask a teammate to read them later"], "a": 1,
+          "why": "Golden Rules: review both LiveChat and Telegram history whenever both are available." },
+        { "id": "click-path", "q": "You cannot find where the Last LiveChat Link sits on the screen. What do you follow?",
+          "o": ["Guess", "The on-screen guide", "Ask the player for it", "Skip the check"], "a": 1,
+          "why": "Remarks: follow the on-screen guide for the exact click path." }
+      ]
+    }
+  }
+}

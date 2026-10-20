@@ -16,3 +16,4 @@ Status: Ready (agent may start) · Waiting (needs an ATL answer first) · Review
 | 8 | Admin role check: the Senior who moved to Team A still has Admin (publishes, edits SOPs) | Done | ATL, 20 Oct: keep Admin for now. |
 | 9 | More Learn modules and content (next SOP Book categories) | Waiting | ATL wants Learn to keep growing; pick the next category. |
 | 10 | Learn drafts Service & Exceptions: Complaint Handling, Chat SOP, Checking Conversation History, ZYRA Forgot Password, Redeem Code S0403, App-First Link Recovery | Review | 6 drafts on agent/learn-service-exceptions, 0 publish blockers, tested on local D1 only. Team to review and publish. |
+| 11 | Learn drafts: People & Operations (KPI Scoring, New Agent Onboarding, New Staff Incentive, Attendance Pre-Shift, Shift Overview, Shift Handover) | Ready | ATL queued 20 Oct. Drafts only; the team publishes. Nightly agent stays manual for now (ATL, 20 Oct). |

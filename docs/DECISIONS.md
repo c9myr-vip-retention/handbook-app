@@ -9,7 +9,9 @@ ATL decisions that every change must respect. Add new ones at the end of the rig
 - Present mode on every page: slide 1 = title and intro, then one slide per section. Answers show straight away; no click-to-reveal. (5 Oct 2026)
 
 ## Learn and Quiz
-- Learn is open to staff (`LEARN_FOR_STAFF = "yes"`). Modules are reviewed by the team and published by an admin pressing Publish. An agent never publishes. (6 Oct 2026) As of 20 Oct, 13 of 16 modules are live.
+- Learn is open to staff (`LEARN_FOR_STAFF = "yes"`). (6 Oct 2026) Publishing: the Consultant agent may publish modules that pass its review and have 0 blockers, and lists each publish in its report. The Executor never publishes. Admins can still publish in the app. (ATL, 20 Oct 2026, replaces "an agent never publishes" of 6 Oct)
+- The Consultant agent applies SOP fixes the ATL has already answered. New rules or changed meaning, app code deploys, roles and access, and major versions still need the ATL. (ATL, 20 Oct 2026)
+- Priority: completeness of Learn content comes before staff usage. (ATL, 20 Oct 2026)
 - Quiz answer keys are stored as the option sentence, never a letter. A/B/C/D are position labels only, reshuffled per attempt. (4 Oct 2026)
 - Quiz rules: one clock per attempt, questions open in order (written reason needs 3+ words), every attempt recorded, unlimited attempts, staff never see keys or bands. (5 Oct 2026)
 - Green/red feedback is a per-quiz switch, off for assessments. Assessments shuffle question order inside each section (`shuffle: "section"`). (5 Oct 2026)

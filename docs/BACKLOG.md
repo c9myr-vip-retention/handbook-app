@@ -12,4 +12,5 @@ Status: Ready (agent may start) · Waiting (needs an ATL answer first) · Review
 | 4 | Reviewer role limited to Learn publishing (no SOP editing, no approvals) | Waiting | ATL to decide if needed. |
 | 5 | Add SOP 41 Test Accounts to the SOP Book | Waiting | 3 OPEN items in the SOP need ATL answers. |
 | 6 | 5 Pillars assessment: extra questions per section so attempts differ in content | Waiting | Needs questions from the Team A ATL. |
-| 7 | Learn drafts blocked by [CONFIRM]: Top Deposit, Reactivation, TG Engagement Tracker | Waiting | See docs/DECISIONS.md, Open. |
+| 7 | Learn drafts blocked by [CONFIRM]: Top Deposit, Reactivation, TG Engagement Tracker | Waiting | See docs/DECISIONS.md, Open. The other 13 modules are live (published by the team, 7 to 14 Oct). |
+| 8 | Admin role check: the Senior who moved to Team A still has Admin (publishes, edits SOPs) | Waiting | ATL to decide: keep, or set to Reader. |

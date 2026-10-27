@@ -46,7 +46,7 @@ create table if not exists sop_versions (
 );
 
 -- After you sign in once through Access, make yourself admin:
---   update profiles set role = 'admin', approved = 1 where email = 'aldok.ma@orionesofttech.com';
+--   update profiles set role = 'admin', approved = 1 where email = '<your-company-email>';
 
 -- Migration for databases created before last_seen existed (run once):
 --   alter table profiles add column last_seen text;

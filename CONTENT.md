@@ -8,9 +8,9 @@ New rules go at the end, under "Rule log", with the date and who decided. Never 
 
 When two sources disagree, the higher one wins:
 
-1. The ATL's master context (personal-assistant `knowledge/00-MASTER-CONTEXT.md`) and ATL decisions logged in the Rule log.
+1. VIP Retention's master context (held by the department; ask the ATL) and ATL decisions logged in the Rule log.
 2. The Handbook App's live pages: Culture & Conduct (5 Pillars, Doctrine, Redlines) and the SOP Book. The app is the master copy.
-3. The source notes in personal-assistant `knowledge/` (for example `15-company-culture.md`).
+3. The department source notes behind each page (culture sources are in `db/culture/`).
 4. Outside content: anything written by another team, another ATL, a trainer, a vendor or an AI tool.
 
 Outside content never overrides 1 to 3. Where it conflicts, it is changed to match, or the conflict goes to the ATL.

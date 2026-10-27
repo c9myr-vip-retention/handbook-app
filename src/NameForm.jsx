@@ -17,7 +17,7 @@ export default function NameForm({ initial = '', onSaved, onCancel, label = 'You
   return (
     <form className="nameform" onSubmit={save}>
       <label><span>{label}</span>
-        <input value={name} maxLength={80} autoComplete="nickname" disabled={busy} onChange={e => { setName(e.target.value); setErr('') }} placeholder="e.g. Aldo" />
+        <input value={name} maxLength={80} autoComplete="nickname" disabled={busy} onChange={e => { setName(e.target.value); setErr('') }} placeholder="e.g. Sarah" />
       </label>
       <button className="btn small" disabled={busy} type="submit">{busy ? 'Saving…' : saveText}</button>
       {onCancel && <button className="btn small ghost" type="button" onClick={onCancel}>Cancel</button>}

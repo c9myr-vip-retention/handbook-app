@@ -40,11 +40,11 @@ Staff handbook app for the C9MYR VIP Retention department. Readers browse SOPs, 
 6. Zero Trust > Access > Applications: add a self-hosted application covering `c9myr-rtn-handbook.pages.dev` and `*.c9myr-rtn-handbook.pages.dev` (preview URLs). Identity provider Google. Policy: allow emails ending `@orionesofttech.com`, plus include the specific personal emails you approve.
 7. Sign in once, then make yourself admin (D1 console or `wrangler d1 execute`):
    ```
-   update profiles set role = 'admin', approved = 1 where email = 'aldok.ma@orionesofttech.com';
+   update profiles set role = 'admin', approved = 1 where email = '<your-company-email>';
    ```
 
 ## Updating content
-SOP text lives in `personal-assistant/projects/sop-book/*.md` (house format). To publish a change:
+SOP text lives in `content/sop-book/*.md` (house format); other page sources are in `content/pages/`. To publish a change:
 
 ```
 npm run sync -- --dry   # show what would change, push nothing

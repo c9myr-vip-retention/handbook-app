@@ -12,9 +12,9 @@ Staff handbook for the C9MYR VIP Retention department: SOP Book, Culture & Condu
 @DESIGN.md
 @CONTENT.md
 @docs/DECISIONS.md
-@../personal-assistant/knowledge/15-company-culture.md
+@db/culture/README.md
 
-Open work: `docs/BACKLOG.md`. Recent history: the newest notes in `../personal-assistant/projects/session-notes/` that mention the Handbook.
+Open work: `docs/BACKLOG.md`. Recent history: the newest notes in `docs/sessions/`.
 
 ## Stack
 - React 18 + Vite 5 front end (`src/`), Cloudflare Pages Functions API (`functions/api/[[path]].js`, `server/*.js`), Cloudflare D1 database `handbook`.
@@ -44,4 +44,4 @@ Open work: `docs/BACKLOG.md`. Recent history: the newest notes in `../personal-a
 - No em dashes anywhere. Sentence case. Role titles only in content (ATL, Supervisor, Senior), never staff names. No player data, credentials or financial data in the repo.
 - Never mark OPEN, UNCONFIRMED or CONFLICT content as fact. Use `[CONFIRM ...]`; it blocks publishing.
 - Answers to the ATL are short: what was done, what is blocking, one question.
-- At the end of a session, write a short note in `../personal-assistant/projects/session-notes/YYYY-MM-DD-<topic>.md` and update `docs/BACKLOG.md`.
+- At the end of a session, write a short note in `docs/sessions/YYYY-MM-DD-<topic>.md` and update `docs/BACKLOG.md`.

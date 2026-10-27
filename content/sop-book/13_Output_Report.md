@@ -1,0 +1,83 @@
+# SOP: Output Report
+**Document Code:** C9MYR-RTN-SOP-R02
+**Category:** Reporting
+**Applies to:** All VIP CS
+**Owner:** VIP RTN | **Review cycle:** Quarterly or on material change | **Version:** 1.1 (4-element retrofit 7 Sep 2026)
+**Last updated:** 7 September 2026 (4-element retrofit; source: Official Handbook, 13 May 2026)
+
+---
+
+```sop-header
+Process name: Output Report
+Department: VIP Retention
+Process owner: VIP Retention
+Effective date: 
+Approved by: 
+```
+
+## Procedure
+
+| Step no. | Step name | Specific action | Operating standard | Tools / forms used | Points to note |
+|---|---|---|---|---|---|
+| 1 | Open the Output table | End of shift: Customer Approaching Lark Base > Output - Table. | Holds all engagement records for the month. | Lark Base |  |
+| 2 | Apply both filters | Set Date is today AND PIC is your name, together. | Missing either filter gives wrong or incomplete data. Do not copy another staff member's data. | Lark Base |  |
+| 3 | Copy each column separately | Copy Livechat, Internal Mail, Push, SMS, each on its own. | Do not combine columns. | Lark Base |  |
+| 4 | Paste per column into CS Output | Open VIP RTN CS Output, today's date tab; per column: Row 6 filter > Clear All > select that column > paste values. | Paste values only, no formatting or formulas. One filter pass per column. | VIP RTN CS Output |  |
+| 5 | Clear filter + verify | After all columns: clear the Row 6 filter; verify data sits under the right column and row. | Do not change the Row 6 sort order after pasting; it displaces data. Empty column stays blank, never a zero. | VIP RTN CS Output |  |
+| 6 | Update the QA Record | After submit: attach a screenshot of the completed Output tab. |  | Lark Base |  |
+
+## Flow chart
+
+```chart
+title: Output Report: flow
+start: End of shift
+step: Filter Date + PIC
+step: Copy each column
+step: Paste per column filter
+step: Clear + verify
+end: QA
+```
+## 1. Objective
+Compile and submit a complete shift performance summary by copying player engagement data from Lark Base into the VIP RTN CS Output file.
+
+## 2. Scope
+End of every shift, per PIC. Only your own records, only today's date.
+
+## 3. Golden Rules
+- Always apply both filters (Date today AND PIC you) before copying. Missing one gives wrong or incomplete data.
+- Paste values only, no formatting or formulas.
+- Each column pastes separately via its own filter cycle. Do not combine.
+- If a column has no data (e.g. no SMS today), leave it blank. Do not paste a zero or placeholder.
+
+## 4. Detailed steps: Pull Data from Lark Base
+| # | Action | Sequence (when) | Degree / standard | Tool |
+|---|---|---|---|---|
+| 1 | Open Customer Approaching Lark Base > Output - Table | Task start | Holds all engagement records for the month | Lark Base |
+| 2 | Apply two filter conditions together | Before copying | Both must be active before copying | Lark Base |
+| 2a | Set Date is today | With step 2 | Remove any other date filter | Lark Base |
+| 2b | Set PIC is your name | With step 2 | Do not copy another staff member's data | Lark Base |
+| 3 | Copy each engagement column one at a time | After filtering | Livechat, Internal Mail, Push, SMS, each separately | Lark Base |
+
+**Columns and destinations:** Livechat, Internal Mail, Push Notification, SMS, each into its matching column in the VIP RTN CS Output.
+
+## 5. Detailed steps: Paste into CS Output
+| # | Action | Sequence (when) | Degree / standard | Tool |
+|---|---|---|---|---|
+| 1 | Open the VIP RTN CS Output file | After pulling data | Correct file | VIP RTN CS Output |
+| 2 | Select today's date tab (e.g. `11/05`) | After opening | Each day has its own tab | VIP RTN CS Output |
+| 3 | On Row 6 (filter row), click the Livechat column filter | Before pasting | Correct column filter | VIP RTN CS Output |
+| 4 | Clear All in the filter dropdown | After clicking filter | Prevents mixing data types | VIP RTN CS Output |
+| 5 | Select only Livechat, confirm | After Clear All | Table shows Livechat rows only | VIP RTN CS Output |
+| 6 | Paste the Livechat data | After filtering | Paste values only | VIP RTN CS Output |
+| 7 | Repeat steps 3 to 6 for Internal Mail, Push, SMS | Per remaining column | One filter pass per column | VIP RTN CS Output |
+| 8 | Clear the Row 6 filter to restore the full view | After all columns | Verify data sits under the right column and row | VIP RTN CS Output |
+| 9 | Update the QA Record after submitting | After submit | Attach a screenshot of the completed Output tab | Lark Base |
+
+## 6. Guards
+- Missing either filter (Date today, PIC you) gives wrong or incomplete data.
+- Do not change the Row 6 sort order after pasting; it displaces data.
+- Leave an empty column blank; never paste a zero or placeholder.
+
+## 7. Remarks
+- Paste values only, no formatting or formulas.
+- Each column pastes separately via its own filter cycle.

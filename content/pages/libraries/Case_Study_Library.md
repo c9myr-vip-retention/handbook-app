@@ -1,0 +1,32 @@
+# Case Study Library
+**Category:** Soft Skill / Learning
+**Applies to:** All VIP RTN staff
+**Version:** 1.0
+**Last updated:** 31 August 2026 (source: Official Handbook)
+
+---
+
+## 1. Objective
+Learn from real incidents, not only from procedure. How to log a case: see the Case Study Logging SOP.
+
+## 2. Case Log
+| No. | Category | What happened | Why | What we learn | Rule / SOP | Severity |
+|---|---|---|---|---|---|---|
+| 1 | Operational Error | A Grace Period follow-up was filtered on the wrong field and the expiry stretched from 1 day to 3. Players who had already claimed got a second notice | Wrong filter field; no second check before sending | A filter mistake is a money mistake. Any list that triggers a bonus needs a second pair of eyes. Never extend an expiry without approval | Grace Period List: Claimed = 0, expiry 1D | Medium |
+| 2 | Player Abuse / Exploit | Two players across 13 Zyra brands with near-identical deposit and betting patterns withdrew RM 126,640. On one brand: deposited RM 10, placed RM 20 bets, kept betting past the visible balance | Suspected provider wallet or settlement fault, worked by coordinated accounts. Caught only by manual cross-brand checks | Small deposit into large withdrawal is the signal. The same pattern on a second brand confirms it. Betting past the visible balance is a system alarm, not luck. Escalate to the provider at once | Cross-brand monitoring; escalate to provider and technical team | High |
+| 3 | Player Abuse / Exploit | Wallets with unusually high referral free credit built up fast, with unnatural registration patterns and similar behaviour across linked accounts. Found at withdrawal review | Referral terms loosely enforced; withdrawal screening did not flag promo-heavy wallets | A wallet made mostly of referral credit at withdrawal is a red flag, not a win. Judge conversion quality, not referral count. Check linked banking and device similarity | Referral terms; enhanced withdrawal screening | Medium |
+
+## 3. Categories
+| Category | Definition | Owner |
+|---|---|---|
+| Operational Error | A staff mistake running an SOP. Maps to the Severity Framework | Senior |
+| Player Abuse / Exploit | A player or group working promotion rules or a system gap for gain | ATL |
+| Provider / System Issue | A fault in a provider platform or our own tools, not caused by staff | ATL |
+
+Severity scale for all categories: Critical, High, Medium, Low.
+
+## 4. Remarks
+- Role titles only. Never record staff or player names, player IDs or UIDs.
+- Real incidents only. Never invent a case to fill a category.
+- "What we learn" is the point of each row: what a reader should do differently.
+- Full write-ups stay in Lark Docs, credited to their authors. This page is the summary.

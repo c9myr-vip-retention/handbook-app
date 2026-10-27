@@ -14,11 +14,12 @@
 import ExcelJS from 'exceljs'
 import { readFileSync, writeFileSync, copyFileSync, existsSync, mkdirSync } from 'node:fs'
 import { join } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { MAP } from './import-md.mjs'
 
 const WRITE = process.argv.includes('--write')
-const TPL = 'C:/Dev/personal-assistant/projects/sop-templates'
-const SRC = 'C:/Dev/personal-assistant/projects/sop-book'
+const TPL = fileURLToPath(new URL('../content/sop-templates', import.meta.url))
+const SRC = fileURLToPath(new URL('../content/sop-book', import.meta.url))
 const PUB = new URL('../public/flowcharts/', import.meta.url)
 
 // Template folder -> page id. Channel Login stays a restricted placeholder;

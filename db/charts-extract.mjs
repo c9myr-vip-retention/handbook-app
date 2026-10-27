@@ -11,11 +11,12 @@
 // reported, not guessed. The PNGs stay in public/flowcharts for side-by-side review.
 import { readFileSync, writeFileSync, existsSync } from 'node:fs'
 import { join } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { MAP } from './import-md.mjs'
 
 const WRITE = process.argv.includes('--write')
-const TPL = 'C:/Dev/personal-assistant/projects/sop-templates'
-const SRC = 'C:/Dev/personal-assistant/projects/sop-book'
+const TPL = fileURLToPath(new URL('../content/sop-templates', import.meta.url))
+const SRC = fileURLToPath(new URL('../content/sop-book', import.meta.url))
 // Folder -> page id, as used by templates-extract.mjs.
 const FOLDERS = Object.fromEntries([...readFileSync(new URL('./templates-extract.mjs', import.meta.url), 'utf8')
   .matchAll(/(\w+_SOP): '([\w-]+)'/g)].map(m => [m[1], m[2]]))

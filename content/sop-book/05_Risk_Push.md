@@ -1,0 +1,100 @@
+# SOP: Risk Push
+**Document Code:** C9MYR-RTN-SOP-D04
+**Category:** Day Shift / Communication
+**Applies to:** VIP CS, all brands
+**Owner:** VIP RTN | **Review cycle:** Quarterly or on material change | **Version:** 1.2
+**Last updated:** 4 October 2026 (V1.2: reload 7D 10%, 14D 15%, 30D 20%, 1x turnover, no cap; daily after 3:00 PM; Tier 3 and Tier V only; Internal Message sent as usual (Internal Mail Approach SOP); confirmed by the ATL; previous: 4-element retrofit 7 Sep 2026; source: Official Handbook, 13 May 2026, and Tier 3 / V Engagement Strategy)
+
+---
+
+```sop-header
+Process name: Risk Push
+Department: VIP Retention
+Process owner: VIP Retention
+Effective date: 
+Approved by: 
+```
+
+## Procedure
+
+| Step no. | Step name | Specific action | Operating standard | Tools / forms used | Points to note |
+|---|---|---|---|---|---|
+| 1 | Check RG / chase flag | Before anything: flagged players route to welfare, no push at all. | RG / chase flag beats every push. | BO | Empty list: record in QA and inform ATL. |
+| 2 | Pick the risk tier | Take the list Retention Team assigns after 3:00 PM (Tier 3 and Tier V, by days since last deposit: 1D, 3D, 7D, 14D, 30D). | 1D is Push only (soft reminder). 3D and above: SMS + Internal Message. Reload: 7D 10%, 14D 15%, 30D 20%, 1x TO. | Team Engagement File | Internal Message is sent as usual (Internal Mail Approach SOP). |
+| 3 | Export in platform format | TC: save as .txt. Zyra: export as .csv from the BO. | Wrong file format fails the upload. Verify every time. | Team Engagement File / Zyra BO |  |
+| 4 | Get approved copy + send | Push subject + content from Template Tab > Risk Player. TC: Interact Mgmt > Mail > Push. Zyra: Notification > Push > Add. | Do not modify copy without TL approval. State: applies to next deposit, has validity, needs 1x turnover. | TC / Zyra BO |  |
+| 5 | Update the QA Record | After send: attach a BO screenshot. | SMS (3D+) is sent by Retention Admin; VIP CS prepares the list only. | Lark Base |  |
+
+## Flow chart
+
+```chart
+title: Risk Push V1.2: flow
+start: Risk list (after 3 PM)
+check: RG / chase flag? | yes: stop Welfare, no push | no: next
+check: 1D? | yes: jump Push only, soft reminder | no: next
+check: 3D? | yes: jump SMS + IM, emotional pull, no bonus | no: next
+step: SMS + IM + reload: 7D 10%, 14D 15%, 30D 20%, 1x TO
+end: Tag + QA
+```
+## 1. Objective
+Send tier-graduated Push Notifications and Internal Messages to inactive players, to re-engage them before the risk level escalates.
+
+## 2. Scope
+Applies daily after 3:00 PM to inactive Tier 3 and Tier V players by days-since-last-deposit tier (1D, 3D, 7D, 14D, 30D), on both TC and Zyra platforms. Retention Team extracts the list and assigns it to VIP CS. This SOP owns the risk-tier segmentation and messaging. The send mechanics are the shared ones in the Push Notification SOP (34).
+
+## 3. Golden Rules
+- TC uploads as `.txt`, Zyra uploads as `.csv` from the BO. Wrong format fails the upload.
+- 1D is Push only (soft reminder, no urgency, no SMS, no IM). 3D and above add SMS + Internal Message.
+- Player must be inactive AND not already have claimed a similar bonus this cycle.
+- State clearly: the offer applies to the next deposit, has a validity period, and needs 1x turnover.
+- SMS is sent by Retention Team Admin; VIP CS prepares the list only.
+- RG / chase flag beats every push. Flagged players route to welfare, no push.
+
+## 4. Risk Segmentation and Messaging Tiers
+| Tier | Channels | Strategy |
+|---|---|---|
+| 1D, Soft Reminder | Push only | Light reminder, no urgency, no SMS, no IM |
+| 3D, Soft Emotional Pull | SMS + Internal Message | Emotional, personal appeal; no bonus |
+| 7D, Strong Incentive | SMS + Internal Message | 10% reload bonus, 1x turnover, limited time |
+| 14D, Strong Incentive | SMS + Internal Message | 15% reload bonus, 1x turnover, limited time |
+| 30D, Strong Incentive | SMS + Internal Message | 20% reload bonus, 1x turnover, limited time |
+
+## 5. Bonus Logic
+- Eligibility: player must be inactive AND not already claimed a similar bonus this cycle.
+- Reload: 7D 10%, 14D 15%, 30D 20%, 1x turnover, same on TC and Zyra. No cap on the amount.
+- **TC BO:** bonus is auto / system-triggered; player claims directly in the app or website.
+- **Zyra BO:** bonus is manual; player contacts Live Chat, VIP CS states the offer, applies to next deposit. If already deposited, credit manually via Lark ticket.
+- Communication control: state clearly the bonus applies to the next deposit, has a validity period, and needs 1x turnover.
+- Tag `Risk 1D / 3D / 7D / 14D / 30D`, then `Reactivated` on deposit.
+- Record contact time, response, and conversion.
+
+## 6. Detailed steps: TC Gaming Platform
+| # | Action | Sequence (when) | Degree / standard | Tool |
+|---|---|---|---|---|
+| 1 | Open Team Engagement File, correct brand's Risk Players column for the tier being sent (e.g. 1D) | Task start | Correct brand tab | Team Engagement File |
+| 2 | Copy the Risk Player database, save as `.txt` | After locating | TC requires `.txt` | Team Engagement File |
+| 3 | Get Push subject and content from Template Tab > Risk Player | Before send | Do not modify without TL approval | Team Engagement File |
+| 4 | Go to Interact Management > Mail > Push Notification > Send Notification | Ready to send | Correct BO path | TC Gaming BO |
+| 5 | Select Specific User > Firebase App Messaging, upload the `.txt` | On send | Verify file format | TC Gaming BO |
+| 6 | Input subject and content, click OK | On send | Double-check all fields | TC Gaming BO |
+| 7 | Update the QA Record | After send | Attach a BO screenshot | Lark Base |
+
+## 7. Detailed steps: Zyra Platform
+| # | Action | Sequence (when) | Degree / standard | Tool |
+|---|---|---|---|---|
+| 1 | Open Team Engagement File, correct brand's Risk Players column for the tier being sent (e.g. 1D) | Task start | Correct brand tab | Team Engagement File |
+| 2 | Copy the database, export as `.csv` from the BO | After locating | Zyra requires `.csv`, not `.txt` | Zyra BO |
+| 3 | Get Push subject and content from Template Tab > Risk Player | Before send | Approved copy only | Team Engagement File |
+| 4 | Go to Notification > Push Notification > Add Push Notification | Ready to send | Correct BO path | Zyra BO |
+| 5 | Target Type: User; upload `.csv`, input subject and content, click Create | On send | Verify the correct player group | Zyra BO |
+| 6 | Update the QA Record | After send | Attach a BO screenshot | Lark Base |
+
+## 8. Guards
+- Wrong file format fails the upload: verify TC `.txt` / Zyra `.csv` every time.
+- If the Risk Player list is empty, record it in the QA Record and inform the ATL.
+- RG / chase flag: no push at all, route to welfare.
+
+## 9. Remarks
+- For 3D, 7D, 14D, 30D tiers, SMS is also sent. SMS is handled by Retention Team Admin; VIP CS prepares the list only.
+- Send mechanics match the Push Notification SOP (34); this SOP owns the risk-tier logic.
+- The Internal Message for 3D and above is sent as usual, per the Internal Mail Approach SOP (09).

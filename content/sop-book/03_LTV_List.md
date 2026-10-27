@@ -1,0 +1,96 @@
+# SOP: LTV List
+**Document Code:** C9MYR-RTN-SOP-D02
+**Category:** Day Shift / VIP
+**Applies to:** VIP CS, all brands
+**Owner:** VIP RTN | **Review cycle:** Quarterly or on material change | **Version:** 1.2
+**Last updated:** 4 October 2026 (V1.2: selection is the top 70 by last week's LTV (LTV7); day shift 2:00 PM; "currently active" is recommended, not mandatory; a cold player is delayed within the same day only; confirmed by the ATL; previous: 4-element retrofit 7 Sep 2026; source: Official Handbook, 13 May 2026, and Tier 3 / V Engagement Strategy)
+
+---
+
+```sop-header
+Process name: LTV List
+Department: VIP Retention
+Process owner: VIP Retention
+Effective date: 
+Approved by: 
+```
+
+## Procedure
+
+| Step no. | Step name | Specific action | Operating standard | Tools / forms used | Points to note |
+|---|---|---|---|---|---|
+| 1 | Locate today's 10-player batch | Task start: Team Engagement File > Handover Tab; use today's exact day. | Quota is exactly 10. Never exceed, never carry over, never borrow another day's batch. | Team Engagement File | Empty list today: report to ATL, do not borrow. |
+| 2 | Paste + deduplicate | Paste values into Lark Base > LTV (Day); remove anyone who already got Daily P&L or this week's LTV. | If under 10 remain, fill down the ranking. | Lark Base |  |
+| 3 | Pre-check per player | Not yet given this week and SW sufficient (bonus <= SW x 40%); currently active is recommended. | Both must pass. Same-day SW update mandatory before issuance. | Lark Base |  |
+| 4 | Engage before issuance | Open with a greeting and observe; active: proceed; cold: delay and try again later the same day. | Contact precedes deposit. Player must engage before issuance. A delayed player never moves to tomorrow's batch. | Livechat / Telegram |  |
+| 5 | Valid vs Invalid send | Valid: pass username list to Admin for SMS + send IM + Push. Invalid: IM + Push only, no SMS, no bonus mention. | SMS is Admin-side. Invalid = engagement only. | Lark / BO |  |
+| 6 | Issue + ticket | On target: submit Lark ticket (query VVIP LTV 70 BONUS) with username, bonus amount, screenshot; tick Claimed. | Bonus per the ladder, capped at SW x 40%. | Lark Base |  |
+| 7 | Tag + QA | Tag Weekly LTV Rewarded (Week XX); update the QA Record with a BO screenshot. | Correct week number. | Lark Base |  |
+
+## Flow chart
+
+```chart
+title: LTV List V1.2: flow
+start: Today's 10
+step: Paste + dedup
+step: Pre-check (SW 40%)
+check: Valid? | yes: next | no: done IM + Push only, no SMS
+check: Engaged? | yes: next | no: done Delay, retry later today
+step: Issue + ticket
+end: Tag + QA
+```
+## 1. Objective
+Approach selected LTV (Life Time Value) players for targeted retention via Internal Mail. The Top 70 LTV pool is divided into 10 players per day, Monday to Sunday.
+
+## 2. Scope
+Applies daily, day shift, from 2:00 PM. Selection is pulled every Monday by Retention Team Admin: the top 70 players by last week's LTV (LTV7, the 7-day Life Time Value in RM), Tier 3 and Tier V only. If deduplication leaves fewer than 70, fill down the ranking.
+
+## 3. Golden Rules
+- Daily quota is exactly 10. Never exceed, never carry over. A cold player is delayed within the same day only.
+- Match today's database to today's day. Never borrow another day's batch, even if today's list is empty.
+- SW x 40% is the hard cap. A bonus above it cannot be issued; SW must be updated the same day before issuance.
+- Player must engage before issuance. Contact precedes deposit.
+- Invalid players: IM + Push only, no SMS, no bonus mention. SMS is Admin-side.
+
+## 4. Day-of-Week Database
+| Day | Database | Daily quota |
+|---|---|---|
+| Monday | Players 1 to 10 | 10 |
+| Tuesday | Players 11 to 20 | 10 |
+| Wednesday | Players 21 to 30 | 10 |
+| Thursday | Players 31 to 40 | 10 |
+| Friday | Players 41 to 50 | 10 |
+| Saturday | Players 51 to 60 | 10 |
+| Sunday | Players 61 to 70 | 10 |
+
+## 5. Eligibility: Valid vs Invalid
+| Status | Definition | Action |
+|---|---|---|
+| **Valid** | Not yet given this week's LTV reward, no Daily P&L reward this week, SW sufficient (bonus <= SW x 40%). | Pass username list to Admin for SMS. VIP CS sends IM + Push. Goal: push to VIP Live Chat. |
+| **Invalid** | Already got this week's LTV or Daily P&L, SW insufficient, or outside segmentation. | IM + Push only. No SMS, no bonus mention. Goal: engagement only. |
+
+## 6. Bonus Tier Ladder
+Rule: bonus must be <= SW x 40%. Same-day SW update mandatory before issuance.
+
+| LTV | Free Bonus | | LTV | Free Bonus |
+|---|---|---|---|---|
+| 2,000 | RM 28 | | 12,000 | RM 138 |
+| 3,000 | RM 38 | | 13,000 | RM 158 |
+| 4,000 | RM 58 | | 14,000 | RM 168 |
+| 5,000 | RM 68 | | 15,000 | RM 178 |
+| 6,000 | RM 78 | | 16,000 | RM 188 |
+| 7,000 | RM 88 | | 17,000 | RM 198 |
+| 8,000 | RM 98 | | 18,000 | RM 208 |
+| 9,000 | RM 108 | | 19,000 | RM 218 |
+| 10,000 | RM 118 | | 20,000 | RM 228 |
+| 11,000 | RM 128 | | >= 21,000 | RM 288 (cap) |
+
+## 7. Guards
+- Empty list today: report to the ATL. Do not borrow another day's batch.
+- Never exceed the 10-player quota, never carry over.
+- Never issue a bonus above the SW x 40% hard cap.
+
+## 8. Remarks
+- VIP CS prepares the list; Retention Team Admin sends the SMS.
+- LTV here is last week's Life Time Value in RM (LTV7). The ladder reads that figure.
+- SW x 40% is the hard cap. A bonus above it cannot be issued.

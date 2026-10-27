@@ -11,11 +11,12 @@
 import { execFileSync } from 'node:child_process'
 import { readFileSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { MAP, convert } from './import-md.mjs'
 import { toMarkdown } from '../src/lib/markdown.js'
 
 const DRY = process.argv.includes('--dry')
-const SRC = 'C:/Dev/personal-assistant/projects/sop-book'
+const SRC = fileURLToPath(new URL('../content/sop-book', import.meta.url))
 const root = new URL('..', import.meta.url)
 const WRANGLER = 'node_modules/wrangler/bin/wrangler.js'
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
@@ -55,7 +56,7 @@ for (const r of rows) {
   console.log('  ' + (DRY ? '~ ' : 'w ') + r.id + ' -> ' + file + (same ? '' : '  (WARNING: re-converted page differs from D1, check the file)'))
   if (!DRY) { writeFileSync(path, out); written++ }
 }
-console.log(DRY ? '\n--dry: nothing written.' : `\nWrote ${written} file(s). Commit them in personal-assistant, then npm run sync shows them as unchanged.`)
+console.log(DRY ? '\n--dry: nothing written.' : `\nWrote ${written} file(s). Commit them (content/sop-book), then npm run sync shows them as unchanged.`)
 
 function d1Query(command) {
   const out = execFileSync(process.execPath, [WRANGLER, 'd1', 'execute', 'handbook', '--remote', '--json', '--command', command],

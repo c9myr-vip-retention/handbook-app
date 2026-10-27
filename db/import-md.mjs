@@ -1,10 +1,10 @@
-// Convert house-format SOP markdown (personal-assistant/projects/sop-book) into
+// Convert house-format SOP markdown (content/sop-book in this repo) into
 // the Handbook block model, one JSON file per SOP in db/content/<id>.json.
 // seed.mjs merges these into the rows it generates.
 //
 //   node db/import-md.mjs [sourceDir]
 //
-// sourceDir defaults to the sop-book folder in the personal-assistant repo.
+// sourceDir defaults to content/sop-book in this repo.
 // Mapping below: D1 row id (the catalog slug) -> source file.
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs'
 import { join, dirname } from 'node:path'
@@ -12,7 +12,7 @@ import { fileURLToPath } from 'node:url'
 import { parseBody } from '../src/lib/markdown.js'
 
 const here = dirname(fileURLToPath(import.meta.url))
-const SRC = process.argv[2] || 'C:/Dev/personal-assistant/projects/sop-book'
+const SRC = process.argv[2] || join(here, '..', 'content', 'sop-book')
 const OUT = join(here, 'content')
 
 export const MAP = {
@@ -58,28 +58,28 @@ export const MAP = {
   'login-provisioning': '36_Login_Provisioning.md',
   'new-staff-incentive': '37_New_Staff_Incentive_Eligibility.md',
   // HR & People: clean pages rewritten from the 13 May workbook export.
-  'work-policy': '../handbook-app/pages/hr/Work_Policy.md',
-  'leave-policy': '../handbook-app/pages/hr/Leave_Policy.md',
-  'al-blackout-policy': '../handbook-app/pages/hr/AL_Blackout_Policy.md',
-  'resignation-policy': '../handbook-app/pages/hr/Resignation_Policy.md',
-  'precaution-security': '../handbook-app/pages/hr/Precaution_Security.md',
-  'jnr-probation-checklist': '../handbook-app/pages/hr/JNR_Probation_Checklist.md',
-  'jnr-to-snr-probation': '../handbook-app/pages/hr/JNR_to_SNR_Probation.md',
+  'work-policy': '../pages/hr/Work_Policy.md',
+  'leave-policy': '../pages/hr/Leave_Policy.md',
+  'al-blackout-policy': '../pages/hr/AL_Blackout_Policy.md',
+  'resignation-policy': '../pages/hr/Resignation_Policy.md',
+  'precaution-security': '../pages/hr/Precaution_Security.md',
+  'jnr-probation-checklist': '../pages/hr/JNR_Probation_Checklist.md',
+  'jnr-to-snr-probation': '../pages/hr/JNR_to_SNR_Probation.md',
   // Start Here, Frameworks & Strategy, Libraries.
-  'department-overview': '../handbook-app/pages/start/Department_Overview.md',
-  'team-structure': '../handbook-app/pages/start/Team_Structure.md',
-  'engagement-strategy': '../handbook-app/pages/frameworks/Engagement_Strategy.md',
-  'livechat-handling-framework': '../handbook-app/pages/frameworks/Livechat_Handling_Framework.md',
-  'relationship-management': '../handbook-app/pages/frameworks/Relationship_Management.md',
-  'crm-schedule': '../handbook-app/pages/frameworks/CRM_Schedule.md',
-  'case-study-library': '../handbook-app/pages/libraries/Case_Study_Library.md',
-  templates: '../handbook-app/pages/libraries/Templates.md',
-  'learning-library': '../handbook-app/pages/libraries/Learning_Library.md',
-  'material-library': '../handbook-app/pages/libraries/Material_Library.md',
-  'tools-console': '../handbook-app/pages/libraries/Tools_Console.md',
-  'shift-overview': '../handbook-app/pages/start/Shift_Overview.md',
-  'kpi-framework': '../handbook-app/pages/frameworks/KPI_Framework.md',
-  'tag-library': '../handbook-app/pages/libraries/Tag_Library.md',
+  'department-overview': '../pages/start/Department_Overview.md',
+  'team-structure': '../pages/start/Team_Structure.md',
+  'engagement-strategy': '../pages/frameworks/Engagement_Strategy.md',
+  'livechat-handling-framework': '../pages/frameworks/Livechat_Handling_Framework.md',
+  'relationship-management': '../pages/frameworks/Relationship_Management.md',
+  'crm-schedule': '../pages/frameworks/CRM_Schedule.md',
+  'case-study-library': '../pages/libraries/Case_Study_Library.md',
+  templates: '../pages/libraries/Templates.md',
+  'learning-library': '../pages/libraries/Learning_Library.md',
+  'material-library': '../pages/libraries/Material_Library.md',
+  'tools-console': '../pages/libraries/Tools_Console.md',
+  'shift-overview': '../pages/start/Shift_Overview.md',
+  'kpi-framework': '../pages/frameworks/KPI_Framework.md',
+  'tag-library': '../pages/libraries/Tag_Library.md',
 }
 
 const MONTHS = { january: 'Jan', february: 'Feb', march: 'Mar', april: 'Apr', may: 'May', june: 'Jun', july: 'Jul', august: 'Aug', september: 'Sep', october: 'Oct', november: 'Nov', december: 'Dec' }

@@ -3,10 +3,9 @@
 Staff handbook for the C9MYR VIP Retention department: SOP Book, Culture & Conduct, Learn (guides and quizzes), Quiz page (assessments), Glossary. Live at https://c9myr-rtn-handbook.pages.dev behind Cloudflare Access. Real staff use it daily.
 
 ## Owner and permissions
-- Owner (1st PIC): the Team B ATL. There is no 2nd PIC at the moment.
-- Only the ATL approves app code deploys and changes roles, Access or Google sign-in settings.
-- The Consultant agent (`handbook-consultant`) prepares Learn publishes and answered SOP fixes, and runs them on the live database only after the ATL says "deploy". Its limits are in its agent file and docs/DECISIONS.md.
-- The Executor (`handbook-dev`) and any unattended scheduled run work on a branch, test locally, and report. They never deploy, never run `--remote` writes, never publish, never merge to `master`.
+- **App owner:** the AI Department, from 28 Oct 2026. Only the owner approves code deploys and changes roles, Access or Google sign-in settings.
+- **Content:** SOP and culture content belongs to VIP Retention, and follows CONTENT.md. Who edits content after the handover is still being agreed.
+- **Automated or unattended runs:** work on a branch, test locally, and report. They never deploy, never run `--remote` writes, never publish, and never merge to `master`.
 
 ## Read before any change
 @DESIGN.md
@@ -23,9 +22,9 @@ Open work: `docs/BACKLOG.md`. Recent history: the newest notes in `docs/sessions
 
 ## Commands (PowerShell 5.1: chain with `;`, never `&&`)
 - Build: `npm run build`
-- Local full stack (local D1, `DEV_EMAIL` admin from `.dev.vars`): build, then `node node_modules/wrangler/bin/wrangler.js pages dev dist --port 8789`. In the desktop app use launch config "handbook-fullstack-alt".
-- Deploy (ATL only): `npm run deploy`. Verify by the live bundle hash: `curl -s https://c9myr-rtn-handbook.pages.dev/ | grep -o "index-[A-Za-z0-9_-]*\.js"` must match `dist/assets`.
-- Learn content: `node db/learn-seed.mjs` loads `db/learn/*.json` as DRAFTS. `node db/learn-publish.mjs` is a dry run; never add `--go` unless the ATL asks.
+- Local full stack (local D1, `DEV_EMAIL` admin from `.dev.vars`): build, then `node node_modules/wrangler/bin/wrangler.js pages dev dist --port 8789`.
+- Deploy (owner only): `npm run deploy`. Verify by the live bundle hash: `curl -s https://c9myr-rtn-handbook.pages.dev/ | grep -o "index-[A-Za-z0-9_-]*\.js"` must match `dist/assets`.
+- Learn content: `node db/learn-seed.mjs` loads `db/learn/*.json` as DRAFTS. `node db/learn-publish.mjs` is a dry run; never add `--go` unless the owner asks.
 - Quiz content: `node db/quiz-seed.mjs [--replace-draft=<id>]` loads `db/quiz/*.json` as drafts.
 - SOP sync from the repo: `npm run sync` (`-- --dry` to preview). The app is the master copy: sync never overwrites a page edited in the app.
 - Every script takes `--local` for the local database. Test with `--local` first.
@@ -43,5 +42,4 @@ Open work: `docs/BACKLOG.md`. Recent history: the newest notes in `docs/sessions
 - Test in the local full stack before reporting done; check light and dark mode and a 375 px phone width.
 - No em dashes anywhere. Sentence case. Role titles only in content (ATL, Supervisor, Senior), never staff names. No player data, credentials or financial data in the repo.
 - Never mark OPEN, UNCONFIRMED or CONFLICT content as fact. Use `[CONFIRM ...]`; it blocks publishing.
-- Answers to the ATL are short: what was done, what is blocking, one question.
 - At the end of a session, write a short note in `docs/sessions/YYYY-MM-DD-<topic>.md` and update `docs/BACKLOG.md`.

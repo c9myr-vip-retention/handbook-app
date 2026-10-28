@@ -11,6 +11,7 @@ ATL decisions that every change must respect. Add new ones at the end of the rig
 ## Learn and Quiz
 - Learn is open to staff (`LEARN_FOR_STAFF = "yes"`). (6 Oct 2026) Publishing: the Consultant agent reviews modules and prepares the publish list; it publishes only after the ATL says "deploy". The Executor never publishes. Admins can still publish in the app. (ATL, 20 Oct 2026, replaces "an agent never publishes" of 6 Oct)
 - The Consultant agent prepares SOP fixes the ATL has already answered and applies them only after the ATL says "deploy". Reports are results only, at most 8 lines. New rules or changed meaning, app code deploys, roles and access, and major versions still need the ATL. (ATL, 20 Oct 2026)
+- The Consultant and Executor agents were the ATL's own tools and were not handed over. From 28 Oct 2026 the AI Department owns the app and sets its own workflow. (Handover, 28 Oct 2026)
 - Priority: completeness of Learn content comes before staff usage. (ATL, 20 Oct 2026)
 - Quiz answer keys are stored as the option sentence, never a letter. A/B/C/D are position labels only, reshuffled per attempt. (4 Oct 2026)
 - Quiz rules: one clock per attempt, questions open in order (written reason needs 3+ words), every attempt recorded, unlimited attempts, staff never see keys or bands. (5 Oct 2026)

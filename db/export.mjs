@@ -1,5 +1,5 @@
 // Pull pages edited in the in-app editor back into the repo markdown, so the
-// SOP book and the Obsidian vault stay current. The app is the master copy for
+// SOP book (content/sop-book) stays current. The app is the master copy for
 // these pages; this only writes the repo side.
 //
 //   npm run export            write every app-edited page back to its .md source
